@@ -1,72 +1,96 @@
-remove_difficulty_settings = {
-	remove_global_flag = sr_difficulty_25
-	remove_global_flag = sr_difficulty_10
-	remove_global_flag = sr_difficulty_5
-	remove_global_flag = sr_difficulty_4
-	remove_global_flag = sr_difficulty_3
-	remove_global_flag = sr_difficulty_2
-	remove_global_flag = sr_difficulty_default
-	
-}
+# DEPRECATED (because single usage only)
+# remove_difficulty_settings = {
+# 	remove_global_flag = sr_difficulty_25
+# 	remove_global_flag = sr_difficulty_10
+# 	remove_global_flag = sr_difficulty_5
+# 	remove_global_flag = sr_difficulty_4
+# 	remove_global_flag = sr_difficulty_3
+# 	remove_global_flag = sr_difficulty_2
+# 	remove_global_flag = sr_difficulty_def
+# }
 
-remove_difficulty_modifiers = {			
-	remove_modifier = sr_difficulty_25
-	remove_modifier = sr_difficulty_10
-	remove_modifier = sr_difficulty_5
-	remove_modifier = sr_difficulty_4
-	remove_modifier = sr_difficulty_3
-	remove_modifier = sr_difficulty_2	
-}
-
+# remove_difficulty_modifiers = {
 
 apply_shroud_rising_difficulty = {
+
+	switch = { trigger = has_modifier
+		difficulty_grand_admiral	= { remove_modifier = difficulty_grand_admiral }
+		difficulty_admiral			= { remove_modifier = difficulty_admiral }
+		difficulty_commodore		= { remove_modifier = difficulty_commodore }
+		difficulty_captain			= { remove_modifier = difficulty_captain }
+		difficulty_ensign			= { remove_modifier = difficulty_ensign }
+		# difficulty_cadet_player		= { remove_modifier = difficulty_cadet_player }
+		# difficulty_civilian_player	= { remove_modifier = difficulty_civilian_player }
+	}
+
+	switch = { trigger = has_modifier
+		difficulty_grand_admiral_npc	= { remove_modifier = difficulty_grand_admiral }
+		difficulty_admiral_npc			= { remove_modifier = difficulty_admiral }
+		difficulty_commodore_npc		= { remove_modifier = difficulty_commodore }
+		difficulty_captain_npc			= { remove_modifier = difficulty_captain }
+		difficulty_ensign_npc			= { remove_modifier = difficulty_ensign }
+	}
+	# APPLY_SHROUD_RISING_DIFFICULTY
+	switch = { trigger = has_global_flag
+		sr_difficulty_1 =	{ add_modifier = { modifier = sr_difficulty_1 }		add_modifier = { modifier = difficulty_ensign } }
+		sr_difficulty_2 =	{ add_modifier = { modifier = sr_difficulty_2 }		add_modifier = { modifier = difficulty_captain		 } add_modifier = { modifier = difficulty_ensign_npc } }
+		sr_difficulty_3 =	{ add_modifier = { modifier = sr_difficulty_3 }		add_modifier = { modifier = difficulty_captain		 } add_modifier = { modifier = difficulty_captain_npc } }
+		sr_difficulty_4 =	{ add_modifier = { modifier = sr_difficulty_4 }		add_modifier = { modifier = difficulty_commodore	 } add_modifier = { modifier = difficulty_commodore_npc } }
+		sr_difficulty_5 =	{ add_modifier = { modifier = sr_difficulty_5 }		add_modifier = { modifier = difficulty_admiral		 } add_modifier = { modifier = difficulty_commodore_npc } }
+		sr_difficulty_10 =	{ add_modifier = { modifier = sr_difficulty_10 }	add_modifier = { modifier = difficulty_grand_admiral } add_modifier = { modifier = difficulty_admiral_npc } }
+		sr_difficulty_25 =	{ add_modifier = { modifier = sr_difficulty_25 }	add_modifier = { modifier = difficulty_grand_admiral } add_modifier = { modifier = difficulty_grand_admiral_npc } }
+		sr_difficulty_def = {
+			# REMOVE_DIFFICULTY_MODIFIERS
+			switch = { trigger = has_modifier
+				sr_difficulty_25	= { remove_modifier = sr_difficulty_25 }
+				sr_difficulty_10	= { remove_modifier = sr_difficulty_10 }
+				sr_difficulty_5		= { remove_modifier = sr_difficulty_5 }
+				sr_difficulty_4		= { remove_modifier = sr_difficulty_4 }
+				sr_difficulty_3		= { remove_modifier = sr_difficulty_3 }
+				sr_difficulty_2		= { remove_modifier = sr_difficulty_2 }
+				sr_difficulty_1		= { remove_modifier = sr_difficulty_1 }
+			}
+		}
+	}
+	every_country = {
+		limit = { is_default_or_fallen = yes }
+		establish_communications_no_message = prev
+	}
 	if = {
-		limit = { has_global_flag = sr_difficulty_2 }
-		add_modifier = {
-			modifier = sr_difficulty_2
-			
+		limit = { is_country_type = shroud_cult }
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = shroud_entities
+					is_country_type = shroud_horrors
+				}
+			}
+			establish_communications_no_message = prev
+			set_faction_hostility = {
+				set_hostile = no
+				set_neutral = yes
+				# set_friendly = yes
+				target = prev
+			}
 		}
 	}
-	else_if = {
-		limit = { has_global_flag = sr_difficulty_3 }
-		add_modifier = {
-			modifier = sr_difficulty_3
-			
+	else = {
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = shroud_entities
+					is_country_type = shroud_horrors
+					is_country_type = shroud_cult
+				}
+				NOT = { is_same_empire = prev }
+			}
+			establish_communications_no_message = prev
+			set_faction_hostility = {
+				set_hostile = no
+				# set_neutral = yes
+				set_friendly = yes
+				target = prev
+			}
 		}
-	}
-	else_if = {
-		limit = { has_global_flag = sr_difficulty_4 }
-		add_modifier = {
-			modifier = sr_difficulty_4
-			
-		}
-	}
-	else_if = {
-		limit = { has_global_flag = sr_difficulty_5 }
-		add_modifier = {
-			modifier = sr_difficulty_5
-			
-		}
-	}
-	else_if = {
-		limit = { has_global_flag = sr_difficulty_10 }
-		add_modifier = {
-			modifier = sr_difficulty_10
-			
-		}
-	}
-	else_if = {
-		limit = { has_global_flag = sr_difficulty_25 }
-		add_modifier = {
-			modifier = sr_difficulty_25
-			
-		}
-	}
-	else_if = {
-		limit = { has_global_flag = sr_difficulty_default }
-			remove_difficulty_modifiers = yes
 	}
 }
-
-
-

@@ -3,7 +3,6 @@
 @triumph_duration_short = 1800
 @triumph_duration_veryshort = 900
 
-
 r_god_heart = {
 	activation_duration = @triumph_duration
 	portrait = "GFX_relic_god_heart"
@@ -37,7 +36,7 @@ r_god_heart = {
 		hidden_effect = {
 			add_modifier = {
 				modifier = "relic_activation_cooldown"
-				days = 7200
+				years = 20
 			}
 			country_event = { id = shroud_rising_leader.5 }
 		}

@@ -1,10 +1,14 @@
-version="1.0"
+version="3.11.3.1"
 tags={
-	"Buildings"
 	"Events"
 	"Gameplay"
+	"Crisis"
 }
-name="Shroud Rising [3.4]"
+dependencies={
+	"Shroud Rising [3.4]"
+	"Shroud Rising [3.8]"
+}
+name="Shroud Rising [3.11] Patch"
 picture="thumbnail.png"
-supported_version="3.8.*"
-remote_file_id="2809452753"
+supported_version="3.11.*"
+remote_file_id="3170252871"

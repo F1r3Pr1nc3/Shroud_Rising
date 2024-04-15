@@ -65,13 +65,12 @@ opinion_defeated_ancient_god = {
 
 }
 
-
 triggered_opinion_shroud_cult_personality_to_other = {
 	trigger = {
-		is_country_type = default
+		merg_is_default_empire = yes
 		has_valid_civic = civic_shroud_worship
-		FROM = {
-			is_country_type = default
+		from = {
+			merg_is_default_empire = yes
 			NOT = { 
 				has_valid_civic = civic_shroud_worship
 			}
@@ -85,10 +84,10 @@ triggered_opinion_shroud_cult_personality_to_other = {
 
 triggered_opinion_shroud_cult_personality_to_cult = {
 	trigger = {
-		is_country_type = default
+		merg_is_default_empire = yes
 		NOT= { has_valid_civic = civic_shroud_worship }
-		FROM = {
-			is_country_type = default			
+		from = {
+			merg_is_default_empire = yes			
 			has_valid_civic = civic_shroud_worship
 			
 		}
@@ -101,10 +100,10 @@ triggered_opinion_shroud_cult_personality_to_cult = {
 
 triggered_opinion_shroud_cult_personality_both = {
 	trigger = {
-		is_country_type = default
+		merg_is_default_empire = yes
 		has_valid_civic = civic_shroud_worship
-		FROM = {
-			is_country_type = default			
+		from = {
+			merg_is_default_empire = yes			
 			has_valid_civic = civic_shroud_worship			
 		}
 	}

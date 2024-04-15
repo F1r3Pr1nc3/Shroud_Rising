@@ -1,9 +1,8 @@
-#Defensive armies can't transport of the planet
-#maintenance is directly scripted here. 0.25 translates to 0.25 monthly cost (excluding other upkeep modifiers)
-#morale_damage = 1		# average morale damage of the army, default: auto (calculated from morale * MORALE_DAMAGE_MULT)
+# Defensive armies can't transport of the planet
+# Maintenance is directly scripted here. 0.25 translates to 0.25 monthly cost (excluding other upkeep modifiers)
+# morale_damage = 1		# Average morale damage of the army, default: auto (calculated from morale * MORALE_DAMAGE_MULT)
 
 # Assault Armies
-
 
 #  Cultists Armies
 shroud_cultist_army = {
@@ -15,7 +14,7 @@ shroud_cultist_army = {
 	has_morale = yes
 	icon = GFX_army_type_rebel	
 
-	potential = {
+	potential_country = {
 		always = no
 	}
 	
@@ -32,13 +31,12 @@ loyalist_army = {
 	has_morale = yes
 	icon = GFX_army_type_defensive	
 
-	potential = {
+	potential_country = {
 		always = no
 	}
 	
 
 }
-
 
 # Slave Armies
 cultist_slave_army = {
@@ -52,11 +50,10 @@ cultist_slave_army = {
 	time = 60
 	icon = GFX_army_type_slave
 
-	potential = {
+	potential_country = {
 		always = no
 	}
 }
-
 
 # Psionic Armies
 cultist_psionic_army = {
@@ -70,13 +67,12 @@ cultist_psionic_army = {
 	time = 120
 	icon = GFX_army_type_psionic
 
-	potential = {
+	potential_country = {
 		always = no
 	}
 
 	
 }
-
 
 # Daemonic Entity 1
 shroud_horror_army_1 = {
@@ -90,7 +86,7 @@ shroud_horror_army_1 = {
 	icon = GFX_army_type_shroud_horror_1
 	has_species = no
 
-	potential = {
+	potential_country = {
 		always = no
 	}
 }
@@ -107,7 +103,7 @@ shroud_horror_army_2 = {
 	icon = GFX_army_type_shroud_horror_2
 	has_species = no
 
-	potential = {
+	potential_country = {
 		always = no
 	}
 }
@@ -124,7 +120,7 @@ shroud_greater_horror_army = {
 	icon = GFX_army_type_shroud_horror_3
 	has_species = no
 
-	potential = {
+	potential_country = {
 		always = no
 	}
 }

@@ -1,12 +1,12 @@
-#This rule is a condition for bombarding planets
-#Root = fleet, potential attacker
-#From = planet, potential target
+# This rule is a condition for bombarding planets
+# Root = fleet, potential attacker
+# From = planet, potential target
 
-#This rule is a condition for bombarding planets
-#Root = fleet, potential attacker
-#From = planet, potential target
+# This rule is a condition for bombarding planets
+# Root = fleet, potential attacker
+# From = planet, potential target
 can_orbital_bombard = {
-	exists = FROM.OWNER
+	exists = from.OWNER
 	NOT = {
 		any_controlled_ship = {
 			is_ship_size = colossus
@@ -14,25 +14,25 @@ can_orbital_bombard = {
 	}
 	OR = {
 		AND = {
-			ROOT.CONTROLLER = {
-				NOT = { has_communications = FROM.OWNER }
+			root.controller = {
+				NOT = { has_communications = from.OWNER }
 			}
-			FROM.OWNER = {
-				NOT = { is_country_type = primitive }
+			from.owner = {
+				is_primitive = no
 			}
 		}
 		AND = {
-			ROOT.CONTROLLER = {
+			root.controller = {
 				NOR = {
 					has_policy_flag = interference_not_allowed
 					has_policy_flag = interference_subtle
 				}
 			}
-			FROM.OWNER = { is_country_type = primitive }
+			from.owner = { is_primitive = yes }
 		}
-		ROOT.CONTROLLER = { is_at_war_with = FROM.CONTROLLER }
-		FROM = { is_planet_class = pc_infested }
-		FROM.CONTROLLER = {
+		root.controller = { is_at_war_with = from.CONTROLLER }
+		from = { is_planet_class = pc_infested }
+		from.controller = {
 			OR = {
 				is_country_type = swarm
 				is_country_type = ai_empire
@@ -41,11 +41,11 @@ can_orbital_bombard = {
 				is_country_type = shroud_cult
 				AND = {
 					is_country_type = awakened_marauders
-					ROOT.CONTROLLER = { is_hostile = prev }
+					root.controller = { is_hostile = prev }
 				}
 			}
 		}
-		ROOT.CONTROLLER = {
+		root.controller = {
 			OR = {
 				is_country_type = extradimensional
 				is_country_type = extradimensional_2
@@ -62,18 +62,21 @@ can_orbital_bombard = {
 				is_country_type = shroud_horrors
 				is_country_type = shroud_cult
 				AND = {
-					is_country_type = awakened_marauders
-					FROM.CONTROLLER = { is_hostile = prev }
+					OR = {
+						is_country_type = awakened_marauders
+						is_country_type = formless # v.3.10
+					}
+					from.controller = { is_hostile = prev }
 				}
 			}
 		}
 		AND = {
 			from.controller = {
 				is_country_type = faction
-				NOT = { is_same_value = ROOT.CONTROLLER }
+				NOT = { is_same_empire = root.controller }
 			}
 			from.owner = {
-				is_same_value = ROOT.CONTROLLER
+				is_same_empire = root.controller
 			}
 		}
 	}
@@ -84,7 +87,7 @@ can_pops_grow_on_planet = {
 	NOR = {
 		has_modifier = planet_population_control
 		has_modifier = planet_population_control_gestalt
-		AND = { # conquered by crisis
+		AND = { # Conquered by crisis
 			exists = controller
 			controller = {
 				OR = {
@@ -102,7 +105,7 @@ can_pops_assemble_on_planet = {
 	NOR = {
 		has_modifier = planet_robot_assembly_control
 		has_modifier = planet_population_control_gestalt
-		AND = { # conquered by crisis
+		AND = { # Conquered by crisis
 			exists = controller
 			controller = {
 				OR = {

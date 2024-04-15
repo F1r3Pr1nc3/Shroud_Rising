@@ -6,9 +6,9 @@
 #	potential = <trigger>			# Trigger checking if a scope with this=spy network is potential to use (this will add/remove this operation without giving the player a reason).
 #	allow = <trigger>				# Trigger checking if a scope with this=spy network is allowed to use (this will toggle enable/disabled mode on buttons etc).
 #	stage = {						# Stage definition, order dependent.
-#		difficulty = <interval int>	# min max interval type. interval is defined either by '<int>' or '{ min = <int> max=<int> }' where the later will randomize a value between min and max.
-#		icon = <string>				# icon gfx type.
-#		event = <string>			# event to fire when finished the state.
+#		difficulty = <interval int>	# Min max interval type. Interval is defined either by '<int>' or '{ min = <int> max=<int> }' where the later will randomize a value between min and max.
+#		icon = <string>				# Icon gfx type.
+#		event = <string>			# Event to fire when finished the state.
 #	}
 #	stage = {...}					# Second stage, the total number of 'stage' entries should match value of 'stages'
 #	on_roll_failed = <effect>		# Effect to fire when a roll fails, with scope this=spy operation.
@@ -26,7 +26,7 @@
 @diff_t8 = 12
 @diff_t9 = 13
 
-@operationTargetedByTimer = 10800 #30 years during which the effects of an operation may be felt by select Spy Network events
+@operationTargetedByTimer = 10800 # 30 years during which the effects of an operation may be felt by select Spy Network events
 
 # this = operation
 # from = operation target
@@ -58,7 +58,7 @@ operation_shroud_rift = {
 	
 	allow = {				
 		custom_tooltip = {				
-					owner = { any_owned_pop = { OR = { has_trait = trait_psionic has_trait = trait_latent_psionic } } }
+					owner = { any_owned_pop = { has_psionic_species_trait = yes } }
 					fail_text = "NO_PSIONIC_POPS"
 				}		
 		custom_tooltip = {
@@ -83,7 +83,7 @@ operation_shroud_rift = {
 		event = shroud_rising_operation.3
 	}
 	on_roll_failed = {
-		standard_espionage_operation_on_roll_failed = { RANDOM_EVENTS = operation_random_events_generic_sr_psionic } #operation_random_events_deepcover
+		standard_espionage_operation_on_roll_failed = { RANDOM_EVENTS = operation_random_events_generic_sr_psionic } # operation_random_events_deepcover
 	}
 	on_create = {}
 }
