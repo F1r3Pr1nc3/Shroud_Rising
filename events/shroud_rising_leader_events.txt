@@ -135,6 +135,7 @@ country_event = {
 					traits = { trait = leader_trait_restrained trait = leader_trait_general_shroud_veteran }
 				}
 			}
+			# TODO
 			# 25 = {
 			# 	create_leader = {
 			# 		class = commander
@@ -188,6 +189,7 @@ country_event = {
 	}
 	immediate = {
 		random_list = {
+			# TODO
 			# 25 = {
 			# 	create_leader = {
 			# 		class = commander
@@ -384,7 +386,7 @@ country_event = {
 	}
 }
 
-# Shroud Incursion
+# Shroud Incursion (Leader turns into Shroud Horror)
 country_event = {
 	id = shroud_rising_leader.8
 	title = "utopia.3024.name"
@@ -394,16 +396,19 @@ country_event = {
 	location = event_target:shroud_spawn_system
 	is_triggered_only = yes
 	immediate = {
-		create_country = {
-			name = "NAME_shroud_horrors"
-			type = shroud_horrors
-			name_list = "SHROUD_HORRORS"
-			flag = {
-				icon = { category = "special" file = "the_shroud.dds" }
-				background = { category = "backgrounds" file = "00_solid.dds" }
-				colors = { "dark_purple" "black" "null" "null" }
+		if = {
+			limit = { NOT = { exists = event_target:shroud_horror_fleet } }
+			create_country = {
+				name = "NAME_shroud_horrors"
+				type = shroud_horrors
+				name_list = "SHROUD_HORRORS"
+				flag = {
+					icon = { category = "special" file = "the_shroud.dds" }
+					background = { category = "backgrounds" file = "00_solid.dds" }
+					colors = { "dark_purple" "black" "null" "null" }
+				}
+				effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_horror_fleet }
 			}
-			effect = { apply_shroud_rising_difficulty = yes save_event_target_as = shroud_horror_fleet }
 		}
 		random_system_within_border = {
 			save_event_target_as = shroud_spawn_system
@@ -423,19 +428,20 @@ country_event = {
 					set_aggro_range = 300
 				}
 			}
-			last_created_fleet = { save_event_target_as = shroud_horror_fleet_name }
+			# last_created_fleet = { save_event_target_as = shroud_horror_fleet_name } TODO?
 		}
 	}
 	option = { name = "utopia.3024.a" }
 }
 
-# HIDDEN | ON ACTION Chance of discovering a Cult Sympathizer
+# HIDDEN | ON ACTION Chance of discovering a Cult Sympathizer (on_five_year_pulse_country)
 country_event = {
 	id = shroud_rising_leader.10
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
 		has_global_flag = eot_active
+		NOR = { is_ai = yes has_civic = civic_shroud_worship is_gestalt = yes }
 		any_owned_leader = {
 			OR = {
 				has_trait = leader_trait_cultist_whisperers
@@ -449,7 +455,10 @@ country_event = {
 		# Discover Cultist
 		random_list = {
 			50 = { }
-			50 = { modifier = { factor = 1.5 any_owned_leader = { has_trait = leader_trait_shroud_inquisitor } } modifier = { factor = 1.5 any_owned_leader = { is_councilor_type = councilor_ruler_inquisitor } } country_event = { id = shroud_rising_leader.11 days = 100 random = 100 } }
+			50 = {
+				modifier = { factor = 1.5 any_owned_leader = { has_trait = leader_trait_shroud_inquisitor } }
+				modifier = { factor = 1.5 any_owned_leader = { is_councilor_type = councilor_ruler_inquisitor } }
+				country_event = { id = shroud_rising_leader.11 days = 100 random = 100 } }
 		}
 	}
 }
@@ -469,8 +478,8 @@ country_event = {
 		}
 	}
 	trigger = {
-		NOT = { has_civic = civic_shroud_worship }
-		is_gestalt = no
+		has_global_flag = eot_active
+		NOR = { is_ai = yes has_civic = civic_shroud_worship is_gestalt = yes }
 		any_owned_leader = {
 			OR = {
 				has_trait = leader_trait_cultist_whisperers
@@ -650,11 +659,11 @@ country_event = {
 			clear_planet_modifiers = yes
 			create_rebels = {
 				name = random
+				species = event_target:leader_pop.species
 				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
-				civics = { civic = civic_shroud_worship civic = civic_cutthroat_politics }
+				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
 				origin = "origin_separatists"
-				species = event_target:leader_pop.species
 				flag = random
 				# ignore_initial_colony_error = yes
 				# day_zero_contact = no
@@ -829,24 +838,24 @@ country_event = {
 	trigger = { }
 	immediate = {
 		random_owned_pop = { save_event_target_as = leader_pop }
-		owner = { save_event_target_as = cult_uprising_owner }
+		# owner = { save_event_target_as = cult_uprising_owner }
 		random_owned_planet = {
 			limit = { is_colony = yes has_ground_combat = no }
 			save_event_target_as = cult_escape_planet
 			create_rebels = {
 				name = "NAME_shroud_cultists"
 				species = event_target:leader_pop.species
+				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
-				civics = { civic = civic_shroud_worship civic = civic_cutthroat_politics }
+				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
 				origin = "origin_separatists"
-				# name_list = "CULTISTS"
+				name_list = "CULTISTS"
 				effect = {
-					# set_country_type = shroud_cult_uprising
+					set_country_type = shroud_cult # shroud_cult_uprising
+					apply_shroud_rising_difficulty = yes
 					save_event_target_as = cultist_rebels
-					every_country = { establish_communications_no_message = prev }
 				}
 			}
-
 		}
 	}
 	option = {
@@ -870,6 +879,7 @@ country_event = {
 }
 
 # Cultist Attempt Escape with ships
+# (From shroud_rising_leader.11)
 country_event = {
 	id = shroud_rising_leader.15
 	title = "shroud_rising_leader.15.name"
@@ -879,22 +889,24 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { }
 	immediate = {
-		random_owned_pop = { save_event_target_as = leader_pop }
-		owner = { save_event_target_as = cult_uprising_owner }
+		# owner = { save_event_target_as = cult_uprising_owner }
 		random_owned_planet = {
+			limit = { num_sapient_pops > 1 }
+			random_owned_pop = { save_event_target_as = leader_pop }
 			save_event_target_as = cult_escape_planet
-			create_country = {
+			create_rebels = {
 				name = "Treasonous Cultists"
-				type = shroud_cult_uprising
+				# type = shroud_cult_uprising
 				species = event_target:leader_pop.species
+				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
-				civics = { civic = civic_shroud_worship civic = civic_cutthroat_politics }
+				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
 				origin = "origin_separatists"
-				# name_list = "CULTISTS"
+				name_list = "CULTISTS"
 				effect = {
-					# set_country_type = shroud_cult_uprising
+					set_country_type = shroud_cult # shroud_cult_uprising
+					apply_shroud_rising_difficulty = yes
 					save_event_target_as = cultist_rebels
-					every_country = { establish_communications_no_message = prev }
 				}
 			}
 			create_fleet = {
@@ -1006,11 +1018,13 @@ country_event = {
 	option = { name = shroud_rising_leader.18.b }
 }
 
+# TODO
 # TESTER | Leader gets character trait
 country_event = {
 	id = shroud_rising_leader.20
-	is_triggered_only = yes
 	hide_window = yes
+	is_triggered_only = yes
+	is_test_event = yes
 	trigger = { }
 	immediate = {
 		random_owned_leader = {

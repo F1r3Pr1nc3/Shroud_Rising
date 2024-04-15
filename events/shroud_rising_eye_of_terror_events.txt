@@ -268,7 +268,18 @@ country_event = {
 		}
 		# Creates the start point/Eye of Terror
 		event_target:eye_of_terror_system = {
-			owner = { save_global_event_target_as = eot_culprit }
+			owner = {
+				save_global_event_target_as = eot_culprit
+				if = {
+					limit = { merg_is_default_empire = yes }
+					set_country_flag = eye_of_terror_reopened_country
+					add_modifier = { modifier = eye_of_terror_reopener }
+					if = {
+						limit = { is_ai = yes }
+						force_add_civic = civic_shroud_worship
+					}
+				}
+			}
 			# destroy_star_system = yes
 			set_name = "sc_eye_of_terror"
 			set_star_flag = corrupt_system
@@ -291,6 +302,18 @@ country_event = {
 					limit = { exists = orbital_defence }
 					destroy_fleet = orbital_defence
 				}
+				if = {
+					limit = { has_any_megastructure = yes }
+					prev = {
+						random_system_megastructure = {
+							limit = {
+								exists = planet
+								planet = { is_planet = prevprevprev }
+							}
+							set_ruined_megastructure = yes
+						}
+					}
+				}
 				remove_planet_flag = habitat
 				remove_planet_flag = payback_habitat
 				# remove_planet_flag = advanced_habitat
@@ -298,9 +321,12 @@ country_event = {
 				# remove_planet_flag = research_habitat
 				remove_planet_flag = toxic_knights_habitat
 				remove_planet_flag = has_megastructure
-				random_moon = {
-					limit = { merg_is_habitat = yes }
-					remove_planet = yes
+				if = {
+					limit = { any_moon = {} }
+					random_moon = {
+						limit = { merg_is_habitat = yes }
+						remove_planet = yes
+					}
 				}
 				clear_planet_modifiers = yes
 				destroy_colony = yes
@@ -311,7 +337,7 @@ country_event = {
 				add_modifier = { modifier = eye_of_terror }
 				set_planet_flag = shroud_rift_planet
 				create_ambient_object = { type = "shroud_rift_3" location = this }
-				save_event_target_as = eye_of_terror
+				save_event_target_as = eye_of_terror # TODO for what?
 				last_created_ambient_object = {
 					set_ambient_object_flag = psi_storm_object
 					set_location = { target = prev distance = 0 angle = random }
@@ -342,444 +368,38 @@ country_event = {
 				add_modifier = { modifier = eye_of_terror_influence_1 }
 			}
 			random_neighbor_system = {
-				limit = { NOT = { has_star_flag = corrupt_system } }
-				create_ambient_object = { type = "eye_of_terror_3" location = this }
-				last_created_ambient_object = {
-					set_ambient_object_flag = eye_of_terror_system_effect_3
-					set_location = { target = prev distance = 0 angle = random }
-				}
-				set_star_flag = corrupt_system
-				set_star_flag = shroud_invasion_system_basic				# For spawning
-				set_star_flag = eye_of_terror_rift_system
-				set_star_class = sc_great_rift_2
-				every_system_planet = {
-					limit = { is_star = yes }
-					random_list = {
-						10 = { change_pc = pc_b_star }
-						10 = { change_pc = pc_a_star }
-						10 = { change_pc = pc_f_star }
-						10 = { change_pc = pc_g_star }
-						10 = { change_pc = pc_k_star }
-						10 = { change_pc = pc_m_star }
-						10 = { change_pc = pc_m_giant_star }
-						1 = { change_pc = pc_black_hole }
-						1 = { change_pc = pc_neutron_star }
-						1 = { change_pc = pc_pulsar }
-					}
-				}
-				every_system_planet = {
-					limit = { is_star = no habitable_planet = yes }
-					set_planet_flag = shroud_rift_influence
-					add_modifier = { modifier = eye_of_terror_influence_1 }
-				}
+				inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 MODIFIER = 1 }
 				random_system_planet = {
 					limit = { is_shroud_rift_planet = yes }
 					change_pc = pc_shrouded
 					random = { chance = 25 add_deposit = d_zro_deposit_1 }
 				}
 				random_neighbor_system = {
-					limit = { NOT = { has_star_flag = corrupt_system } }
-					create_ambient_object = { type = "eye_of_terror_3" location = this }
-					last_created_ambient_object = {
-						set_ambient_object_flag = eye_of_terror_system_effect_3
-						set_location = { target = prev distance = 0 angle = random }
-					}
-					set_star_flag = corrupt_system
-					set_star_flag = shroud_invasion_system_basic					# For spawning
-					set_star_flag = eye_of_terror_rift_system
-					set_star_class = sc_great_rift
-					every_system_planet = {
-						limit = { is_star = yes }
-						random_list = {
-							10 = { change_pc = pc_b_star }
-							10 = { change_pc = pc_a_star }
-							10 = { change_pc = pc_f_star }
-							10 = { change_pc = pc_g_star }
-							10 = { change_pc = pc_k_star }
-							10 = { change_pc = pc_m_star }
-							10 = { change_pc = pc_m_giant_star }
-							1 = { change_pc = pc_black_hole }
-							1 = { change_pc = pc_neutron_star }
-							1 = { change_pc = pc_pulsar }
-						}
-					}
-					every_system_planet = {
-						limit = { is_star = no habitable_planet = yes }
-						set_planet_flag = shroud_rift_influence
-						add_modifier = { modifier = eye_of_terror_influence_2 }
-					}
+					inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 					random_neighbor_system = {
-						limit = { NOT = { has_star_flag = corrupt_system } }
-						create_ambient_object = { type = "eye_of_terror_3" location = this }
-						last_created_ambient_object = {
-							set_ambient_object_flag = eye_of_terror_system_effect_3
-							set_location = { target = prev distance = 0 angle = random }
-						}
-						set_star_flag = corrupt_system
-						set_star_flag = shroud_invasion_system_basic						# For spawning
-						set_star_flag = eye_of_terror_rift_system
-						set_star_class = sc_great_rift_3
-						every_system_planet = {
-							limit = { is_star = yes }
-							random_list = {
-								10 = { change_pc = pc_b_star }
-								10 = { change_pc = pc_a_star }
-								10 = { change_pc = pc_f_star }
-								10 = { change_pc = pc_g_star }
-								10 = { change_pc = pc_k_star }
-								10 = { change_pc = pc_m_star }
-								10 = { change_pc = pc_m_giant_star }
-								1 = { change_pc = pc_black_hole }
-								1 = { change_pc = pc_neutron_star }
-								1 = { change_pc = pc_pulsar }
-							}
-						}
-						every_system_planet = {
-							limit = { is_star = no habitable_planet = yes }
-							set_planet_flag = shroud_rift_influence
-							add_modifier = { modifier = eye_of_terror_influence_2 }
-						}
+						inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
 						random_neighbor_system = {
-							limit = { NOT = { has_star_flag = corrupt_system } }
-							create_ambient_object = { type = "eye_of_terror_3" location = this }
-							last_created_ambient_object = {
-								set_ambient_object_flag = eye_of_terror_system_effect_3
-								set_location = { target = prev distance = 0 angle = random }
-							}
-							set_star_flag = corrupt_system
-							set_star_flag = shroud_invasion_system_basic							# For spawning
-							set_star_flag = eye_of_terror_rift_system
-							set_star_class = sc_great_rift
-							every_system_planet = {
-								limit = { is_star = yes }
-								random_list = {
-									10 = { change_pc = pc_b_star }
-									10 = { change_pc = pc_a_star }
-									10 = { change_pc = pc_f_star }
-									10 = { change_pc = pc_g_star }
-									10 = { change_pc = pc_k_star }
-									10 = { change_pc = pc_m_star }
-									10 = { change_pc = pc_m_giant_star }
-									1 = { change_pc = pc_black_hole }
-									1 = { change_pc = pc_neutron_star }
-									1 = { change_pc = pc_pulsar }
-								}
-							}
-							every_system_planet = {
-								limit = { is_star = no habitable_planet = yes }
-								set_planet_flag = shroud_rift_influence
-								add_modifier = { modifier = eye_of_terror_influence_2 }
-							}
+							inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 							random_neighbor_system = {
-								limit = { NOT = { has_star_flag = corrupt_system } }
-								create_ambient_object = { type = "eye_of_terror_3" location = this }
-								last_created_ambient_object = {
-									set_ambient_object_flag = eye_of_terror_system_effect_3
-									set_location = { target = prev distance = 0 angle = random }
-								}
-								set_star_flag = corrupt_system
-								set_star_flag = shroud_invasion_system_basic								# For spawning
-								set_star_flag = eye_of_terror_rift_system
-								set_star_class = sc_great_rift_2
-								every_system_planet = {
-									limit = { is_star = yes }
-									random_list = {
-										10 = { change_pc = pc_b_star }
-										10 = { change_pc = pc_a_star }
-										10 = { change_pc = pc_f_star }
-										10 = { change_pc = pc_g_star }
-										10 = { change_pc = pc_k_star }
-										10 = { change_pc = pc_m_star }
-										10 = { change_pc = pc_m_giant_star }
-										1 = { change_pc = pc_black_hole }
-										1 = { change_pc = pc_neutron_star }
-										1 = { change_pc = pc_pulsar }
-									}
-								}
-								every_system_planet = {
-									limit = { is_star = no habitable_planet = yes }
-									set_planet_flag = shroud_rift_influence
-									add_modifier = { modifier = eye_of_terror_influence_2 }
-								}
+								inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
 								random_neighbor_system = {
-									limit = { NOT = { has_star_flag = corrupt_system } }
-									create_ambient_object = { type = "eye_of_terror_3" location = this }
-									last_created_ambient_object = {
-										set_ambient_object_flag = eye_of_terror_system_effect_3
-										set_location = { target = prev distance = 0 angle = random }
-									}
-									set_star_flag = corrupt_system
-									set_star_flag = shroud_invasion_system_basic									# For spawning
-									set_star_flag = eye_of_terror_rift_system
-									set_star_class = sc_great_rift_3
-									every_system_planet = {
-										limit = { is_star = yes }
-										random_list = {
-											10 = { change_pc = pc_b_star }
-											10 = { change_pc = pc_a_star }
-											10 = { change_pc = pc_f_star }
-											10 = { change_pc = pc_g_star }
-											10 = { change_pc = pc_k_star }
-											10 = { change_pc = pc_m_star }
-											10 = { change_pc = pc_m_giant_star }
-											1 = { change_pc = pc_black_hole }
-											1 = { change_pc = pc_neutron_star }
-											1 = { change_pc = pc_pulsar }
-										}
-									}
-									every_system_planet = {
-										limit = { is_star = no habitable_planet = yes }
-										set_planet_flag = shroud_rift_influence
-										add_modifier = { modifier = eye_of_terror_influence_2 }
-									}
+									inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
 									random_neighbor_system = {
-										limit = { NOT = { has_star_flag = corrupt_system } }
-										create_ambient_object = { type = "eye_of_terror_3" location = this }
-										last_created_ambient_object = {
-											set_ambient_object_flag = eye_of_terror_system_effect_3
-											set_location = { target = prev distance = 0 angle = random }
-										}
-										set_star_flag = corrupt_system
-										set_star_flag = shroud_invasion_system_greater										# For spawning
-										set_star_flag = eye_of_terror_rift_system
-										set_star_class = sc_great_rift_2
-										every_system_planet = {
-											limit = { is_star = yes }
-											random_list = {
-												10 = { change_pc = pc_b_star }
-												10 = { change_pc = pc_a_star }
-												10 = { change_pc = pc_f_star }
-												10 = { change_pc = pc_g_star }
-												10 = { change_pc = pc_k_star }
-												10 = { change_pc = pc_m_star }
-												10 = { change_pc = pc_m_giant_star }
-												1 = { change_pc = pc_black_hole }
-												1 = { change_pc = pc_neutron_star }
-												1 = { change_pc = pc_pulsar }
-											}
-										}
-										every_system_planet = {
-											limit = { is_star = no habitable_planet = yes }
-											set_planet_flag = shroud_rift_influence
-											add_modifier = { modifier = eye_of_terror_influence_2 }
-										}
+										inline_script = { script = "events/eot_corrupt_system" TYPE = greater RIFT = _2 }
 										random_neighbor_system = {
-											limit = { NOT = { has_star_flag = corrupt_system } }
-											create_ambient_object = { type = "eye_of_terror_3" location = this }
-											last_created_ambient_object = {
-												set_ambient_object_flag = eye_of_terror_system_effect_3
-												set_location = { target = prev distance = 0 angle = random }
-											}
-											set_star_flag = corrupt_system
-											set_star_flag = shroud_invasion_system_basic											# For spawning
-											set_star_flag = eye_of_terror_rift_system
-											set_star_class = sc_great_rift
-											every_system_planet = {
-												limit = { is_star = yes }
-												random_list = {
-													10 = { change_pc = pc_b_star }
-													10 = { change_pc = pc_a_star }
-													10 = { change_pc = pc_f_star }
-													10 = { change_pc = pc_g_star }
-													10 = { change_pc = pc_k_star }
-													10 = { change_pc = pc_m_star }
-													10 = { change_pc = pc_m_giant_star }
-													1 = { change_pc = pc_black_hole }
-													1 = { change_pc = pc_neutron_star }
-													1 = { change_pc = pc_pulsar }
-												}
-											}
-											every_system_planet = {
-												limit = { is_star = no habitable_planet = yes }
-												set_planet_flag = shroud_rift_influence
-												add_modifier = { modifier = eye_of_terror_influence_2 }
-											}
+											inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 											random_neighbor_system = {
-												limit = { NOT = { has_star_flag = corrupt_system } }
-												create_ambient_object = { type = "eye_of_terror_3" location = this }
-												last_created_ambient_object = {
-													set_ambient_object_flag = eye_of_terror_system_effect_3
-													set_location = { target = prev distance = 0 angle = random }
-												}
-												set_star_flag = corrupt_system
-												set_star_flag = shroud_invasion_system_basic												# For spawning
-												set_star_flag = eye_of_terror_rift_system
-												set_star_class = sc_great_rift_3
-												every_system_planet = {
-													limit = { is_star = yes }
-													random_list = {
-														10 = { change_pc = pc_b_star }
-														10 = { change_pc = pc_a_star }
-														10 = { change_pc = pc_f_star }
-														10 = { change_pc = pc_g_star }
-														10 = { change_pc = pc_k_star }
-														10 = { change_pc = pc_m_star }
-														10 = { change_pc = pc_m_giant_star }
-														1 = { change_pc = pc_black_hole }
-														1 = { change_pc = pc_neutron_star }
-														1 = { change_pc = pc_pulsar }
-													}
-												}
-												every_system_planet = {
-													limit = { is_star = no habitable_planet = yes }
-													set_planet_flag = shroud_rift_influence
-													add_modifier = { modifier = eye_of_terror_influence_2 }
-												}
+												inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
 												random_neighbor_system = {
-													limit = { NOT = { has_star_flag = corrupt_system } }
-													create_ambient_object = { type = "eye_of_terror_3" location = this }
-													last_created_ambient_object = {
-														set_ambient_object_flag = eye_of_terror_system_effect_3
-														set_location = { target = prev distance = 0 angle = random }
-													}
-													set_star_flag = corrupt_system
-													set_star_flag = shroud_invasion_system_greater													# For spawning
-													set_star_flag = eye_of_terror_rift_system
-													set_star_class = sc_great_rift
-													every_system_planet = {
-														limit = { is_star = yes }
-														random_list = {
-															10 = { change_pc = pc_b_star }
-															10 = { change_pc = pc_a_star }
-															10 = { change_pc = pc_f_star }
-															10 = { change_pc = pc_g_star }
-															10 = { change_pc = pc_k_star }
-															10 = { change_pc = pc_m_star }
-															10 = { change_pc = pc_m_giant_star }
-															1 = { change_pc = pc_black_hole }
-															1 = { change_pc = pc_neutron_star }
-															1 = { change_pc = pc_pulsar }
-														}
-													}
-													every_system_planet = {
-														limit = { is_star = no habitable_planet = yes }
-														set_planet_flag = shroud_rift_influence
-														add_modifier = { modifier = eye_of_terror_influence_2 }
-													}
+													inline_script = { script = "events/eot_corrupt_system" TYPE = greater RIFT = "" }
 													random_neighbor_system = {
-														limit = { NOT = { has_star_flag = corrupt_system } }
-														create_ambient_object = { type = "eye_of_terror_3" location = this }
-														last_created_ambient_object = {
-															set_ambient_object_flag = eye_of_terror_system_effect_3
-															set_location = { target = prev distance = 0 angle = random }
-														}
-														set_star_flag = corrupt_system
-														set_star_flag = shroud_invasion_system_basic														# For spawning
-														set_star_flag = eye_of_terror_rift_system
-														set_star_class = sc_great_rift_2
-														every_system_planet = {
-															limit = { is_star = yes }
-															random_list = {
-																10 = { change_pc = pc_b_star }
-																10 = { change_pc = pc_a_star }
-																10 = { change_pc = pc_f_star }
-																10 = { change_pc = pc_g_star }
-																10 = { change_pc = pc_k_star }
-																10 = { change_pc = pc_m_star }
-																10 = { change_pc = pc_m_giant_star }
-																1 = { change_pc = pc_black_hole }
-																1 = { change_pc = pc_neutron_star }
-																1 = { change_pc = pc_pulsar }
-															}
-														}
-														every_system_planet = {
-															limit = { is_star = no habitable_planet = yes }
-															set_planet_flag = shroud_rift_influence
-															add_modifier = { modifier = eye_of_terror_influence_2 }
-														}
+														inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
 														random_neighbor_system = {
-															limit = { NOT = { has_star_flag = corrupt_system } }
-															create_ambient_object = { type = "eye_of_terror_3" location = this }
-															last_created_ambient_object = {
-																set_ambient_object_flag = eye_of_terror_system_effect_3
-																set_location = { target = prev distance = 0 angle = random }
-															}
-															set_star_flag = corrupt_system
-															set_star_flag = shroud_invasion_system_basic															# For spawning
-															set_star_flag = eye_of_terror_rift_system
-															set_star_class = sc_great_rift
-															every_system_planet = {
-																limit = { is_star = yes }
-																random_list = {
-																	10 = { change_pc = pc_b_star }
-																	10 = { change_pc = pc_a_star }
-																	10 = { change_pc = pc_f_star }
-																	10 = { change_pc = pc_g_star }
-																	10 = { change_pc = pc_k_star }
-																	10 = { change_pc = pc_m_star }
-																	10 = { change_pc = pc_m_giant_star }
-																	1 = { change_pc = pc_black_hole }
-																	1 = { change_pc = pc_neutron_star }
-																	1 = { change_pc = pc_pulsar }
-																}
-															}
-															every_system_planet = {
-																limit = { is_star = no habitable_planet = yes }
-																set_planet_flag = shroud_rift_influence
-																add_modifier = { modifier = eye_of_terror_influence_2 }
-															}
+															inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 															random_neighbor_system = {
-																limit = { NOT = { has_star_flag = corrupt_system } }
-																create_ambient_object = { type = "eye_of_terror_3" location = this }
-																last_created_ambient_object = {
-																	set_ambient_object_flag = eye_of_terror_system_effect_3
-																	set_location = { target = prev distance = 0 angle = random }
-																}
-																set_star_flag = corrupt_system
-																set_star_flag = shroud_invasion_system_basic																# For spawning
-																set_star_flag = eye_of_terror_rift_system
-																set_star_class = sc_great_rift_2
-																every_system_planet = {
-																	limit = { is_star = yes }
-																	random_list = {
-																		10 = { change_pc = pc_b_star }
-																		10 = { change_pc = pc_a_star }
-																		10 = { change_pc = pc_f_star }
-																		10 = { change_pc = pc_g_star }
-																		10 = { change_pc = pc_k_star }
-																		10 = { change_pc = pc_m_star }
-																		10 = { change_pc = pc_m_giant_star }
-																		1 = { change_pc = pc_black_hole }
-																		1 = { change_pc = pc_neutron_star }
-																		1 = { change_pc = pc_pulsar }
-																	}
-																}
-																every_system_planet = {
-																	limit = { is_star = no habitable_planet = yes }
-																	set_planet_flag = shroud_rift_influence
-																	add_modifier = { modifier = eye_of_terror_influence_2 }
-																}
+																inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
 																random_neighbor_system = {
-																	limit = { NOT = { has_star_flag = corrupt_system } }
-																	create_ambient_object = { type = "eye_of_terror_3" location = this }
-																	last_created_ambient_object = {
-																		set_ambient_object_flag = eye_of_terror_system_effect_3
-																		set_location = { target = prev distance = 0 angle = random }
-																	}
-																	set_star_flag = corrupt_system
-																	set_star_flag = shroud_invasion_system_basic																	# For spawning
-																	set_star_flag = eye_of_terror_rift_system
-																	set_star_class = sc_great_rift
-																	every_system_planet = {
-																		limit = { is_star = yes }
-																		random_list = {
-																			10 = { change_pc = pc_b_star }
-																			10 = { change_pc = pc_a_star }
-																			10 = { change_pc = pc_f_star }
-																			10 = { change_pc = pc_g_star }
-																			10 = { change_pc = pc_k_star }
-																			10 = { change_pc = pc_m_star }
-																			10 = { change_pc = pc_m_giant_star }
-																			1 = { change_pc = pc_black_hole }
-																			1 = { change_pc = pc_neutron_star }
-																			1 = { change_pc = pc_pulsar }
-																		}
-																	}
-																	every_system_planet = {
-																		limit = { is_star = no habitable_planet = yes }
-																		set_planet_flag = shroud_rift_influence
-																		add_modifier = { modifier = eye_of_terror_influence_2 }
-																	}
+																	inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 																}
 															}
 														}
@@ -795,253 +415,21 @@ country_event = {
 				}
 			}
 			random_neighbor_system = {
-				limit = { NOT = { has_star_flag = corrupt_system } }
-				create_ambient_object = { type = "eye_of_terror_3" location = this }
-				last_created_ambient_object = {
-					set_ambient_object_flag = eye_of_terror_system_effect_3
-					set_location = { target = prev distance = 0 angle = random }
-				}
-				set_star_flag = corrupt_system
-				set_star_flag = shroud_invasion_system_basic				# For spawning
-				set_star_flag = eye_of_terror_rift_system
-				set_star_class = sc_great_rift_2
-				every_system_planet = {
-					limit = { is_star = yes }
-					random_list = {
-						10 = { change_pc = pc_b_star }
-						10 = { change_pc = pc_a_star }
-						10 = { change_pc = pc_f_star }
-						10 = { change_pc = pc_g_star }
-						10 = { change_pc = pc_k_star }
-						10 = { change_pc = pc_m_star }
-						10 = { change_pc = pc_m_giant_star }
-						1 = { change_pc = pc_black_hole }
-						1 = { change_pc = pc_neutron_star }
-						1 = { change_pc = pc_pulsar }
-					}
-				}
-				every_system_planet = {
-					limit = { is_star = no habitable_planet = yes }
-					set_planet_flag = shroud_rift_influence
-					add_modifier = { modifier = eye_of_terror_influence_1 }
-				}
+				inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 MODIFIER = 1 }
 				random_neighbor_system = {
-					limit = { NOT = { has_star_flag = corrupt_system } }
-					create_ambient_object = { type = "eye_of_terror_3" location = this }
-					last_created_ambient_object = {
-						set_ambient_object_flag = eye_of_terror_system_effect_3
-						set_location = { target = prev distance = 0 angle = random }
-					}
-					set_star_flag = corrupt_system
-					set_star_flag = shroud_invasion_system_greater					# For spawning
-					set_star_flag = eye_of_terror_rift_system
-					set_star_class = sc_great_rift
-					every_system_planet = {
-						limit = { is_star = yes }
-						random_list = {
-							10 = { change_pc = pc_b_star }
-							10 = { change_pc = pc_a_star }
-							10 = { change_pc = pc_f_star }
-							10 = { change_pc = pc_g_star }
-							10 = { change_pc = pc_k_star }
-							10 = { change_pc = pc_m_star }
-							10 = { change_pc = pc_m_giant_star }
-							1 = { change_pc = pc_black_hole }
-							1 = { change_pc = pc_neutron_star }
-							1 = { change_pc = pc_pulsar }
-						}
-					}
-					every_system_planet = {
-						limit = { is_star = no habitable_planet = yes }
-						set_planet_flag = shroud_rift_influence
-						add_modifier = { modifier = eye_of_terror_influence_2 }
-					}
+					inline_script = { script = "events/eot_corrupt_system" TYPE = greater RIFT = "" }
 					random_neighbor_system = {
-						limit = { NOT = { has_star_flag = corrupt_system } }
-						create_ambient_object = { type = "eye_of_terror_3" location = this }
-						last_created_ambient_object = {
-							set_ambient_object_flag = eye_of_terror_system_effect_3
-							set_location = { target = prev distance = 0 angle = random }
-						}
-						set_star_flag = corrupt_system
-						set_star_flag = shroud_invasion_system_basic						# For spawning
-						set_star_flag = eye_of_terror_rift_system
-						set_star_class = sc_great_rift_3
-						every_system_planet = {
-							limit = { is_star = yes }
-							random_list = {
-								10 = { change_pc = pc_b_star }
-								10 = { change_pc = pc_a_star }
-								10 = { change_pc = pc_f_star }
-								10 = { change_pc = pc_g_star }
-								10 = { change_pc = pc_k_star }
-								10 = { change_pc = pc_m_star }
-								10 = { change_pc = pc_m_giant_star }
-								1 = { change_pc = pc_black_hole }
-								1 = { change_pc = pc_neutron_star }
-								1 = { change_pc = pc_pulsar }
-							}
-						}
-						every_system_planet = {
-							limit = { is_star = no habitable_planet = yes }
-							set_planet_flag = shroud_rift_influence
-							add_modifier = { modifier = eye_of_terror_influence_2 }
-						}
+						inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
 						random_neighbor_system = {
-							limit = { NOT = { has_star_flag = corrupt_system } }
-							create_ambient_object = { type = "eye_of_terror_3" location = this }
-							last_created_ambient_object = {
-								set_ambient_object_flag = eye_of_terror_system_effect_3
-								set_location = { target = prev distance = 0 angle = random }
-							}
-							set_star_flag = corrupt_system
-							set_star_flag = shroud_invasion_system_basic							# For spawning
-							set_star_flag = eye_of_terror_rift_system
-							set_star_class = sc_great_rift
-							every_system_planet = {
-								limit = { is_star = yes }
-								random_list = {
-									10 = { change_pc = pc_b_star }
-									10 = { change_pc = pc_a_star }
-									10 = { change_pc = pc_f_star }
-									10 = { change_pc = pc_g_star }
-									10 = { change_pc = pc_k_star }
-									10 = { change_pc = pc_m_star }
-									10 = { change_pc = pc_m_giant_star }
-									1 = { change_pc = pc_black_hole }
-									1 = { change_pc = pc_neutron_star }
-									1 = { change_pc = pc_pulsar }
-								}
-							}
-							every_system_planet = {
-								limit = { is_star = no habitable_planet = yes }
-								set_planet_flag = shroud_rift_influence
-								add_modifier = { modifier = eye_of_terror_influence_2 }
-							}
+							inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 							random_neighbor_system = {
-								limit = { NOT = { has_star_flag = corrupt_system } }
-								create_ambient_object = { type = "eye_of_terror_3" location = this }
-								last_created_ambient_object = {
-									set_ambient_object_flag = eye_of_terror_system_effect_3
-									set_location = { target = prev distance = 0 angle = random }
-								}
-								set_star_flag = corrupt_system
-								set_star_flag = shroud_invasion_system_basic								# For spawning
-								set_star_flag = eye_of_terror_rift_system
-								set_star_class = sc_great_rift_3
-								every_system_planet = {
-									limit = { is_star = yes }
-									random_list = {
-										10 = { change_pc = pc_b_star }
-										10 = { change_pc = pc_a_star }
-										10 = { change_pc = pc_f_star }
-										10 = { change_pc = pc_g_star }
-										10 = { change_pc = pc_k_star }
-										10 = { change_pc = pc_m_star }
-										10 = { change_pc = pc_m_giant_star }
-										1 = { change_pc = pc_black_hole }
-										1 = { change_pc = pc_neutron_star }
-										1 = { change_pc = pc_pulsar }
-									}
-								}
-								every_system_planet = {
-									limit = { is_star = no habitable_planet = yes }
-									set_planet_flag = shroud_rift_influence
-									add_modifier = { modifier = eye_of_terror_influence_2 }
-								}
+								inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
 								random_neighbor_system = {
-									limit = { NOT = { has_star_flag = corrupt_system } }
-									create_ambient_object = { type = "eye_of_terror_3" location = this }
-									last_created_ambient_object = {
-										set_ambient_object_flag = eye_of_terror_system_effect_3
-										set_location = { target = prev distance = 0 angle = random }
-									}
-									set_star_flag = corrupt_system
-									set_star_flag = shroud_invasion_system_basic									# For spawning
-									set_star_flag = eye_of_terror_rift_system
-									set_star_class = sc_great_rift_2
-									every_system_planet = {
-										limit = { is_star = yes }
-										random_list = {
-											10 = { change_pc = pc_b_star }
-											10 = { change_pc = pc_a_star }
-											10 = { change_pc = pc_f_star }
-											10 = { change_pc = pc_g_star }
-											10 = { change_pc = pc_k_star }
-											10 = { change_pc = pc_m_star }
-											10 = { change_pc = pc_m_giant_star }
-											1 = { change_pc = pc_black_hole }
-											1 = { change_pc = pc_neutron_star }
-											1 = { change_pc = pc_pulsar }
-										}
-									}
-									every_system_planet = {
-										limit = { is_star = no habitable_planet = yes }
-										set_planet_flag = shroud_rift_influence
-										add_modifier = { modifier = eye_of_terror_influence_2 }
-									}
+									inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
 									random_neighbor_system = {
-										limit = { NOT = { has_star_flag = corrupt_system } }
-										create_ambient_object = { type = "eye_of_terror_3" location = this }
-										last_created_ambient_object = {
-											set_ambient_object_flag = eye_of_terror_system_effect_3
-											set_location = { target = prev distance = 0 angle = random }
-										}
-										set_star_flag = corrupt_system
-										set_star_flag = shroud_invasion_system_basic										# For spawning
-										set_star_flag = eye_of_terror_rift_system
-										set_star_class = sc_great_rift
-										every_system_planet = {
-											limit = { is_star = yes }
-											random_list = {
-												10 = { change_pc = pc_b_star }
-												10 = { change_pc = pc_a_star }
-												10 = { change_pc = pc_f_star }
-												10 = { change_pc = pc_g_star }
-												10 = { change_pc = pc_k_star }
-												10 = { change_pc = pc_m_star }
-												10 = { change_pc = pc_m_giant_star }
-												1 = { change_pc = pc_black_hole }
-												1 = { change_pc = pc_neutron_star }
-												1 = { change_pc = pc_pulsar }
-											}
-										}
-										every_system_planet = {
-											limit = { is_star = no habitable_planet = yes }
-											set_planet_flag = shroud_rift_influence
-											add_modifier = { modifier = eye_of_terror_influence_2 }
-										}
+										inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 										random_neighbor_system = {
-											limit = { NOT = { has_star_flag = corrupt_system } }
-											create_ambient_object = { type = "eye_of_terror_3" location = this }
-											last_created_ambient_object = {
-												set_ambient_object_flag = eye_of_terror_system_effect_3
-												set_location = { target = prev distance = 0 angle = random }
-											}
-											set_star_flag = corrupt_system
-											set_star_flag = shroud_invasion_system_basic											# For spawning
-											set_star_flag = eye_of_terror_rift_system
-											set_star_class = sc_great_rift_3
-											every_system_planet = {
-												limit = { is_star = yes }
-												random_list = {
-													10 = { change_pc = pc_b_star }
-													10 = { change_pc = pc_a_star }
-													10 = { change_pc = pc_f_star }
-													10 = { change_pc = pc_g_star }
-													10 = { change_pc = pc_k_star }
-													10 = { change_pc = pc_m_star }
-													10 = { change_pc = pc_m_giant_star }
-													1 = { change_pc = pc_black_hole }
-													1 = { change_pc = pc_neutron_star }
-													1 = { change_pc = pc_pulsar }
-												}
-											}
-											every_system_planet = {
-												limit = { is_star = no habitable_planet = yes }
-												set_planet_flag = shroud_rift_influence
-												add_modifier = { modifier = eye_of_terror_influence_2 }
-											}
+											inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
 										}
 									}
 								}
@@ -1051,350 +439,32 @@ country_event = {
 				}
 			}
 			random_neighbor_system = {
-				limit = { NOT = { has_star_flag = corrupt_system } }
-				create_ambient_object = { type = "eye_of_terror_3" location = this }
-				last_created_ambient_object = {
-					set_ambient_object_flag = eye_of_terror_system_effect_3
-					set_location = { target = prev distance = 0 angle = random }
-				}
-				set_star_flag = corrupt_system
-				set_star_flag = shroud_invasion_system_basic				# For spawning
-				set_star_flag = eye_of_terror_rift_system
-				set_star_class = sc_great_rift
-				star = {
-					random_list = {
-						10 = { change_pc = pc_b_star }
-						10 = { change_pc = pc_a_star }
-						10 = { change_pc = pc_f_star }
-						10 = { change_pc = pc_g_star }
-						10 = { change_pc = pc_k_star }
-						10 = { change_pc = pc_m_star }
-						10 = { change_pc = pc_m_giant_star }
-						1 = { change_pc = pc_black_hole }
-						1 = { change_pc = pc_neutron_star }
-						1 = { change_pc = pc_pulsar }
-					}
-				}
-				every_system_planet = {
-					limit = { is_star = no habitable_planet = yes }
-					set_planet_flag = shroud_rift_influence
-					add_modifier = { modifier = eye_of_terror_influence_1 }
-				}
+				inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" MODIFIER = 1 }
 				random_system_planet = {
 					limit = { is_shroud_rift_planet = yes }
 					change_pc = pc_shrouded
 					random = { chance = 25 add_deposit = d_zro_deposit_1 }
 				}
 				random_neighbor_system = {
-					limit = { NOT = { has_star_flag = corrupt_system } }
-					create_ambient_object = { type = "eye_of_terror_3" location = this }
-					last_created_ambient_object = {
-						set_ambient_object_flag = eye_of_terror_system_effect_3
-						set_location = { target = prev distance = 0 angle = random }
-					}
-					set_star_flag = corrupt_system
-					set_star_flag = shroud_invasion_system_basic					# For spawning
-					set_star_flag = eye_of_terror_rift_system
-					set_star_class = sc_great_rift_2
-					every_system_planet = {
-						limit = { is_star = yes }
-						random_list = {
-							10 = { change_pc = pc_b_star }
-							10 = { change_pc = pc_a_star }
-							10 = { change_pc = pc_f_star }
-							10 = { change_pc = pc_g_star }
-							10 = { change_pc = pc_k_star }
-							10 = { change_pc = pc_m_star }
-							10 = { change_pc = pc_m_giant_star }
-							1 = { change_pc = pc_black_hole }
-							1 = { change_pc = pc_neutron_star }
-							1 = { change_pc = pc_pulsar }
-						}
-					}
-					every_system_planet = {
-						limit = { is_star = no habitable_planet = yes }
-						set_planet_flag = shroud_rift_influence
-						add_modifier = { modifier = eye_of_terror_influence_2 }
-					}
+					inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
 					random_neighbor_system = {
-						limit = { NOT = { has_star_flag = corrupt_system } }
-						create_ambient_object = { type = "eye_of_terror_3" location = this }
-						last_created_ambient_object = {
-							set_ambient_object_flag = eye_of_terror_system_effect_3
-							set_location = { target = prev distance = 0 angle = random }
-						}
-						set_star_flag = corrupt_system
-						set_star_flag = shroud_invasion_system_basic						# For spawning
-						set_star_flag = eye_of_terror_rift_system
-						set_star_class = sc_great_rift
-						every_system_planet = {
-							limit = { is_star = yes }
-							random_list = {
-								10 = { change_pc = pc_b_star }
-								10 = { change_pc = pc_a_star }
-								10 = { change_pc = pc_f_star }
-								10 = { change_pc = pc_g_star }
-								10 = { change_pc = pc_k_star }
-								10 = { change_pc = pc_m_star }
-								10 = { change_pc = pc_m_giant_star }
-								1 = { change_pc = pc_black_hole }
-								1 = { change_pc = pc_neutron_star }
-								1 = { change_pc = pc_pulsar }
-							}
-						}
-						every_system_planet = {
-							limit = { is_star = no habitable_planet = yes }
-							set_planet_flag = shroud_rift_influence
-							add_modifier = { modifier = eye_of_terror_influence_2 }
-						}
+						inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 						random_neighbor_system = {
-							limit = { NOT = { has_star_flag = corrupt_system } }
-							create_ambient_object = { type = "eye_of_terror_3" location = this }
-							last_created_ambient_object = {
-								set_ambient_object_flag = eye_of_terror_system_effect_3
-								set_location = { target = prev distance = 0 angle = random }
-							}
-							set_star_flag = corrupt_system
-							set_star_flag = shroud_invasion_system_basic							# For spawning
-							set_star_flag = eye_of_terror_rift_system
-							set_star_class = sc_great_rift_3
-							every_system_planet = {
-								limit = { is_star = yes }
-								random_list = {
-									10 = { change_pc = pc_b_star }
-									10 = { change_pc = pc_a_star }
-									10 = { change_pc = pc_f_star }
-									10 = { change_pc = pc_g_star }
-									10 = { change_pc = pc_k_star }
-									10 = { change_pc = pc_m_star }
-									10 = { change_pc = pc_m_giant_star }
-									1 = { change_pc = pc_black_hole }
-									1 = { change_pc = pc_neutron_star }
-									1 = { change_pc = pc_pulsar }
-								}
-							}
-							every_system_planet = {
-								limit = { is_star = no habitable_planet = yes }
-								set_planet_flag = shroud_rift_influence
-								add_modifier = { modifier = eye_of_terror_influence_2 }
-							}
+							inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
 							random_neighbor_system = {
-								limit = { NOT = { has_star_flag = corrupt_system } }
-								create_ambient_object = { type = "eye_of_terror_3" location = this }
-								last_created_ambient_object = {
-									set_ambient_object_flag = eye_of_terror_system_effect_3
-									set_location = { target = prev distance = 0 angle = random }
-								}
-								set_star_flag = corrupt_system
-								set_star_flag = shroud_invasion_system_basic								# For spawning
-								set_star_flag = eye_of_terror_rift_system
-								set_star_class = sc_great_rift
-								every_system_planet = {
-									limit = { is_star = yes }
-									random_list = {
-										10 = { change_pc = pc_b_star }
-										10 = { change_pc = pc_a_star }
-										10 = { change_pc = pc_f_star }
-										10 = { change_pc = pc_g_star }
-										10 = { change_pc = pc_k_star }
-										10 = { change_pc = pc_m_star }
-										10 = { change_pc = pc_m_giant_star }
-										1 = { change_pc = pc_black_hole }
-										1 = { change_pc = pc_neutron_star }
-										1 = { change_pc = pc_pulsar }
-									}
-								}
-								every_system_planet = {
-									limit = { is_star = no habitable_planet = yes }
-									set_planet_flag = shroud_rift_influence
-									add_modifier = { modifier = eye_of_terror_influence_2 }
-								}
+								inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 								random_neighbor_system = {
-									limit = { NOT = { has_star_flag = corrupt_system } }
-									create_ambient_object = { type = "eye_of_terror_3" location = this }
-									last_created_ambient_object = {
-										set_ambient_object_flag = eye_of_terror_system_effect_3
-										set_location = { target = prev distance = 0 angle = random }
-									}
-									set_star_flag = corrupt_system
-									set_star_flag = shroud_invasion_system_basic									# For spawning
-									set_star_flag = eye_of_terror_rift_system
-									set_star_class = sc_great_rift_2
-									every_system_planet = {
-										limit = { is_star = yes }
-										random_list = {
-											10 = { change_pc = pc_b_star }
-											10 = { change_pc = pc_a_star }
-											10 = { change_pc = pc_f_star }
-											10 = { change_pc = pc_g_star }
-											10 = { change_pc = pc_k_star }
-											10 = { change_pc = pc_m_star }
-											10 = { change_pc = pc_m_giant_star }
-											1 = { change_pc = pc_black_hole }
-											1 = { change_pc = pc_neutron_star }
-											1 = { change_pc = pc_pulsar }
-										}
-									}
-									every_system_planet = {
-										limit = { is_star = no habitable_planet = yes }
-										set_planet_flag = shroud_rift_influence
-										add_modifier = { modifier = eye_of_terror_influence_2 }
-									}
+									inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
 									random_neighbor_system = {
-										limit = { NOT = { has_star_flag = corrupt_system } }
-										create_ambient_object = { type = "eye_of_terror_3" location = this }
-										last_created_ambient_object = {
-											set_ambient_object_flag = eye_of_terror_system_effect_3
-											set_location = { target = prev distance = 0 angle = random }
-										}
-										set_star_flag = shroud_invasion_system_basic										# For spawning
-										set_star_flag = eye_of_terror_rift_system
-										set_star_flag = corrupt_system
-										set_star_class = sc_great_rift_3
-										every_system_planet = {
-											limit = { is_star = yes }
-											random_list = {
-												10 = { change_pc = pc_b_star }
-												10 = { change_pc = pc_a_star }
-												10 = { change_pc = pc_f_star }
-												10 = { change_pc = pc_g_star }
-												10 = { change_pc = pc_k_star }
-												10 = { change_pc = pc_m_star }
-												10 = { change_pc = pc_m_giant_star }
-												1 = { change_pc = pc_black_hole }
-												1 = { change_pc = pc_neutron_star }
-												1 = { change_pc = pc_pulsar }
-											}
-										}
-										every_system_planet = {
-											limit = { is_star = no habitable_planet = yes }
-											set_planet_flag = shroud_rift_influence
-											add_modifier = { modifier = eye_of_terror_influence_2 }
-										}
+										inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
 										random_neighbor_system = {
-											limit = { NOT = { has_star_flag = corrupt_system } }
-											create_ambient_object = { type = "eye_of_terror_3" location = this }
-											last_created_ambient_object = {
-												set_ambient_object_flag = eye_of_terror_system_effect_3
-												set_location = { target = prev distance = 0 angle = random }
-											}
-											set_star_flag = shroud_invasion_system_basic											# For spawning
-											set_star_flag = eye_of_terror_rift_system
-											set_star_flag = corrupt_system
-											set_star_class = sc_great_rift
-											every_system_planet = {
-												limit = { is_star = yes }
-												random_list = {
-													10 = { change_pc = pc_b_star }
-													10 = { change_pc = pc_a_star }
-													10 = { change_pc = pc_f_star }
-													10 = { change_pc = pc_g_star }
-													10 = { change_pc = pc_k_star }
-													10 = { change_pc = pc_m_star }
-													10 = { change_pc = pc_m_giant_star }
-													1 = { change_pc = pc_black_hole }
-													1 = { change_pc = pc_neutron_star }
-													1 = { change_pc = pc_pulsar }
-												}
-											}
-											every_system_planet = {
-												limit = { is_star = no habitable_planet = yes }
-												set_planet_flag = shroud_rift_influence
-												add_modifier = { modifier = eye_of_terror_influence_2 }
-											}
+											inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 											random_neighbor_system = {
-												limit = { NOT = { has_star_flag = corrupt_system } }
-												create_ambient_object = { type = "eye_of_terror_3" location = this }
-												last_created_ambient_object = {
-													set_ambient_object_flag = eye_of_terror_system_effect_3
-													set_location = { target = prev distance = 0 angle = random }
-												}
-												set_star_flag = shroud_invasion_system_basic												# For spawning
-												set_star_flag = eye_of_terror_rift_system
-												set_star_flag = corrupt_system
-												set_star_class = sc_great_rift_2
-												every_system_planet = {
-													limit = { is_star = yes }
-													random_list = {
-														10 = { change_pc = pc_b_star }
-														10 = { change_pc = pc_a_star }
-														10 = { change_pc = pc_f_star }
-														10 = { change_pc = pc_g_star }
-														10 = { change_pc = pc_k_star }
-														10 = { change_pc = pc_m_star }
-														10 = { change_pc = pc_m_giant_star }
-														1 = { change_pc = pc_black_hole }
-														1 = { change_pc = pc_neutron_star }
-														1 = { change_pc = pc_pulsar }
-													}
-												}
-												every_system_planet = {
-													limit = { is_star = no habitable_planet = yes }
-													set_planet_flag = shroud_rift_influence
-													add_modifier = { modifier = eye_of_terror_influence_2 }
-												}
+												inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
 												random_neighbor_system = {
-													limit = { NOT = { has_star_flag = corrupt_system } }
-													create_ambient_object = { type = "eye_of_terror_3" location = this }
-													last_created_ambient_object = {
-														set_ambient_object_flag = eye_of_terror_system_effect_3
-														set_location = { target = prev distance = 0 angle = random }
-													}
-													set_star_flag = corrupt_system
-													set_star_flag = shroud_invasion_system_basic													# For spawning
-													set_star_flag = eye_of_terror_rift_system
-													set_star_class = sc_great_rift
-													every_system_planet = {
-														limit = { is_star = yes }
-														random_list = {
-															10 = { change_pc = pc_b_star }
-															10 = { change_pc = pc_a_star }
-															10 = { change_pc = pc_f_star }
-															10 = { change_pc = pc_g_star }
-															10 = { change_pc = pc_k_star }
-															10 = { change_pc = pc_m_star }
-															10 = { change_pc = pc_m_giant_star }
-															1 = { change_pc = pc_black_hole }
-															1 = { change_pc = pc_neutron_star }
-															1 = { change_pc = pc_pulsar }
-														}
-													}
-													every_system_planet = {
-														limit = { is_star = no habitable_planet = yes }
-														set_planet_flag = shroud_rift_influence
-														add_modifier = { modifier = eye_of_terror_influence_2 }
-													}
+													inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 													random_neighbor_system = {
-														limit = { NOT = { has_star_flag = corrupt_system } }
-														create_ambient_object = { type = "eye_of_terror_3" location = this }
-														last_created_ambient_object = {
-															set_ambient_object_flag = eye_of_terror_system_effect_3
-															set_location = { target = prev distance = 0 angle = random }
-														}
-														set_star_flag = corrupt_system
-														set_star_flag = shroud_invasion_system_basic														# For spawning
-														set_star_flag = eye_of_terror_rift_system
-														set_star_class = sc_great_rift_3
-														every_system_planet = {
-															limit = { is_star = yes }
-															random_list = {
-																10 = { change_pc = pc_b_star }
-																10 = { change_pc = pc_a_star }
-																10 = { change_pc = pc_f_star }
-																10 = { change_pc = pc_g_star }
-																10 = { change_pc = pc_k_star }
-																10 = { change_pc = pc_m_star }
-																10 = { change_pc = pc_m_giant_star }
-																1 = { change_pc = pc_black_hole }
-																1 = { change_pc = pc_neutron_star }
-																1 = { change_pc = pc_pulsar }
-															}
-														}
-														every_system_planet = {
-															limit = { is_star = no habitable_planet = yes }
-															set_planet_flag = shroud_rift_influence
-															add_modifier = { modifier = eye_of_terror_influence_2 }
-														}
+														inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
 													}
 												}
 											}
@@ -1407,14 +477,14 @@ country_event = {
 				}
 			}
 		}
-		# Make the system surveyed to avoid weird issues
 		every_playable_country = {
-			country_event = { id = shroud_rising_eye_of_terror.31 }
-		}
-		# Announce to all countries
-		every_playable_country = {
-			# limit = { is_ai = no }
-			country_event = { id = shroud_rising_eye_of_terror.4 }
+			country_event = { id = shroud_rising_eye_of_terror.31 } # Make the system surveyed to avoid weird issues
+			if = { limit = { is_ai = no }
+				country_event = { id = shroud_rising_eye_of_terror.4 } # Announce to all countries
+			}
+			else = {
+				country_event = { id = shroud_rising_eye_of_terror.5 } # The Eye of Terror chain begins
+			}
 		}
 		# Trigger the monolith chains for player empires
 		while = { count = 3
@@ -1450,6 +520,7 @@ country_event = {
 			every_system_planet = {
 				set_surveyed = { surveyed = yes surveyor = root }
 			}
+			set_surveyed = { surveyed = yes surveyor = root }
 		}
 	}
 }
@@ -1535,7 +606,7 @@ country_event = {
 	}
 }
 
-# (Hidden - global) Sets up counter for rifts (every playable country)
+# (Hidden - global) Sets up counter for rifts (every_playable_country)
 country_event = {
 	id = shroud_rising_eye_of_terror.51
 	hide_window = yes
@@ -1575,7 +646,7 @@ fleet_event = {
 	trigger = {
 		from = { has_star_flag = eye_of_terror_system }
 		has_global_flag = eye_of_terror_open
-		has_owner = yes
+		exists = owner
 		NOR = {
 			has_global_flag = eye_of_terror_sealed
 			owner = { is_ai = yes }
@@ -1629,9 +700,17 @@ country_event = {
 	immediate = {
 		remove_global_flag = eye_of_terror_open
 		set_global_flag = eye_of_terror_sealed
-		random_system = {
-			limit = { has_star_flag = eye_of_terror_system has_megastructure = goliath_inhibitor_3 }
-			save_event_target_as = eye_of_terror_system
+		if = {
+			limit = { NOT = { exists = event_target:eye_of_terror_system } }
+			random_system = {
+				limit = {
+					has_star_flag = eye_of_terror_system
+					has_megastructure = goliath_inhibitor_3
+				}
+				save_global_event_target_as = eye_of_terror_system
+			}
+		}
+		event_target:eye_of_terror_system = {
 			# Remove flag for army spawns
 			every_system_planet = {
 				limit = { is_star = no habitable_planet = yes }
@@ -1697,7 +776,7 @@ country_event = {
 	}
 }
 
-# Triggers gradual removal of eye rifts by on_monthly_pulse
+# Triggers gradual removal of eye rifts (on_monthly_pulse)
 event = {
 	id = shroud_rising_eye_of_terror.71
 	hide_window = yes
@@ -1724,17 +803,13 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { has_global_flag = eye_of_terror_sealed }
 	immediate = {
-		set_update_modifiers_batch = begin
 		random_system = {
 			limit = {
 				has_star_flag = eye_of_terror_rift_system
 				NOT = { has_star_flag = eye_of_terror_system }
 				any_ambient_object = { has_ambient_object_flag = eye_of_terror_system_effect_3 }
 			}
-			random_system_ambient_object = {
-				limit = { has_ambient_object_flag = eye_of_terror_system_effect_3 }
-				destroy_ambient_object = this
-			}
+			set_update_modifiers_batch = begin
 			# Remove flag for army spawns
 			every_system_planet = {
 				limit = { is_star = no habitable_planet = yes }
@@ -1753,19 +828,9 @@ country_event = {
 					10 = { change_pc = pc_gaia }
 				}
 			}
-			random_list = {
-				10 = { set_star_class = sc_a }
-				10 = { set_star_class = sc_b }
-				10 = { set_star_class = sc_f }
-				10 = { set_star_class = sc_g }
-				10 = { set_star_class = sc_k }
-				10 = { set_star_class = sc_m }
-				10 = { set_star_class = sc_m_giant }
-				5 = { set_star_class = sc_neutron_star }
-				5 = { set_star_class = sc_pulsar }
-			}
+			inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
+			set_update_modifiers_batch = end
 		}
-		set_update_modifiers_batch = end
 	}
 }
 
@@ -1869,7 +934,7 @@ country_event = {
 	is_triggered_only = yes
 	location = event_target:eye_of_terror_system
 	immediate = {
-		save_event_target_as = eye_of_terror_reopened_country
+		# save_event_target_as = eye_of_terror_reopened_country # REMOVED ON 3.12
 		random_system = {
 			limit = { has_star_flag = eye_of_terror_system }
 			save_event_target_as = eye_of_terror_system
@@ -1927,12 +992,36 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { }
 	immediate = {
+		set_update_modifiers_batch = begin
 		remove_global_flag = eye_of_terror_sealed
 		remove_global_flag = inhibitor_dismantle_check
 		set_global_flag = eye_of_terror_reopened
 		every_playable_country = {
 			limit = { NOT = { is_same_empire = event_target:eye_of_terror_reopened_country } }
-			country_event = { id = shroud_rising_eye_of_terror.12 }			# ANNOUNCE dismantled to all
+			if = {
+				limit = { is_ai = no }
+				country_event = { id = shroud_rising_eye_of_terror.12 }			# ANNOUNCE dismantled to all
+			}
+			if = {
+				limit = {
+					NOR = {
+						has_civic = civic_shroud_worship
+						has_opinion_modifier = { who = from modifier = opinion_reopened_eye_of_terror }
+					}
+				}
+				add_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_reopened_eye_of_terror }
+			}
+			else_if = {
+				limit = {
+					NOT = { has_opinion_modifier = { who = from modifier = opinion_reopened_eye_of_terror_positive } }
+					has_civic = civic_shroud_worship
+				}
+				add_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_reopened_eye_of_terror_positive }
+			}
+			if = {
+				limit = { has_opinion_modifier = { who = from modifier = opinion_sealed_eye_of_terror } }
+				remove_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_sealed_eye_of_terror }
+			}
 		}
 		random_system = {
 			limit = { has_megastructure = goliath_inhibitor_4 }
@@ -2037,10 +1126,11 @@ country_event = {
 				set_aggro_range = 300
 			}
 		}
+		set_update_modifiers_batch = end
 	}
 }
 
-# Triggers gradual reopneing of eye rifts by (on_monthly_pulse)
+# Triggers gradual reopneing of eye rifts (on_monthly_pulse)
 event = {
 	id = shroud_rising_eye_of_terror.110
 	hide_window = yes
@@ -2074,8 +1164,10 @@ country_event = {
 		random_system = {
 			limit = {
 				has_star_flag = eye_of_terror_rift_system
-				NOT = { has_star_flag = eye_of_terror_system }
-				NOT = { any_system_ambient_object = { has_ambient_object_flag = eye_of_terror_system_effect_3 } }
+				NOR = {
+					has_star_flag = eye_of_terror_system
+					any_system_ambient_object = { has_ambient_object_flag = eye_of_terror_system_effect_3 }
+				}
 			}
 			create_ambient_object = { type = "eye_of_terror_3" location = this }
 			last_created_ambient_object = {
@@ -2123,31 +1215,33 @@ country_event = {
 	is_triggered_only = yes
 	location = event_target:eye_of_terror_system
 	immediate = {
-		random_playable_country = {
-			limit = {
-				NOR = {
-					is_same_empire = root
-					has_civic = civic_shroud_worship
-					has_opinion_modifier = { who = from modifier = opinion_reopened_eye_of_terror }
-				}
-			}
-			add_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_reopened_eye_of_terror }
-		}
-		random_playable_country = {
-			limit = {
-				NOT = { is_same_empire = root }
-				NOT = { has_opinion_modifier = { who = from modifier = opinion_reopened_eye_of_terror_positive } }
-				has_civic = civic_shroud_worship
-			}
-			add_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_reopened_eye_of_terror_positive }
-		}
-		random_playable_country = {
-			limit = {
-				NOT = { is_same_empire = root }
-				has_opinion_modifier = { who = from modifier = opinion_sealed_eye_of_terror }
-			}
-			remove_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_sealed_eye_of_terror }
-		}
+		# random_playable_country = {
+		# 	limit = {
+		# 		NOR = {
+		# 			# is_same_empire = root
+		# 			has_civic = civic_shroud_worship
+		# 			has_opinion_modifier = { who = from modifier = opinion_reopened_eye_of_terror }
+		# 		}
+		# 	}
+		# 	add_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_reopened_eye_of_terror }
+		# }
+		# random_playable_country = {
+		# 	limit = {
+		# 		NOT = {
+		# 			# is_same_empire = root
+		# 			has_opinion_modifier = { who = from modifier = opinion_reopened_eye_of_terror_positive }
+		# 		}
+		# 		has_civic = civic_shroud_worship
+		# 	}
+		# 	add_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_reopened_eye_of_terror_positive }
+		# }
+		# random_playable_country = {
+		# 	limit = {
+		# 		# NOT = { is_same_empire = root }
+		# 		has_opinion_modifier = { who = from modifier = opinion_sealed_eye_of_terror }
+		# 	}
+		# 	remove_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_sealed_eye_of_terror }
+		# }
 	}
 	option = {
 		name = shroud_rising_eye_of_terror.12.a
@@ -2203,16 +1297,29 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		set_country_flag = shroud_diplomacy_engaged
-		create_country = {
-			name = "NAME_shroud_horrors"
-			type = shroud_horrors
-			name_list = "SHROUD_HORRORS"
-			flag = {
-				icon = { category = "special" file = "the_shroud.dds" }
-				background = { category = "backgrounds" file = "00_solid.dds" }
-				colors = { "dark_purple" "black" "null" "null" }
+		if = {
+			limit = { NOT = { exists = event_target:shroud_horror_country } }
+			create_species = {
+				name = "NAME_shroud_horrors"
+				class = random_non_machine
+				portrait = random
+				traits = random
+				effect = {
+					modify_species = { add_trait = trait_psionic }
+				}
 			}
-			effect = { apply_shroud_rising_difficulty = yes save_event_target_as = shroud_horror_country }
+			create_country = {
+				name = "NAME_shroud_horrors"
+				type = shroud_horrors
+				species = last_created_species
+				name_list = "SHROUD_HORRORS"
+				flag = {
+					icon = { category = "special" file = "the_shroud.dds" }
+					background = { category = "backgrounds" file = "00_solid.dds" }
+					colors = { "dark_purple" "black" "null" "null" }
+				}
+				effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_horror_country }
+			}
 		}
 		create_fleet = {
 			# name = random

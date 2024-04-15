@@ -123,7 +123,7 @@ country_event = {
 			limit = { NOT = { exists = event_target:shroud_rift_system_1 } }
 			random_system = {
 				limit = { has_star_flag = shroud_rift_system_1 }
-				save_event_target_as = shroud_rift_system_1
+				save_global_event_target_as = shroud_rift_system_1
 			}
 		}
 	}
@@ -248,9 +248,12 @@ country_event = {
 			limit = { owner_species = { has_trait = trait_psionic } }
 			country_event = { id = shroud_rising_sidequests.5 days = 10 }
 		}
-		random_system = {
-			limit = { has_star_flag = shroud_rift_system_1 }
-			save_event_target_as = shroud_rift_system_1
+		if = {
+			limit = { NOT = { exists = event_target:shroud_rift_system_1 } }
+			random_system = {
+				limit = { has_star_flag = shroud_rift_system_1 }
+				save_global_event_target_as = shroud_rift_system_1
+			}
 		}
 	}
 	option = {

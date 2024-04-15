@@ -1,0 +1,22 @@
+random_list = {
+	10 = { set_star_class = sc_a }
+	10 = { set_star_class = sc_b }
+	10 = { set_star_class = sc_f }
+	10 = { set_star_class = sc_g }
+	10 = { set_star_class = sc_k }
+	10 = { set_star_class = sc_m }
+	10 = { set_star_class = sc_m_giant }
+	5 = { set_star_class = sc_neutron_star }
+	5 = { set_star_class = sc_pulsar }
+}
+random_system_ambient_object = {
+	limit = { has_ambient_object_flag = $AMBIENT|shroud_rift_object$ }
+	destroy_ambient_object = this
+}
+# Set flag for army spawns
+every_system_planet = {
+	limit = { is_star = no habitable_planet = yes }
+	remove_planet_flag = shroud_rift_influence
+	remove_planet_flag = shroud_rift_planet
+	remove_modifier = shroud_rift_influence
+}

@@ -57,6 +57,38 @@ apply_shroud_rising_difficulty = {
 		establish_communications_no_message = prev
 	}
 	if = {
+		limit = {
+			has_nemesis = yes
+			any_playable_country = { has_ascension_perk = ap_become_the_crisis }
+		}
+		random_playable_country = {
+			limit = { has_been_declared_crisis = yes }
+			root = {
+				set_faction_hostility = { set_hostile = yes target = prev }
+				add_opinion_modifier = { who = prev modifier = opinion_threat }
+				add_opinion_modifier = { who = prev modifier = opinion_doomed_us_all }
+				add_opinion_modifier = { who = prev modifier = opinion_destroying_galaxy }
+				add_trust = { amount = -100 who = prev }
+				if = {
+					limit = {
+						NOT = {
+							any_war = { using_war_goal = { type = wg_declared_crisis owner = root } }
+						}
+					}
+					declare_war = {
+						target = prev
+						name = {
+							key = "NAME_Declared_Crisis_War"
+							variable_string = "\\[This.MainDefender.GetAdj\\]"
+						}
+						attacker_war_goal = "wg_declared_crisis"
+					}
+				}
+			}
+		}
+	}
+
+	if = {
 		limit = { is_country_type = shroud_cult }
 		every_country = {
 			limit = {

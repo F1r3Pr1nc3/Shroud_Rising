@@ -13,29 +13,24 @@ goliath_inhibitor_0 = {
 	construction_blocks_and_blocked_by = self_type
 	possible = {
 		exists = owner
+		custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
 		custom_tooltip = {
 			fail_text = "requires_inside_border_or_subject_ally"
-			OR = {
-				AND = {
-					has_global_flag = resolution_eye_of_terror_rifts_1
-					owner = { is_galactic_community_member = yes }
+			owner = {
+				OR = {
+					AND = { has_global_flag = resolution_eye_of_terror_rifts_1 is_galactic_community_member = yes }
+					has_defensive_pact = from
+					is_in_federation_with = from
+					is_overlord_to = from
+					AND = {
+						is_subject = yes
+						overlord = { is_same_empire = from }
+					}
+					# AND = {
+					# 	is_subject = yes
+					# 	overlord = { is_overlord_to = from }
+					# }
 				}
-				is_inside_border = from
-				owner = { has_defensive_pact = from }
-				owner = { is_in_federation_with = from }
-				owner = {
-					is_subject = yes
-					overlord = { is_same_empire = from }
-				}
-				owner = {
-					is_subject = yes
-					overlord = { is_same_empire = from }
-				}
-				owner = {
-					is_subject = yes
-					overlord = { is_overlord_to = from }
-				}
-				owner = { is_overlord_to = from }
 			}
 		}
 		custom_tooltip = {
@@ -70,10 +65,7 @@ goliath_inhibitor_0 = {
 	ai_weight = {
 		factor = 100
 		modifier = { factor = 2 has_global_flag = eye_of_terror_open }
-		modifier = {
-			factor = 0
-			from = { has_civic = civic_shroud_worship }
-		}
+		modifier = { factor = 0 from = { has_civic = civic_shroud_worship } }
 	}
 	on_build_cancel = { }
 	on_build_complete = {

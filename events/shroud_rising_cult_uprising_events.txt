@@ -34,7 +34,7 @@ planet_event = {
 		NOT = { has_global_flag = recent_cult_uprising_global }
 		mid_game_years_passed > 5
 		planet_stability < 35
-		num_sapient_pops >= 1
+		num_pops >= 1
 		has_orbital_bombardment = no
 		exists = owner
 		owner = {
@@ -124,15 +124,9 @@ planet_event = {
 	pre_triggers = { has_owner = yes has_ground_combat = no }
 	trigger = { }
 	immediate = {
+		# Extra safety because it's possible for two planets to fire this delayed event on the same day and it will check the trigger before either of them can fire
 		if = {
-			limit = {
-				# Extra safety because it's possible for two planets to fire this delayed event on the same day and it will check the trigger before either of them can fire
-				NOT = {
-					owner = {
-						any_situation = { is_situation_type = situation_shroud_uprising }
-					}
-				}
-			}
+			limit = { NOT = { owner = { any_situation = { is_situation_type = situation_shroud_uprising } } } }
 			planet_event = { id = shroud_rising_cult_uprising.3 }
 		}
 	}
@@ -161,19 +155,17 @@ planet_event = {
 		save_event_target_as = cult_uprising_planet
 		# set_planet_flag = cult_uprising_planet
 		owner = {
-			start_situation = {
-				type = situation_shroud_uprising
-				target = root
-				effect = { save_event_target_as = cult_situation }
-			}
-			set_country_flag = cult_uprising_country
+			start_situation = { type = situation_shroud_uprising target = root effect = { save_event_target_as = cult_situation } }
 		}
 	}
 	option = {
 		name = "ancrel.15006.a"
 		tooltip = {
 			owner = {
-				start_situation = { type = situation_shroud_uprising target = root }
+				if = {
+					limit = { NOT = { any_situation = { is_situation_type = situation_shroud_uprising } } }
+					start_situation = { type = situation_shroud_uprising target = root }
+				}
 			}
 		}
 	}
@@ -367,14 +359,15 @@ planet_event = {
 		create_rebels = {
 			name = "NAME_shroud_cultists"
 			species = event_target:leader_pop.species
+			ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 			authority = auth_dictatorial
-			civics = { civic = civic_shroud_worship civic = civic_cutthroat_politics }
+			civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
 			origin = "origin_separatists"
-			# name_list = "CULTISTS"
+			name_list = "CULTISTS"
 			effect = {
-				set_country_type = shroud_cult_uprising
+				set_country_type = shroud_cult # shroud_cult_uprising
+				apply_shroud_rising_difficulty = yes
 				save_event_target_as = cultist_rebels
-				every_country = { establish_communications_no_message = prev }
 			}
 		}
 		solar_system = {
@@ -430,7 +423,7 @@ planet_event = {
 			}
 			random_owned_army = {
 				limit = { NOT = { exists = leader } }
-				set_leader = last_created_leader
+				assign_leader = last_created_leader
 			}
 			create_leader = {
 				class = commander
@@ -462,7 +455,7 @@ planet_event = {
 					set_fleet_bombardment_stance = indiscriminate
 					set_aggro_range_measure_from = self
 					set_aggro_range = 300
-					set_leader = last_created_leader
+					assign_leader = last_created_leader
 				}
 			}
 		}
@@ -482,7 +475,7 @@ country_event = {
 	show_sound = event_announcement
 	location = fromfrom
 	trigger = {
-		from = { is_country_type = shroud_cult_uprising }
+		from = { OR = { is_country_type = shroud_cult is_country_type = shroud_cult_uprising } }
 		fromfrom = { has_planet_flag = cult_uprising_planet }
 	}
 	is_triggered_only = yes
@@ -522,7 +515,7 @@ country_event = {
 	location = fromfrom
 	is_triggered_only = yes
 	trigger = {
-		from = { is_country_type = shroud_cult_uprising }
+		from = { OR = { is_country_type = shroud_cult is_country_type = shroud_cult_uprising } }
 		fromfrom = { has_planet_flag = cult_uprising_planet }
 	}
 	immediate = {
@@ -585,11 +578,7 @@ planet_event = {
 			shift_ethic = "ethic_authoritarian"
 			change_government = {
 				authority = auth_dictatorial
-				civics = {
-					civic = civic_shroud_worship
-					civic = civic_cutthroat_politics
-					civic = civic_death_cult
-				}
+				civics = { civic = civic_shroud_worship civic = civic_cutthroat_politics civic = civic_death_cult }
 			}
 		}
 		hidden_effect = {
@@ -624,19 +613,11 @@ country_event = {
 			# Create the cult country
 			create_rebels = {
 				name = random
-				ethos = {
-					ethic = "ethic_spiritualist"
-					ethic = "ethic_militarist"
-					ethic = "ethic_authoritarian"
-				}
-				authority = auth_dictatorial
-				civics = {
-					civic = civic_shroud_worship
-					civic = civic_barbaric_despoilers
-					civic = civic_cutthroat_politics
-				}
-				origin = "origin_separatists"
 				species = event_target:leader_pop.species
+				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
+				authority = auth_dictatorial
+				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
+				origin = "origin_separatists"
 				flag = random
 				# ignore_initial_colony_error = yes
 				# day_zero_contact = no
@@ -729,7 +710,7 @@ country_event = {
 				every_fleet_in_system = {
 					limit = {
 						exists = owner
-						owner = { is_country_type = shroud_cult_uprising }
+						owner = { OR = { is_country_type = shroud_cult is_country_type = shroud_cult_uprising } }
 					}
 					set_owner = event_target:cultist_rebel_country
 				}
@@ -819,7 +800,7 @@ country_event = {
 							species = owner_main_species
 						}
 					}
-					set_leader = last_created_leader
+					assign_leader = last_created_leader
 				}
 			}
 			# constructor
@@ -859,7 +840,7 @@ country_event = {
 			}
 			random_owned_army = {
 				limit = { NOT = { exists = leader } }
-				set_leader = last_created_leader
+				assign_leader = last_created_leader
 			}
 			create_leader = {
 				class = commander
@@ -872,7 +853,7 @@ country_event = {
 			}
 			random_owned_fleet = {
 				limit = { NOT = { exists = leader } }
-				set_leader = last_created_leader
+				assign_leader = last_created_leader
 			}
 		}
 	}

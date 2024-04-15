@@ -117,11 +117,7 @@ planet_event = {
 		}
 	}
 	# Destroy
-	option = {
-		name = "astral_planes.15.b"
-		custom_tooltip = shroud_rising_colony.3.e.tooltip
-		remove_deposit = d_shroud_temple
-	}
+	option = { name = "astral_planes.15.b" custom_tooltip = shroud_rising_colony.3.e.tooltip remove_deposit = d_shroud_temple }
 }
 
 # Ask for sacrifice
@@ -194,10 +190,7 @@ planet_event = {
 					background = { category = "backgrounds" file = "00_solid.dds" }
 					colors = { "dark_purple" "black" "null" "null" }
 				}
-				effect = {
-					apply_shroud_rising_difficulty = yes
-					save_global_event_target_as = shroud_storm_horror
-				}
+				effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_storm_horror }
 			}
 		}
 	}
@@ -252,18 +245,11 @@ planet_event = {
 					background = { category = "backgrounds" file = "00_solid.dds" }
 					colors = { "dark_purple" "black" "null" "null" }
 				}
-				effect = {
-					apply_shroud_rising_difficulty = yes
-					save_global_event_target_as = shroud_storm_horror
-				}
+				effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_storm_horror }
 			}
 		}
 		event_target:shroud_storm_horror = {
-			set_faction_hostility = {
-				set_hostile = no
-				set_neutral = yes
-				target = root.owner
-			}
+			set_faction_hostility = { set_hostile = no set_neutral = yes target = root.owner }
 		}
 		create_fleet = {
 			# name = random
@@ -327,11 +313,7 @@ planet_event = {
 			effect = {
 				apply_shroud_rising_difficulty = yes
 				save_event_target_as = shroud_horror_fleet
-				set_faction_hostility = {
-					set_hostile = no
-					set_neutral = yes
-					target = root.owner
-				}
+				set_faction_hostility = { set_hostile = no set_neutral = yes target = root.owner }
 			}
 		}
 		if = {

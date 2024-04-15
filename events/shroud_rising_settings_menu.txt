@@ -318,6 +318,11 @@ event = {
 			limit = { is_ai = no }
 			country_event = { id = shroud_rising_trigger.11 }
 		}
+		# Compat with WH40K (All that is Grimdark)
+		every_playable_country = {
+			limit = { is_ai = yes has_country_flag = chaos_empire NOT = { has_civic = civic_shroud_worship } }
+			force_add_civic = civic_shroud_worship
+		}
 	}
 }
 
@@ -581,5 +586,20 @@ country_event = {
 			set_global_flag = eot_ai_spiritualist
 		}
 		country_event = { id = shroud_rising_shroud_rift.99 days = 36 random = 45 }
+	}
+}
+
+# TEMP FIX (on_single_player_save_game_load)
+event = {
+	id = shroud_rising_trigger.99
+	hide_window = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {	}
+	immediate = {
+		every_country = {
+			limit = { is_country_type = shroud_cult_uprising }
+			set_country_type = shroud_cult
+		}
 	}
 }

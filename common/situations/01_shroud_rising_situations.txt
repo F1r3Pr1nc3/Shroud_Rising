@@ -20,6 +20,14 @@ situation_shroud_uprising = {
 			limit = { years_passed < 3 }
 			log_error = "Isn't it a bit early to have a revolt? Owner: [Owner.GetName], Target: [Target.GetName]."
 		}
+		# else_if = {
+		# 	limit = { target = { NOT = { has_modifier = shroud_cult_uprising } } }
+		# 	target = { add_modifier = { modifier = shroud_cult_uprising years = 1 } }
+		# }
+		if = {
+			limit = { target.owner = { NOT = { has_country_flag = cult_uprising_country } } }
+			target.owner = { set_country_flag = cult_uprising_country }
+		}
 	}
 	on_progress_complete = {
 		custom_tooltip = situation_shroud_uprising_complete_tooltip
@@ -271,7 +279,7 @@ situation_shroud_uprising = {
 					is_colony = yes
 					NOT = { is_same_value = root.target }
 					planet_stability >= 70
-					num_sapient_pops > 5
+					num_pops > 5
 				}
 			}
 			potential = {
@@ -279,7 +287,7 @@ situation_shroud_uprising = {
 					any_system_colony = {
 						NOT = { is_same_value = root.target }
 						planet_stability >= 70
-						num_sapient_pops > 5
+						num_pops > 5
 					}
 				}
 			}
@@ -295,7 +303,7 @@ situation_shroud_uprising = {
 					is_colony = yes
 					NOT = { is_same_value = root.target }
 					planet_stability < 50
-					num_sapient_pops > 5
+					num_pops > 5
 				}
 			}
 			potential = {
@@ -303,7 +311,7 @@ situation_shroud_uprising = {
 					any_system_colony = {
 						NOT = { is_same_value = root.target }
 						planet_stability < 50
-						num_sapient_pops > 5
+						num_pops > 5
 					}
 				}
 			}
@@ -319,12 +327,12 @@ situation_shroud_uprising = {
 		modifier = {
 			add = 1
 			desc = STRING_WEAK_PLANET
-			target = { num_sapient_pops < 30 }
+			target = { num_pops < 30 }
 		}
 		modifier = {
 			subtract = 1
 			desc = STRING_STRONG_PLANET
-			target = { num_sapient_pops > 60 }
+			target = { num_pops > 60 }
 		}
 		modifier = {
 			desc = STRING_HAS_INQUISITOR

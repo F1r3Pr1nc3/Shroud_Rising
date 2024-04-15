@@ -19,7 +19,6 @@ shroud_rising_settings = {
 		NOR = {
 			is_ai = yes
 			has_global_flag = eot_active
-			# has_global_flag = eot_disabled
 			mid_game_years_passed > 40
 			has_global_flag = dmm_installed
 		}
@@ -28,6 +27,7 @@ shroud_rising_settings = {
 		NOR = {
 			has_country_flag = sr_settings_active
 			has_global_flag = sr_settings_active
+			# has_global_flag = eot_disabled
 			has_active_event = { shroud_rising_trigger.1 }
 		}
 	}

@@ -45,7 +45,7 @@ country_event = {
 			limit = {
 				has_owner = yes
 				# owner = { is_ai = no } # For testing
-				any_system_colony = { num_sapient_pops > 10 }
+				any_system_colony = { num_pops > 10 }
 				NOT = { any_system_planet = { has_planet_flag = has_shroud_monolith } }
 			}
 			set_star_flag = shroud_storm_system
@@ -61,7 +61,7 @@ country_event = {
 				add_modifier = { modifier = shroud_storm_effect }
 			}
 			random_system_colony = {
-				limit = { has_ground_combat = no num_sapient_pops > 10 }
+				limit = { has_ground_combat = no num_pops > 10 }
 				random_list = {
 					75 = { # Spooky storm
 						planet_event = { id = shroud_rising_ambient.3 }		# Message and event for Shroud Storm Horrors

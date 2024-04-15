@@ -54,7 +54,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		if = {
-			limit = { has_global_flag = eot_incursions_start }
+			limit = { NOT = { has_global_flag = eot_incursions_start } }
 			set_global_flag = eot_incursions_start
 		}
 	}
@@ -133,17 +133,19 @@ system_event = {
 			######## 1 x Corrupt Avatar (~5-10k) ##########
 			###############################################
 			30 = {
-				#30
-				create_country = {
-					name = "NAME_shroud_horrors"
-					type = shroud_entities
-					name_list = "SHROUD_HORRORS"
-					flag = {
-						icon = { category = "special" file = "the_shroud.dds" }
-						background = { category = "backgrounds" file = "00_solid.dds" }
-						colors = { "dark_purple" "black" "null" "null" }
+				if = {
+					limit = { NOT = { exists = event_target:shroud_storm_horror } }
+					create_country = {
+						name = "NAME_shroud_horrors"
+						type = shroud_entities
+						name_list = "SHROUD_HORRORS"
+						flag = {
+							icon = { category = "special" file = "the_shroud.dds" }
+							background = { category = "backgrounds" file = "00_solid.dds" }
+							colors = { "dark_purple" "black" "null" "null" }
+						}
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_storm_horror } # save_event_target_as = shroud_entity_fleet }
 					}
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = shroud_entity_fleet }
 				}
 				every_playable_country = {
 					limit = { is_ai = no has_policy_flag = incursion_alert_all }
@@ -153,7 +155,7 @@ system_event = {
 					# name = random
 					settings = { spawn_debris = no is_boss = yes }
 					effect = {
-						set_owner = event_target:shroud_entity_fleet
+						set_owner = event_target:shroud_storm_horror
 						create_ship = { name = "NAME_ancient_god" design = "NAME_Corrupted_Avatar" }
 						set_location = root
 						set_fleet_stance = aggressive
@@ -167,30 +169,32 @@ system_event = {
 			########  3 x Corrupt Avatar (10k ea) ###########
 			#################################################
 			15 = {
-				#15
 				modifier = { factor = 0 mid_game_years_passed < 30 }
-				create_country = {
-					name = "NAME_shroud_horrors"
-					type = shroud_entities
-					name_list = "SHROUD_HORRORS"
-					flag = {
-						icon = { category = "special" file = "the_shroud.dds" }
-						background = { category = "backgrounds" file = "00_solid.dds" }
-						colors = { "dark_purple" "black" "null" "null" }
+				if = {
+					limit = { NOT = { exists = event_target:shroud_storm_horror } }
+					create_country = {
+						name = "NAME_shroud_horrors"
+						type = shroud_entities
+						name_list = "SHROUD_HORRORS"
+						flag = {
+							icon = { category = "special" file = "the_shroud.dds" }
+							background = { category = "backgrounds" file = "00_solid.dds" }
+							colors = { "dark_purple" "black" "null" "null" }
+						}
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_storm_horror } # save_event_target_as = shroud_entity_fleet }
 					}
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = shroud_entity_fleet }
 				}
 				every_playable_country = {
 					limit = { is_ai = no has_policy_flag = incursion_alert_all }
 					country_event = { id = shroud_rising_invasion.2021 }					# Incursion Alert
 				}
-				event_target:shroud_entity_fleet = {
+				event_target:shroud_storm_horror = {
 					while = { count = 3
 						create_fleet = {
 							# name = random
 							settings = { spawn_debris = no is_boss = yes }
 							effect = {
-								set_owner = event_target:shroud_entity_fleet
+								set_owner = event_target:shroud_storm_horror
 								create_ship = { name = "NAME_ancient_god" design = "NAME_Corrupted_Avatar" }
 								set_location = root
 								set_fleet_stance = aggressive
@@ -207,28 +211,31 @@ system_event = {
 			##########################################################################
 			5 = {
 				modifier = { factor = 0 NOT = { has_global_flag = eye_of_terror_open } }
-				create_country = {
-					name = "NAME_shroud_horrors"
-					type = shroud_entities
-					name_list = "SHROUD_HORRORS"
-					flag = {
-						icon = { category = "special" file = "the_shroud.dds" }
-						background = { category = "backgrounds" file = "00_solid.dds" }
-						colors = { "dark_purple" "black" "null" "null" }
+				if = {
+					limit = { NOT = { exists = event_target:shroud_storm_horror } }
+					create_country = {
+						name = "NAME_shroud_horrors"
+						type = shroud_entities
+						name_list = "SHROUD_HORRORS"
+						flag = {
+							icon = { category = "special" file = "the_shroud.dds" }
+							background = { category = "backgrounds" file = "00_solid.dds" }
+							colors = { "dark_purple" "black" "null" "null" }
+						}
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_storm_horror } # save_event_target_as = shroud_entity_fleet }
 					}
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = shroud_entity_fleet }
 				}
 				every_playable_country = {
 					limit = { is_ai = no has_policy_flag = incursion_alert_all }
 					country_event = { id = shroud_rising_invasion.2021 }					# Incursion Alert
 				}
-				event_target:shroud_entity_fleet = {
+				event_target:shroud_storm_horror = {
 					while = { count = 3
 						create_fleet = {
 							# name = random
 							settings = { spawn_debris = no is_boss = yes }
 							effect = {
-								set_owner = event_target:shroud_entity_fleet
+								set_owner = event_target:shroud_storm_horror
 								create_ship = { name = "NAME_ancient_god" design = "NAME_Corrupted_Avatar" }
 								set_location = root
 								set_fleet_stance = aggressive
@@ -242,7 +249,7 @@ system_event = {
 						# name = random
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
-							set_owner = event_target:shroud_entity_fleet
+							set_owner = event_target:shroud_storm_horror
 							create_ship = { name = "NAME_ancient_god" design = "NAME_shroud_entity" }
 							set_location = root
 							set_fleet_stance = aggressive
@@ -258,10 +265,7 @@ system_event = {
 			###############################################
 			40 = {
 				random_galaxy_species = {
-					limit = {
-						is_crossbreeding_possible = yes
-						# can_have_health_issues = yes
-					}
+					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -269,23 +273,24 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic }
-							save_event_target_as = cultist_raid_fleet_species
+							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
+							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
 						}
 					}
 				}
-				create_country = {
-					name = "NAME_shroud_cultist_country"
-					type = shroud_cult
-					species = event_target:cultist_raid_fleet_species
-					name_list = "CULTISTS"
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = cultist_raid_fleet }
+				if = {
+					limit = { NOT = { exists = event_target:cultist_raid_fleet } }
+					create_country = {
+						name = "NAME_shroud_cultist_country"
+						type = shroud_cult
+						species = event_target:cultist_raid_fleet_species
+						name_list = "CULTISTS"
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
+					}
 				}
-				every_playable_country = {
-					limit = { is_ai = no has_policy_flag = incursion_alert_all }
-					country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
-				}
+
 				event_target:cultist_raid_fleet = {
+					change_dominant_species = { species = event_target:cultist_raid_fleet_species }
 					create_leader = {
 						class = commander
 						species = event_target:cultist_raid_fleet_species
@@ -305,48 +310,28 @@ system_event = {
 							while = { count = 4
 								create_ship = { name = random design = "NAME_Outrider" graphical_culture = "pirate_01" }
 							}
+							# corvette
 							while = { count = 2
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "mammalian_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "mammalian_01" }
 							}
+							# corvette
 							while = { count = 2
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "humanoid_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "humanoid_01" }
 							}
+							# corvette
 							while = { count = 3
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "plantoid_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "plantoid_01" }
 							}
+							# destroyer
 							while = { count = 2
-								create_ship = {
-									name = random
-									design = "NAME_Ravager"									# destroyer
-									graphical_culture = "reptilian_01"
-								}
+								create_ship = { name = random design = "NAME_Ravager" graphical_culture = "reptilian_01" }
 							}
+							# cruiser
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Derelict"									# cruiser
-									graphical_culture = "reptilian_01"
-								}
+								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "reptilian_01" }
 							}
 							while = { count = 2
-								create_ship = {
-									name = random
-									design = "NAME_Void_Champion"
-									prefix = no
-									graphical_culture = "pirate_01"
-								}
+								create_ship = { name = random design = "NAME_Void_Champion" prefix = no graphical_culture = "pirate_01" }
 							}
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Reaver" graphical_culture = "pirate_01" }
@@ -372,8 +357,12 @@ system_event = {
 									auto_move_to_planet = { target = event_target:cultist_planet clear_auto_move_on_arrival = no }
 								}
 							}
-							set_leader = last_created_leader
+							assign_leader = last_created_leader
 						}
+					}
+					every_playable_country = {
+						limit = { is_ai = no has_policy_flag = incursion_alert_all }
+						country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
 					}
 				}
 			}
@@ -384,10 +373,7 @@ system_event = {
 				modifier = { factor = 0 mid_game_years_passed < 30 }
 				modifier = { factor = 2 mid_game_years_passed > 45 }
 				random_galaxy_species = {
-					limit = {
-						is_crossbreeding_possible = yes
-						# can_have_health_issues = yes
-					}
+					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -395,35 +381,31 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic }
-							save_event_target_as = cultist_raid_fleet_species
+							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
+							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
 						}
 					}
 				}
-				create_country = {
-					name = "NAME_shroud_cultist_country"
-					type = shroud_cult
-					species = event_target:cultist_raid_fleet_species
-					name_list = "CULTISTS"
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = cultist_raid_fleet }
+				if = {
+					limit = { NOT = { exists = event_target:cultist_raid_fleet } }
+					create_country = {
+						name = "NAME_shroud_cultist_country"
+						type = shroud_cult
+						species = event_target:cultist_raid_fleet_species
+						name_list = "CULTISTS"
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
+					}
 				}
-				every_playable_country = {
-					limit = { is_ai = no has_policy_flag = incursion_alert_all }
-					country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
-				}
+
 				event_target:cultist_raid_fleet = {
+					change_dominant_species = { species = event_target:cultist_raid_fleet_species }
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
 							set_fleet_flag = cultist_fleet
 							set_owner = prev
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Void_Champion"
-									prefix = no
-									graphical_culture = "pirate_01"
-								}
+								create_ship = { name = random design = "NAME_Void_Champion" prefix = no graphical_culture = "pirate_01" }
 							}
 							while = { count = 2
 								create_ship = { name = random design = "NAME_Lancer" graphical_culture = "pirate_01" }
@@ -431,40 +413,25 @@ system_event = {
 							while = { count = 4
 								create_ship = { name = random design = "NAME_Outrider" graphical_culture = "pirate_01" }
 							}
+							# corvette
 							while = { count = 3
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "mammalian_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "mammalian_01" }
 							}
+							# corvette
 							while = { count = 5
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "humanoid_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "humanoid_01" }
 							}
+							# corvette
 							while = { count = 6
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "plantoid_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "plantoid_01" }
 							}
+							# destroyer
 							while = { count = 2
-								create_ship = {
-									name = random
-									design = "NAME_Ravager"									# destroyer
-									graphical_culture = "reptilian_01"
-								}
+								create_ship = { name = random design = "NAME_Ravager" graphical_culture = "reptilian_01" }
 							}
+							# cruiser
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Derelict"									# cruiser
-									graphical_culture = "reptilian_01"
-								}
+								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "reptilian_01" }
 							}
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Reaver" graphical_culture = "pirate_01" }
@@ -510,22 +477,22 @@ system_event = {
 								has_fleet_flag = cultist_fleet
 								NOT = { exists = leader }
 							}
-							set_leader = last_created_leader
+							assign_leader = last_created_leader
 						}
+					}
+					every_playable_country = {
+						limit = { is_ai = no has_policy_flag = incursion_alert_all }
+						country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
 					}
 				}
 			}
 			###############################################
 			########  Big Cultist Fleet (25k) #############
 			###############################################
-			5 = {
+			10 = {
 				modifier = { factor = 0 mid_game_years_passed < 75 }
-				modifier = { factor = 2 mid_game_years_passed > 75 }
 				random_galaxy_species = {
-					limit = {
-						is_crossbreeding_possible = yes
-						# can_have_health_issues = yes
-					}
+					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -533,23 +500,38 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic }
-							save_event_target_as = cultist_raid_fleet_species
+							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
+							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
 						}
 					}
 				}
-				create_country = {
-					name = "NAME_shroud_cultist_country"
-					type = shroud_cult
-					species = event_target:cultist_raid_fleet_species
-					name_list = "CULTISTS"
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = cultist_raid_fleet }
+				if = {
+					limit = { NOT = { exists = event_target:cultist_raid_fleet } }
+					create_country = {
+						name = "NAME_shroud_cultist_country"
+						type = shroud_cult
+						species = event_target:cultist_raid_fleet_species
+						name_list = "CULTISTS"
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
+					}
 				}
-				every_playable_country = {
-					limit = { is_ai = no has_policy_flag = incursion_alert_all }
-					country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
-				}
+
 				event_target:cultist_raid_fleet = {
+					change_dominant_species = { species = event_target:cultist_raid_fleet_species }
+					create_leader = {
+						class = commander
+						species = event_target:cultist_raid_fleet_species
+						name = random
+						skill = 3
+						leader_age_min = 25
+						leader_age_max = 45
+						traits = { trait = subclass_commander_admiral trait = leader_trait_psionic }
+					}
+					country_event = { id = shroud_rising_invasion.10 }	# Event to gauge neutrality toward shrouded country, with selector for cult countries' neutrality.
+					every_playable_country = {
+						limit = { is_ai = no has_policy_flag = incursion_alert_all }
+						country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
+					}
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
@@ -564,61 +546,37 @@ system_event = {
 							while = { count = 4
 								create_ship = { name = random design = "NAME_Outrider" graphical_culture = "pirate_01" }
 							}
+							# corvette
 							while = { count = 3
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "mammalian_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "mammalian_01" }
 							}
+							# corvette
 							while = { count = 5
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "humanoid_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "humanoid_01" }
 							}
+							# corvette
 							while = { count = 6
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "plantoid_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "plantoid_01" }
 							}
+							# destroyer
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Ravager"									# destroyer
-									graphical_culture = "reptilian_01"
-								}
+								create_ship = { name = random design = "NAME_Ravager" graphical_culture = "reptilian_01" }
 							}
+							# destroyer
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Ravager"									# destroyer
-									graphical_culture = "avian_01"
-								}
+								create_ship = { name = random design = "NAME_Ravager" graphical_culture = "avian_01" }
 							}
+							# cruiser
 							while = { count = 3
-								create_ship = {
-									name = random
-									design = "NAME_Derelict"									# cruiser
-									graphical_culture = "reptilian_01"
-								}
+								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "reptilian_01" }
 							}
+							# cruiser
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Derelict"									# cruiser
-									graphical_culture = "humanoid_01"
-								}
+								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "humanoid_01" }
 							}
+							# cruiser
 							while = { count = 2
-								create_ship = {
-									name = random
-									design = "NAME_Derelict"									# cruiser
-									graphical_culture = "mammalian_01"
-								}
+								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "mammalian_01" }
 							}
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Reaver" graphical_culture = "pirate_01" }
@@ -652,31 +610,17 @@ system_event = {
 							}
 						}
 					}
-					create_leader = {
-						class = commander
-						species = event_target:cultist_raid_fleet_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = { trait = subclass_commander_admiral trait = leader_trait_psionic }
-					}
 					last_created_fleet = {
 						if = {
 							limit = {
 								has_fleet_flag = cultist_fleet
 								NOT = { exists = leader }
 							}
-							set_leader = last_created_leader
+							assign_leader = last_created_leader
 						}
 					}
 				}
 			}
-		}
-		# Event to see if will be neutral to a shroud country
-		every_playable_country = {
-			limit = { has_valid_civic = civic_shroud_worship }
-			country_event = { id = shroud_rising_invasion.10 }				# Selector for individual cult countries neutrality
 		}
 		set_timed_star_flag = { flag = rift_spawn_cooldown months = 2 }		# Prevents spawning in the same system
 	}
@@ -701,21 +645,9 @@ event = {
 		event_target:global_event_country = {
 			# Spawn up to 3 x enemies, triggers the spawn selector
 			random_list = {
-				# 2 years
-				33 = {
-					country_event = { id = shroud_rising_invasion.2000 days = 25 random = 30 }
-					# 720
-				}
-				# 3 years
-				33 = {
-					country_event = { id = shroud_rising_invasion.2000 days = 45 random = 30 }
-					# 1095
-				}
-				# 4 years
-				33 = {
-					country_event = { id = shroud_rising_invasion.2000 days = 90 random = 30 }
-					# 1460
-				}
+				33 = { country_event = { id = shroud_rising_invasion.2000 days = 30 random = 30 } } # 2 years # 720
+				33 = { country_event = { id = shroud_rising_invasion.2000 days = 60 random = 30 } } # 3 years # 1095
+				33 = { country_event = { id = shroud_rising_invasion.2000 days = 120 random = 30 } } # 4 years # 1460
 			}
 		}
 	}
@@ -743,7 +675,7 @@ country_event = {
 }
 
 # eye_of_terror_system
-# Spawn selector event for greater rifts
+# Spawn selector event for greater rifts (indirect on_yearly_pulse)
 system_event = {
 	id = shroud_rising_invasion.4
 	hide_window = yes
@@ -757,33 +689,32 @@ system_event = {
 			######## 2 x Corrupt Avatar (~5-10k ea) ##########
 			###############################################
 			30 = {
-				#30
-				modifier = { factor = 0 OR = { mid_game_years_passed < 45 mid_game_years_passed > 75 } }
-				create_country = {
-					name = "NAME_shroud_horrors"
-					type = shroud_entities
-					name_list = "SHROUD_HORRORS"
-					flag = {
-						icon = { category = "special" file = "the_shroud.dds" }
-						background = { category = "backgrounds" file = "00_solid.dds" }
-						colors = { "dark_purple" "black" "null" "null" }
+				modifier = { factor = 0 OR = { mid_game_years_passed < 45 end_game_years_passed > 75 } }
+				if = {
+					limit = { NOT = { exists = event_target:shroud_storm_horror } }
+					create_country = {
+						name = "NAME_shroud_horrors"
+						type = shroud_entities
+						name_list = "SHROUD_HORRORS"
+						flag = {
+							icon = { category = "special" file = "the_shroud.dds" }
+							background = { category = "backgrounds" file = "00_solid.dds" }
+							colors = { "dark_purple" "black" "null" "null" }
+						}
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_storm_horror } # save_event_target_as = shroud_entity_fleet }
 					}
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = shroud_entity_fleet }
 				}
-				every_playable_country = {
-					limit = { has_valid_civic = civic_shroud_worship }
-					country_event = { id = shroud_rising_invasion.10 }					# Selector for individual cult countries neutrality
-				}
-				every_playable_country = {
-					limit = { is_ai = no has_policy_flag = incursion_alert_all }
-					country_event = { id = shroud_rising_invasion.2021 }					# Incursion Alert
-				}
-				event_target:shroud_entity_fleet = {
+				event_target:shroud_storm_horror = {
+					country_event = { id = shroud_rising_invasion.10 }	# Event to gauge neutrality toward shrouded country, with selector for cult countries' neutrality.
+					every_playable_country = {
+						limit = { is_ai = no has_policy_flag = incursion_alert_all }
+						country_event = { id = shroud_rising_invasion.2021 }					# Incursion Alert
+					}
 					create_fleet = {
 						# name = random
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
-							set_owner = event_target:shroud_entity_fleet
+							set_owner = event_target:shroud_storm_horror
 							create_ship = { name = "NAME_ancient_god" design = "NAME_Corrupted_Avatar" }
 							set_location = root
 							set_fleet_stance = aggressive
@@ -796,7 +727,7 @@ system_event = {
 						# name = random
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
-							set_owner = event_target:shroud_entity_fleet
+							set_owner = event_target:shroud_storm_horror
 							create_ship = { name = "NAME_ancient_god" design = "NAME_Corrupted_Avatar" }
 							set_location = root
 							set_fleet_stance = aggressive
@@ -811,33 +742,33 @@ system_event = {
 			########  3 x Corrupt Avatar (10k ea) + 1 x Entity (20k ea) ###########
 			#######################################################################
 			10 = {
-				#15
-				modifier = { factor = 0 OR = { mid_game_years_passed < 45 mid_game_years_passed > 50 } }
-				create_country = {
-					name = "NAME_shroud_horrors"
-					type = shroud_entities
-					name_list = "SHROUD_HORRORS"
-					flag = {
-						icon = { category = "special" file = "the_shroud.dds" }
-						background = { category = "backgrounds" file = "00_solid.dds" }
-						colors = { "dark_purple" "black" "null" "null" }
+				modifier = { factor = 0 OR = { mid_game_years_passed < 45 end_game_years_passed > 50 } }
+				if = {
+					limit = { NOT = { exists = event_target:shroud_storm_horror } }
+					create_country = {
+						name = "NAME_shroud_horrors"
+						type = shroud_entities
+						name_list = "SHROUD_HORRORS"
+						flag = {
+							icon = { category = "special" file = "the_shroud.dds" }
+							background = { category = "backgrounds" file = "00_solid.dds" }
+							colors = { "dark_purple" "black" "null" "null" }
+						}
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_storm_horror } # save_event_target_as = shroud_entity_fleet }
 					}
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = shroud_entity_fleet }
 				}
-				every_playable_country = {
-					limit = { has_valid_civic = civic_shroud_worship }
-					country_event = { id = shroud_rising_invasion.10 }					# Selector for individual cult countries neutrality
-				}
-				every_playable_country = {
-					limit = { is_ai = no has_policy_flag = incursion_alert_all }
-					country_event = { id = shroud_rising_invasion.2021 }					# Incursion Alert
-				}
-				event_target:shroud_entity_fleet = {
+
+				event_target:shroud_storm_horror = {
+					country_event = { id = shroud_rising_invasion.10 }	# Event to gauge neutrality toward shrouded country, with selector for cult countries' neutrality.
+					every_playable_country = {
+						limit = { is_ai = no has_policy_flag = incursion_alert_all }
+						country_event = { id = shroud_rising_invasion.2021 }					# Incursion Alert
+					}
 					create_fleet = {
 						# name = random
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
-							set_owner = event_target:shroud_entity_fleet
+							set_owner = event_target:shroud_storm_horror
 							create_ship = { name = "NAME_ancient_god" design = "NAME_Corrupted_Avatar" }
 							set_location = root
 							set_fleet_stance = aggressive
@@ -850,7 +781,7 @@ system_event = {
 						# name = random
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
-							set_owner = event_target:shroud_entity_fleet
+							set_owner = event_target:shroud_storm_horror
 							create_ship = { name = "NAME_ancient_god" design = "NAME_Corrupted_Avatar" }
 							set_location = root
 							set_fleet_stance = aggressive
@@ -863,7 +794,7 @@ system_event = {
 						# name = random
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
-							set_owner = event_target:shroud_entity_fleet
+							set_owner = event_target:shroud_storm_horror
 							create_ship = { name = "NAME_ancient_god" design = "NAME_Corrupted_Avatar" }
 							set_location = root
 							set_fleet_stance = aggressive
@@ -876,7 +807,7 @@ system_event = {
 						# name = random
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
-							set_owner = event_target:shroud_entity_fleet
+							set_owner = event_target:shroud_storm_horror
 							create_ship = { name = "NAME_ancient_god" design = "NAME_shroud_entity" }
 							set_location = root
 							set_fleet_stance = aggressive
@@ -892,31 +823,31 @@ system_event = {
 			#############################################
 			5 = {
 				modifier = { factor = 0 NAND = { has_global_flag = eye_of_terror_open mid_game_years_passed < 75 } }
-				create_country = {
-					name = "NAME_shroud_horrors"
-					type = shroud_entities
-					name_list = "SHROUD_HORRORS"
-					flag = {
-						icon = { category = "special" file = "the_shroud.dds" }
-						background = { category = "backgrounds" file = "00_solid.dds" }
-						colors = { "dark_purple" "black" "null" "null" }
+				if = {
+					limit = { NOT = { exists = event_target:shroud_storm_horror } }
+					create_country = {
+						name = "NAME_shroud_horrors"
+						type = shroud_entities
+						name_list = "SHROUD_HORRORS"
+						flag = {
+							icon = { category = "special" file = "the_shroud.dds" }
+							background = { category = "backgrounds" file = "00_solid.dds" }
+							colors = { "dark_purple" "black" "null" "null" }
+						}
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_storm_horror } # save_event_target_as = shroud_entity_fleet }
 					}
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = shroud_entity_fleet }
 				}
-				every_playable_country = {
-					limit = { has_valid_civic = civic_shroud_worship }
-					country_event = { id = shroud_rising_invasion.10 }					# Selector for individual cult countries neutrality
-				}
-				every_playable_country = {
-					limit = { is_ai = no has_policy_flag = incursion_alert_all }
-					country_event = { id = shroud_rising_invasion.2021 }					# Incursion Alert
-				}
-				event_target:shroud_entity_fleet = {
+				event_target:shroud_storm_horror = {
+					country_event = { id = shroud_rising_invasion.10 }	# Event to gauge neutrality toward shrouded country, with selector for cult countries' neutrality.
+					every_playable_country = {
+						limit = { is_ai = no has_policy_flag = incursion_alert_all }
+						country_event = { id = shroud_rising_invasion.2021 }					# Incursion Alert
+					}
 					create_fleet = {
 						# name = random
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
-							set_owner = event_target:shroud_entity_fleet
+							set_owner = event_target:shroud_storm_horror
 							create_ship = { name = "NAME_ancient_god" design = "NAME_shroud_entity" }
 							set_location = root
 							set_fleet_stance = aggressive
@@ -929,7 +860,7 @@ system_event = {
 						# name = random
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
-							set_owner = event_target:shroud_entity_fleet
+							set_owner = event_target:shroud_storm_horror
 							create_ship = { name = "NAME_ancient_god" design = "NAME_shroud_entity" }
 							set_location = root
 							set_fleet_stance = aggressive
@@ -942,7 +873,7 @@ system_event = {
 						# name = random
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
-							set_owner = event_target:shroud_entity_fleet
+							set_owner = event_target:shroud_storm_horror
 							create_ship = { name = "NAME_ancient_god" design = "NAME_shroud_entity" }
 							set_location = root
 							set_fleet_stance = aggressive
@@ -955,7 +886,7 @@ system_event = {
 						# name = random
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
-							set_owner = event_target:shroud_entity_fleet
+							set_owner = event_target:shroud_storm_horror
 							create_ship = { name = "NAME_ancient_god" design = "NAME_shroud_entity" }
 							set_location = root
 							set_fleet_stance = aggressive
@@ -970,14 +901,9 @@ system_event = {
 			########  Large Cultist Fleet (25k) #############
 			###############################################
 			40 = {
-				#40
 				modifier = { factor = 0 mid_game_years_passed < 45 }
-				# modifier = { factor = 2 mid_game_years_passed > 45 }
 				random_galaxy_species = {
-					limit = {
-						is_crossbreeding_possible = yes
-						# can_have_health_issues = yes
-					}
+					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -985,28 +911,37 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic }
-							save_event_target_as = cultist_raid_fleet_species
+							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
+							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
 						}
 					}
 				}
-				create_country = {
-					name = "NAME_shroud_cultist_country"
-					type = shroud_cult
-					species = event_target:cultist_raid_fleet_species
-					name_list = "CULTISTS"
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = cultist_raid_fleet }
-				}
-				# Event to see if will be neutral to a shroud country
-				every_playable_country = {
-					limit = { has_valid_civic = civic_shroud_worship }
-					country_event = { id = shroud_rising_invasion.10 }					# Selector for individual cult countries neutrality
-				}
-				every_playable_country = {
-					limit = { is_ai = no has_policy_flag = incursion_alert_all }
-					country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
+				if = {
+					limit = { NOT = { exists = event_target:cultist_raid_fleet } }
+					create_country = {
+						name = "NAME_shroud_cultist_country"
+						type = shroud_cult
+						species = event_target:cultist_raid_fleet_species
+						name_list = "CULTISTS"
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
+					}
 				}
 				event_target:cultist_raid_fleet = {
+					change_dominant_species = { species = event_target:cultist_raid_fleet_species }
+					create_leader = {
+						class = commander
+						species = event_target:cultist_raid_fleet_species
+						name = random
+						skill = 3
+						leader_age_min = 25
+						leader_age_max = 45
+						traits = { trait = subclass_commander_admiral trait = leader_trait_psionic }
+					}
+					country_event = { id = shroud_rising_invasion.10 }	# Event to gauge neutrality toward shrouded country, with selector for cult countries' neutrality.
+					every_playable_country = {
+						limit = { is_ai = no has_policy_flag = incursion_alert_all }
+						country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
+					}
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
@@ -1021,61 +956,37 @@ system_event = {
 							while = { count = 4
 								create_ship = { name = random design = "NAME_Outrider" graphical_culture = "pirate_01" }
 							}
+							# corvette
 							while = { count = 3
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "mammalian_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "mammalian_01" }
 							}
+							# corvette
 							while = { count = 5
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "humanoid_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "humanoid_01" }
 							}
+							# corvette
 							while = { count = 6
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "plantoid_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "plantoid_01" }
 							}
+							# destroyer
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Ravager"									# destroyer
-									graphical_culture = "reptilian_01"
-								}
+								create_ship = { name = random design = "NAME_Ravager" graphical_culture = "reptilian_01" }
 							}
+							# destroyer
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Ravager"									# destroyer
-									graphical_culture = "avian_01"
-								}
+								create_ship = { name = random design = "NAME_Ravager" graphical_culture = "avian_01" }
 							}
+							# cruiser
 							while = { count = 3
-								create_ship = {
-									name = random
-									design = "NAME_Derelict"									# cruiser
-									graphical_culture = "reptilian_01"
-								}
+								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "reptilian_01" }
 							}
+							# cruiser
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Derelict"									# cruiser
-									graphical_culture = "humanoid_01"
-								}
+								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "humanoid_01" }
 							}
+							# cruiser
 							while = { count = 2
-								create_ship = {
-									name = random
-									design = "NAME_Derelict"									# cruiser
-									graphical_culture = "mammalian_01"
-								}
+								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "mammalian_01" }
 							}
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Reaver" graphical_culture = "pirate_01" }
@@ -1109,22 +1020,13 @@ system_event = {
 							}
 						}
 					}
-					create_leader = {
-						class = commander
-						species = event_target:cultist_raid_fleet_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = { trait = subclass_commander_admiral trait = leader_trait_psionic }
-					}
 					last_created_fleet = {
 						if = {
 							limit = {
 								has_fleet_flag = cultist_fleet
 								NOT = { exists = leader }
 							}
-							set_leader = last_created_leader
+							assign_leader = last_created_leader
 						}
 					}
 				}
@@ -1134,12 +1036,8 @@ system_event = {
 			################################################
 			15 = {
 				modifier = { factor = 0 mid_game_years_passed < 65 }
-				# modifier = { factor = 2 mid_game_years_passed > 65 }
 				random_galaxy_species = {
-					limit = {
-						is_crossbreeding_possible = yes
-						# can_have_health_issues = yes
-					}
+					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -1147,28 +1045,23 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic }
-							save_event_target_as = cultist_raid_fleet_species
+							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
+							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
 						}
 					}
 				}
-				create_country = {
-					name = "NAME_shroud_cultist_country"
-					type = shroud_cult
-					species = event_target:cultist_raid_fleet_species
-					name_list = "CULTISTS"
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = cultist_raid_fleet }
-				}
-				# Event to see if will be neutral to a shroud country
-				every_playable_country = {
-					limit = { has_valid_civic = civic_shroud_worship }
-					country_event = { id = shroud_rising_invasion.10 }					# Selector for individual cult countries neutrality
-				}
-				every_playable_country = {
-					limit = { is_ai = no has_policy_flag = incursion_alert_all }
-					country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
+				if = {
+					limit = { NOT = { exists = event_target:cultist_raid_fleet } }
+					create_country = {
+						name = "NAME_shroud_cultist_country"
+						type = shroud_cult
+						species = event_target:cultist_raid_fleet_species
+						name_list = "CULTISTS"
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
+					}
 				}
 				event_target:cultist_raid_fleet = {
+					change_dominant_species = { species = event_target:cultist_raid_fleet_species }
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
@@ -1216,11 +1109,11 @@ system_event = {
 								limit = {
 									any_system_colony = {
 										NOR = { has_planet_flag = cultist_raid_target has_modifier = recent_cult_invasion }
-										num_sapient_pops > 20
+										num_pops > 20
 									}
 								}
 								random_system_colony = {
-									limit = { num_sapient_pops > 20 }
+									limit = { num_pops > 20 }
 									set_timed_planet_flag = { flag = cultist_raid_target months = 20 }
 									save_event_target_as = cultist_planet
 								}
@@ -1245,18 +1138,21 @@ system_event = {
 								has_fleet_flag = cultist_fleet
 								NOT = { exists = leader }
 							}
-							set_leader = last_created_leader
+							assign_leader = last_created_leader
 						}
+					}
+					country_event = { id = shroud_rising_invasion.10 }	# Event to gauge neutrality toward shrouded country, with selector for cult countries' neutrality.
+					every_playable_country = {
+						limit = { is_ai = no has_policy_flag = incursion_alert_all }
+						country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
 					}
 				}
 			}
 			###############################################
 			########  Avatar (50k) #############
 			###############################################
-			5 = {
-				#5
+			25 = {
 				modifier = { factor = 0 mid_game_years_passed < 25 }
-				modifier = { factor = 5 mid_game_years_passed > 25 }
 				modifier = { factor = 10 mid_game_years_passed > 50 }
 				if = {
 					limit = { NOT = { exists = event_target:shroud_horror_fleet } }
@@ -1279,7 +1175,7 @@ system_event = {
 	}
 }
 
-# Selector to Spawn Shroud Horror
+# Selector to Spawn Shroud Horror (indirect on_yearly_pulse)
 system_event = {
 	id = shroud_rising_invasion.50
 	hide_window = yes
@@ -1374,7 +1270,6 @@ system_event = {
 			}
 		}
 		last_created_fleet = {
-			save_event_target_as = shroud_horror_fleet_name
 			set_location = root
 			set_fleet_stance = aggressive
 			set_fleet_bombardment_stance = devour
@@ -1484,7 +1379,6 @@ system_event = {
 			set_fleet_bombardment_stance = devour
 			set_aggro_range_measure_from = self
 			set_aggro_range = 300
-			save_event_target_as = shroud_horror_fleet_name
 		}
 	}
 }
@@ -1502,16 +1396,26 @@ system_event = {
 	immediate = {
 		if = {
 			limit = { NOT = { exists = event_target:shroud_horror_country } }
+			create_species = {
+				name = "NAME_shroud_horrors"
+				class = random_non_machine
+				portrait = random
+				traits = random
+				effect = {
+					modify_species = { add_trait = trait_psionic }
+				}
+			}
 			create_country = {
 				name = "NAME_shroud_horrors"
 				type = shroud_horrors
+				species = last_created_species
 				name_list = "SHROUD_HORRORS"
 				flag = {
 					icon = { category = "special" file = "the_shroud.dds" }
 					background = { category = "backgrounds" file = "00_solid.dds" }
 					colors = { "dark_purple" "black" "null" "null" }
 				}
-				effect = { apply_shroud_rising_difficulty = yes save_event_target_as = shroud_horror_country }
+				effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_horror_country }
 			}
 		}
 		create_fleet = {
@@ -1575,7 +1479,7 @@ event = {
 	}
 }
 
-# Spawn selector event for Eye of Terror
+# Spawn selector event for Eye of Terror (indirect on_decade_pulse)
 system_event = {
 	id = shroud_rising_invasion.8
 	hide_window = yes
@@ -1591,10 +1495,7 @@ system_event = {
 			25 = {
 				#40
 				random_galaxy_species = {
-					limit = {
-						is_crossbreeding_possible = yes
-						# can_have_health_issues = yes
-					}
+					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -1602,31 +1503,24 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic }
-							save_event_target_as = cultist_raid_fleet_species
+							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
+							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
 						}
 					}
 				}
-				create_country = {
-					name = "NAME_shroud_cultist_country"
-					type = shroud_cult
-					species = event_target:cultist_raid_fleet_species
-					name_list = "CULTISTS"
-					effect = { apply_shroud_rising_difficulty = yes save_event_target_as = cultist_raid_fleet }
-				}
-				# Event to see if will be neutral to a shroud country
-				every_playable_country = {
-					limit = { has_valid_civic = civic_shroud_worship }
-					country_event = { id = shroud_rising_invasion.10 }					# Selector for individual cult countries neutrality
-				}
-				every_playable_country = {
-					limit = {
-						is_ai = no
-						OR = { has_policy_flag = incursion_alert_all has_policy_flag = incursion_alert_major }
+				if = {
+					limit = { NOT = { exists = event_target:cultist_raid_fleet } }
+					create_country = {
+						name = "NAME_shroud_cultist_country"
+						type = shroud_cult
+						species = event_target:cultist_raid_fleet_species
+						name_list = "CULTISTS"
+						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
 					}
-					country_event = { id = shroud_rising_invasion.2012 }					# Incursion Alert
 				}
+
 				event_target:cultist_raid_fleet = {
+					change_dominant_species = { species = event_target:cultist_raid_fleet_species }
 					create_leader = {
 						class = commander
 						species = event_target:cultist_raid_fleet_species
@@ -1636,12 +1530,17 @@ system_event = {
 						leader_age_max = 45
 						traits = { trait = subclass_commander_admiral trait = leader_trait_psionic }
 					}
+					country_event = { id = shroud_rising_invasion.10 }	# Event to gauge neutrality toward shrouded country, with selector for cult countries' neutrality.
+					every_playable_country = {
+						limit = {
+							is_ai = no
+							OR = { has_policy_flag = incursion_alert_all has_policy_flag = incursion_alert_major }
+						}
+						country_event = { id = shroud_rising_invasion.2012 }					# Incursion Alert
+					}
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
-							set_fleet_flag = cultist_fleet
-							set_owner = prev
-							assign_leader = last_created_leader
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Eternal" graphical_culture = "fallen_empire_04" }
 							}
@@ -1696,77 +1595,60 @@ system_event = {
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Zealot" graphical_culture = "fallen_empire_03" }
 							}
+							# corvette
 							while = { count = 3
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "mammalian_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "mammalian_01" }
 							}
+							# corvette
 							while = { count = 5
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "humanoid_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "humanoid_01" }
 							}
+							# corvette
 							while = { count = 5
-								create_ship = {
-									name = random
-									design = "NAME_Dagger"									# corvette
-									graphical_culture = "plantoid_01"
-								}
+								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "plantoid_01" }
 							}
+							# destroyer
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Ravager"									# destroyer
-									graphical_culture = "reptilian_01"
-								}
+								create_ship = { name = random design = "NAME_Ravager" graphical_culture = "reptilian_01" }
 							}
+							# destroyer
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Ravager"									# destroyer
-									graphical_culture = "avian_01"
-								}
+								create_ship = { name = random design = "NAME_Ravager" graphical_culture = "avian_01" }
 							}
+							# cruiser
 							while = { count = 2
-								create_ship = {
-									name = random
-									design = "NAME_Derelict"									# cruiser
-									graphical_culture = "reptilian_01"
-								}
+								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "reptilian_01" }
 							}
+							# cruiser
 							while = { count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Derelict"									# cruiser
-									graphical_culture = "humanoid_01"
-								}
+								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "humanoid_01" }
 							}
-							set_location = event_target:eye_of_terror_system
+							set_fleet_flag = cultist_fleet
+							set_owner = prev
+							set_location = root # event_target:eye_of_terror_system
 							set_fleet_stance = aggressive
 							set_aggro_range = 150
 							set_aggro_range_measure_from = self
 							set_fleet_bombardment_stance = indiscriminate
-							closest_system = {
-								limit = {
-									any_system_colony = {
-										NOR = { has_planet_flag = cultist_raid_target has_modifier = recent_cult_invasion }
-										num_sapient_pops > 25
-									}
-								}
-								random_system_colony = {
-									limit = { num_sapient_pops > 25 }
-									set_timed_planet_flag = { flag = cultist_raid_target months = 20 }
-									save_event_target_as = cultist_planet
-								}
-								prev = {
-									auto_move_to_planet = { target = event_target:cultist_planet clear_auto_move_on_arrival = no }
+							assign_leader = last_created_leader
+						}
+					}
+					last_created_fleet = {
+						closest_system = {
+							limit = {
+								any_system_colony = {
+									NOR = { has_planet_flag = cultist_raid_target has_modifier = recent_cult_invasion }
+									num_pops > 25
 								}
 							}
-							set_leader = last_created_leader
+							random_system_colony = {
+								limit = { num_pops > 25 }
+								set_timed_planet_flag = { flag = cultist_raid_target months = 20 }
+								save_event_target_as = cultist_planet
+							}
+							prev = {
+								auto_move_to_planet = { target = event_target:cultist_planet clear_auto_move_on_arrival = no }
+							}
 						}
 					}
 				}
@@ -1775,7 +1657,6 @@ system_event = {
 			########  Avatar (50k) #############
 			###############################################
 			65 = {
-				#15
 				if = {
 					limit = { NOT = { exists = event_target:shroud_horror_fleet } }
 					create_country = {
@@ -1790,21 +1671,17 @@ system_event = {
 						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_horror_fleet }
 					}
 				}
-				# Event to see if will be neutral to a shroud country
-				every_playable_country = {
-					limit = { has_valid_civic = civic_shroud_worship }
-					country_event = { id = shroud_rising_invasion.10 }					# Selector for individual cult countries neutrality
-				}
+				# Event to gauge neutrality toward shrouded country, with selector for cult countries' neutrality.
+				event_target:shroud_horror_fleet = { country_event = { id = shroud_rising_invasion.10 } }
 				system_event = { id = shroud_rising_invasion.51 }				# 180 choose a Greater Shroud Horror to spawn
 			}
 			###############################################
 			########  Cosmic Horror (150-200k) #############
 			###############################################
 			5 = {
-				#5
 				modifier = { factor = 0 mid_game_years_passed < 75 }
-				modifier = { factor = 3 end_game_years_passed > 5 }
-				modifier = { factor = 10 end_game_years_passed > 25 }
+				modifier = { factor = 3 end_game_years_passed > 2 }
+				modifier = { factor = 10 end_game_years_passed > 28 }
 				if = {
 					limit = { NOT = { exists = event_target:shroud_horror_fleet } }
 					create_country = {
@@ -1833,6 +1710,11 @@ system_event = {
 						effect = {
 							set_owner = prev
 							create_ship = { name = "NAME_cosmic_horror" design = "NAME_cosmic_horror" }
+							set_location = root # event_target:eye_of_terror_system
+							set_fleet_stance = aggressive
+							set_aggro_range = 300
+							set_aggro_range_measure_from = self
+							set_fleet_bombardment_stance = devour
 						}
 					}
 				}
@@ -1841,9 +1723,7 @@ system_event = {
 			########  Ancient God (k) #############
 			###############################################
 			1 = {
-				modifier = {
-					factor = 0
-					end_game_years_passed < 15
+				modifier = { factor = 0 end_game_years_passed < 15
 					OR = { has_global_flag = ancient_god_active has_global_flag = ancient_god_defeated }
 				}
 				modifier = { factor = 2 end_game_years_passed > 25 }
@@ -1865,7 +1745,7 @@ planet_event = {
 	location = root
 	is_triggered_only = yes
 	trigger = {
-		OR = { planet_devastation >= 100 num_sapient_pops <= 1 }
+		OR = { planet_devastation > 99 num_sapient_pops < 2 }
 		from = { is_country_type = shroud_horrors }
 	}
 	immediate = {
@@ -1885,35 +1765,35 @@ planet_event = {
 			change_variable = { which = "shroud_planets" value = 1 }
 		}
 		if = {
-			limit = { num_sapient_pops >= 200 }
+			limit = { num_pops >= 200 }
 			every_playable_country = {
 				limit = { has_event_chain = "eye_of_terror_incursion_chain" }
 				add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 200000 }
 			}
 		}
 		else_if = {
-			limit = { num_sapient_pops >= 100 num_sapient_pops < 200 }
+			limit = { num_pops >= 100 num_pops < 200 }
 			every_playable_country = {
 				limit = { has_event_chain = "eye_of_terror_incursion_chain" }
 				add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 100000 }
 			}
 		}
 		else_if = {
-			limit = { num_sapient_pops > 50 num_sapient_pops < 100 }
+			limit = { num_pops > 50 num_pops < 100 }
 			every_playable_country = {
 				limit = { has_event_chain = "eye_of_terror_incursion_chain" }
 				add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 50000 }
 			}
 		}
 		else_if = {
-			limit = { num_sapient_pops > 50 num_sapient_pops < 25 }
+			limit = { num_pops > 50 num_pops < 25 }
 			every_playable_country = {
 				limit = { has_event_chain = "eye_of_terror_incursion_chain" }
 				add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 20000 }
 			}
 		}
 		else_if = {
-			limit = { num_sapient_pops <= 25 }
+			limit = { num_pops <= 25 }
 			every_playable_country = {
 				limit = { has_event_chain = "eye_of_terror_incursion_chain" }
 				add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 10000 }
@@ -1946,33 +1826,37 @@ planet_event = {
 ###############################################
 ###### Shroud Cult Empire events ####################
 ###############################################
-##### Event to see if will be neutral to a shroud country
+##### Event to see if will be neutral to a shroud country (has civic_shroud_worship)
+# Root = shroud_storm_horror or cultist_raid_fleet not playable
 country_event = {
 	id = shroud_rising_invasion.10
 	hide_window = yes
 	is_triggered_only = yes
-	# trigger = { has_valid_civic = civic_shroud_worship }
+	trigger = {
+		# exists = event_target:shroud_storm_horror
+		is_ai = yes
+		any_playable_country = { has_civic = civic_shroud_worship is_hostile = root }
+	}
 	immediate = {
-		if = {
-			limit = { NOT = { exists = event_target:shroud_entity_fleet } }
-			last_created_country = { save_event_target_as = shroud_entity_fleet }
-		}
 		# Chance for cult empires to become neutral
-		event_target:shroud_entity_fleet = {
-			random = { chance = 25
-				set_faction_hostility = { set_hostile = no set_neutral = yes target = root }
+		random_playable_country = { # it repeats every year
+			limit = { is_ai = yes has_civic = civic_shroud_worship is_hostile = root }
+			root = {
+				random = { chance = 33 # 25
+					set_faction_hostility = { set_hostile = no set_neutral = yes target = prev }
+				}
 			}
 		}
+		# For terror re-opener
 		if = {
-			limit = { any_country = { has_country_flag = eye_of_terror_reopened_country } }
-			random_country = {
-				limit = { has_country_flag = eye_of_terror_reopened_country }
-				save_event_target_as = eye_of_terror_reopened_country
-			}
-			# For terror re-opener
-			event_target:shroud_entity_fleet = {
-				random = { chance = 50
-					set_faction_hostility = { set_hostile = no set_neutral = yes target = event_target:eye_of_terror_reopened_country }
+			limit = { any_playable_country = { is_ai = yes has_country_flag = eye_of_terror_reopened_country is_hostile = root } }
+			random_playable_country = {
+				limit = { is_ai = yes has_country_flag = eye_of_terror_reopened_country is_hostile = root }
+				# save_event_target_as = eye_of_terror_reopened_country
+				root = {
+					random = { chance = 50
+						set_faction_hostility = { set_hostile = no set_neutral = yes target = prev }
+					}
 				}
 			}
 		}
@@ -1989,7 +1873,7 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		OR = { planet_devastation >= 100 num_sapient_pops <= 2 }
+		OR = { planet_devastation >= 100 num_pops <= 2 }
 		from = { is_country_type = shroud_cult }
 		NOT = { has_modifier = recent_cult_invasion }
 	}
@@ -2007,7 +1891,7 @@ planet_event = {
 		set_planet_flag = shroud_cult_invasion
 		set_timed_planet_flag = { flag = recent_cult_influence years = 10 }
 		random_galaxy_species = {
-			limit = { is_crossbreeding_possible = yes can_have_health_issues = yes }
+			limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
 			create_species = {
 				name = "NAME_shroud_cultists"
 				class = this # random_non_machine
@@ -2015,8 +1899,8 @@ planet_event = {
 				portrait = this # random
 				traits = random
 				effect = {
-					modify_species = { add_trait = trait_psionic }
-					save_event_target_as = cultist_raid_fleet_species
+					modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
+							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
 				}
 			}
 		}
@@ -2054,7 +1938,7 @@ planet_event = {
 			}
 			random_owned_army = {
 				limit = { NOT = { exists = leader } }
-				set_leader = last_created_leader
+				assign_leader = last_created_leader
 			}
 		}
 	}
@@ -2105,15 +1989,12 @@ planet_event = {
 	option = {
 		name = "astral_rift.50.a"
 		custom_tooltip = shroud_rising_invasion.13.a.tooltip
-		random_owned_pop = { kill_pop = yes }
-		owner = {
-			hidden_effect = {
+		hidden_effect = {
+			random_owned_pop = { kill_pop = yes }
+			owner = {
 				random_list = {
-					# Answer 1
 					33 = { country_event = { id = shroud_rising_invasion.1301 } }
-					# Answer 2
-					33 = { country_event = { id = shroud_rising_invasion.1303 } }
-					# Answer 3
+					33 = { country_event = { id = shroud_rising_invasion.1302 } }
 					33 = { country_event = { id = shroud_rising_invasion.1303 } }
 				}
 			}

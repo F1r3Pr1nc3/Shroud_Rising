@@ -32,7 +32,7 @@ shroud_storm_effect_system = {
 	ship_disengage_chance_mult = 0.5
 }
 
-# Titanic shroud rift
+# Titanic Shroud Rift
 eye_of_terror = {
 	icon = "gfx/interface/icons/planet_modifiers/pm_eye_of_terror.dds"
 	icon_frame = 3
@@ -150,15 +150,16 @@ patriotic_fervour = {
 	damage_vs_country_type_shroud_cult_mult = 0.1
 }
 
-shroud_cult_uprising = {
-	icon = "gfx/interface/icons/modifiers/mod_shroud_cult_uprising.dds"
-	pop_happiness = -0.05
-	planet_stability_add = -10
-	army_morale = -0.1
-	planet_army_build_speed_mult = -0.1
-	starbase_shipyard_build_speed_mult = -0.1
-	pop_government_ethic_attraction = -0.1
-}
+# DEPRECATED?
+# shroud_cult_uprising = {
+# 	icon = "gfx/interface/icons/modifiers/mod_shroud_cult_uprising.dds"
+# 	pop_happiness = -0.05
+# 	planet_stability_add = -10
+# 	army_morale = -0.1
+# 	planet_army_build_speed_mult = -0.1
+# 	starbase_shipyard_build_speed_mult = -0.1
+# 	pop_government_ethic_attraction = -0.1
+# }
 
 ########################################################################
 # Planet  Modifiers
