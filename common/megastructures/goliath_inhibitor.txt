@@ -161,8 +161,11 @@ goliath_inhibitor_4 = {
 		OR = { has_civic = civic_shroud_worship is_ai = no }
 	}
 	# prerequisites = { }
+	# root = system
+	# from = country
 	on_build_start = { }
 	on_build_complete = {
+		save_event_target_as = eye_of_terror_system
 		from = {
 			# Ask if they are sure they want to dismantle it
 			country_event = { id = shroud_rising_eye_of_terror.9 days = 1 }

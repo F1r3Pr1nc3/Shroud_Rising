@@ -24,23 +24,6 @@ event = {
 		NOR = { has_global_flag = eye_of_terror_sealed has_global_flag = ongoing_shroud_storm }
 	}
 	immediate = {
-		event_target:global_event_country = {
-			country_event = { id = shroud_rising_ambient.2 days = 50 random = 100 }
-		}
-	}
-}
-
-# Choose a system to have a shroud storm (compare shroud_rising_ambient.5)
-country_event = {
-	id = shroud_rising_ambient.2
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_global_flag = eye_of_terror_open
-		NOR = { has_global_flag = eye_of_terror_sealed has_global_flag = ongoing_shroud_storm }
-	}
-	immediate = {
-		set_global_flag = ongoing_shroud_storm
 		random_system = {
 			limit = {
 				has_owner = yes
@@ -48,29 +31,44 @@ country_event = {
 				any_system_colony = { num_pops > 10 }
 				NOT = { any_system_planet = { has_planet_flag = has_shroud_monolith } }
 			}
-			set_star_flag = shroud_storm_system
-			add_modifier = { modifier = shroud_storm_effect_system }
-			create_ambient_object = { type = "shroud_storm_1" location = this }
-			# set_name = "STORM SYSTEM" #################### FOR TESTING ONLY
-			last_created_ambient_object = {
-				set_ambient_object_flag = shroud_storm_object
-				set_location = { target = prev distance = 0 angle = random }
-			}
-			every_system_planet = {
-				limit = { is_star = no habitable_planet = yes }
-				add_modifier = { modifier = shroud_storm_effect }
-			}
-			random_system_colony = {
-				limit = { has_ground_combat = no num_pops > 10 }
-				random_list = {
-					75 = { # Spooky storm
-						planet_event = { id = shroud_rising_ambient.3 }		# Message and event for Shroud Storm Horrors
-					}
-					15 = { # Tiyanki/Peaceful Storm
-						planet_event = { id = shroud_rising_ambient.6 }		# Message and event for Shroud Storm Tiyanki
-					}
-					10 = { }
+			system_event = { id = shroud_rising_ambient.2 days = 50 random = 100 }
+		}
+	}
+}
+
+# Choose a system to have a shroud storm (compare shroud_rising_ambient.5)
+system_event = {
+	id = shroud_rising_ambient.2
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = {
+	# 	has_global_flag = eye_of_terror_open
+	# 	NOR = { has_global_flag = eye_of_terror_sealed has_global_flag = ongoing_shroud_storm }
+	# }
+	immediate = {
+		set_global_flag = ongoing_shroud_storm
+		set_star_flag = shroud_storm_system
+		add_modifier = { modifier = shroud_storm_effect_system }
+		create_ambient_object = { type = "shroud_storm_1" location = this }
+		# set_name = "STORM SYSTEM" #################### FOR TESTING ONLY
+		last_created_ambient_object = {
+			set_ambient_object_flag = shroud_storm_object
+			set_location = { target = prev distance = 0 angle = random }
+		}
+		every_system_planet = {
+			limit = { is_star = no habitable_planet = yes }
+			add_modifier = { modifier = shroud_storm_effect }
+		}
+		random_system_colony = {
+			limit = { has_ground_combat = no num_pops > 10 }
+			random_list = {
+				75 = { # Spooky storm
+					planet_event = { id = shroud_rising_ambient.3 }		# Message and event for Shroud Storm Horrors
 				}
+				15 = { # Tiyanki/Peaceful Storm
+					planet_event = { id = shroud_rising_ambient.6 }		# Message and event for Shroud Storm Tiyanki
+				}
+				10 = { }
 			}
 		}
 	}

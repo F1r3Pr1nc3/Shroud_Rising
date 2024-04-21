@@ -59,9 +59,10 @@ namespace = shroud_rising_shroud_rift
 #### SHROUD RIFTS #########################
 #####################################################
 #####  Initial Setup (HIDDEN EVENT) ############################
-# Spawns the small disturbance	 3600 (10 years)
+# Spawns the bigger disturbance	 (5 years)
+# Spawns the small disturbance	 (15 years)
 # Tiny Tear appears quietly, causing solar system effects
-# (Root = global from shroud_rising_trigger.5)
+# (Root = global from shroud_rising_trigger.4)
 country_event = {
 	id = shroud_rising_shroud_rift.99
 	hide_window = yes
@@ -73,7 +74,7 @@ country_event = {
 				is_valid_drone_expansion_destination_system = yes
 				NOR = {
 					is_capital_system = yes
-					has_megastructure = lgate_base
+					has_star_flag = lgate
 					any_system_planet = { has_planet_flag = has_shroud_monolith }
 				}
 				# has_owner = yes # For testing
@@ -437,15 +438,9 @@ country_event = {
 		}
 	}
 	# OK
-	option = {
-		name = "ancrel.15006.a"
-		custom_tooltip = shroud_rising_shroud_rift.2.a.tooltip
-	}
+	option = { name = "ancrel.15006.a" custom_tooltip = shroud_rising_shroud_rift.2.a.tooltip }
 	# HM
-	option = {
-		name = "shroud_rising_shroud_rift.3.b"
-		custom_tooltip = shroud_rising_shroud_rift.2.b.tooltip
-	}
+	option = { name = "shroud_rising_shroud_rift.3.b" custom_tooltip = shroud_rising_shroud_rift.2.b.tooltip }
 }
 
 # Announce for all (every_playable_country)
@@ -468,15 +463,9 @@ country_event = {
 		}
 	}
 	# OK
-	option = {
-		name = "ancrel.15006.a"
-		custom_tooltip = shroud_rising_shroud_rift.3.a.tooltip
-	}
+	option = { name = "ancrel.15006.a" custom_tooltip = shroud_rising_shroud_rift.3.a.tooltip }
 	# HM
-	option = {
-		name = shroud_rising_shroud_rift.3.b
-		custom_tooltip = shroud_rising_shroud_rift.3.b.tooltip
-	}
+	option = { name = shroud_rising_shroud_rift.3.b custom_tooltip = shroud_rising_shroud_rift.3.b.tooltip }
 }
 
 # Shroud Rift collapses
@@ -494,7 +483,6 @@ country_event = {
 			}
 		}
 		event_target:shroud_rift_system_1 = {
-			remove_star_flag = shroud_invasion_system_basic
 			random_system_planet = {
 				limit = { has_planet_flag = shroud_rift_planet }
 				change_pc = pc_shattered
@@ -573,8 +561,8 @@ country_event = {
 			}
 			# set_name = "2nd Shroud Rift" # FOR TESTING
 			set_star_flag = corrupt_system
-			set_star_flag = shroud_invasion_system_greater
-			set_star_flag = shroud_rift_system_2A
+			set_star_flag = shroud_invasion_system_greater		# For spawning
+			set_star_flag = shroud_rift_system_2A				# For tracking
 			set_star_class = sc_great_rift
 			# Set flag for army spawns
 			every_system_planet = {
@@ -704,12 +692,11 @@ country_event = {
 				}
 			}
 		}
-		country_event = { id = shroud_rising_shroud_rift.18 days = 1800 random = 45 }
-		# Spawn 4th rift  1800
+		country_event = { id = shroud_rising_shroud_rift.18 days = 1800 random = 45 } # Spawn 4th rift  1800
 		every_playable_country = {
 			# limit = { }
-			country_event = { id = shroud_rising_sidequests.7 days = 500 random = 30 }
-			# Sealing the Rifts
+			country_event = { id = shroud_rising_sidequests.7 days = 500 random = 30 } # Sealing the Rifts
+
 		}
 	}
 }
@@ -724,10 +711,7 @@ country_event = {
 	is_triggered_only = yes
 	location = event_target:shroud_rift_system_2
 	immediate = { }
-	# OK
-	option = {
-		name = "shroud_rising_operation.6.a"
-		custom_tooltip = shroud_rising_shroud_rift.7.a.tooltip
+	after = {
 		create_point_of_interest = {
 			id = shroud_rising_rift_2_poi.1
 			name = "shroud_rising_rift_2_poi"
@@ -736,17 +720,15 @@ country_event = {
 			location = event_target:shroud_rift_system_2
 		}
 	}
+	# OK
+	option = {
+		name = "shroud_rising_operation.6.a"
+		custom_tooltip = shroud_rising_shroud_rift.7.a.tooltip
+	}
 	# HM
 	option = {
 		name = shroud_rising_shroud_rift.7.b
 		custom_tooltip = shroud_rising_shroud_rift.7.b.tooltip
-		create_point_of_interest = {
-			id = shroud_rising_rift_2_poi.1
-			name = "shroud_rising_rift_2_poi"
-			desc = "shroud_rising_rift_2_poi_desc"
-			event_chain = "eye_of_terror_chain"
-			location = event_target:shroud_rift_system_2
-		}
 	}
 }
 
@@ -760,9 +742,7 @@ country_event = {
 	is_triggered_only = yes
 	location = event_target:shroud_rift_system_2
 	immediate = { }
-	# OK
-	option = {
-		name = "crisis.2030.a"
+	after = {
 		create_point_of_interest = {
 			id = shroud_rising_rift_2_poi.1
 			name = "shroud_rising_rift_2_poi"
@@ -771,16 +751,13 @@ country_event = {
 			location = event_target:shroud_rift_system_2
 		}
 	}
+	# OK
+	option = {
+		name = "crisis.2030.a"
+	}
 	# HM
 	option = {
 		name = shroud_rising_shroud_rift.8.b
-		create_point_of_interest = {
-			id = shroud_rising_rift_2_poi.1
-			name = "shroud_rising_rift_2_poi"
-			desc = "shroud_rising_rift_2_poi_desc"
-			event_chain = "eye_of_terror_chain"
-			location = event_target:shroud_rift_system_2
-		}
 	}
 }
 
@@ -793,10 +770,23 @@ country_event = {
 	immediate = {
 		set_update_modifiers_batch = begin
 		remove_global_flag = rift_2_active
+		if = {
+			limit = { NOT = { exists = event_target:shroud_rift_system_2 } }
+			random_system = {
+				limit = { has_star_flag = shroud_rift_system_2A }
+				save_global_event_target_as = shroud_rift_system_2
+			}
+		}
 		random_system = {
-			limit = { has_star_flag = shroud_rift_system_2A }
-			remove_star_flag = shroud_invasion_system_greater
-			save_event_target_as = shroud_rift_system_2
+			limit = { has_star_flag = shroud_rift_system_2B }
+			inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
+		}
+		random_system = {
+			limit = { has_star_flag = shroud_rift_system_2C }
+			inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
+		}
+		event_target:shroud_rift_system_2 = {
+			# remove_star_flag = shroud_invasion_system_greater
 			# Remove flag for army spawns
 			random_system_planet = {
 				limit = { has_planet_flag = shroud_rift_planet }
@@ -816,14 +806,6 @@ country_event = {
 				}
 				remove_megastructure = this
 			}
-		}
-		random_system = {
-			limit = { has_star_flag = shroud_rift_system_2B }
-			inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
-		}
-		random_system = {
-			limit = { has_star_flag = shroud_rift_system_2C }
-			inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
 		}
 		every_playable_country = {
 			# limit = { }
@@ -885,21 +867,23 @@ country_event = {
 		set_update_modifiers_batch = begin
 		remove_global_flag = rift_2_active
 		set_global_flag = rift_2_sealed
-		random_system = {
-			limit = { has_star_flag = shroud_rift_system_2A has_megastructure = rift_inhibitor_2 }
-			save_event_target_as = shroud_rift_system_2
-			owner = { save_event_target_as = shroud_rift_sealed_country }
-			remove_star_flag = shroud_invasion_system_greater
-			inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
+		if = {
+			limit = { NOT = { exists = event_target:shroud_rift_system_2 } }
+			random_system = {
+				limit = { has_star_flag = shroud_rift_system_2A has_megastructure = rift_inhibitor_2 }
+				save_event_target_as = shroud_rift_system_2
+			}
 		}
 		random_system = {
 			limit = { has_star_flag = shroud_rift_system_2B }
-			remove_star_flag = shroud_invasion_system_basic
 			inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
 		}
 		random_system = {
 			limit = { has_star_flag = shroud_rift_system_2C }
-			remove_star_flag = shroud_invasion_system_basic
+			inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
+		}
+		event_target:shroud_rift_system_2 = {
+			# remove_star_flag = shroud_invasion_system_greater
 			inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
 		}
 		every_playable_country = {
@@ -947,30 +931,20 @@ country_event = {
 		}
 		remove_point_of_interest = shroud_rising_rift_2_poi.1
 	}
+	after = {
+		create_point_of_interest = {
+			id = shroud_rising_rift_22_poi.1
+			name = "shroud_rising_rift_22_poi"
+			desc = "shroud_rising_rift_22_poi_desc"
+			event_chain = "eye_of_terror_chain"
+			location = event_target:shroud_rift_system_2
+		}
+		add_event_chain_counter = { event_chain = "eye_of_terror_chain" counter = "active_rifts" amount = -1 }
+	}
 	# OK
-	option = {
-		name = "distar.7.b"
-		create_point_of_interest = {
-			id = shroud_rising_rift_22_poi.1
-			name = "shroud_rising_rift_22_poi"
-			desc = "shroud_rising_rift_22_poi_desc"
-			event_chain = "eye_of_terror_chain"
-			location = event_target:shroud_rift_system_2
-		}
-		add_event_chain_counter = { event_chain = "eye_of_terror_chain" counter = "active_rifts" amount = -1 }
-	}
+	option = { name = "distar.7.b" }
 	# HM
-	option = {
-		name = "fallen_machine_empire.62.a"
-		create_point_of_interest = {
-			id = shroud_rising_rift_22_poi.1
-			name = "shroud_rising_rift_22_poi"
-			desc = "shroud_rising_rift_22_poi_desc"
-			event_chain = "eye_of_terror_chain"
-			location = event_target:shroud_rift_system_2
-		}
-		add_event_chain_counter = { event_chain = "eye_of_terror_chain" counter = "active_rifts" amount = -1 }
-	}
+	option = { name = "fallen_machine_empire.62.a" }
 }
 
 ##### 3rd RIFT  (HIDDEN EVENT) ############################
@@ -989,7 +963,7 @@ country_event = {
 				is_valid_drone_expansion_destination_system = yes
 				NOR = {
 					is_capital_system = yes
-					has_megastructure = lgate_base
+					has_star_flag = lgate
 					has_star_flag = corrupt_system
 					any_system_planet = { has_planet_flag = has_shroud_monolith }
 				}
@@ -1047,8 +1021,7 @@ country_event = {
 				}
 			}
 		}
-		country_event = { id = shroud_rising_shroud_rift.6 days = 2550 random = 120 }
-		# 2nd Large rift	spawns
+		country_event = { id = shroud_rising_shroud_rift.6 days = 2550 random = 120 } # 2nd Large rift	spawns
 		# country_event = { id = shroud_rising_shroud_rift.14 days = 20 random = 20 } # Collapse code
 	}
 }
@@ -1130,8 +1103,6 @@ country_event = {
 			}
 		}
 		event_target:shroud_rift_system_3 = {
-			remove_star_flag = shroud_invasion_system_basic
-			save_event_target_as = shroud_rift_system_3
 			random_system_planet = {
 				limit = { has_planet_flag = shroud_rift_planet }
 				change_pc = pc_shattered
@@ -1179,26 +1150,18 @@ country_event = {
 		remove_point_of_interest = shroud_rising_rift_33_poi.1
 		remove_point_of_interest = shroud_rising_rift_3_poi.1
 	}
+	after = {
+		if = {
+			limit = { NOT = { has_global_flag = rift_3_sealed } }
+			owner = {
+				add_event_chain_counter = { event_chain = "eye_of_terror_chain" counter = "active_rifts" amount = -1 }
+			}
+		}
+	}
 	# OK
-	option = {
-		name = "shroud_rising_shroud_rift.82.a"
-		if = {
-			limit = { NOT = { has_global_flag = rift_3_sealed } }
-			owner = {
-				add_event_chain_counter = { event_chain = "eye_of_terror_chain" counter = "active_rifts" amount = -1 }
-			}
-		}
-	}
+	option = { name = "shroud_rising_shroud_rift.82.a" }
 	# HM
-	option = {
-		name = "fallen_machine_empire.62.a"
-		if = {
-			limit = { NOT = { has_global_flag = rift_3_sealed } }
-			owner = {
-				add_event_chain_counter = { event_chain = "eye_of_terror_chain" counter = "active_rifts" amount = -1 }
-			}
-		}
-	}
+	option = { name = "fallen_machine_empire.62.a" }
 }
 
 # 3rd Rift Closed, removes and resets the system appearance
@@ -1210,11 +1173,14 @@ country_event = {
 	immediate = {
 		remove_global_flag = rift_3_active
 		set_global_flag = rift_3_sealed
-		random_system = {
-			limit = { has_star_flag = shroud_rift_system_3 has_megastructure = rift_inhibitor_2 }
-			save_event_target_as = shroud_rift_system_3
-			remove_star_flag = shroud_invasion_system_basic
-			owner = { save_event_target_as = shroud_rift_sealed_country }
+		if = {
+			limit = { NOT = { exists = event_target:shroud_rift_system_3 } }
+			random_system = {
+				limit = { has_star_flag = shroud_rift_system_3 has_megastructure = rift_inhibitor_2 }
+				save_event_target_as = shroud_rift_system_3
+			}
+		}
+		event_target:shroud_rift_system_3 = {
 			inline_script = { script = "events/eot_rift_system" }
 		}
 		every_playable_country = {
@@ -1254,9 +1220,7 @@ country_event = {
 		}
 		remove_point_of_interest = shroud_rising_rift_3_poi.1
 	}
-	# OK
-	option = {
-		name = "distar.7.b"
+	after = {
 		create_point_of_interest = {
 			id = shroud_rising_rift_33_poi.1
 			name = "shroud_rising_rift_33_poi"
@@ -1266,17 +1230,13 @@ country_event = {
 		}
 		add_event_chain_counter = { event_chain = "eye_of_terror_chain" counter = "active_rifts" amount = -1 }
 	}
+	# OK
+	option = {
+		name = "distar.7.b"
+	}
 	# HM
 	option = {
 		name = "fallen_machine_empire.62.a"
-		create_point_of_interest = {
-			id = shroud_rising_rift_33_poi.1
-			name = "shroud_rising_rift_33_poi"
-			desc = "shroud_rising_rift_33_poi_desc"
-			event_chain = "eye_of_terror_chain"
-			location = event_target:shroud_rift_system_3
-		}
-		add_event_chain_counter = { event_chain = "eye_of_terror_chain" counter = "active_rifts" amount = -1 }
 	}
 }
 
@@ -1295,7 +1255,7 @@ country_event = {
 				is_valid_drone_expansion_destination_system = yes
 				NOR = {
 					is_capital_system = yes
-					has_megastructure = lgate_base
+					has_star_flag = lgate
 					has_star_flag = corrupt_system
 					any_system_planet = { has_planet_flag = has_shroud_monolith }
 				}
@@ -1303,8 +1263,8 @@ country_event = {
 			}
 			# set_name = "4st RIFT" #################### FOR TESTING ONLY
 			set_star_flag = corrupt_system
-			set_star_flag = shroud_invasion_system_greater			# For spawning
-			set_star_flag = shroud_rift_system_4			# For tracking
+			set_star_flag = shroud_invasion_system_greater		# For spawning
+			set_star_flag = shroud_rift_system_4				# For tracking
 			save_event_target_as = shroud_rift_system_4
 			set_star_class = sc_great_rift
 			# Set flag for army spawns
@@ -1452,7 +1412,6 @@ country_event = {
 			}
 		}
 		event_target:shroud_rift_system_4 = {
-			remove_star_flag = shroud_invasion_system_basic
 			# Remove flag for army spawns
 			random_system_planet = {
 				limit = { has_planet_flag = shroud_rift_planet }
@@ -1532,13 +1491,17 @@ country_event = {
 	immediate = {
 		set_update_modifiers_batch = begin
 		remove_global_flag = rift_4_active
+		remove_global_flag = eot_incursions_start
 		set_global_flag = rift_4_sealed
-		random_system = {
-			limit = { has_star_flag = shroud_rift_system_4 has_megastructure = rift_inhibitor_2 }
-			save_event_target_as = shroud_rift_system_4
-			remove_star_flag = shroud_invasion_system_basic
+		if = {
+			limit = { NOT = { exists = event_target:shroud_rift_system_4 } }
+			random_system = {
+				limit = { has_star_flag = shroud_rift_system_4 has_megastructure = rift_inhibitor_2 }
+				save_event_target_as = shroud_rift_system_4
+			}
+		}
+		event_target:shroud_rift_system_4 = {
 			inline_script = { script = "events/eot_rift_system" }
-			owner = { save_event_target_as = shroud_rift_sealed_country }
 		}
 		every_playable_country = {
 			# limit = { }
@@ -1597,7 +1560,7 @@ country_event = {
 }
 
 ##### ON ACTION RANDOM UNSTABLE RIFTS (HIDDEN EVENT) ############################
-# Fires it for global event country
+# Fires it for global event country (on_decade_pulse)
 event = {
 	id = shroud_rising_shroud_rift.23
 	hide_window = yes
@@ -1627,7 +1590,7 @@ country_event = {
 				is_valid_drone_expansion_destination_system = yes
 				NOR = {
 					is_capital_system = yes					# Unlike others, can spawn in capital if you're unlucky since threat is low
-					has_megastructure = lgate_base
+					has_star_flag = lgate
 					has_star_flag = corrupt_system
 					any_system_planet = { has_planet_flag = has_shroud_monolith }
 				}
@@ -1758,9 +1721,16 @@ event = {
 	}
 	immediate = {
 		# Triggers collapse
-		event_target:global_event_country = {
-			# country_event = { id = shroud_rising_shroud_rift.271 days = 1 }
-			country_event = { id = shroud_rising_shroud_rift.27 days = 4 }
+		# event_target:global_event_country = { country_event = { id = shroud_rising_shroud_rift.271 days = 1 }
+		if = {
+			limit = { NOT = { exists = event_target:shroud_rift_system_unstable } }
+			random_system = {
+				limit = { has_star_flag = shroud_rift_system_unstable NOT = { has_star_flag = unstable_rift_timer } }
+				save_event_target_as = shroud_rift_system_unstable
+			}
+		}
+		event_target:shroud_rift_system_unstable = {
+			system_event = { id = shroud_rising_shroud_rift.27 days = 4 }
 		}
 	}
 }
@@ -1776,40 +1746,34 @@ event = {
 # }
 ## Collapses rift
 # Unstable Shroud Rift collapses called by on_action when timer runs out
-country_event = {
+# Root = shroud_rift_system_unstable
+system_event = {
 	id = shroud_rising_shroud_rift.27
 	is_triggered_only = yes
 	hide_window = yes
 	immediate = {
 		set_update_modifiers_batch = begin
-		random_system = {
-			limit = {
-				has_star_flag = shroud_rift_system_unstable
-				NOT = { has_star_flag = unstable_rift_timer }
+		save_event_target_as = shroud_rift_system_unstable
+		remove_star_flag = corrupt_system
+		remove_star_flag = shroud_rift_system_unstable
+		remove_star_flag = shroud_rift_unstable_active
+		random_system_planet = {
+			limit = { has_planet_flag = shroud_rift_unstable_planet }
+			change_pc = pc_shattered
+			remove_planet_flag = shroud_rift_planet
+		}
+		inline_script = { script = "events/eot_rift_system" AMBIENT = "shroud_rift_object" }
+		random_system_megastructure = {
+			limit = { OR = { is_megastructure_type = rift_inhibitor_0 is_megastructure_type = rift_inhibitor_1 is_megastructure_type = rift_inhibitor_2 } }
+			prev = {
+				spawn_megastructure = { type = rift_inhibitor_permanently_ruined coords_from = prev }
 			}
-			remove_star_flag = corrupt_system
-			remove_star_flag = shroud_invasion_system_basic
-			remove_star_flag = shroud_rift_system_unstable
-			remove_star_flag = shroud_rift_unstable_active
-			save_event_target_as = shroud_rift_system_unstable
-			inline_script = { script = "events/eot_rift_system" AMBIENT = "shroud_rift_object" }
-			random_system_megastructure = {
-				limit = { OR = { is_megastructure_type = rift_inhibitor_0 is_megastructure_type = rift_inhibitor_1 is_megastructure_type = rift_inhibitor_2 } }
-				prev = {
-					spawn_megastructure = { type = rift_inhibitor_permanently_ruined coords_from = prev }
-				}
-				create_ambient_object = { type = "large_debris_object" location = prev }
-				last_created_ambient_object = {
-					set_ambient_object_flag = debris_object
-					set_location = { target = prev distance = 15 angle = random }
-				}
-				remove_megastructure = this
+			create_ambient_object = { type = "large_debris_object" location = prev }
+			last_created_ambient_object = {
+				set_ambient_object_flag = debris_object
+				set_location = { target = prev distance = 15 angle = random }
 			}
-			random_system_planet = {
-				limit = { has_planet_flag = shroud_rift_unstable_planet }
-				change_pc = pc_shattered
-				remove_planet_flag = shroud_rift_planet
-			}
+			remove_megastructure = this
 		}
 		every_playable_country = {
 			limit = { is_ai = no }
@@ -1839,17 +1803,20 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { }
 	immediate = {
-		random_system = {
-			limit = { has_star_flag = shroud_rift_system_unstable has_star_flag = shroud_rift_unstable_active has_megastructure = rift_inhibitor_2 }
-			save_event_target_as = shroud_rift_system_unstable
-			remove_star_flag = shroud_invasion_system_basic
+		if = {
+			limit = { NOT = { exists = event_target:shroud_rift_system_unstable } }
+			random_system = {
+				limit = { has_star_flag = shroud_rift_system_unstable has_star_flag = shroud_rift_unstable_active has_megastructure = rift_inhibitor_2 }
+				save_event_target_as = shroud_rift_system_unstable
+			}
+		}
+		event_target:shroud_rift_system_unstable = {
 			remove_star_flag = corrupt_system
-			owner = { save_event_target_as = shroud_rift_sealed_country }
 			inline_script = { script = "events/eot_rift_system" }
 		}
 		every_playable_country = {
 			limit = { is_ai = no }
-			country_event = { id = shroud_rising_shroud_rift.30 }			# ANNOUNCE rift closed to all
+			country_event = { id = shroud_rising_shroud_rift.30 }			# ANNOUNCE rift closed to all player
 		}
 	}
 }
@@ -1882,7 +1849,7 @@ event = {
 			every_owned_planet = {
 				limit = { is_colony = yes has_planet_flag = shroud_rift_influence }
 				random = { chance = 33
-					planet_event = { id = shroud_rising_shroud_rift.101 days = 64 random = 200 }
+					planet_event = { id = shroud_rising_shroud_rift.101 days = 64 random = 180 }
 				}
 			}
 		}
@@ -2072,7 +2039,7 @@ event = {
 					OR = { has_modifier = eye_of_terror_influence_1 has_modifier = eye_of_terror_influence_2 }
 				}
 				random = { chance = 50
-					planet_event = { id = shroud_rising_shroud_rift.104 days = 16 random = 200 }
+					planet_event = { id = shroud_rising_shroud_rift.104 days = 16 random = 180 }
 				}
 			}
 		}

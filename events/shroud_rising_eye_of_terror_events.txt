@@ -140,6 +140,7 @@ country_event = {
 	is_triggered_only = yes
 	fire_only_once = yes
 	immediate = {
+		set_update_modifiers_batch = begin
 		# add_threat = { who = from amount = 2 }
 		# remove_global_flag = eye_of_terror_small_tear # FIXME where?
 		set_global_flag = eye_of_terror_open
@@ -158,9 +159,8 @@ country_event = {
 		# }
 		# }
 		# save_global_event_target_as = eye_of_terror_system
-		# }
-		#### For testing only end#####
-		set_update_modifiers_batch = begin
+		# } #### For testing only end#####
+
 		if = {  # Support WH40K
 			limit = { any_system = { has_star_flag = eyechaos_homeworld has_owner = yes } }
 			random_system = {
@@ -195,75 +195,107 @@ country_event = {
 			}
 		}
 		else_if = {
-			limit = { any_country = { is_fallen_empire_spiritualist = yes } }
-			random_system = {
-				limit = {
-					has_owner = yes
-					owner = { is_fallen_empire_spiritualist = yes }
-					is_capital_system = yes
-				}
-				save_global_event_target_as = eye_of_terror_system
-			}
-		}
-		else_if = {
-			limit = { any_country = { is_fallen_empire_materialist = yes } }
-			random_system = {
-				limit = {
-					has_owner = yes
-					owner = { is_fallen_empire_materialist = yes }
-					is_capital_system = yes
-				}
-				save_global_event_target_as = eye_of_terror_system
-			}
-		}
-		else_if = {
-			limit = { any_country = { is_fallen_empire_xenophobe = yes } }
-			random_system = {
-				limit = {
-					has_owner = yes
-					owner = { is_fallen_empire_xenophobe = yes }
-					is_capital_system = yes
-				}
-				save_global_event_target_as = eye_of_terror_system
-			}
-		}
-		else_if = {
-			limit = {
-				any_country = {
-					merg_is_fallen_empire = yes
-					NOR = { is_machine_empire = yes is_gestalt = yes }
+			limit = { NOT = { has_global_flag = eot_spawn_not_fe } }
+			if = {
+				limit = { any_country = { is_fallen_empire_spiritualist = yes } }
+				random_system = {
+					limit = {
+						has_owner = yes
+						owner = { is_fallen_empire_spiritualist = yes }
+						is_capital_system = yes
+					}
+					save_global_event_target_as = eye_of_terror_system
 				}
 			}
-			random_system = {
+			else_if = {
+				limit = { any_country = { is_fallen_empire_materialist = yes } }
+				random_system = {
+					limit = {
+						has_owner = yes
+						owner = { is_fallen_empire_materialist = yes }
+						is_capital_system = yes
+					}
+					save_global_event_target_as = eye_of_terror_system
+				}
+			}
+			else_if = {
+				limit = { any_country = { is_fallen_empire_xenophobe = yes } }
+				random_system = {
+					limit = {
+						has_owner = yes
+						owner = { is_fallen_empire_xenophobe = yes }
+						is_capital_system = yes
+					}
+					save_global_event_target_as = eye_of_terror_system
+				}
+			}
+			else_if = {
 				limit = {
-					has_owner = yes
-					owner = {
+					any_country = {
 						merg_is_fallen_empire = yes
 						NOR = { is_machine_empire = yes is_gestalt = yes }
 					}
-					is_capital_system = yes
 				}
-				save_global_event_target_as = eye_of_terror_system
+				random_system = {
+					limit = {
+						has_owner = yes
+						owner = {
+							merg_is_fallen_empire = yes
+							NOR = { is_machine_empire = yes is_gestalt = yes }
+						}
+						is_capital_system = yes
+					}
+					save_global_event_target_as = eye_of_terror_system
+				}
 			}
 		}
-		else_if = {
-			limit = {
-				any_playable_country = {
-					is_ai = yes
-					is_spiritualist = yes
-					owner_species = { has_psionic_species_trait = yes }
-					exists = capital_star
+		if = {
+			limit = { NOT = { exists = event_target:eye_of_terror_system } }
+			if = {
+				limit = {
+					any_playable_country = {
+						is_ai = yes
+						is_spiritualist = yes
+						owner_species = { has_psionic_species_trait = yes }
+						exists = capital_star
+					}
+				}
+				random_playable_country = {
+					limit = {
+						is_ai = yes
+						is_spiritualist = yes
+						owner_species = { has_psionic_species_trait = yes }
+						exists = capital_star
+					}
+					weights = { base = 1 modifier = { add = 50 owner_species = { has_trait = trait_psionic } } }
+					capital_star.solar_system = { save_global_event_target_as = eye_of_terror_system }
 				}
 			}
-			random_playable_country = {
-				limit = {
-					is_ai = yes
-					is_spiritualist = yes
-					owner_species = { has_psionic_species_trait = yes }
-					exists = capital_star
+			else = {
+				random_system = {
+					limit = {
+						OR = {
+							AND = {
+								has_owner = yes
+								owner = {
+									is_ai = yes
+									merg_is_default_empire = yes
+									NOR = { is_machine_empire = yes is_gestalt = yes }
+								}
+								is_capital_system = yes
+							}
+							AND = {
+								has_owner = no
+								has_special_star_flag_trigger = no
+							}
+						}
+						is_valid_drone_expansion_destination_system = yes
+						NOT = { has_star_flag = lgate }
+						any_system_planet = { is_shroud_rift_planet = yes }
+					}
+					weights = { base = 10 modifier = { add = 100 has_owner = yes } }
+					save_global_event_target_as = eye_of_terror_system
 				}
-				weights = { base = 1 modifier = { add = 50 owner_species = { has_trait = trait_psionic } } }
-				capital_star.solar_system = { save_global_event_target_as = eye_of_terror_system }
 			}
 		}
 		# Creates the start point/Eye of Terror
@@ -367,38 +399,38 @@ country_event = {
 				set_planet_flag = shroud_rift_influence
 				add_modifier = { modifier = eye_of_terror_influence_1 }
 			}
-			random_neighbor_system = {
+			random_neighbor_system_euclidean = {
 				inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 MODIFIER = 1 }
 				random_system_planet = {
 					limit = { is_shroud_rift_planet = yes }
 					change_pc = pc_shrouded
 					random = { chance = 25 add_deposit = d_zro_deposit_1 }
 				}
-				random_neighbor_system = {
+				random_neighbor_system_euclidean = {
 					inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-					random_neighbor_system = {
+					random_neighbor_system_euclidean = {
 						inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
-						random_neighbor_system = {
+						random_neighbor_system_euclidean = {
 							inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-							random_neighbor_system = {
+							random_neighbor_system_euclidean = {
 								inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
-								random_neighbor_system = {
+								random_neighbor_system_euclidean = {
 									inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
-									random_neighbor_system = {
+									random_neighbor_system_euclidean = {
 										inline_script = { script = "events/eot_corrupt_system" TYPE = greater RIFT = _2 }
-										random_neighbor_system = {
+										random_neighbor_system_euclidean = {
 											inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-											random_neighbor_system = {
+											random_neighbor_system_euclidean = {
 												inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
-												random_neighbor_system = {
+												random_neighbor_system_euclidean = {
 													inline_script = { script = "events/eot_corrupt_system" TYPE = greater RIFT = "" }
-													random_neighbor_system = {
+													random_neighbor_system_euclidean = {
 														inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
-														random_neighbor_system = {
+														random_neighbor_system_euclidean = {
 															inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-															random_neighbor_system = {
+															random_neighbor_system_euclidean = {
 																inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
-																random_neighbor_system = {
+																random_neighbor_system_euclidean = {
 																	inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
 																}
 															}
@@ -414,21 +446,21 @@ country_event = {
 					}
 				}
 			}
-			random_neighbor_system = {
+			random_neighbor_system_euclidean = {
 				inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 MODIFIER = 1 }
-				random_neighbor_system = {
+				random_neighbor_system_euclidean = {
 					inline_script = { script = "events/eot_corrupt_system" TYPE = greater RIFT = "" }
-					random_neighbor_system = {
+					random_neighbor_system_euclidean = {
 						inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
-						random_neighbor_system = {
+						random_neighbor_system_euclidean = {
 							inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-							random_neighbor_system = {
+							random_neighbor_system_euclidean = {
 								inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
-								random_neighbor_system = {
+								random_neighbor_system_euclidean = {
 									inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
-									random_neighbor_system = {
+									random_neighbor_system_euclidean = {
 										inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-										random_neighbor_system = {
+										random_neighbor_system_euclidean = {
 											inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
 										}
 									}
@@ -438,32 +470,32 @@ country_event = {
 					}
 				}
 			}
-			random_neighbor_system = {
+			random_neighbor_system_euclidean = {
 				inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" MODIFIER = 1 }
 				random_system_planet = {
 					limit = { is_shroud_rift_planet = yes }
 					change_pc = pc_shrouded
 					random = { chance = 25 add_deposit = d_zro_deposit_1 }
 				}
-				random_neighbor_system = {
+				random_neighbor_system_euclidean = {
 					inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
-					random_neighbor_system = {
+					random_neighbor_system_euclidean = {
 						inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-						random_neighbor_system = {
+						random_neighbor_system_euclidean = {
 							inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
-							random_neighbor_system = {
+							random_neighbor_system_euclidean = {
 								inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-								random_neighbor_system = {
+								random_neighbor_system_euclidean = {
 									inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
-									random_neighbor_system = {
+									random_neighbor_system_euclidean = {
 										inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
-										random_neighbor_system = {
+										random_neighbor_system_euclidean = {
 											inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-											random_neighbor_system = {
+											random_neighbor_system_euclidean = {
 												inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
-												random_neighbor_system = {
+												random_neighbor_system_euclidean = {
 													inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-													random_neighbor_system = {
+													random_neighbor_system_euclidean = {
 														inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
 													}
 												}
@@ -479,7 +511,8 @@ country_event = {
 		}
 		every_playable_country = {
 			country_event = { id = shroud_rising_eye_of_terror.31 } # Make the system surveyed to avoid weird issues
-			if = { limit = { is_ai = no }
+			if = {
+				limit = { is_ai = no }
 				country_event = { id = shroud_rising_eye_of_terror.4 } # Announce to all countries
 			}
 			else = {
@@ -703,10 +736,7 @@ country_event = {
 		if = {
 			limit = { NOT = { exists = event_target:eye_of_terror_system } }
 			random_system = {
-				limit = {
-					has_star_flag = eye_of_terror_system
-					has_megastructure = goliath_inhibitor_3
-				}
+				limit = { has_star_flag = eye_of_terror_system has_megastructure = goliath_inhibitor_3 }
 				save_global_event_target_as = eye_of_terror_system
 			}
 		}
@@ -790,47 +820,45 @@ event = {
 		}
 	}
 	immediate = {
-		event_target:global_event_country = {
-			country_event = { id = shroud_rising_eye_of_terror.72 }			# Start collapsing rifts
-		}
-	}
-}
-
-# Gradual removal of tears from the Eye
-country_event = {
-	id = shroud_rising_eye_of_terror.72
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = { has_global_flag = eye_of_terror_sealed }
-	immediate = {
 		random_system = {
 			limit = {
 				has_star_flag = eye_of_terror_rift_system
 				NOT = { has_star_flag = eye_of_terror_system }
 				any_ambient_object = { has_ambient_object_flag = eye_of_terror_system_effect_3 }
 			}
-			set_update_modifiers_batch = begin
-			# Remove flag for army spawns
-			every_system_planet = {
-				limit = { is_star = no habitable_planet = yes }
-				remove_planet_flag = shroud_rift_influence
-				remove_modifier = eye_of_terror_influence_2
-				remove_modifier = eye_of_terror_influence_1
-			}
-			every_system_planet = {
-				limit = { is_planet_class = pc_shrouded }
-				random_list = {
-					50 = { change_pc = pc_barren }
-					10 = { change_pc = pc_barren_cold }
-					10 = { change_pc = pc_toxic }
-					10 = { change_pc = pc_broken }
-					10 = { change_pc = pc_molten }
-					10 = { change_pc = pc_gaia }
-				}
-			}
-			inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
-			set_update_modifiers_batch = end
+			system_event = { id = shroud_rising_eye_of_terror.72 }			# Start collapsing rifts
 		}
+	}
+}
+
+# Gradual removal of tears from the Eye
+system_event = {
+	id = shroud_rising_eye_of_terror.72
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { has_global_flag = eye_of_terror_sealed }
+	immediate = {
+		set_update_modifiers_batch = begin
+		# Remove flag for army spawns
+		every_system_planet = {
+			limit = { is_star = no habitable_planet = yes }
+			remove_planet_flag = shroud_rift_influence
+			remove_modifier = eye_of_terror_influence_2
+			remove_modifier = eye_of_terror_influence_1
+		}
+		every_system_planet = {
+			limit = { is_planet_class = pc_shrouded }
+			random_list = {
+				50 = { change_pc = pc_barren }
+				10 = { change_pc = pc_barren_cold }
+				10 = { change_pc = pc_toxic }
+				10 = { change_pc = pc_broken }
+				10 = { change_pc = pc_molten }
+				10 = { change_pc = pc_gaia }
+			}
+		}
+		inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
+		set_update_modifiers_batch = end
 	}
 }
 
@@ -925,6 +953,7 @@ country_event = {
 ######## DISMANTLING THE EYE INHIBITOR ##################################
 #########################################################
 # Dismantled are you sure?
+# From goliath_inhibitor_4 system
 country_event = {
 	id = shroud_rising_eye_of_terror.9
 	title = "shroud_rising_eye_of_terror.9.name"
@@ -935,9 +964,18 @@ country_event = {
 	location = event_target:eye_of_terror_system
 	immediate = {
 		# save_event_target_as = eye_of_terror_reopened_country # REMOVED ON 3.12
-		random_system = {
-			limit = { has_star_flag = eye_of_terror_system }
-			save_event_target_as = eye_of_terror_system
+		if = {
+			limit = { NOT = { exists = event_target:eye_of_terror_system } }
+			if = {
+				limit = { exists = from from = { is_scope_type = galactic_object has_star_flag = eye_of_terror_system } }
+				from = { save_event_target_as = eye_of_terror_system }
+			}
+			else = {
+				random_system = {
+					limit = { has_star_flag = eye_of_terror_system has_megastructure = goliath_inhibitor_4 }
+					save_event_target_as = eye_of_terror_system
+				}
+			}
 		}
 		set_global_flag = inhibitor_dismantle_check
 	}
@@ -945,7 +983,9 @@ country_event = {
 	option = {
 		name = "distar.246.machi.b"
 		hidden_effect = {
-			country_event = { id = shroud_rising_eye_of_terror.11 }
+			event_target:eye_of_terror_system = {
+				system_event = { id = shroud_rising_eye_of_terror.11 }
+			}
 			country_event = { id = shroud_rising_eye_of_terror.13 }
 			remove_modifier = eye_of_terror_sealer
 			set_country_flag = eye_of_terror_reopened_country
@@ -960,44 +1000,46 @@ country_event = {
 	option = {
 		name = shroud_rising_eye_of_terror.9.b
 		hidden_effect = {
-			country_event = { id = shroud_rising_eye_of_terror.10 }
-		}
-	}
-}
-
-# Nevermind lol
-country_event = {
-	id = shroud_rising_eye_of_terror.10
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = { }
-	immediate = {
-		random_system = {
-			limit = { has_megastructure = goliath_inhibitor_4 }
-			random_system_megastructure = {
-				limit = { is_megastructure_type = goliath_inhibitor_4 }
-				prev = {
-					spawn_megastructure = { type = goliath_inhibitor_3 coords_from = prev owner = root }
-				}
-				remove_megastructure = this
+			event_target:eye_of_terror_system = {
+				system_event = { id = shroud_rising_eye_of_terror.10 }
 			}
 		}
 	}
 }
 
+# Remove goliath_inhibitor_4 (Nevermind lol)
+system_event = {
+	id = shroud_rising_eye_of_terror.10
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { has_megastructure = goliath_inhibitor_4 }
+	immediate = {
+		random_system_megastructure = {
+			limit = { is_megastructure_type = goliath_inhibitor_4 }
+			prev = {
+				spawn_megastructure = { type = goliath_inhibitor_3 coords_from = prev owner = root }
+			}
+			remove_megastructure = this
+		}
+	}
+}
+
 # Some madlad dismantles it
-country_event = {
+# Root = eye_of_terror_system
+# From = eye_of_terror_reopened_country
+system_event = {
 	id = shroud_rising_eye_of_terror.11
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { }
+	# trigger = { has_megastructure = goliath_inhibitor_4 }
 	immediate = {
 		set_update_modifiers_batch = begin
 		remove_global_flag = eye_of_terror_sealed
 		remove_global_flag = inhibitor_dismantle_check
 		set_global_flag = eye_of_terror_reopened
+		set_global_flag = eot_incursions_start
 		every_playable_country = {
-			limit = { NOT = { is_same_empire = event_target:eye_of_terror_reopened_country } }
+			limit = { NOT = { is_same_empire = from } }
 			if = {
 				limit = { is_ai = no }
 				country_event = { id = shroud_rising_eye_of_terror.12 }			# ANNOUNCE dismantled to all
@@ -1009,57 +1051,56 @@ country_event = {
 						has_opinion_modifier = { who = from modifier = opinion_reopened_eye_of_terror }
 					}
 				}
-				add_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_reopened_eye_of_terror }
+				add_opinion_modifier = { who = from modifier = opinion_reopened_eye_of_terror }
 			}
 			else_if = {
 				limit = {
 					NOT = { has_opinion_modifier = { who = from modifier = opinion_reopened_eye_of_terror_positive } }
 					has_civic = civic_shroud_worship
 				}
-				add_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_reopened_eye_of_terror_positive }
+				add_opinion_modifier = { who = from modifier = opinion_reopened_eye_of_terror_positive }
 			}
 			if = {
 				limit = { has_opinion_modifier = { who = from modifier = opinion_sealed_eye_of_terror } }
-				remove_opinion_modifier = { who = event_target:eye_of_terror_reopened_country modifier = opinion_sealed_eye_of_terror }
+				remove_opinion_modifier = { who = from modifier = opinion_sealed_eye_of_terror }
 			}
 		}
-		random_system = {
-			limit = { has_megastructure = goliath_inhibitor_4 }
-			random_system_megastructure = {
-				limit = { is_megastructure_type = goliath_inhibitor_4 }
-				remove_megastructure = this
+		random_system_megastructure = {
+			limit = { is_megastructure_type = goliath_inhibitor_4 }
+			remove_megastructure = this
+		}
+		star = {
+			create_ambient_object = { type = "eye_of_terror_3" location = this }
+			last_created_ambient_object = {
+				set_ambient_object_flag = eye_of_terror_system_effect_3
+				set_location = { target = prev distance = 0 angle = random }
 			}
-			star = {
-				create_ambient_object = { type = "eye_of_terror_3" location = this }
-				last_created_ambient_object = {
-					set_ambient_object_flag = eye_of_terror_system_effect_3
-					set_location = { target = prev distance = 0 angle = random }
+		}
+		every_system_planet = {
+			limit = { is_star = no habitable_planet = yes } # NOT = { is_planet_class = pc_eye_of_terror }
+			set_planet_flag = shroud_rift_influence
+			add_modifier = { modifier = eye_of_terror_influence_1 }
+		}
+		every_system_planet = {
+			limit = { has_modifier = shroud_residue }
+			remove_modifier = shroud_residue
+		}
+		if = {
+			limit = { NOT = { exists = event_target:shroud_horror_fleet } }
+			create_country = {
+				name = "NAME_shroud_horrors"
+				type = shroud_horrors
+				name_list = "SHROUD_HORRORS"
+				flag = {
+					icon = { category = "special" file = "the_shroud.dds" }
+					background = { category = "backgrounds" file = "00_solid.dds" }
+					colors = { "dark_purple" "black" "null" "null" }
 				}
-			}
-			every_system_planet = {
-				limit = { is_star = no habitable_planet = yes } # NOT = { is_planet_class = pc_eye_of_terror }
-				set_planet_flag = shroud_rift_influence
-				add_modifier = { modifier = eye_of_terror_influence_1 }
-			}
-			every_system_planet = {
-				limit = { has_modifier = shroud_residue }
-				remove_modifier = shroud_residue
+				effect = { apply_shroud_rising_difficulty = yes save_event_target_as = shroud_horror_fleet }
 			}
 		}
-		create_country = {
-			name = "NAME_shroud_horrors"
-			type = shroud_horrors
-			name_list = "SHROUD_HORRORS"
-			flag = {
-				icon = { category = "special" file = "the_shroud.dds" }
-				background = { category = "backgrounds" file = "00_solid.dds" }
-				colors = { "dark_purple" "black" "null" "null" }
-			}
-			effect = {
-				apply_shroud_rising_difficulty = yes
-				save_event_target_as = shroud_horror_fleet
-				set_faction_hostility = { set_hostile = no set_neutral = yes target = event_target:eye_of_terror_reopened_country }
-			}
+		event_target:shroud_horror_fleet = {
+			set_faction_hostility = { set_hostile = no set_neutral = yes target = from }
 		}
 		create_fleet = {
 			# name = random
@@ -1067,7 +1108,7 @@ country_event = {
 			effect = {
 				set_owner = event_target:shroud_horror_fleet
 				create_ship = { name = "NAME_greater_horror" design = "NAME_greater_horror" }
-				set_location = event_target:eye_of_terror_system
+				set_location = root
 				set_fleet_stance = aggressive
 				set_fleet_bombardment_stance = devour
 				set_aggro_range_measure_from = self
@@ -1080,7 +1121,7 @@ country_event = {
 			effect = {
 				set_owner = event_target:shroud_horror_fleet
 				create_ship = { name = "NAME_greater_horror" design = "NAME_greater_horror" }
-				set_location = event_target:eye_of_terror_system
+				set_location = root
 				set_fleet_stance = aggressive
 				set_fleet_bombardment_stance = devour
 				set_aggro_range_measure_from = self
@@ -1093,7 +1134,7 @@ country_event = {
 			effect = {
 				set_owner = event_target:shroud_horror_fleet
 				create_ship = { name = "NAME_greater_horror" design = "NAME_greater_horror" }
-				set_location = event_target:eye_of_terror_system
+				set_location = root
 				set_fleet_stance = aggressive
 				set_fleet_bombardment_stance = devour
 				set_aggro_range_measure_from = self
@@ -1106,7 +1147,7 @@ country_event = {
 			effect = {
 				set_owner = event_target:shroud_horror_fleet
 				create_ship = { name = "NAME_greater_horror" design = "NAME_greater_horror" }
-				set_location = event_target:eye_of_terror_system
+				set_location = root
 				set_fleet_stance = aggressive
 				set_fleet_bombardment_stance = devour
 				set_aggro_range_measure_from = self
@@ -1119,7 +1160,7 @@ country_event = {
 			effect = {
 				set_owner = prev
 				create_ship = { name = "NAME_cosmic_horror" design = "NAME_cosmic_horror" }
-				set_location = event_target:eye_of_terror_system
+				set_location = root
 				set_fleet_stance = aggressive
 				set_fleet_bombardment_stance = devour
 				set_aggro_range_measure_from = self
@@ -1146,21 +1187,6 @@ event = {
 		}
 	}
 	immediate = {
-		event_target:global_event_country = {
-			country_event = { id = shroud_rising_eye_of_terror.111 }			# Start reopening rifts
-		}
-	}
-}
-
-# Reopen tears of the EoT
-country_event = {
-	id = shroud_rising_eye_of_terror.111
-	hide_window = yes
-	is_triggered_only = yes
-	# trigger = { }
-	immediate = {
-		set_update_modifiers_batch = begin
-		# Reopen and spread the rifts
 		random_system = {
 			limit = {
 				has_star_flag = eye_of_terror_rift_system
@@ -1169,37 +1195,50 @@ country_event = {
 					any_system_ambient_object = { has_ambient_object_flag = eye_of_terror_system_effect_3 }
 				}
 			}
-			create_ambient_object = { type = "eye_of_terror_3" location = this }
-			last_created_ambient_object = {
-				set_ambient_object_flag = eye_of_terror_system_effect_3
-				set_location = { target = prev distance = 0 angle = random }
+			system_event = { id = shroud_rising_eye_of_terror.111 }			# Start reopening rifts
+		}
+	}
+}
+
+# Reopen tears of the EoT
+system_event = {
+	id = shroud_rising_eye_of_terror.111
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { }
+	immediate = {
+		set_update_modifiers_batch = begin
+		# Reopen and spread the rifts
+		create_ambient_object = { type = "eye_of_terror_3" location = this }
+		last_created_ambient_object = {
+			set_ambient_object_flag = eye_of_terror_system_effect_3
+			set_location = { target = prev distance = 0 angle = random }
+		}
+		set_star_class = sc_great_rift_2
+		every_system_planet = {
+			limit = { is_star = yes }
+			random_list = {
+				10 = { change_pc = pc_b_star }
+				10 = { change_pc = pc_a_star }
+				10 = { change_pc = pc_f_star }
+				10 = { change_pc = pc_g_star }
+				10 = { change_pc = pc_k_star }
+				10 = { change_pc = pc_m_star }
+				10 = { change_pc = pc_m_giant_star }
+				1 = { change_pc = pc_black_hole }
+				1 = { change_pc = pc_neutron_star }
+				1 = { change_pc = pc_pulsar }
 			}
-			set_star_class = sc_great_rift_2
-			every_system_planet = {
-				limit = { is_star = yes }
-				random_list = {
-					10 = { change_pc = pc_b_star }
-					10 = { change_pc = pc_a_star }
-					10 = { change_pc = pc_f_star }
-					10 = { change_pc = pc_g_star }
-					10 = { change_pc = pc_k_star }
-					10 = { change_pc = pc_m_star }
-					10 = { change_pc = pc_m_giant_star }
-					1 = { change_pc = pc_black_hole }
-					1 = { change_pc = pc_neutron_star }
-					1 = { change_pc = pc_pulsar }
-				}
-			}
-			every_system_planet = {
-				limit = { is_star = no habitable_planet = yes }
-				set_planet_flag = shroud_rift_influence
-				add_modifier = { modifier = eye_of_terror_influence_2 }
-			}
-			random_system_planet = {
-				limit = { is_shroud_rift_planet = yes }
-				change_pc = pc_shrouded
-				random = { chance = 25 add_deposit = d_zro_deposit_1 }
-			}
+		}
+		every_system_planet = {
+			limit = { is_star = no habitable_planet = yes }
+			set_planet_flag = shroud_rift_influence
+			add_modifier = { modifier = eye_of_terror_influence_2 }
+		}
+		random_system_planet = {
+			limit = { is_shroud_rift_planet = yes }
+			change_pc = pc_shrouded
+			random = { chance = 25 add_deposit = d_zro_deposit_1 }
 		}
 		set_update_modifiers_batch = end
 	}
@@ -1296,7 +1335,8 @@ country_event = {
 	picture_event_data = { portrait = shroud1 room = shroud_room }
 	is_triggered_only = yes
 	immediate = {
-		set_country_flag = shroud_diplomacy_engaged
+		# set_country_flag = shroud_diplomacy_engaged
+		set_global_flag = eot_incursions_start
 		if = {
 			limit = { NOT = { exists = event_target:shroud_horror_country } }
 			create_species = {
@@ -1388,9 +1428,9 @@ country_event = {
 		}
 		# last_created_fleet = { fleet_event = { id = shroud_rising_invasion } }
 	}
-	after = {
-		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
-	}
+	# after = {
+	# 	hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
+	# }
 	option = {
 		name = "FRONT_QUIT"
 		custom_tooltip = shroud_rising_eye_of_terror.14.a.tooltip
@@ -1410,7 +1450,8 @@ country_event = {
 	picture_event_data = { portrait = shroud1 room = shroud_room }
 	is_triggered_only = yes
 	immediate = {
-		set_country_flag = shroud_diplomacy_engaged
+		# set_country_flag = shroud_diplomacy_engaged
+		set_global_flag = eot_incursions_start
 		if = {
 			limit = { NOT = { exists = event_target:shroud_horror_country } }
 			create_species = {
@@ -1535,9 +1576,9 @@ country_event = {
 			}
 		}
 	}
-	after = {
-		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
-	}
+	# after = {
+	# 	hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
+	# }
 	option = {
 		name = "FRONT_QUIT"
 		custom_tooltip = shroud_rising_eye_of_terror.15.a.tooltip
@@ -1558,7 +1599,8 @@ country_event = {
 	location = event_target:eye_of_terror_system
 	is_triggered_only = yes
 	immediate = {
-		set_country_flag = shroud_diplomacy_engaged
+		# set_country_flag = shroud_diplomacy_engaged
+		set_global_flag = eot_incursions_start
 		if = {
 			limit = { NOT = { exists = event_target:shroud_horror_country } }
 			create_species = {
@@ -1679,9 +1721,9 @@ country_event = {
 			}
 		}
 	}
-	after = {
-		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
-	}
+	# after = {
+	# 	hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
+	# }
 	option = { name = "FRONT_QUIT" custom_tooltip = shroud_rising_eye_of_terror.16.a.tooltip default_hide_option = yes }
 	option = {
 		name = shroud_rising_eye_of_terror.16.b

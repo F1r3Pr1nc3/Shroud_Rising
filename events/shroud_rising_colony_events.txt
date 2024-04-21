@@ -301,20 +301,25 @@ planet_event = {
 		event_target:global_event_country = {
 			change_variable = { which = "shroud_planets" value = 1 }
 		}
-		create_country = {
-			name = "NAME_shroud_horrors"
-			type = shroud_horrors
-			name_list = "SHROUD_HORRORS"
-			flag = {
-				icon = { category = "special" file = "the_shroud.dds" }
-				background = { category = "backgrounds" file = "00_solid.dds" }
-				colors = { "dark_purple" "black" "null" "null" }
+		if = {
+			limit = { NOT = { exists = event_target:shroud_horror_fleet } }
+			create_country = {
+				name = "NAME_shroud_horrors"
+				type = shroud_horrors
+				name_list = "SHROUD_HORRORS"
+				flag = {
+					icon = { category = "special" file = "the_shroud.dds" }
+					background = { category = "backgrounds" file = "00_solid.dds" }
+					colors = { "dark_purple" "black" "null" "null" }
+				}
+				effect = {
+					apply_shroud_rising_difficulty = yes
+					save_event_target_as = shroud_horror_fleet
+				}
 			}
-			effect = {
-				apply_shroud_rising_difficulty = yes
-				save_event_target_as = shroud_horror_fleet
-				set_faction_hostility = { set_hostile = no set_neutral = yes target = root.owner }
-			}
+		}
+		event_target:shroud_horror_fleet = {
+			set_faction_hostility = { set_hostile = no set_neutral = yes target = root.owner }
 		}
 		if = {
 			limit = { has_global_flag = colony_whisperers_patron }

@@ -188,7 +188,7 @@ ship_event = {
 		name = "astral_planes.15.b"
 		custom_tooltip = shroud_rising_monolith.2.b.tooltip
 		owner = {
-small_artifact_reward = yes # TODO depending?
+			small_artifact_reward = yes # TODO depending?
 			add_event_chain_counter = { event_chain = "monolith_chain" counter = "monoliths_examined" amount = 1 }
 			add_monthly_resource_mult = {
 				resource = engineering_research

@@ -44,7 +44,7 @@ namespace = shroud_rising_invasion
 ###### THE INCURSIONS ####################
 ###############################################
 # Shroud INVASION
-# INCURSIONS BEGIN Announce
+# INCURSIONS BEGIN Announce (from 1st Rift, global event shroud_rising_shroud_rift.1)
 country_event = {
 	id = shroud_rising_invasion.0
 	title = "shroud_rising_invasion.0.name"
@@ -53,6 +53,7 @@ country_event = {
 	show_sound = event_the_great_awakening
 	is_triggered_only = yes
 	immediate = {
+		# Enables the eye_of_terror_incursion_chain from shroud_rising_eye_of_terror.5
 		if = {
 			limit = { NOT = { has_global_flag = eot_incursions_start } }
 			set_global_flag = eot_incursions_start
@@ -73,7 +74,10 @@ event = {
 	trigger = {
 		has_global_flag = rifts_basic_active
 		NOT = { has_global_flag = eye_of_terror_sealed }
-		any_system = { has_star_flag = shroud_invasion_system_basic }
+		OR = {
+			exists = event_target:eye_of_terror_system
+			any_system = { has_star_flag = shroud_invasion_system_basic }
+		}
 	}
 	immediate = {
 		if = {
@@ -123,9 +127,11 @@ system_event = {
 	is_triggered_only = yes
 	trigger = {
 		has_global_flag = rifts_basic_active
-		NOT = { has_global_flag = eye_of_terror_sealed }		# Check to see if rift has been sealed before spawning
 		has_star_flag = shroud_invasion_system_basic
-		NOT = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } }
+		NOR = {
+			has_global_flag = eye_of_terror_sealed # Check to see if rift has been sealed before spawning
+			any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 }
+		}
 	}
 	immediate = {
 		random_list = {
@@ -273,8 +279,8 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
-							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
 				}
@@ -381,8 +387,8 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
-							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
 				}
@@ -500,8 +506,8 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
-							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
 				}
@@ -637,17 +643,21 @@ event = {
 	trigger = {
 		has_global_flag = rifts_basic_active		# Set on v.3.9.3
 		has_global_flag = eye_of_terror_open
+		OR = { has_global_flag = rift_2_active has_global_flag = rift_4_active }
 		NOR = { has_global_flag = greater_rift_timer has_global_flag = eye_of_terror_sealed }
-		any_system = { has_star_flag = shroud_invasion_system_greater }
+		OR = {
+			exists = event_target:shroud_rift_system_2
+			exists = event_target:shroud_rift_system_4
+			any_system = { has_star_flag = shroud_invasion_system_greater }
+		}
 	}
 	immediate = {
 		set_timed_global_flag = { flag = greater_rift_timer years = 3 }		# Ensures it only triggers every 3 years
 		event_target:global_event_country = {
-			# Spawn up to 3 x enemies, triggers the spawn selector
-			random_list = {
-				33 = { country_event = { id = shroud_rising_invasion.2000 days = 30 random = 30 } } # 2 years # 720
-				33 = { country_event = { id = shroud_rising_invasion.2000 days = 60 random = 30 } } # 3 years # 1095
-				33 = { country_event = { id = shroud_rising_invasion.2000 days = 120 random = 30 } } # 4 years # 1460
+			random_list = { # Spawn up to 3 x enemies, triggers the spawn selector
+				33 = { country_event = { id = shroud_rising_invasion.2000 days = 30 random = 30 } }		# 2 years # 720
+				33 = { country_event = { id = shroud_rising_invasion.2000 days = 60 random = 30 } }		# 3 years # 1095
+				33 = { country_event = { id = shroud_rising_invasion.2000 days = 120 random = 30 } }	# 4 years # 1460
 			}
 		}
 	}
@@ -659,23 +669,21 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		# has_global_flag = rifts_basic_active
-		NOR = { has_global_flag = greater_rift_timer has_global_flag = eye_of_terror_sealed }
-		any_system = { has_star_flag = shroud_invasion_system_greater }
+		has_global_flag = rifts_basic_active
+		has_global_flag = eye_of_terror_open
+		OR = { has_global_flag = rift_2_active has_global_flag = rift_4_active }
 	}
 	immediate = {
-		random_system = {
-			limit = { has_star_flag = shroud_invasion_system_greater }
-			if = {
-				limit = { NOT = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } }
-				system_event = { id = shroud_rising_invasion.4 }
-			}
+		random_list = {
+			33 = { modifier = { factor = 0 NAND = { exists = event_target:shroud_rift_system_2 event_target:shroud_rift_system_2 = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } } } event_target:shroud_rift_system_2 = { system_event = { id = shroud_rising_invasion.4 } } }
+			33 = { modifier = { factor = 0 NAND = { exists = event_target:shroud_rift_system_4 event_target:shroud_rift_system_4 = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } } } event_target:shroud_rift_system_4 = { system_event = { id = shroud_rising_invasion.4 } } }
+			33 = { random_system = { limit = { has_star_flag = shroud_invasion_system_greater NOT = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } } system_event = { id = shroud_rising_invasion.4 } } }
 		}
 	}
 }
 
 # eye_of_terror_system
-# Spawn selector event for greater rifts (indirect on_yearly_pulse)
+# Spawn selector event for greater rifts (indirect on 3 years pulse)
 system_event = {
 	id = shroud_rising_invasion.4
 	hide_window = yes
@@ -911,8 +919,8 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
-							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
 				}
@@ -1045,8 +1053,8 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
-							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
 				}
@@ -1503,8 +1511,8 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
-							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
 				}
@@ -1736,6 +1744,7 @@ system_event = {
 
 # Colony Bombarded by Horrors (on_planet_bombarded)
 # 20 pops on pre ftl earth = 8
+# From = Bombarder
 planet_event = {
 	id = shroud_rising_invasion.9
 	title = "shroud_rising_invasion.9.name"
@@ -1745,60 +1754,57 @@ planet_event = {
 	location = root
 	is_triggered_only = yes
 	trigger = {
-		OR = { planet_devastation > 99 num_sapient_pops < 2 }
+		# has_global_flag = eot_incursions_start
+		has_global_flag = eye_of_terror_open
 		from = { is_country_type = shroud_horrors }
+		OR = { planet_devastation > 99 num_pops < 2 }
 	}
 	immediate = {
-		if = {
-			limit = { from = { is_country_type = shroud_horrors } }
-			every_playable_country = {
-				limit = { has_event_chain = "eye_of_terror_incursion_chain" }
-				add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_planets" amount = 1 }
-			}
-		}
+		# if = { limit = { from = { is_country_type = shroud_horrors } }
+		# every_playable_country = {
+		# 	limit = { has_event_chain = "eye_of_terror_incursion_chain" }
+		# 	add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_planets" amount = 1 }
+		# }
+		# }
 		owner = {
 			add_threat = { who = from amount = 1 }
+			# save_event_target_as = devour_victim ?
+			# set_country_flag = world_devoured ?
+			set_country_flag = had_world_devoured
 		}
-		owner = { save_event_target_as = devour_victim set_country_flag = had_world_devoured }
-		event_target:devour_victim = { set_country_flag = world_devoured }
 		event_target:global_event_country = {
 			change_variable = { which = "shroud_planets" value = 1 }
 		}
-		if = {
-			limit = { num_pops >= 200 }
-			every_playable_country = {
-				limit = { has_event_chain = "eye_of_terror_incursion_chain" }
-				add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 200000 }
-			}
+		set_variable = { which = "shroud_entities_victims" value = trigger:num_pops }
+		multiply_variable = { which = "shroud_entities_victims" value = 1000 }
+		# if = {
+		# 	limit = { num_pops >= 200 }
+		# 		add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 200000 }
+		# 	}
+		# }
+		# else_if = {
+		# 	limit = { num_pops >= 100 num_pops < 200 }
+		# 		add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 100000 }
+		# }
+		# else_if = {
+		# 	limit = { num_pops >= 50 num_pops < 100 }
+		# 		add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 50000 }
+		# 	}
+		# }
+		# else_if = {
+		# 	limit = { num_pops >= 25 num_pops > 50 }
+		# 		add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 20000 }
+		# }
+		# else_if = {
+		# 	limit = { num_pops < 25 }
+		# 	add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 10000 }
+		# }
+
+		every_playable_country = {
+			limit = { has_event_chain = "eye_of_terror_incursion_chain" }
+			add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_planets" amount = root.shroud_entities_victims }
 		}
-		else_if = {
-			limit = { num_pops >= 100 num_pops < 200 }
-			every_playable_country = {
-				limit = { has_event_chain = "eye_of_terror_incursion_chain" }
-				add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 100000 }
-			}
-		}
-		else_if = {
-			limit = { num_pops > 50 num_pops < 100 }
-			every_playable_country = {
-				limit = { has_event_chain = "eye_of_terror_incursion_chain" }
-				add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 50000 }
-			}
-		}
-		else_if = {
-			limit = { num_pops > 50 num_pops < 25 }
-			every_playable_country = {
-				limit = { has_event_chain = "eye_of_terror_incursion_chain" }
-				add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 20000 }
-			}
-		}
-		else_if = {
-			limit = { num_pops <= 25 }
-			every_playable_country = {
-				limit = { has_event_chain = "eye_of_terror_incursion_chain" }
-				add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_victims" amount = 10000 }
-			}
-		}
+
 		destroy_colony = yes
 		if = {
 			limit = { is_artificial = no }
@@ -1816,6 +1822,9 @@ planet_event = {
 			limit = { merg_is_habitat = yes }
 			remove_planet = yes
 		}
+	}
+	after = {
+		hidden_effect = { clear_variable = shroud_entities_victims }
 	}
 	option = {
 		name = "ancrel.11035.a"
@@ -1839,7 +1848,7 @@ country_event = {
 	}
 	immediate = {
 		# Chance for cult empires to become neutral
-		random_playable_country = { # it repeats every year
+		random_playable_country = { # It repeats every year
 			limit = { is_ai = yes has_civic = civic_shroud_worship is_hostile = root }
 			root = {
 				random = { chance = 33 # 25
@@ -2268,7 +2277,7 @@ country_event = {
 ###############################################
 ###### Death Counter Events (Hidden) ####################
 ###############################################
-# Shroud Entities Death Count (HIDDEN)
+# Shroud Entities Death Count (HIDDEN on_ship_destroyed_victim)
 country_event = {
 	id = shroud_rising_invasion.100
 	hide_window = yes

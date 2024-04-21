@@ -9,14 +9,52 @@ random_list = {
 	5 = { set_star_class = sc_neutron_star }
 	5 = { set_star_class = sc_pulsar }
 }
+
+if = {
+	limit = { has_any_megastructure = yes }
+	random_system_planet = {
+		limit = { is_star = yes has_any_megastructure = yes }
+		prev = {
+			random_system_megastructure = {
+				limit = {
+					exists = planet
+					planet = { is_planet = prevprevprev }
+					OR = {
+						is_megastructure_type = matter_decompressor_0
+						is_megastructure_type = matter_decompressor_1
+						is_megastructure_type = matter_decompressor_2
+						is_megastructure_type = matter_decompressor_3
+						is_megastructure_type = matter_decompressor_4
+						is_megastructure_type = matter_decompressor_ruined
+						is_megastructure_type = matter_decompressor_restored
+					}
+				}
+				remove_megastructure = this
+			}
+		}
+	}
+}
+
 random_system_ambient_object = {
 	limit = { has_ambient_object_flag = $AMBIENT|shroud_rift_object$ }
 	destroy_ambient_object = this
 }
+
 # Set flag for army spawns
 every_system_planet = {
 	limit = { is_star = no habitable_planet = yes }
 	remove_planet_flag = shroud_rift_influence
 	remove_planet_flag = shroud_rift_planet
 	remove_modifier = shroud_rift_influence
+}
+
+if = {
+	limit = { has_star_flag = shroud_invasion_system_basic }
+	remove_star_flag = shroud_invasion_system_basic
+}
+else = { remove_star_flag = shroud_invasion_system_greater }
+
+if = {
+	limit = { has_owner = yes }
+	space_owner = { save_event_target_as = shroud_rift_sealed_country }
 }

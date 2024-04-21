@@ -51,6 +51,32 @@ country_event = {
 			country_event = { id = shroud_rising_trigger.2 }
 		}
 	}
+	# FE spawn OFF
+	option = {
+		name = shroud_rising_settings.1.c
+		custom_tooltip = shroud_rising_settings.1.c.tooltip
+		trigger = {
+			NOT = { has_global_flag = eye_of_terror_open }
+			NOT = { has_global_flag = eot_spawn_not_fe }
+		}
+		hidden_effect = {
+			set_global_flag = eot_spawn_not_fe
+			country_event = { id = shroud_rising_trigger.1 }
+		}
+	}
+	# FE spawn ON
+	option = {
+		name = shroud_rising_settings.1.d
+		custom_tooltip = shroud_rising_settings.1.d.tooltip
+		trigger = {
+			NOT = { has_global_flag = eye_of_terror_open }
+			has_global_flag = eot_spawn_not_fe
+		}
+		hidden_effect = {
+			remove_global_flag = eot_spawn_not_fe
+			country_event = { id = shroud_rising_trigger.1 }
+		}
+	}
 	# exit
 	option = {
 		name = "FRONT_QUIT"
@@ -502,8 +528,8 @@ event = {
 	is_triggered_only = yes
 	trigger = {
 		NOR = {
-			mid_game_years_passed < -21 # Crisis possible
 			has_global_flag = eot_active
+			mid_game_years_passed < -21 # Crisis possible
 		}
 	}
 	immediate = {
