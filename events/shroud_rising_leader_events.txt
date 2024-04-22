@@ -616,17 +616,17 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { }
 	immediate = { }
-	option = {
-		name = "distar.7.b"
+	after = {
 		event_target:corrupted_leader_1 = {
 			kill_leader = { show_notification = yes }
 		}
 	}
 	option = {
+		name = "distar.7.b"
+
+	}
+	option = {
 		name = "fircon.1310.a"
-		event_target:corrupted_leader_1 = {
-			kill_leader = { show_notification = yes }
-		}
 	}
 }
 
@@ -669,6 +669,7 @@ country_event = {
 				# day_zero_contact = no
 				effect = {
 					set_country_type = default
+					set_country_flag = chaos_empire
 					save_event_target_as = cult_escape_country
 					establish_communications_no_message = root
 					## Copy technology
@@ -864,8 +865,19 @@ country_event = {
 			kill_leader = { show_notification = yes }
 		}
 		hidden_effect = {
-			event_target:cultist_rebels = {
-				while = { count = 3
+			event_target:cult_escape_planet = {
+				create_fleet = {
+					effect = {
+						set_owner = event_target:cultist_rebels
+						set_name = "NAME_cultist_army"
+						while = { count = 2
+							create_army_transport = { army_type = "shroud_cultist_army" army_name = "NAME_cultist_army" species = event_target:leader_pop.species }
+						}
+						set_location = { target = prev }
+						set_fleet_stance = aggressive
+					}
+				}
+				while = { count = 2
 					create_army = {
 						name = "NAME_cultist_army"
 						owner = event_target:cultist_rebels

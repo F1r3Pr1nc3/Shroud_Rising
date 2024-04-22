@@ -279,7 +279,7 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_latent_psionic } }
 							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
@@ -308,8 +308,6 @@ system_event = {
 					}
 					create_fleet = {
 						effect = {
-							set_fleet_flag = cultist_fleet
-							set_owner = prev
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Lancer" graphical_culture = "pirate_01" }
 							}
@@ -342,6 +340,8 @@ system_event = {
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Reaver" graphical_culture = "pirate_01" }
 							}
+							set_fleet_flag = cultist_fleet
+							set_owner = prev
 							set_location = root
 							set_fleet_stance = aggressive
 							set_aggro_range = 150
@@ -387,7 +387,7 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_latent_psionic } }
 							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
@@ -408,8 +408,6 @@ system_event = {
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
-							set_fleet_flag = cultist_fleet
-							set_owner = prev
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Void_Champion" prefix = no graphical_culture = "pirate_01" }
 							}
@@ -445,6 +443,8 @@ system_event = {
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Avatar" graphical_culture = "fallen_empire_04" }
 							}
+							set_fleet_flag = cultist_fleet
+							set_owner = prev
 							set_location = root
 							set_fleet_stance = aggressive
 							set_aggro_range = 150
@@ -506,7 +506,7 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_latent_psionic } }
 							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
@@ -541,8 +541,6 @@ system_event = {
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
-							set_fleet_flag = cultist_fleet
-							set_owner = prev
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Ancestral_Glory" graphical_culture = "pirate_01" }
 							}
@@ -593,6 +591,8 @@ system_event = {
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Zealot" graphical_culture = "fallen_empire_02" }
 							}
+							set_fleet_flag = cultist_fleet
+							set_owner = prev
 							set_location = root
 							set_fleet_stance = aggressive
 							set_aggro_range = 150
@@ -675,8 +675,8 @@ country_event = {
 	}
 	immediate = {
 		random_list = {
-			33 = { modifier = { factor = 0 NAND = { exists = event_target:shroud_rift_system_2 event_target:shroud_rift_system_2 = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } } } event_target:shroud_rift_system_2 = { system_event = { id = shroud_rising_invasion.4 } } }
-			33 = { modifier = { factor = 0 NAND = { exists = event_target:shroud_rift_system_4 event_target:shroud_rift_system_4 = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } } } event_target:shroud_rift_system_4 = { system_event = { id = shroud_rising_invasion.4 } } }
+			33 = { modifier = { factor = 0 OR = { NOT = { exists = event_target:shroud_rift_system_2 } event_target:shroud_rift_system_2 = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } } } event_target:shroud_rift_system_2 = { system_event = { id = shroud_rising_invasion.4 } } }
+			33 = { modifier = { factor = 0 OR = { NOT = { exists = event_target:shroud_rift_system_4 } event_target:shroud_rift_system_4 = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } } } event_target:shroud_rift_system_4 = { system_event = { id = shroud_rising_invasion.4 } } }
 			33 = { random_system = { limit = { has_star_flag = shroud_invasion_system_greater NOT = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } } system_event = { id = shroud_rising_invasion.4 } } }
 		}
 	}
@@ -690,6 +690,7 @@ system_event = {
 	is_triggered_only = yes
 	trigger = {
 		NOT = { has_global_flag = eye_of_terror_sealed }
+		# NOT = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } }
 	}
 	immediate = {
 		random_list = {
@@ -919,7 +920,7 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_latent_psionic } }
 							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
@@ -953,8 +954,6 @@ system_event = {
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
-							set_fleet_flag = cultist_fleet
-							set_owner = prev
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Ancestral_Glory" graphical_culture = "pirate_01" }
 							}
@@ -1005,6 +1004,8 @@ system_event = {
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Zealot" graphical_culture = "fallen_empire_02" }
 							}
+							set_fleet_flag = cultist_fleet
+							set_owner = prev
 							set_location = root
 							set_fleet_stance = aggressive
 							set_aggro_range = 150
@@ -1053,7 +1054,7 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_latent_psionic } }
 							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
@@ -1073,8 +1074,6 @@ system_event = {
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
-							set_fleet_flag = cultist_fleet
-							set_owner = prev
 							while = { count = 2
 								create_ship = { name = random design = "NAME_Ancestral_Glory" graphical_culture = "pirate_01" }
 							}
@@ -1108,6 +1107,8 @@ system_event = {
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Zealot" graphical_culture = "fallen_empire_02" }
 							}
+							set_fleet_flag = cultist_fleet
+							set_owner = prev
 							set_location = root
 							set_fleet_stance = aggressive
 							set_aggro_range = 150
@@ -1410,7 +1411,7 @@ system_event = {
 				portrait = random
 				traits = random
 				effect = {
-					modify_species = { add_trait = trait_psionic }
+					change_species_characteristics = { add_trait = trait_latent_psionic }
 				}
 			}
 			create_country = {
@@ -1511,7 +1512,7 @@ system_event = {
 						portrait = this # random
 						traits = random
 						effect = {
-							random = { chance = 50 change_species_characteristics = { add_trait = trait_psionic } }
+							random = { chance = 50 change_species_characteristics = { add_trait = trait_latent_psionic } }
 							save_event_target_as = cultist_raid_fleet_species
 						}
 					}
@@ -1908,8 +1909,8 @@ planet_event = {
 				portrait = this # random
 				traits = random
 				effect = {
-					modify_species = { add_trait = trait_psionic effect = { save_event_target_as = cultist_raid_fleet_species } }
-							random = { chance = 50 save_event_target_as = cultist_raid_fleet_species }
+					random = { chance = 50 change_species_characteristics = { add_trait = trait_latent_psionic } }
+					save_event_target_as = cultist_raid_fleet_species
 				}
 			}
 		}
@@ -1973,10 +1974,24 @@ country_event = {
 					set_owner = root
 					create_ship = { name = "cultist_nest" design = "NAME_Pirate_Nest" graphical_culture = "pirate_01" }
 					set_location = prev
+					set_fleet_stance = aggressive
 				}
 			}
+			create_fleet = {
+				effect = {
+					set_fleet_flag = cultist_fleet
+					set_owner = root
+					set_location = prev
+					set_fleet_stance = aggressive
+					set_aggro_range = 150
+					set_aggro_range_measure_from = self
+					set_fleet_bombardment_stance = indiscriminate
+					 # destroyer?
+					create_ship = { name = random design = "NAME_Ravager" graphical_culture = "avian_01" }
+				}
+			}
+			planet_event = { id = shroud_rising_invasion.1304 days = 60 random = 30 }
 		}
-		country_event = { id = shroud_rising_invasion.1304 days = 30 random = 15 }
 	}
 }
 
@@ -2068,44 +2083,48 @@ country_event = {
 
 # Cleanup if cultist are stuck or have finished bombarding a planet
 # Re-enabled on v.3.11
-country_event = {
+planet_event = {
 	id = shroud_rising_invasion.1304
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		exists = owner
-		owner = { is_country_type = shroud_cult }
-		any_owned_fleet = { is_fleet_idle = yes is_mobile = yes }
+		exists = from
+		from = {
+			is_country_type = shroud_cult
+			any_owned_fleet = { is_fleet_idle = yes is_mobile = yes }
+		}
 	}
 	immediate = {
-		random_owned_fleet = {
-			limit = { is_fleet_idle = yes is_mobile = yes }
-			closest_system = {
-				limit = {
-					any_system_colony = {
-						NOR = {
-							has_planet_flag = cultist_raid_target
-							has_modifier = recent_cult_invasion
-							has_modifier = cult_stronghold
-							num_sapient_pops < 1
-						}
+		closest_system = {
+			limit = {
+				any_system_colony = {
+					NOR = {
+						has_planet_flag = cultist_raid_target
+						has_modifier = recent_cult_invasion
+						has_modifier = cult_stronghold
+						num_sapient_pops < 1
 					}
-				}
-				random_system_colony = {
-					limit = {
-						NOR = {
-							has_planet_flag = cultist_raid_target
-							has_modifier = recent_cult_invasion
-							has_modifier = cult_stronghold
-							num_sapient_pops < 1
-						}
-					}
-					set_timed_planet_flag = { flag = cultist_raid_target months = 20 }
-					save_event_target_as = new_cultist_raid_target
 				}
 			}
-			auto_move_to_planet = { target = event_target:new_cultist_raid_target clear_auto_move_on_arrival = yes }
-			fleet_event = { id = shroud_rising_invasion.1305 scopes = { from = event_target:new_cultist_raid_target } days = 30 }
+			random_system_colony = {
+				limit = {
+					NOR = {
+						has_planet_flag = cultist_raid_target
+						has_modifier = recent_cult_invasion
+						has_modifier = cult_stronghold
+						num_sapient_pops < 1
+					}
+				}
+				set_timed_planet_flag = { flag = cultist_raid_target months = 20 }
+				save_event_target_as = new_cultist_raid_target
+				from = {
+					random_owned_fleet = {
+						limit = { is_fleet_idle = yes is_mobile = yes }
+						auto_move_to_planet = { target = event_target:new_cultist_raid_target clear_auto_move_on_arrival = yes }
+						fleet_event = { id = shroud_rising_invasion.1305 scopes = { from = event_target:new_cultist_raid_target } days = 30 }
+					}
+				}
+			}
 		}
 	}
 }
@@ -2439,6 +2458,11 @@ system_event = {
 				set_aggro_range = 500
 				set_fleet_flag = ancient_god
 			}
+		}
+	}
+	after = {
+		last_created_fleet = {
+			set_fleet_bombardment_stance = armageddon
 		}
 	}
 }

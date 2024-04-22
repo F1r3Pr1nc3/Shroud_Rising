@@ -99,9 +99,9 @@ country_event = {
 					set_location = { target = prev distance = 0 angle = 90 }
 				}
 			}
+			# Triggers next stage (bigger disturbance)
+			system_event = { id = shroud_rising_shroud_rift.999 days = 1800 random = 30 }
 		}
-		# Triggers next stage (bigger disturbance) event_target:global_event_country = {
-		country_event = { id = shroud_rising_shroud_rift.999 days = 1800 random = 30 }
 	}
 }
 
@@ -120,8 +120,8 @@ country_event = {
 	trigger = {
 		# is_ai = no
 		has_global_flag = eot_active
-		NOT = { has_country_flag = eye_of_terror_country }
 		is_default_or_fallen = yes
+		NOT = { has_country_flag = eye_of_terror_country }
 		OR = {
 			AND = {
 				exists = event_target:shroud_rift_system_1
@@ -163,7 +163,7 @@ country_event = {
 
 # Tear gets larger, turns into Small Tear and triggers rift
 # (Root = global from shroud_rising_shroud_rift.99)
-country_event = {
+system_event = {
 	id = shroud_rising_shroud_rift.999
 	hide_window = yes
 	fire_only_once = yes
@@ -172,9 +172,15 @@ country_event = {
 		set_global_flag = small_tear_active
 		if = {
 			limit = { NOT = { exists = event_target:shroud_rift_system_1 } }
-			random_system = {
+			if = {
 				limit = { has_star_flag = shroud_rift_system_1 }
 				save_global_event_target_as = shroud_rift_system_1
+			}
+			else = {
+				random_system = {
+					limit = { has_star_flag = shroud_rift_system_1 }
+					save_global_event_target_as = shroud_rift_system_1
+				}
 			}
 		}
 		event_target:shroud_rift_system_1 = {
@@ -197,6 +203,8 @@ country_event = {
 					set_location = { target = prev distance = 0 angle = 90 }
 				}
 			}
+			# Triggers Rifts
+			system_event = { id = shroud_rising_shroud_rift.1 days = 3600 random = 60 }
 		}
 		# Investigate the readings
 		every_playable_country = {
@@ -207,10 +215,7 @@ country_event = {
 			limit = { is_ai = no }
 			country_event = { id = shroud_rising_eye_of_terror.1 days = 1800 random = 30 }
 		}
-		# Triggers Rifts
-		event_target:global_event_country = {
-			country_event = { id = shroud_rising_shroud_rift.1 days = 3600 random = 60 }
-		}
+
 	}
 }
 
@@ -322,7 +327,7 @@ fleet_event = {
 
 #####   1st RIFT (HIDDEN EVENT) ############################
 # 1st Rift, global event
-country_event = {
+system_event = {
 	id = shroud_rising_shroud_rift.1
 	hide_window = yes
 	fire_only_once = yes
@@ -331,14 +336,19 @@ country_event = {
 		set_update_modifiers_batch = begin
 		if = {
 			limit = { NOT = { exists = event_target:shroud_rift_system_1 } }
-			random_system_within_border = {
+			if = {
 				limit = { has_star_flag = shroud_rift_system_1 }
 				save_global_event_target_as = shroud_rift_system_1
+			}
+			else = {
+				random_system_within_border = {
+					limit = { has_star_flag = shroud_rift_system_1 }
+					save_global_event_target_as = shroud_rift_system_1
+				}
 			}
 		}
 		set_timed_global_flag = { flag = rifts_basic_active years = 11 } # months = 127 days = 3800
 		remove_global_flag = small_tear_active
-		country_event = { id = shroud_rising_shroud_rift.4 days = 4300 random = 45 } # Collapse of rift
 		event_target:shroud_rift_system_1 = {
 			# set_name = "1st RIFT" #################### FOR TESTING ONLY
 			set_star_flag = corrupt_system
@@ -412,6 +422,7 @@ country_event = {
 				limit = { is_ai = no }
 				country_event = { id = shroud_rising_invasion.0 days = 240 random = 12 }	# ANNOUNCE invasions to all
 			}
+			system_event = { id = shroud_rising_shroud_rift.4 days = 4300 random = 45 } # Collapse of rift
 		}
 		country_event = { id = shroud_rising_shroud_rift.11 days = 4900 random = 60 } # 3rd rift 4900
 		set_update_modifiers_batch = end
@@ -469,17 +480,22 @@ country_event = {
 }
 
 # Shroud Rift collapses
-country_event = {
+system_event = {
 	id = shroud_rising_shroud_rift.4
 	is_triggered_only = yes
 	hide_window = yes
 	immediate = {
-		set_update_modifiers_batch = begin
 		if = {
 			limit = { NOT = { exists = event_target:shroud_rift_system_1 } }
-			random_system = {
+			if = {
 				limit = { has_star_flag = shroud_rift_system_1 }
 				save_global_event_target_as = shroud_rift_system_1
+			}
+			else = {
+				random_system = {
+					limit = { has_star_flag = shroud_rift_system_1 }
+					save_global_event_target_as = shroud_rift_system_1
+				}
 			}
 		}
 		event_target:shroud_rift_system_1 = {
@@ -501,17 +517,16 @@ country_event = {
 				}
 				remove_megastructure = this
 			}
-		}
-		every_playable_country = {
-			limit = {
-				OR = {
-					is_ai = no
-					has_point_of_interest = { poi = shroud_rising_rift_1_poi.1 }
+			every_playable_country = {
+				limit = {
+					OR = {
+						is_ai = no
+						has_point_of_interest = { poi = shroud_rising_rift_1_poi.1 }
+					}
 				}
+				country_event = { id = shroud_rising_shroud_rift.5 }			# ANNOUNCE it has collapsed
 			}
-			country_event = { id = shroud_rising_shroud_rift.5 }			# ANNOUNCE it has collapsed
 		}
-		set_update_modifiers_batch = end
 	}
 }
 
@@ -527,9 +542,15 @@ country_event = {
 	immediate = {
 		if = {
 			limit = { NOT = { exists = event_target:shroud_rift_system_1 } }
-			random_system = {
-				limit = { has_star_flag = shroud_rift_system_1 }
-				save_global_event_target_as = shroud_rift_system_1
+			if = {
+				limit = { exists = from from = { has_star_flag = shroud_rift_system_1 } }
+				from = { save_global_event_target_as = shroud_rift_system_1 }
+			}
+			else = {
+				random_system = {
+					limit = { has_star_flag = shroud_rift_system_1 }
+					save_global_event_target_as = shroud_rift_system_1
+				}
 			}
 		}
 		remove_point_of_interest = shroud_rising_rift_1_poi.1
@@ -721,15 +742,9 @@ country_event = {
 		}
 	}
 	# OK
-	option = {
-		name = "shroud_rising_operation.6.a"
-		custom_tooltip = shroud_rising_shroud_rift.7.a.tooltip
-	}
+	option = { name = "shroud_rising_operation.6.a" custom_tooltip = shroud_rising_shroud_rift.7.a.tooltip }
 	# HM
-	option = {
-		name = shroud_rising_shroud_rift.7.b
-		custom_tooltip = shroud_rising_shroud_rift.7.b.tooltip
-	}
+	option = { name = shroud_rising_shroud_rift.7.b custom_tooltip = shroud_rising_shroud_rift.7.b.tooltip }
 }
 
 # Announce for all
@@ -752,13 +767,9 @@ country_event = {
 		}
 	}
 	# OK
-	option = {
-		name = "crisis.2030.a"
-	}
+	option = { name = "crisis.2030.a" }
 	# HM
-	option = {
-		name = shroud_rising_shroud_rift.8.b
-	}
+	option = { name = shroud_rising_shroud_rift.8.b }
 }
 
 # Shroud Rift 2 collapses
@@ -1231,13 +1242,9 @@ country_event = {
 		add_event_chain_counter = { event_chain = "eye_of_terror_chain" counter = "active_rifts" amount = -1 }
 	}
 	# OK
-	option = {
-		name = "distar.7.b"
-	}
+	option = { name = "distar.7.b" }
 	# HM
-	option = {
-		name = "fallen_machine_empire.62.a"
-	}
+	option = { name = "fallen_machine_empire.62.a" }
 }
 
 ##### 4th RIFT (HIDDEN EVENT) ############################
@@ -1830,7 +1837,7 @@ country_event = {
 	show_sound = event_the_great_awakening
 	is_triggered_only = yes
 	location = event_target:shroud_rift_system_unstable
-	immediate = { }
+	immediate = {  }
 	option = { name = "distar.7.b" }
 }
 
@@ -1843,11 +1850,16 @@ event = {
 	immediate = {
 		every_playable_country = {
 			limit = {
-				is_ai = no # For testing
+				# is_ai = no # For testing
+				NOT = { has_civic = civic_shroud_worship }
 				any_owned_planet = { is_colony = yes has_planet_flag = shroud_rift_influence }
 			}
 			every_owned_planet = {
-				limit = { is_colony = yes has_planet_flag = shroud_rift_influence }
+				limit = {
+					is_colony = yes
+					has_planet_flag = shroud_rift_influence
+					NOR = { has_planet_flag = has_shroud_monolith has_modifier = eye_of_terror_influence_1 has_modifier = eye_of_terror_influence_2 }
+				}
 				random = { chance = 33
 					planet_event = { id = shroud_rising_shroud_rift.101 days = 64 random = 180 }
 				}
@@ -1867,6 +1879,7 @@ planet_event = {
 		is_colony = yes
 		has_planet_flag = shroud_rift_influence
 		NOR = { has_planet_flag = has_shroud_monolith has_modifier = eye_of_terror_influence_1 has_modifier = eye_of_terror_influence_2 }
+		# has_ground_combat = no
 	}
 	immediate = {
 		if = {
@@ -1877,7 +1890,7 @@ planet_event = {
 				portrait = random
 				traits = random
 				effect = {
-					modify_species = { add_trait = trait_psionic }
+					random = { chance = 50 change_species_characteristics = { add_trait = trait_latent_psionic } }
 				}
 			}
 			create_country = {
@@ -2068,7 +2081,7 @@ planet_event = {
 				portrait = random
 				traits = random
 				effect = {
-					modify_species = { add_trait = trait_psionic }
+					change_species_characteristics = { add_trait = trait_latent_psionic }
 				}
 			}
 			create_country = {

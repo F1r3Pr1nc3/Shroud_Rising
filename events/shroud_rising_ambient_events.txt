@@ -97,7 +97,7 @@ planet_event = {
 				portrait = random
 				traits = random
 				effect = {
-					modify_species = { add_trait = trait_psionic }
+					change_species_characteristics = { add_trait = trait_psionic }
 				}
 			}
 			create_country = {

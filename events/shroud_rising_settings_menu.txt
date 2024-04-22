@@ -26,10 +26,11 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		NOR = {
-			mid_game_years_passed > 40
-			has_global_flag = eot_active
-			has_active_event = { shroud_rising_trigger.1 }
 			is_ai = yes
+			mid_game_years_passed > 40
+			has_global_flag = eye_of_terror_open
+			# has_global_flag = eot_active
+			has_active_event = { shroud_rising_trigger.1 }
 		}
 	}
 	immediate = {
@@ -39,7 +40,7 @@ country_event = {
 			clear_variable = sr_difficulty
 		}
 	}
-	# difficulty
+	# Difficulty
 	option = {
 		name = shroud_rising_settings.1.a
 		custom_tooltip = shroud_rising_settings.1.a.tooltip
@@ -56,12 +57,16 @@ country_event = {
 		name = shroud_rising_settings.1.c
 		custom_tooltip = shroud_rising_settings.1.c.tooltip
 		trigger = {
-			NOT = { has_global_flag = eye_of_terror_open }
+			NOT = { has_global_flag = eot_active }
 			NOT = { has_global_flag = eot_spawn_not_fe }
+		}
+		allow = {
+			any_country = { is_fallen_empire = yes is_gestalt = no }
 		}
 		hidden_effect = {
 			set_global_flag = eot_spawn_not_fe
-			country_event = { id = shroud_rising_trigger.1 }
+			remove_global_flag = sr_settings_active
+			country_event = { id = shroud_rising_trigger.1 days = 1 }
 		}
 	}
 	# FE spawn ON
@@ -69,15 +74,19 @@ country_event = {
 		name = shroud_rising_settings.1.d
 		custom_tooltip = shroud_rising_settings.1.d.tooltip
 		trigger = {
-			NOT = { has_global_flag = eye_of_terror_open }
+			NOT = { has_global_flag = eot_active }
 			has_global_flag = eot_spawn_not_fe
+		}
+		allow = {
+			any_country = { is_fallen_empire = yes is_gestalt = no }
 		}
 		hidden_effect = {
 			remove_global_flag = eot_spawn_not_fe
-			country_event = { id = shroud_rising_trigger.1 }
+			remove_global_flag = sr_settings_active
+			country_event = { id = shroud_rising_trigger.1 days = 1 }
 		}
 	}
-	# exit
+	# Exit
 	option = {
 		name = "FRONT_QUIT"
 		custom_tooltip = shroud_rising_settings.1.b.tooltip
@@ -95,10 +104,7 @@ country_event = {
 	# desc = "shroud_rising_settings.2.desc"
 	picture = GFX_evt_shrouded_planet
 	is_triggered_only = yes
-	trigger = {
-		is_variable_set = sr_difficulty
-		has_global_flag = sr_settings_active
-	}
+	trigger = { is_variable_set = sr_difficulty has_global_flag = sr_settings_active }
 	desc = {
 		trigger = {
 			text = shroud_rising_settings.2.desc
@@ -297,27 +303,7 @@ country_event = {
 				exists =  event_target:shroud_horror_country
 				event_target:shroud_horror_country = { is_ai = yes }
 			}
-			event_target:shroud_horror_country = {
-				set_update_modifiers_batch = begin
-				# REMOVE_DIFFICULTY_MODIFIERS
-				remove_modifier = sr_difficulty_25
-				remove_modifier = sr_difficulty_10
-				remove_modifier = sr_difficulty_5
-				remove_modifier = sr_difficulty_4
-				remove_modifier = sr_difficulty_3
-				remove_modifier = sr_difficulty_2
-				remove_modifier = sr_difficulty_1
-
-				remove_modifier = difficulty_grand_admiral
-				remove_modifier = difficulty_admiral
-				remove_modifier = difficulty_commodore
-				remove_modifier = difficulty_captain
-				remove_modifier = difficulty_ensign
-
-				apply_shroud_rising_difficulty = yes
-
-				set_update_modifiers_batch = end
-			}
+			event_target:shroud_horror_country = { apply_shroud_rising_difficulty = yes }
 		}
 	}
 }
@@ -359,11 +345,7 @@ country_event = {
 	fire_only_once = yes
 	is_triggered_only = yes
 	trigger = {
-		NOR = {
-			is_ai = yes
-			has_global_flag = eot_active
-			has_country_flag = eot_host
-		}
+		NOR = { is_ai = yes has_global_flag = eot_active has_country_flag = eot_host }
 	}
 	immediate = {
 		set_country_flag = eot_host
@@ -503,10 +485,7 @@ country_event = {
 			set_country_flag = sr_settings_active
 		}
 	}
-	option = {
-		name = "OK"
-		default_hide_option = yes
-	}
+	option = { name = "OK" default_hide_option = yes }
 }
 
 # Once midgame hits, triggers the potential for Eye of Terror
@@ -565,12 +544,9 @@ country_event = {
 		any_country = {
 			is_default_or_fallen = yes
 			OR = {
+				AND = { is_fallen_empire = yes is_gestalt = no }
 				AND = {
-					merg_is_fallen_empire = yes
-					NOR = { is_machine_empire = yes is_gestalt = yes }
-				}
-				AND = {
-					merg_is_default_empire = yes
+					# merg_is_default_empire = yes
 					is_ai = yes
 					is_spiritualist = yes
 					owner_species = { has_trait = trait_psionic }
@@ -593,12 +569,7 @@ country_event = {
 			set_global_flag = eot_fe_xenophobe
 		}
 		else_if = {
-			limit = {
-				any_country = {
-					merg_is_fallen_empire = yes
-					NOR = { is_machine_empire = yes is_gestalt = yes }
-				}
-			}
+			limit = { any_country = { is_fallen_empire = yes is_gestalt = no } }
 			set_global_flag = eot_fe_xenophile
 		}
 		else_if = {
@@ -621,10 +592,10 @@ event = {
 	hide_window = yes
 	fire_only_once = yes
 	is_triggered_only = yes
-	trigger = {	}
+	trigger = {  }
 	immediate = {
 		every_country = {
-			limit = { is_country_type = shroud_cult_uprising }
+			limit = { is_country_type = shroud_cult_uprising } # TODO REMOVE ME ON 3.12
 			set_country_type = shroud_cult
 		}
 	}

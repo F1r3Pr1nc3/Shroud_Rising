@@ -25,6 +25,7 @@ namespace = shroud_rising_cult_uprising
 #######################################################
 ######### CULTIST UPRISING ############################
 #######################################################
+# on_colony_5_year_pulse
 planet_event = {
 	id = shroud_rising_cult_uprising.1
 	is_triggered_only = yes
@@ -90,11 +91,7 @@ planet_event = {
 					set_timed_country_flag = { flag = recent_cult_uprising years = 30 } # months = 365
 				}
 				# set_planet_flag = cult_uprising_planet
-				planet_event = {
-					id = shroud_rising_cult_uprising.2
-					days = 30
-					random = 60
-				}				# Definitely within the next year
+				planet_event = { id = shroud_rising_cult_uprising.2 days = 30 random = 60 }				# Definitely within the next year
 			}
 			33 = {
 				modifier = {
@@ -122,11 +119,19 @@ planet_event = {
 	is_triggered_only = yes
 	hide_window = yes
 	pre_triggers = { has_owner = yes has_ground_combat = no }
-	trigger = { }
+	trigger = { NOT = { has_planet_flag = recent_revolt_attempt } }
 	immediate = {
 		# Extra safety because it's possible for two planets to fire this delayed event on the same day and it will check the trigger before either of them can fire
 		if = {
-			limit = { NOT = { owner = { any_situation = { is_situation_type = situation_shroud_uprising } } } }
+			limit = {
+				owner = {
+					merg_is_default_empire = yes
+					NOR = {
+						has_civic = civic_shroud_worship
+						any_situation = { is_situation_type = situation_shroud_uprising }
+					}
+				}
+			}
 			planet_event = { id = shroud_rising_cult_uprising.3 }
 		}
 	}
@@ -147,13 +152,16 @@ planet_event = {
 		exists = owner
 		owner = {
 			merg_is_default_empire = yes
-			NOT = { any_situation = { is_situation_type = situation_shroud_uprising } }
+			NOR = {
+				has_civic = civic_shroud_worship
+				any_situation = { is_situation_type = situation_shroud_uprising }
+			}
 		}
 	}
 	immediate = {
 		set_timed_planet_flag = { flag = recent_revolt_attempt months = 53 } # days = 1600
-		save_event_target_as = cult_uprising_planet
 		# set_planet_flag = cult_uprising_planet
+		save_event_target_as = cult_uprising_planet
 		owner = {
 			start_situation = { type = situation_shroud_uprising target = root effect = { save_event_target_as = cult_situation } }
 		}
@@ -194,9 +202,9 @@ situation_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		random_list = {
-			20 = { target = { planet_event = { id = shroud_rising_cult_uprising.5 days = 30 random = 60 } } }
-			80 = { }
+		random = {
+			chance = 20
+			target = { planet_event = { id = shroud_rising_cult_uprising.5 days = 30 random = 60 } }
 		}
 	}
 }
@@ -584,6 +592,7 @@ planet_event = {
 		hidden_effect = {
 			owner = {
 				country_event = { id = shroud_rising_cult_uprising.99 days = 5 }
+
 			}
 		}
 	}
@@ -595,7 +604,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = { is_ai = yes }
-	immediate = { set_name = random }
+	immediate = { set_name = random set_country_flag = chaos_empire }
 }
 
 # Cult secedes from empire
@@ -622,10 +631,11 @@ country_event = {
 				# ignore_initial_colony_error = yes
 				# day_zero_contact = no
 				effect = {
-					set_country_flag = cultist_rebels
 					save_event_target_as = cultist_rebel_country
 					establish_communications_no_message = root.owner
 					set_country_type = default
+					set_country_flag = cultist_rebels
+					set_country_flag = chaos_empire
 					root = {
 						owner = {
 							every_relation = {
