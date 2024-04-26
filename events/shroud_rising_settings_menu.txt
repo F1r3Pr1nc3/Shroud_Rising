@@ -23,21 +23,27 @@ country_event = {
 	title = "shroud_rising_settings.1.name"
 	desc = "shroud_rising_settings.1.desc"
 	picture = GFX_evt_shrouded_planet
+	show_sound = event_psionic
 	is_triggered_only = yes
 	trigger = {
 		NOR = {
 			is_ai = yes
 			mid_game_years_passed > 40
-			has_global_flag = eye_of_terror_open
-			# has_global_flag = eot_active
-			has_active_event = { shroud_rising_trigger.1 }
+			has_global_flag = eye_of_terror_open # has_global_flag = eot_active
+			has_country_flag = sr_settings_active # has_active_event = { shroud_rising_trigger.1 }
 		}
 	}
 	immediate = {
 		set_global_flag = sr_settings_active
+		set_country_flag = sr_settings_active
 		if = {
 			limit = { is_variable_set = sr_difficulty }
 			clear_variable = sr_difficulty
+		}
+	}
+	after = {
+		hidden_effect = {
+			remove_country_flag = sr_settings_active # Only one
 		}
 	}
 	# Difficulty
@@ -57,16 +63,15 @@ country_event = {
 		name = shroud_rising_settings.1.c
 		custom_tooltip = shroud_rising_settings.1.c.tooltip
 		trigger = {
-			NOT = { has_global_flag = eot_active }
-			NOT = { has_global_flag = eot_spawn_not_fe }
+			NOR = { has_global_flag = eot_active has_global_flag = eot_spawn_not_fe }
 		}
 		allow = {
 			any_country = { is_fallen_empire = yes is_gestalt = no }
 		}
 		hidden_effect = {
 			set_global_flag = eot_spawn_not_fe
-			remove_global_flag = sr_settings_active
-			country_event = { id = shroud_rising_trigger.1 days = 1 }
+			remove_country_flag = sr_settings_active
+			country_event = { id = shroud_rising_trigger.1 }
 		}
 	}
 	# FE spawn ON
@@ -82,8 +87,8 @@ country_event = {
 		}
 		hidden_effect = {
 			remove_global_flag = eot_spawn_not_fe
-			remove_global_flag = sr_settings_active
-			country_event = { id = shroud_rising_trigger.1 days = 1 }
+			remove_country_flag = sr_settings_active
+			country_event = { id = shroud_rising_trigger.1 }
 		}
 	}
 	# Exit
@@ -92,6 +97,7 @@ country_event = {
 		custom_tooltip = shroud_rising_settings.1.b.tooltip
 		hidden_effect = {
 			remove_global_flag = sr_settings_active
+			remove_country_flag = sr_settings_active
 			country_event = { id = shroud_rising_trigger.3 }			# Resets modifiers as needed
 		}
 	}
@@ -103,6 +109,7 @@ country_event = {
 	title = "shroud_rising_settings.1.name"
 	# desc = "shroud_rising_settings.2.desc"
 	picture = GFX_evt_shrouded_planet
+	show_sound = event_energy_field
 	is_triggered_only = yes
 	trigger = { is_variable_set = sr_difficulty has_global_flag = sr_settings_active }
 	desc = {
@@ -319,9 +326,11 @@ event = {
 	fire_only_once = yes
 	is_triggered_only = yes
 	trigger = {
-		NOT = { has_global_flag = shroud_rising_active }
-		mid_game_years_passed < 0 # Crisis set possible
-		# NOT = { has_global_flag = eye_of_terror_possible } 	 # FOR TESTING ONLY
+		NOR = {
+			has_global_flag = shroud_rising_active
+			mid_game_years_passed > 0 # Crisis set possible
+			has_global_flag = eye_of_terror_possible 	 # FOR TESTING ONLY
+		}
 	}
 	immediate = {
 		set_global_flag = shroud_rising_active
@@ -500,15 +509,16 @@ country_event = {
 # 	}
 # }
 
-# (on_bi_yearly_pulse)
+# EoT Spawn chain trigger start (on_bi_yearly_pulse)
 event = {
 	id = shroud_rising_trigger.4
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		NOR = {
-			has_global_flag = eot_active
-			mid_game_years_passed < -21 # Crisis possible
+		NOT = { has_global_flag = eot_active }
+		OR = {
+			mid_game_years_passed > -21 # Crisis possible
+			has_global_flag = eye_of_terror_possible	 # FOR TESTING ONLY
 		}
 	}
 	immediate = {
@@ -540,7 +550,6 @@ country_event = {
 	fire_only_once = yes
 	is_triggered_only = yes
 	trigger = {
-		# has_global_flag = eye_of_terror_possible	 # FOR TESTING ONLY
 		any_country = {
 			is_default_or_fallen = yes
 			OR = {
@@ -582,6 +591,7 @@ country_event = {
 			}
 			set_global_flag = eot_ai_spiritualist
 		}
+		# event_target:global_event_country = { # Does not matter
 		country_event = { id = shroud_rising_shroud_rift.99 days = 36 random = 45 }
 	}
 }
@@ -592,10 +602,10 @@ event = {
 	hide_window = yes
 	fire_only_once = yes
 	is_triggered_only = yes
-	trigger = {  }
+	trigger = { }
 	immediate = {
 		every_country = {
-			limit = { is_country_type = shroud_cult_uprising } # TODO REMOVE ME ON 3.12
+			limit = { is_country_type = shroud_cult_uprising } # REMOVED IN 3.12
 			set_country_type = shroud_cult
 		}
 	}

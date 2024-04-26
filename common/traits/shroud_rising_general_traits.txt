@@ -61,7 +61,7 @@ leader_trait_general_cultist_veteran = {
 
 	modifier = {
 		damage_vs_country_type_shroud_cult_mult = 0.25
-		damage_vs_country_type_shroud_cult_uprising_mult = 0.25
+		# damage_vs_country_type_shroud_cult_uprising_mult = 0.25
 	}
 	leader_class = { commander }
 	initial = no

@@ -483,7 +483,7 @@ country_event = {
 	show_sound = event_announcement
 	location = fromfrom
 	trigger = {
-		from = { OR = { is_country_type = shroud_cult is_country_type = shroud_cult_uprising } }
+		from = { is_country_type = shroud_cult } # OR = { is_country_type = shroud_cult_uprising }
 		fromfrom = { has_planet_flag = cult_uprising_planet }
 	}
 	is_triggered_only = yes
@@ -523,7 +523,7 @@ country_event = {
 	location = fromfrom
 	is_triggered_only = yes
 	trigger = {
-		from = { OR = { is_country_type = shroud_cult is_country_type = shroud_cult_uprising } }
+		from = { is_country_type = shroud_cult } # OR = { is_country_type = shroud_cult_uprising }
 		fromfrom = { has_planet_flag = cult_uprising_planet }
 	}
 	immediate = {
@@ -720,7 +720,7 @@ country_event = {
 				every_fleet_in_system = {
 					limit = {
 						exists = owner
-						owner = { OR = { is_country_type = shroud_cult is_country_type = shroud_cult_uprising } }
+						owner = { is_country_type = shroud_cult } # OR = { is_country_type = shroud_cult_uprising }
 					}
 					set_owner = event_target:cultist_rebel_country
 				}

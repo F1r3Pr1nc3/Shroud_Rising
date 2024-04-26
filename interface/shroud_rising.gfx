@@ -4,7 +4,7 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_fleet_order_button_ground_support_devour"
 		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_devour_action.dds"
-		effectFile = "gfx/FX/buttonstate.lua"
+		effectFile = "gfx/FX/buttonstate.shader"
 		noOfFrames = 3
 		animation = {
 			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
@@ -24,7 +24,7 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_fleet_order_button_ground_support_devour_selected"
 		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_devour_selected.dds"
-		effectFile = "gfx/FX/buttonstate.lua"
+		effectFile = "gfx/FX/buttonstate.shader"
 		noOfFrames = 3
 		animation = {
 			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
@@ -40,22 +40,22 @@ spriteTypes = {
 			animationframes = { 1 2 3 }
 		}
 	}
-	
+
 	spriteType = {
 		name = "GFX_planet_modifier_ground_support_devour"
 		sprite_sheet_sprite_type = "GFX_planet_view_devour"
 		default_frame = 5
 	}
-	
+
 	spriteType = {
 		name = "GFX_planet_view_devour"
 		texturefile = "gfx/interface/icons/planet_modifiers/pm_devour.dds"
 		noOfFrames = 5
 	}
-	
+
 	spriteType = {
 		name = "GFX_wg_shroud_heresy"
 		texturefile = "gfx/interface/icons/diplomacy/diplomacy_force_ideology.dds"
 	}
-	
+
 }

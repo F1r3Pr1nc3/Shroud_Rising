@@ -281,11 +281,12 @@ building_monolith = {
 		remove_modifier = monolith_planet
 		if = {
 			limit = {
-				OR = {
-					has_modifier = eye_of_terror_influence_1
-					has_modifier = eye_of_terror_influence_2
-					has_modifier = shroud_rift_influence
-				}
+				has_planet_flag = shroud_rift_influence
+				# OR = {
+				# 	has_modifier = eye_of_terror_influence_1
+				# 	has_modifier = eye_of_terror_influence_2
+				# 	has_modifier = shroud_rift_influence
+				# }
 			}
 			# change_pc = pc_gaia
 			# remove_modifier = shroud_composer_effect
@@ -389,11 +390,12 @@ holding_monolith = {
 		remove_modifier = monolith_planet
 		if = {
 			limit = {
-				OR = {
-					has_modifier = eye_of_terror_influence_1
-					has_modifier = eye_of_terror_influence_2
-					has_modifier = shroud_rift_influence
-				}
+				has_planet_flag = shroud_rift_influence
+				# OR = {
+				# 	has_modifier = eye_of_terror_influence_1
+				# 	has_modifier = eye_of_terror_influence_2
+				# 	has_modifier = shroud_rift_influence
+				# }
 			}
 			# change_pc = pc_gaia
 			# remove_modifier = shroud_composer_effect

@@ -16,17 +16,24 @@ So, gather your courage and venture forth into the unknown. Within the depths of
 
 
 [b]Changelog game version 3.11.*[/b]:
-⠀• Player Crisis now primary target of the Shroud
 ⠀• Fixed Megastructure on Rift
 ⠀• More support for WH40K
 ⠀• Improved performance (still in progress)
+⠀• The Shroud now primary targets a Player Crisis
 ⠀• Some code modernisation and optimization (e.g. using inline scripts - saved 120 KB)
-⠀✔️ Supports [URL=//steamcommunity.com/workshop/filedetails/3041579530]All That Is GRIMDARK[/URL]
-⠀✔️ Supports [URL=//steamcommunity.com/sharedfiles/filedetails/2807759164]The Merger of Rules[/URL] for extended compat.
-⠀✔️ Supports [URL=//steamcommunity.com/workshop/filedetails/2458024521]Dynamic Mod Menu[/URL]
+⠀• Option added to exclude FE
+
+[b]Supports[/b]:
+⠀✔️ [URL=//steamcommunity.com/workshop/filedetails/3041579530]All That Is GRIMDARK[/URL]
+⠀✔️ [URL=//steamcommunity.com/sharedfiles/filedetails/2807759164]The Merger of Rules[/URL] for extended compat.
+⠀✔️ [URL=//steamcommunity.com/workshop/filedetails/2458024521]Dynamic Mod Menu[/URL]
+
+[b]Minor Recommendations[/b]:
+⠀• [URL=//steamcommunity.com/workshop/filedetails/2990642451]Daemonic Incursion - Knights of the Toxic God[/URL]
+⠀• [URL=//steamcommunity.com/workshop/filedetails/2461999384]Psionic Species Expansion[/URL]
+⠀• [URL=//steamcommunity.com/workshop/filedetails/3228869480]Beyond The Shroud[/URL]
 
 [b]Planned for 3.12[/b]:
-⠀• Option to not spawn in FE territory
 ⠀• Dynamic timer values (depending on mid-end-game settings)
 
 [hr]

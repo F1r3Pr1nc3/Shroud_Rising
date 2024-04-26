@@ -58,7 +58,7 @@ on_yearly_pulse = {
 		shroud_rising_invasion.1		# Incurions basic rift
 		shroud_rising_invasion.3		# Greater rift spawn
 		shroud_rising_shroud_rift.100		# Shroud spawn on planets near rifts
-		shroud_rising_shroud_rift.103		# Shroud spawn on planets Eye of Terror
+		# shroud_rising_shroud_rift.103		# Shroud spawn on planets Eye of Terror
 	}
 }
 

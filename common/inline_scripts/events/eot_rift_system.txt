@@ -9,7 +9,6 @@ random_list = {
 	5 = { set_star_class = sc_neutron_star }
 	5 = { set_star_class = sc_pulsar }
 }
-
 if = {
 	limit = { has_any_megastructure = yes }
 	random_system_planet = {
@@ -29,32 +28,46 @@ if = {
 						is_megastructure_type = matter_decompressor_restored
 					}
 				}
+				prev = {
+					spawn_megastructure = { type = "matter_decompressor_permanently_ruined" coords_from = prev }
+				}
 				remove_megastructure = this
 			}
 		}
 	}
 }
-
 random_system_ambient_object = {
-	limit = { has_ambient_object_flag = $AMBIENT|shroud_rift_object$ }
+	limit = { has_ambient_object_flag = $AMBIENT$ }
 	destroy_ambient_object = this
 }
-
-# Set flag for army spawns
-every_system_planet = {
-	limit = { is_star = no habitable_planet = yes }
-	remove_planet_flag = shroud_rift_influence
+random_system_planet = {
+	limit = { has_planet_flag = shroud_rift_planet }
+	change_pc = pc_shattered
 	remove_planet_flag = shroud_rift_planet
-	remove_modifier = shroud_rift_influence
+	switch = { trigger = has_planet_flag
+		shroud_rift_1_planet		= { remove_planet_flag = shroud_rift_1_planet }
+		shroud_rift_2_planet		= { remove_planet_flag = shroud_rift_2_planet }
+		shroud_rift_3_planet		= { remove_planet_flag = shroud_rift_3_planet }
+		shroud_rift_4_planet		= { remove_planet_flag = shroud_rift_4_planet }
+		shroud_rift_unstable_planet = { remove_planet_flag = shroud_rift_unstable_planet }
+	}
 }
-
+every_system_planet = { # Remove flag for army spawns
+	limit = { has_planet_flag = shroud_rift_influence }
+	remove_planet_flag = shroud_rift_influence
+	switch = { trigger = has_modifier
+		shroud_rift_influence		= { remove_modifier = shroud_rift_influence }
+		eye_of_terror_influence_1	= { remove_modifier = eye_of_terror_influence_1 }
+		eye_of_terror_influence_2	= { remove_modifier = eye_of_terror_influence_2 }
+	}
+}
 if = {
 	limit = { has_star_flag = shroud_invasion_system_basic }
 	remove_star_flag = shroud_invasion_system_basic
 }
 else = { remove_star_flag = shroud_invasion_system_greater }
-
 if = {
 	limit = { has_owner = yes }
 	space_owner = { save_event_target_as = shroud_rift_sealed_country }
 }
+remove_star_flag = corrupt_system

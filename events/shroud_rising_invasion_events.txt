@@ -2582,11 +2582,11 @@ event = {
 	is_triggered_only = yes
 	trigger = {
 		has_global_flag = eye_of_terror_open
+		exists = event_target:eye_of_terror_system
 		NOR = { has_global_flag = eye_of_terror_sealed has_global_flag = ancient_god_defeated has_global_flag = ancient_god_active }
 		event_target:global_event_country = {
 			check_variable = { which = shroud_planets value > 14 }
 		}
-		exists = event_target:eye_of_terror_system
 	}
 	immediate = {
 		event_target:eye_of_terror_system = {

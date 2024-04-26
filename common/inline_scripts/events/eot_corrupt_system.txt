@@ -1,6 +1,5 @@
 
-# random_neighbor_system = {
-limit = { NOT = { has_star_flag = corrupt_system } }
+# limit = { NOT = { has_star_flag = corrupt_system } }
 create_ambient_object = { type = "eye_of_terror_3" location = this }
 last_created_ambient_object = {
 	set_ambient_object_flag = eye_of_terror_system_effect_3
@@ -9,7 +8,7 @@ last_created_ambient_object = {
 set_star_flag = corrupt_system
 set_star_flag = eye_of_terror_rift_system
 set_star_flag = shroud_invasion_system_$TYPE$					# For spawning
-set_star_class = sc_great_rift$RIFT|$
+set_star_class = sc_great_$STAR$
 every_system_planet = {
 	limit = { is_star = yes }
 	random_list = {
@@ -40,5 +39,5 @@ every_system_planet = {
 every_system_planet = {
 	limit = { is_star = no habitable_planet = yes }
 	set_planet_flag = shroud_rift_influence
-	add_modifier = { modifier = eye_of_terror_influence_$MODIFIER|2$ }
+	add_modifier = { modifier = eye_of_terror_influence_$MOD$ }
 }

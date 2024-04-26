@@ -40,6 +40,7 @@ country_event = {
 	picture = GFX_evt_news_room
 	show_sound = event_cityscape
 	is_triggered_only = yes
+	trigger = { is_ai = no }
 	immediate = { }
 	option = { name = "astral_rift.2030.a" }
 	option = { name = shroud_rising_eye_of_terror.3.b }
@@ -251,10 +252,7 @@ country_event = {
 				random_system = {
 					limit = {
 						has_owner = yes
-						owner = {
-							is_fallen_empire = yes
-							is_gestalt = no
-						}
+						owner = { is_fallen_empire = yes is_gestalt = no }
 						is_capital_system = yes
 					}
 					save_global_event_target_as = eye_of_terror_system
@@ -314,11 +312,7 @@ country_event = {
 						OR = {
 							AND = {
 								has_owner = yes
-								owner = {
-									is_ai = yes
-									merg_is_default_empire = yes
-									is_gestalt = no
-								}
+								owner = { is_ai = yes merg_is_default_empire = yes is_gestalt = no }
 								is_capital_system = yes
 							}
 							AND = { has_owner = no has_special_star_flag_trigger = no }
@@ -434,39 +428,53 @@ country_event = {
 				set_planet_flag = shroud_rift_influence
 				add_modifier = { modifier = eye_of_terror_influence_1 }
 			}
-			random_neighbor_system_euclidean = {
-				inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 MODIFIER = 1 }
+			every_neighbor_system = {
+				limit = { NOT = { has_star_flag = corrupt_system } }
+				inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_2 MOD = 1 }
 				random_system_planet = {
 					limit = { is_shroud_rift_planet = yes }
 					change_pc = pc_shrouded
 					random = { chance = 25 add_deposit = d_zro_deposit_1 }
 				}
 				random_neighbor_system_euclidean = {
-					inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
+					limit = { NOT = { has_star_flag = corrupt_system } }
+					inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 2 }
 					random_neighbor_system_euclidean = {
-						inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
+						limit = { NOT = { has_star_flag = corrupt_system } }
+						inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_3 MOD = 2 }
 						random_neighbor_system_euclidean = {
-							inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
+							limit = { NOT = { has_star_flag = corrupt_system } }
+							inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 2 }
 							random_neighbor_system_euclidean = {
-								inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
+								limit = { NOT = { has_star_flag = corrupt_system } }
+								inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_2 MOD = 2 }
 								random_neighbor_system_euclidean = {
-									inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
+									limit = { NOT = { has_star_flag = corrupt_system } }
+									inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_3 MOD = 2 }
 									random_neighbor_system_euclidean = {
-										inline_script = { script = "events/eot_corrupt_system" TYPE = greater RIFT = _2 }
+										limit = { NOT = { has_star_flag = corrupt_system } }
+										inline_script = { script = "events/eot_corrupt_system" TYPE = greater STAR = rift_2 MOD = 2 }
 										random_neighbor_system_euclidean = {
-											inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
+											limit = { NOT = { has_star_flag = corrupt_system } }
+											inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 2 }
 											random_neighbor_system_euclidean = {
-												inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
+												limit = { NOT = { has_star_flag = corrupt_system } }
+												inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_3 MOD = 2 }
 												random_neighbor_system_euclidean = {
-													inline_script = { script = "events/eot_corrupt_system" TYPE = greater RIFT = "" }
+													limit = { NOT = { has_star_flag = corrupt_system } }
+													inline_script = { script = "events/eot_corrupt_system" TYPE = greater STAR = rift MOD = 2 }
 													random_neighbor_system_euclidean = {
-														inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
+														limit = { NOT = { has_star_flag = corrupt_system } }
+														inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_2 MOD = 2 }
 														random_neighbor_system_euclidean = {
-															inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
+															limit = { NOT = { has_star_flag = corrupt_system } }
+															inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 2 }
 															random_neighbor_system_euclidean = {
-																inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
+																limit = { NOT = { has_star_flag = corrupt_system } }
+																inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_2 MOD = 2 }
 																random_neighbor_system_euclidean = {
-																	inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
+																	limit = { NOT = { has_star_flag = corrupt_system } }
+																	inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 2 }
 																}
 															}
 														}
@@ -481,59 +489,32 @@ country_event = {
 					}
 				}
 			}
-			random_neighbor_system_euclidean = {
-				inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 MODIFIER = 1 }
+			if = { # Just Fallback
+				limit = { any_neighbor_system_euclidean = { NOT = { has_star_flag = corrupt_system } } }
 				random_neighbor_system_euclidean = {
-					inline_script = { script = "events/eot_corrupt_system" TYPE = greater RIFT = "" }
+					limit = { NOT = { has_star_flag = corrupt_system } }
+					inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_2 MOD = 1 }
 					random_neighbor_system_euclidean = {
-						inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
+						limit = { NOT = { has_star_flag = corrupt_system } }
+						inline_script = { script = "events/eot_corrupt_system" TYPE = greater STAR = rift MOD = 2 }
 						random_neighbor_system_euclidean = {
-							inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
+							limit = { NOT = { has_star_flag = corrupt_system } }
+							inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_3 MOD = 2 }
 							random_neighbor_system_euclidean = {
-								inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
+								limit = { NOT = { has_star_flag = corrupt_system } }
+								inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 2 }
 								random_neighbor_system_euclidean = {
-									inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
+									limit = { NOT = { has_star_flag = corrupt_system } }
+									inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_3 MOD = 2 }
 									random_neighbor_system_euclidean = {
-										inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
+										limit = { NOT = { has_star_flag = corrupt_system } }
+										inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_2 MOD = 2 }
 										random_neighbor_system_euclidean = {
-											inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			random_neighbor_system_euclidean = {
-				inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" MODIFIER = 1 }
-				random_system_planet = {
-					limit = { is_shroud_rift_planet = yes }
-					change_pc = pc_shrouded
-					random = { chance = 25 add_deposit = d_zro_deposit_1 }
-				}
-				random_neighbor_system_euclidean = {
-					inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
-					random_neighbor_system_euclidean = {
-						inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-						random_neighbor_system_euclidean = {
-							inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
-							random_neighbor_system_euclidean = {
-								inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-								random_neighbor_system_euclidean = {
-									inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
-									random_neighbor_system_euclidean = {
-										inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
-										random_neighbor_system_euclidean = {
-											inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
+											limit = { NOT = { has_star_flag = corrupt_system } }
+											inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 2 }
 											random_neighbor_system_euclidean = {
-												inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _2 }
-												random_neighbor_system_euclidean = {
-													inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = "" }
-													random_neighbor_system_euclidean = {
-														inline_script = { script = "events/eot_corrupt_system" TYPE = basic RIFT = _3 }
-													}
-												}
+												limit = { NOT = { has_star_flag = corrupt_system } }
+												inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_3 MOD = 2 }
 											}
 										}
 									}
@@ -543,6 +524,55 @@ country_event = {
 					}
 				}
 			}
+			# random_neighbor_system_euclidean = {
+			# 	limit = { NOT = { has_star_flag = corrupt_system } }
+			# 	inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 1 }
+			# 	random_system_planet = {
+			# 		limit = { is_shroud_rift_planet = yes }
+			# 		change_pc = pc_shrouded
+			# 		random = { chance = 25 add_deposit = d_zro_deposit_1 }
+			# 	}
+			# 	random_neighbor_system_euclidean = {
+			# 		limit = { NOT = { has_star_flag = corrupt_system } }
+			# 		inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_2 MOD = 2 }
+			# 		random_neighbor_system_euclidean = {
+			# 			limit = { NOT = { has_star_flag = corrupt_system } }
+			# 			inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 2 }
+			# 			random_neighbor_system_euclidean = {
+			# 				limit = { NOT = { has_star_flag = corrupt_system } }
+			# 				inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_3 MOD = 2 }
+			# 				random_neighbor_system_euclidean = {
+			# 					limit = { NOT = { has_star_flag = corrupt_system } }
+			# 					inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 2 }
+			# 					random_neighbor_system_euclidean = {
+			# 						limit = { NOT = { has_star_flag = corrupt_system } }
+			# 						inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_2 MOD = 2 }
+			# 						random_neighbor_system_euclidean = {
+			# 							limit = { NOT = { has_star_flag = corrupt_system } }
+			# 							inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_3 MOD = 2 }
+			# 							random_neighbor_system_euclidean = {
+			# 								limit = { NOT = { has_star_flag = corrupt_system } }
+			# 								inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 2 }
+			# 								random_neighbor_system_euclidean = {
+			# 									limit = { NOT = { has_star_flag = corrupt_system } }
+			# 									inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_2 MOD = 2 }
+			# 									random_neighbor_system_euclidean = {
+			# 										limit = { NOT = { has_star_flag = corrupt_system } }
+			# 										inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift MOD = 2 }
+			# 										random_neighbor_system_euclidean = {
+			# 											limit = { NOT = { has_star_flag = corrupt_system } }
+			# 											inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_3 MOD = 2 }
+			# 										}
+			# 									}
+			# 								}
+			# 							}
+			# 						}
+			# 					}
+			# 				}
+			# 			}
+			# 		}
+			# 	}
+			# }
 		}
 		every_playable_country = {
 			country_event = { id = shroud_rising_eye_of_terror.31 } # Make the system surveyed to avoid weird issues
@@ -776,24 +806,7 @@ country_event = {
 			}
 		}
 		event_target:eye_of_terror_system = {
-			# Remove flag for army spawns
-			every_system_planet = {
-				limit = { is_star = no habitable_planet = yes }
-				remove_planet_flag = shroud_rift_influence
-				remove_modifier = eye_of_terror_influence_2
-				remove_modifier = eye_of_terror_influence_1
-			}
-			every_system_planet = {
-				limit = { is_planet_class = pc_shrouded }
-				random_list = {
-					50 = { change_pc = pc_barren }
-					10 = { change_pc = pc_barren_cold }
-					10 = { change_pc = pc_toxic }
-					10 = { change_pc = pc_broken }
-					10 = { change_pc = pc_molten }
-					10 = { change_pc = pc_gaia }
-				}
-			}
+			system_event = { id = shroud_rising_eye_of_terror.72 }
 			every_system_planet = {
 				limit = {
 					NOR = {
@@ -801,14 +814,10 @@ country_event = {
 						# is_planet_class = pc_eye_of_terror is star
 						has_modifier = shroud_residue
 					}
+					habitable_planet = yes
 				}
 				add_modifier = { modifier = shroud_residue }
 			}
-			random_system_ambient_object = {
-				limit = { has_ambient_object_flag = eye_of_terror_system_effect_3 }
-				destroy_ambient_object = this
-			}
-			owner = { save_event_target_as = eye_of_terror_sealed_country }
 		}
 		every_playable_country = {
 			# limit = { }
@@ -874,13 +883,7 @@ system_event = {
 	# trigger = { has_global_flag = eye_of_terror_sealed }
 	immediate = {
 		set_update_modifiers_batch = begin
-		# Remove flag for army spawns
-		every_system_planet = {
-			limit = { is_star = no habitable_planet = yes }
-			remove_planet_flag = shroud_rift_influence
-			remove_modifier = eye_of_terror_influence_2
-			remove_modifier = eye_of_terror_influence_1
-		}
+		inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" } # Compare
 		every_system_planet = {
 			limit = { is_planet_class = pc_shrouded }
 			random_list = {
@@ -892,7 +895,6 @@ system_event = {
 				10 = { change_pc = pc_gaia }
 			}
 		}
-		inline_script = { script = "events/eot_rift_system" AMBIENT = "eye_of_terror_system_effect_3" }
 		set_update_modifiers_batch = end
 	}
 }
@@ -1073,6 +1075,7 @@ system_event = {
 		remove_global_flag = inhibitor_dismantle_check
 		set_global_flag = eye_of_terror_reopened
 		set_global_flag = eot_incursions_start
+		set_star_flag = corrupt_system
 		every_playable_country = {
 			limit = { NOT = { is_same_empire = from } }
 			if = {
@@ -1244,32 +1247,7 @@ system_event = {
 	immediate = {
 		set_update_modifiers_batch = begin
 		# Reopen and spread the rifts
-		create_ambient_object = { type = "eye_of_terror_3" location = this }
-		last_created_ambient_object = {
-			set_ambient_object_flag = eye_of_terror_system_effect_3
-			set_location = { target = prev distance = 0 angle = random }
-		}
-		set_star_class = sc_great_rift_2
-		every_system_planet = {
-			limit = { is_star = yes }
-			random_list = {
-				10 = { change_pc = pc_b_star }
-				10 = { change_pc = pc_a_star }
-				10 = { change_pc = pc_f_star }
-				10 = { change_pc = pc_g_star }
-				10 = { change_pc = pc_k_star }
-				10 = { change_pc = pc_m_star }
-				10 = { change_pc = pc_m_giant_star }
-				1 = { change_pc = pc_black_hole }
-				1 = { change_pc = pc_neutron_star }
-				1 = { change_pc = pc_pulsar }
-			}
-		}
-		every_system_planet = {
-			limit = { is_star = no habitable_planet = yes }
-			set_planet_flag = shroud_rift_influence
-			add_modifier = { modifier = eye_of_terror_influence_2 }
-		}
+		inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_2 } # Compare
 		random_system_planet = {
 			limit = { is_shroud_rift_planet = yes }
 			change_pc = pc_shrouded
@@ -1552,9 +1530,10 @@ country_event = {
 		}
 		every_owned_planet = {
 			limit = {
-				has_owner = yes
-				# owner = { is_ai = no } # For testing
+				# has_owner = yes
 				is_colony = yes
+				# owner = { is_ai = no } # For testing
+				has_planet_flag = shroud_rift_influence
 				NOT = { has_planet_flag = has_shroud_monolith }
 				OR = { has_modifier = eye_of_terror_influence_1 has_modifier = eye_of_terror_influence_2 }
 			}
@@ -1702,9 +1681,10 @@ country_event = {
 		# last_created_fleet = { fleet_event = { id = shroud_rising_invasion } }
 		every_owned_planet = {
 			limit = {
-				has_owner = yes
-				# owner = { is_ai = no } # For testing
+				# has_owner = yes
 				is_colony = yes
+				# owner = { is_ai = no } # For testing
+				has_planet_flag = shroud_rift_influence
 				NOT = { has_planet_flag = has_shroud_monolith }
 				OR = { has_modifier = eye_of_terror_influence_1 has_modifier = eye_of_terror_influence_2 }
 			}

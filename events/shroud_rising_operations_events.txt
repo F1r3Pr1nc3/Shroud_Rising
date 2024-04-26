@@ -100,7 +100,7 @@ country_event = {
 						settings = { spawn_debris = no is_boss = yes }
 						effect = {
 							set_owner = event_target:shroud_storm_horror
-							create_ship = { name = "NAME_shroud_horrors_blank" design = "NAME_Corrupted_Avatar" }
+							create_ship = { name = "NAME_Corrupted_Avatar" design = "NAME_Corrupted_Avatar" }
 							set_location = prev # event_target:rift_system
 							set_fleet_stance = aggressive
 							set_fleet_bombardment_stance = devour
