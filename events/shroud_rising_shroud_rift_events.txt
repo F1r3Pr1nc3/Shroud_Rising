@@ -101,7 +101,7 @@ country_event = {
 			}
 			# Triggers next stage (bigger disturbance)
 			if = {
-				limit = { has_global_flag = eye_of_terror_possible }  # FOR TESTING ONLY
+				limit = { has_global_flag = eye_of_terror_possible }	# FOR TESTING ONLY
 				system_event = { id = shroud_rising_shroud_rift.999 }
 			}
 			else = {
@@ -211,7 +211,7 @@ system_event = {
 			}
 			# Triggers Rifts
 			if = {
-				limit = { has_global_flag = eye_of_terror_possible }  # FOR TESTING ONLY
+				limit = { has_global_flag = eye_of_terror_possible }	# FOR TESTING ONLY
 				system_event = { id = shroud_rising_shroud_rift.1 days = 1 }
 			}
 			else = {
@@ -439,7 +439,7 @@ system_event = {
 		}
 		event_target:global_event_country = {
 			if = {
-				limit = { has_global_flag = eye_of_terror_possible }  # FOR TESTING ONLY
+				limit = { has_global_flag = eye_of_terror_possible }	# FOR TESTING ONLY
 				country_event = { id = shroud_rising_shroud_rift.11 days = 1 } # 3rd rift
 			}
 			else = {
@@ -483,7 +483,15 @@ country_event = {
 	show_sound = event_the_great_awakening
 	is_triggered_only = yes
 	location = event_target:shroud_rift_system_1
-	immediate = { end_event_chain = "shroud_rising_chain" }
+	immediate = {
+		end_event_chain = "shroud_rising_chain"
+		event_target:shroud_rift_system_1 = {
+			if = {
+				limit = { is_surveyed = { who = prev status = yes } }
+				set_surveyed = { surveyed = no surveyor = prev }
+			}
+		}
+	}
 	after = {
 		create_point_of_interest = {
 			id = shroud_rising_rift_1_poi.1
@@ -595,7 +603,7 @@ country_event = {
 				}
 				any_system_planet = { is_shroud_rift_planet = yes }
 			}
-			# set_name = "2nd Shroud Rift" # FOR TESTING
+			# set_name = "2nd Shroud Rift"	# FOR TESTING
 			set_star_flag = corrupt_system
 			set_star_flag = shroud_invasion_system_greater		# For spawning
 			set_star_flag = shroud_rift_system_2A				# For tracking
@@ -729,7 +737,7 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { has_global_flag = eye_of_terror_possible }  # FOR TESTING ONLY
+			limit = { has_global_flag = eye_of_terror_possible }	# FOR TESTING ONLY
 			country_event = { id = shroud_rising_shroud_rift.18 days = 1 } # Spawn 4th
 		}
 		else = {
@@ -777,7 +785,14 @@ country_event = {
 	show_sound = event_the_great_awakening
 	is_triggered_only = yes
 	location = event_target:shroud_rift_system_2
-	immediate = { }
+	immediate = {
+		event_target:shroud_rift_system_2 = {
+			if = {
+				limit = { is_surveyed = { who = prev status = yes } }
+				set_surveyed = { surveyed = no surveyor = prev }
+			}
+		}
+	}
 	after = {
 		create_point_of_interest = {
 			id = shroud_rising_rift_2_poi.1
@@ -1048,7 +1063,7 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { has_global_flag = eye_of_terror_possible }  # FOR TESTING ONLY
+			limit = { has_global_flag = eye_of_terror_possible }	# FOR TESTING ONLY
 			country_event = { id = shroud_rising_shroud_rift.6 days = 1 } # 2nd Large rift spawns
 		}
 		else = {
@@ -1097,6 +1112,14 @@ country_event = {
 	show_sound = event_the_great_awakening
 	is_triggered_only = yes
 	location = event_target:shroud_rift_system_3
+	immediate = {
+		event_target:shroud_rift_system_3 = {
+			if = {
+				limit = { is_surveyed = { who = prev status = yes } }
+				set_surveyed = { surveyed = no surveyor = prev }
+			}
+		}
+	}
 	after = {
 		create_point_of_interest = {
 			id = shroud_rising_rift_3_poi.1
@@ -1347,7 +1370,7 @@ country_event = {
 
 		# Spawns the Eye of Terror in the galaxy 2500
 		if = {
-			limit = { has_global_flag = eye_of_terror_possible }  # FOR TESTING ONLY
+			limit = { has_global_flag = eye_of_terror_possible }	# FOR TESTING ONLY
 			country_event = { id = shroud_rising_eye_of_terror.3 days = 1 }
 		}
 		else = {
@@ -1399,7 +1422,14 @@ country_event = {
 	show_sound = event_the_great_awakening
 	is_triggered_only = yes
 	location = event_target:shroud_rift_system_4
-	immediate = { }
+	immediate = {
+		event_target:shroud_rift_system_4 = {
+			if = {
+				limit = { is_surveyed = { who = prev status = yes } }
+				set_surveyed = { surveyed = no surveyor = prev }
+			}
+		}
+	}
 	# OK
 	option = {
 		name = "ancrel.15006.a"
@@ -1717,7 +1747,14 @@ country_event = {
 	show_sound = event_the_great_awakening
 	is_triggered_only = yes
 	location = event_target:shroud_rift_system_unstable
-	immediate = { }
+	immediate = {
+		event_target:shroud_rift_system_unstable = {
+			if = {
+				limit = { is_surveyed = { who = prev status = yes } }
+				set_surveyed = { surveyed = no surveyor = prev }
+			}
+		}
+	}
 	# OK
 	option = {
 		name = shroud_rising_shroud_rift.26.a

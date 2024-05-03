@@ -12,24 +12,21 @@ goliath_inhibitor_0 = {
 	prerequisites = { "tech_goliath_rift_inhibitor" }
 	construction_blocks_and_blocked_by = self_type
 	possible = {
-		exists = owner
-		custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
+		exists = space_owner
+		exists = from
+		# custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
 		custom_tooltip = {
 			fail_text = "requires_inside_border_or_subject_ally"
-			owner = {
+			space_owner = {
 				OR = {
+					root = { is_inside_border = from }
+					is_same_empire = from
 					AND = { has_global_flag = resolution_eye_of_terror_rifts_1 is_galactic_community_member = yes }
 					has_defensive_pact = from
 					is_in_federation_with = from
 					is_overlord_to = from
-					AND = {
-						is_subject = yes
-						overlord = { is_same_empire = from }
-					}
-					# AND = {
-					# 	is_subject = yes
-					# 	overlord = { is_overlord_to = from }
-					# }
+					AND = { is_subject = yes overlord = { is_same_empire = from } }
+					AND = { is_subject = yes overlord = { is_overlord_to = from } }
 				}
 			}
 		}
@@ -173,8 +170,7 @@ goliath_inhibitor_4 = {
 	}
 	ai_weight = {
 		factor = 10
-		modifier = {
-			factor = 0
+		modifier = { factor = 0
 			from = {
 				NOT = { has_civic = civic_shroud_worship }
 			}

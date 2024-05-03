@@ -57,8 +57,7 @@ planet_event = {
 	immediate = {
 		random_list = {
 			33 = {
-				modifier = {
-					factor = 2
+				modifier = { factor = 2
 					owner = {
 						any_owned_leader = {
 							OR = {
@@ -70,8 +69,7 @@ planet_event = {
 						}
 					}
 				}
-				modifier = {
-					factor = 10
+				modifier = { factor = 10
 					owner = {
 						any_owned_leader = {
 							is_councilor_type = councilor_ruler_inquisitor
@@ -94,8 +92,7 @@ planet_event = {
 				planet_event = { id = shroud_rising_cult_uprising.2 days = 30 random = 60 }				# Definitely within the next year
 			}
 			33 = {
-				modifier = {
-					factor = 2
+				modifier = { factor = 2
 					owner = {
 						any_owned_leader = {
 							is_councilor_type = councilor_ruler_inquisitor
@@ -202,8 +199,7 @@ situation_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		random = {
-			chance = 20
+		random = { chance = 20
 			target = { planet_event = { id = shroud_rising_cult_uprising.5 days = 30 random = 60 } }
 		}
 	}
@@ -370,8 +366,9 @@ planet_event = {
 			ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 			authority = auth_dictatorial
 			civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
-			origin = "origin_separatists"
 			name_list = "CULTISTS"
+			# flag = random
+			# origin = "origin_separatists"
 			effect = {
 				set_country_type = shroud_cult # shroud_cult_uprising
 				apply_shroud_rising_difficulty = yes
@@ -466,6 +463,7 @@ planet_event = {
 					assign_leader = last_created_leader
 				}
 			}
+			country_event = { id = shroud_rising_cult_uprising.19 days = 600 } # Merge
 		}
 	}
 	option = { name = shroud_rising_cult_uprising.6.a }
@@ -539,6 +537,7 @@ country_event = {
 ############# SITUATION END ULTIMATUM ##############
 #########################################
 # Join Cult or Refuse
+# Cult uprising owner = default empire type
 planet_event = {
 	id = shroud_rising_cult_uprising.9
 	title = "shroud_rising_cult_uprising.9.name"
@@ -592,7 +591,6 @@ planet_event = {
 		hidden_effect = {
 			owner = {
 				country_event = { id = shroud_rising_cult_uprising.99 days = 5 }
-
 			}
 		}
 	}
@@ -612,7 +610,7 @@ country_event = {
 country_event = {
 	id = shroud_rising_cult_uprising.10
 	hide_window = yes
-	location = event_target:cult_uprising_planet
+	# location = event_target:cult_uprising_planet
 	trigger = { merg_is_default_empire = yes }
 	is_triggered_only = yes
 	immediate = {
@@ -626,8 +624,9 @@ country_event = {
 				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
 				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
-				origin = "origin_separatists"
+				name_list = "CULTISTS"
 				flag = random
+				# origin = "origin_separatists"
 				# ignore_initial_colony_error = yes
 				# day_zero_contact = no
 				effect = {
@@ -895,4 +894,235 @@ country_event = {
 	immediate = { }
 	# Uh oh
 	option = { name = shroud_rising_cult_uprising.12.a }
+}
+
+# Fully merge and handover shroud_cults country (HIDDEN - compare marauder.609)
+# This = be destroyed country (after months = 20)
+country_event = {
+	id = shroud_rising_cult_uprising.19
+	hide_window = yes
+	trigger = {
+		is_scope_valid = yes
+		is_country_type = shroud_cult
+		any_country = {
+			is_country_type = shroud_cult
+			NOT = { is_same_empire = root }
+		}
+	}
+	is_triggered_only = yes
+	immediate = {
+		random_country = {
+			limit = {
+				is_country_type = shroud_cult
+				NOT = { is_same_empire = root }
+			}
+			save_event_target_as = new_shroud_cult
+		}
+		if = {
+			limit = { NOT = { exists = event_target:new_shroud_cult } }
+			break = yes
+		}
+		if = {
+			limit = { NOT = { has_global_flag = eye_of_terror_sealed } }
+			# Drag military fleets except for one (or two)
+			ordered_owned_fleet = {
+				limit = {
+					is_mobile = yes
+					is_civilian = no
+					exists = leader # Somehow gets ignored sometimes (if juggernaut?)
+					any_owned_ship = { is_ship_class = shipclass_military }
+				}
+				position = 1
+				order_by = trigger:fleet_power
+				if = { # is_ship_size = juggernaut
+					limit = { NOT = { any_owned_ship = { is_ship_class = shipclass_starbase } } }
+					leader = { set_owner = event_target:new_shroud_cult }
+				}
+				set_owner = event_target:new_shroud_cult
+			}
+			random_owned_fleet = {
+				limit = { is_mobile = yes exists = leader }
+				set_owner = root
+				# Recruit leader
+				leader = {
+					set_owner = root
+					set_timed_leader_flag = { flag = restored_admiral@prev days = 7 }
+				}
+				if = {
+					limit = { NOT = { is_ship_class = shipclass_transport } }
+					assign_leader = leader
+				}
+				if = { # Compare khan.611
+					limit = { exists = solar_system is_civilian = no }
+					solar_system = {
+						if = {
+							limit = { NAND = { has_owner = yes exists = starbase is_owned_by = root.owner } }
+							prev = { order_forced_return = yes }
+						}
+					}
+				}
+			}
+			random_owned_fleet = {
+				limit = {
+					is_mobile = yes
+					exists = leader
+					exists = solar_system
+					is_civilian = no any_owned_ship = { is_ship_class = shipclass_military }
+				}
+				set_owner = event_target:new_shroud_cult
+				# Recruit leader
+				leader = {
+					set_owner = event_target:new_shroud_cult
+					set_timed_leader_flag = { flag = restored_admiral@prev days = 7 }
+				}
+				if = {
+					limit = { NOT = { is_ship_class = shipclass_transport } }
+					assign_leader = leader
+				}
+				if = { # Compare khan.611
+					limit = { exists = solar_system is_civilian = no }
+					solar_system = {
+						if = {
+							limit = { NAND = { has_owner = yes exists = starbase is_owned_by = root.owner } }
+							prev = { order_forced_return = yes }
+						}
+					}
+				}
+			}
+		}
+
+		every_owned_starbase = {
+			limit = {
+				solar_system = {
+					has_owner = yes
+					is_owned_by = root		# Note: caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
+					is_capital_system = no
+				}
+			}
+			set_owner = event_target:new_shroud_cult
+		}
+		log="Handover \\[This.GetName] to \\[event_target:new_shroud_cult.GetName]"
+		# Full handover
+		every_owned_fleet = {
+			limit = {
+				is_mobile = yes
+				# garrison = no
+				OR = { is_civilian = yes num_ships > 1 exists = leader }
+			}
+			set_owner = event_target:new_shroud_cult
+			# Recruit leader
+			if = {
+				limit = { exists = leader }
+				leader = {
+					set_owner = event_target:new_shroud_cult
+					set_timed_leader_flag = { flag = restored_admiral@prev days = 7 }
+				}
+				if = {
+					limit = { NOT = { is_ship_class = shipclass_transport } }
+					assign_leader = leader
+				}
+				if = { # Compare khan.611
+					limit = { exists = solar_system is_civilian = no }
+					solar_system = {
+						if = {
+							limit = { NAND = { has_owner = yes exists = starbase is_owned_by = root.owner } }
+							prev = { order_forced_return = yes }
+						}
+					}
+				}
+			}
+		}
+
+		# Needs to be last (as the country gets destroyed without planet)
+		every_owned_planet = {
+			limit = {
+				has_owner = yes
+				is_owned_by = root		# Note: caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
+				solar_system = { is_capital_system = no }
+			}
+			set_owner = event_target:new_shroud_cult
+			set_controller = event_target:new_shroud_cult
+			# Just to keep the initial conquered planets in line while they stabilize.
+			add_modifier = { modifier = "revolt_suppressed" months = 20 }
+		}
+		event_target:new_shroud_cult = {
+			if = {
+				limit = { is_ai = yes }
+				add_resource = {
+					minerals =		20000
+					energy =		40000
+					alloys =		20000
+					food =			20000
+					influence = 	1000
+					consumer_goods = 20000
+				}
+				copy_techs_from = { target = root }
+			}
+			if = {
+				limit = { root = { num_owned_relics > 0 } }
+				steal_relic = { target = root relic = all }
+			}
+			# Upgrade starbases
+			if = {
+				limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
+				random_owned_starbase = {
+					limit = { has_starbase_size < starbase_starhold }
+					set_starbase_size = starbase_starhold
+					# starbase_event = { id = khan.302 days = 1 }
+				}
+				if = {
+					limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
+					random_owned_starbase = {
+						limit = { has_starbase_size < starbase_starhold }
+						set_starbase_size = starbase_starhold
+						# starbase_event = { id = khan.302 days = 1 }
+					}
+				}
+				if = {
+					limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
+					random_owned_starbase = {
+						limit = { has_starbase_size < starbase_starhold }
+						set_starbase_size = starbase_starhold
+						# starbase_event = { id = khan.302 days = 1 }
+					}
+				}
+			}
+			# Survey Own Space
+			every_planet_within_border = {
+				set_surveyed = { surveyed = yes surveyor = event_target:new_shroud_cult }
+			}
+			# Survey Rest of Horde's Space
+			root = {
+				every_planet_within_border = {
+					set_surveyed = { surveyed = yes surveyor = event_target:new_shroud_cult }
+				}
+			}
+			# Mining and Research Stations
+			every_planet_within_border = {
+				limit = {
+					has_owner = no
+					OR = { has_deposit_for = shipclass_mining_station has_deposit_for = shipclass_research_station }
+				}
+				if = {
+					limit = { has_deposit_for = shipclass_mining_station has_mining_station = no }
+					create_mining_station = { owner = event_target:new_shroud_cult }
+				}
+				else_if = {
+					limit = { has_deposit_for = shipclass_research_station has_research_station = no }
+					create_research_station = { owner = event_target:new_shroud_cult }
+				}
+			}
+			# Take old leaders!?
+			every_owned_leader = {
+				limit = { has_psionic_leader_trait = yes }
+				set_owner = event_target:new_shroud_cult
+			}
+
+		}
+		# Establish Communications
+		every_country = {
+			limit = { has_communications = root }
+			establish_communications_no_message = event_target:new_shroud_cult
+		}
+	}
 }

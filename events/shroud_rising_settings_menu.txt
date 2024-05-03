@@ -327,9 +327,9 @@ event = {
 	is_triggered_only = yes
 	trigger = {
 		NOR = {
-			has_global_flag = shroud_rising_active
+			# has_global_flag = shroud_rising_active
 			mid_game_years_passed > 0 # Crisis set possible
-			has_global_flag = eye_of_terror_possible 	 # FOR TESTING ONLY
+			has_global_flag = eye_of_terror_possible	# FOR TESTING ONLY
 		}
 	}
 	immediate = {
@@ -505,7 +505,7 @@ country_event = {
 # 	is_triggered_only = yes
 # 	trigger = { }
 # 	immediate = {
-# 		set_global_flag = eye_of_terror_possible	 # FOR TESTING ONLY
+# 		set_global_flag = eye_of_terror_possible	# FOR TESTING ONLY
 # 	}
 # }
 
@@ -518,7 +518,7 @@ event = {
 		NOT = { has_global_flag = eot_active }
 		OR = {
 			mid_game_years_passed > -21 # Crisis possible
-			has_global_flag = eye_of_terror_possible	 # FOR TESTING ONLY
+			has_global_flag = eye_of_terror_possible	# FOR TESTING ONLY
 		}
 	}
 	immediate = {
@@ -607,6 +607,26 @@ event = {
 		every_country = {
 			limit = { is_country_type = shroud_cult_uprising } # REMOVED IN 3.12
 			set_country_type = shroud_cult
+		}
+		every_country = {
+			limit = {
+				is_primitive = yes
+				any_owned_planet = {
+					exists = controller
+					controller = { NOT = { is_same_empire = prev } }
+				}
+			}
+			every_owned_planet = {
+				limit = {
+					exists = controller
+					controller = {
+						NOT = { is_same_empire = prev }
+						is_country_type_with_subjects = no
+					}
+				}
+				log="Fix Pre-FTL Empire \\[This.GetOwnerName] are controlled by \\[This.GetControllerName] on \\[This.GetName]"
+				set_controller = prev
+			}
 		}
 	}
 }

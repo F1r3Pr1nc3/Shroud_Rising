@@ -1848,12 +1848,30 @@ country_event = {
 		any_playable_country = { has_civic = civic_shroud_worship is_hostile = root }
 	}
 	immediate = {
+		# It repeats every year
 		# Chance for cult empires to become neutral
-		random_playable_country = { # It repeats every year
+		random_playable_country = {
 			limit = { is_ai = yes has_civic = civic_shroud_worship is_hostile = root }
 			root = {
-				random = { chance = 33 # 25
+				random = { chance = 25
 					set_faction_hostility = { set_hostile = no set_neutral = yes target = prev }
+				}
+			}
+		}
+		# Default empires
+		random_playable_country = {
+			limit = {
+				is_ai = yes
+				NOR = {
+					has_civic = civic_shroud_worship
+					is_hostile = root
+					has_country_flag = chaos_empire
+					has_country_flag = eye_of_terror_reopened_country
+				}
+			}
+			root = {
+				random = { chance = 50
+					set_faction_hostility = { set_hostile = yes set_neutral = no target = prev }
 				}
 			}
 		}

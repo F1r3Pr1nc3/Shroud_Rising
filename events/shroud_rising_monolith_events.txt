@@ -46,10 +46,10 @@ country_event = {
 		random_system_within_border = {
 			limit = {
 				NOR = {
+					is_capital_system = yes # is_same_value = root.owner.capital_scope.solar_system
 					has_star_flag = precursor_1
 					has_star_flag = shroud_invasion_target_1
 					has_star_flag = monolith_system
-					is_same_value = root.owner.capital_scope.solar_system
 				}
 				# distance = {
 						# source = root.owner.capital_scope.solar_system
@@ -59,7 +59,7 @@ country_event = {
 				# }
 				any_system_planet = {
 					# is_colony = yes
-					is_capital = no
+					# is_capital = no
 					is_artificial = no
 					merg_is_arcology = no
 					NOT = { has_planet_flag = precursor_world }
@@ -70,7 +70,7 @@ country_event = {
 			random_system_planet = {
 				limit = {
 					# is_colony = yes
-					is_capital = no
+					# is_capital = no
 					is_artificial = no
 					merg_is_arcology = no
 					OR = { habitable_planet = yes uninhabitable_regular_planet = yes }
@@ -274,10 +274,10 @@ country_event = {
 		random_system_within_border = {
 			limit = {
 				NOR = {
+					is_capital_system = yes # is_same_value = root.owner.capital_scope.solar_system
 					has_star_flag = precursor_1
 					has_star_flag = shroud_invasion_target_1
 					has_star_flag = monolith_system
-					is_same_value = root.owner.capital_scope.solar_system
 				}
 				any_system_planet = {
 					uninhabitable_regular_planet = yes

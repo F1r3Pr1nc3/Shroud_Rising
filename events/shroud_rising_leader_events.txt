@@ -663,7 +663,7 @@ country_event = {
 				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
 				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
-				origin = "origin_separatists"
+				# origin = "origin_separatists"
 				flag = random
 				# ignore_initial_colony_error = yes
 				# day_zero_contact = no
@@ -778,7 +778,7 @@ country_event = {
 							set_location = { target = event_target:cult_escape_world distance = 10 angle = random }
 						}
 					}
-					every_country = { establish_communications_no_message = prev }
+					apply_shroud_rising_difficulty = yes # every_country = { establish_communications_no_message = prev }
 				}
 			}
 			set_owner = event_target:cult_escape_country
@@ -849,12 +849,13 @@ country_event = {
 				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
 				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
-				origin = "origin_separatists"
+				# origin = "origin_separatists"
 				name_list = "CULTISTS"
 				effect = {
 					set_country_type = shroud_cult # shroud_cult_uprising
 					apply_shroud_rising_difficulty = yes
 					save_event_target_as = cultist_rebels
+					country_event = { id = shroud_rising_cult_uprising.19 days = 600 } # Merge
 				}
 			}
 		}
@@ -908,17 +909,17 @@ country_event = {
 			save_event_target_as = cult_escape_planet
 			create_rebels = {
 				name = "Treasonous Cultists"
-				# type = shroud_cult_uprising
 				species = event_target:leader_pop.species
 				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
 				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
-				origin = "origin_separatists"
+				# origin = "origin_separatists"
 				name_list = "CULTISTS"
 				effect = {
 					set_country_type = shroud_cult # shroud_cult_uprising
 					apply_shroud_rising_difficulty = yes
 					save_event_target_as = cultist_rebels
+					country_event = { id = shroud_rising_cult_uprising.19 days = 600 } # Merge
 				}
 			}
 			create_fleet = {

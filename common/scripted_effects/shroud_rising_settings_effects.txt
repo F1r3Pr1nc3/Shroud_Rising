@@ -52,7 +52,10 @@ apply_shroud_rising_difficulty = {
 		}
 	}
 	every_country = {
-		limit = { is_default_or_fallen = yes NOT = { has_communications = prev } }
+		limit = {
+			is_default_or_fallen = yes
+			NOT = { has_communications = prev }
+		}
 		establish_communications_no_message = prev
 	}
 	if = {
@@ -167,8 +170,42 @@ apply_shroud_rising_difficulty = {
 	if = {
 		limit = { is_country_type = shroud_cult }
 		every_country = {
-			limit = { OR = { is_country_type = shroud_entities is_country_type = shroud_horrors } }
-			establish_communications_no_message = prev
+			limit = {
+				OR = {
+					is_country_type = shroud_entities
+					is_country_type = shroud_horrors
+					# is_non_hostile_to_wraith = yes # Transcluding copy but excluding Marauder
+					is_country_type = nomad
+					is_tiyanki_country_type = yes
+					is_amoeba_country_type = yes
+					is_crystal_country_type = yes
+					is_drone_country_type = yes
+					is_country_type = enclave
+					# is_country_type = enclave_mercenary
+					is_country_type = cloud
+					is_country_type = debt_collectors
+					is_country_type = enigmatic_cache
+					is_country_type = vluur
+					is_country_type = caravaneer_home
+					is_country_type = caravaneer_fleet
+					is_guardian_country = yes
+					is_country_type = ratlings
+					is_country_type = ldragon_country
+					is_primitive = yes # needs to be removed later on conversion
+				}
+				NOR = { is_at_war_with = prev is_friendly_to = prev }
+			}
+			if = {
+				limit = {
+					NOR = {
+						is_same_value = prev
+						has_communications = prev
+						has_country_flag = suppress_first_contact_comms # i.e. The Shroud
+						is_primitive = yes
+					}
+				}
+				establish_communications_no_message = prev
+			}
 			set_faction_hostility = {
 				set_hostile = no
 				set_neutral = yes
@@ -181,9 +218,12 @@ apply_shroud_rising_difficulty = {
 		every_country = {
 			limit = {
 				OR = { is_country_type = shroud_entities is_country_type = shroud_horrors is_country_type = shroud_cult }
-				NOT = { is_same_empire = prev }
+				NOR = { is_same_empire = prev is_at_war_with = prev is_friendly_to = prev }
 			}
-			establish_communications_no_message = prev
+			if = {
+				limit = { NOT = { has_communications = prev } }
+				establish_communications_no_message = prev
+			}
 			set_faction_hostility = {
 				set_hostile = no
 				# set_neutral = yes

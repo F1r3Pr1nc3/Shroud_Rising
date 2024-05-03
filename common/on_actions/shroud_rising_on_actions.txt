@@ -349,3 +349,12 @@ on_leader_level_up = {
 		10 = shroud_rising_leader.21		# Give random character trait
 	}
 }
+
+# You have changed the location of your capital. Also called when a country's capital is first set e.g. during galaxy creation (but then FROM is not set)
+# this/root = new capital
+# from = old capital
+on_capital_changed = {
+	events = {
+		shroud_rising_colony.16 # Handling achieve_ftl_effect
+	}
+}

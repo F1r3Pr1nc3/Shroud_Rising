@@ -312,10 +312,7 @@ planet_event = {
 					background = { category = "backgrounds" file = "00_solid.dds" }
 					colors = { "dark_purple" "black" "null" "null" }
 				}
-				effect = {
-					apply_shroud_rising_difficulty = yes
-					save_event_target_as = shroud_horror_fleet
-				}
+				effect = { apply_shroud_rising_difficulty = yes save_event_target_as = shroud_horror_fleet }
 			}
 		}
 		event_target:shroud_horror_fleet = {
@@ -399,4 +396,29 @@ planet_event = {
 	}
 	option = { name = shroud_rising_colony.7.a }
 	option = { name = shroud_rising_colony.7.b }
+}
+# TODO TEST
+planet_event = { # Handling achieve_ftl_effect - (on_capital_changed)
+	id = shroud_rising_colony.16
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		exists = owner
+		owner = {
+			OR = { is_primitive = yes has_country_flag = primitives_can_into_space }
+		}
+	}
+	immediate = {
+		every_country = {
+			limit = {
+				is_country_type = shroud_cult
+				NOR = { is_at_war_with = prev is_hostile_to = prev }
+			}
+			if = {
+				limit = { NOT = { has_communications = prev } }
+				establish_communications_no_message = prev
+			}
+			set_faction_hostility = { set_hostile = yes set_neutral = no set_friendly = no target = prev }
+		}
+	}
 }

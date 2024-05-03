@@ -71,3 +71,22 @@ if = {
 	space_owner = { save_event_target_as = shroud_rift_sealed_country }
 }
 remove_star_flag = corrupt_system
+if = {
+	limit = { has_owner = no }
+	every_playable_country = {
+		limit = { prev = { is_surveyed = { who = prev status = yes } } }
+		prev = { set_surveyed = { surveyed = no surveyor = prev } }
+	}
+}
+else_if = {
+	limit = { exists = space_owner }
+	space_owner = {
+		every_playable_country = {
+			limit = {
+				NOT = { is_same_empire = prev }
+				prevprev = { is_surveyed = { who = prev status = yes } }
+			}
+			prevprev = { set_surveyed = { surveyed = no surveyor = prev } }
+		}
+	}
+}

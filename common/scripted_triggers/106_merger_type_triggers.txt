@@ -107,3 +107,54 @@ merg_is_awakened_fe = {
 		# }
 	}
 }
+
+### Mid-Game Crises general trigger ###
+is_marauder = {
+	OR = {
+		is_country_type = dormant_marauders
+		is_country_type = ruined_marauders
+		is_country_type = awakened_marauders
+		is_country_type = awakened_marauders_ev
+		is_country_type = marauder_raiders
+	}
+}
+# Scripted undercoat
+is_endgame_crisis = {
+	OR = {
+		is_country_type = extradimensional
+		is_country_type = extradimensional_2
+		is_country_type = extradimensional_3
+		is_country_type = swarm
+		is_country_type = ai_empire
+		is_country_type = synth_queen
+		is_country_type = synth_queen_storm
+		## ACOT
+		is_country_type = sbtg_stellarborne_empire
+		## Gigastructural Engineering & More
+		is_giga_crisis_faction = yes
+	}
+}
+
+# FOR CUSTODIAN
+is_crisis_faction = {
+	OR = {
+		is_endgame_crisis = yes
+		is_country_type = gray_goo
+		is_country_type = awakened_marauders
+		is_country_type = formless
+		# Cruel Conquerers
+		is_cruel_abomination_country_type = yes
+		# Destiny: The Darkness Crisis
+		is_country_type = darkness_country
+		# Shroud Rising
+		is_country_type = shroud_cult
+		is_country_type = shroud_entities
+		is_country_type = shroud_horrors
+		# Solar Storm
+		is_country_type = abyssal_host_invaders_type
+		is_country_type = SSAB_ab_country_v2
+		is_country_type = SSAB_ab_remnant
+		# The Sleeper
+		is_country_type = berserker_awoken_hive
+	}
+}

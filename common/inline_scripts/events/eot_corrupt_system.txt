@@ -41,3 +41,22 @@ every_system_planet = {
 	set_planet_flag = shroud_rift_influence
 	add_modifier = { modifier = eye_of_terror_influence_$MOD$ }
 }
+if = {
+	limit = { has_owner = no }
+	every_playable_country = {
+		limit = { prev = { is_surveyed = { who = prev status = yes } } }
+		prev = { set_surveyed = { surveyed = no surveyor = prev } }
+	}
+}
+else_if = {
+	limit = { exists = space_owner }
+	space_owner = {
+		every_playable_country = {
+			limit = {
+				NOT = { is_same_empire = prev }
+				prevprev = { is_surveyed = { who = prev status = yes } }
+			}
+			prevprev = { set_surveyed = { surveyed = no surveyor = prev } }
+		}
+	}
+}

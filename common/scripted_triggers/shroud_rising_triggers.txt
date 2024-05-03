@@ -28,3 +28,5 @@ is_shroud_rift_planet = {
 		# is_planet_class = pc_toxic
 	}
 }
+
+merg_has_shroud_rising = { always = yes } # has_global_flag = shroud_rising_active
