@@ -1,4 +1,4 @@
-version="3.11.3.7"
+version="3.12.0.7"
 tags={
 	"Events"
 	"Gameplay"
@@ -10,5 +10,5 @@ dependencies={
 }
 name="Shroud Rising [3.11] Patch"
 picture="thumbnail.png"
-supported_version="3.11.*"
+supported_version="3.12.*"
 remote_file_id="3170252871"

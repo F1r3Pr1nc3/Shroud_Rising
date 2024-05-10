@@ -14,17 +14,15 @@ goliath_inhibitor_0 = {
 	possible = {
 		exists = space_owner
 		exists = from
-		# custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
 		custom_tooltip = {
 			fail_text = "requires_inside_border_or_subject_ally"
 			space_owner = {
 				OR = {
-					root = { is_inside_border = from }
-					is_same_empire = from
-					AND = { has_global_flag = resolution_eye_of_terror_rifts_1 is_galactic_community_member = yes }
-					has_defensive_pact = from
+					is_same_empire = from # root = { is_inside_border = from }
 					is_in_federation_with = from
+					has_defensive_pact = from
 					is_overlord_to = from
+					AND = { has_global_flag = resolution_eye_of_terror_rifts_1 is_galactic_community_member = yes }
 					AND = { is_subject = yes overlord = { is_same_empire = from } }
 					AND = { is_subject = yes overlord = { is_overlord_to = from } }
 				}

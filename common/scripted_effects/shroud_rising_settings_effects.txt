@@ -191,7 +191,7 @@ apply_shroud_rising_difficulty = {
 					is_guardian_country = yes
 					is_country_type = ratlings
 					is_country_type = ldragon_country
-					is_primitive = yes # needs to be removed later on conversion
+					is_primitive = yes # Needs to be removed later on conversion
 				}
 				NOR = { is_at_war_with = prev is_friendly_to = prev }
 			}

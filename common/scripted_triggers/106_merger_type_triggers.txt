@@ -142,6 +142,8 @@ is_crisis_faction = {
 		is_country_type = gray_goo
 		is_country_type = awakened_marauders
 		is_country_type = formless
+		is_country_type = synth_queen
+		is_country_type = synth_queen_storm
 		# Cruel Conquerers
 		is_cruel_abomination_country_type = yes
 		# Destiny: The Darkness Crisis

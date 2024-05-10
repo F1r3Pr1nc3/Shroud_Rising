@@ -344,6 +344,18 @@ event = {
 			limit = { is_ai = yes has_country_flag = chaos_empire NOT = { has_civic = civic_shroud_worship } }
 			force_add_civic = civic_shroud_worship
 		}
+
+		event_target:global_event_country = {
+			get_galaxy_setup_value = { which = start_year_var setting = end_game_year }
+			subtract_variable = { which = start_year_var value = 2200 }
+			divide_variable = { which = start_year_var value = -10 }
+			round_variable = start_year_var # Default 20
+			if = {
+				limit = { check_variable = { which = start_year_var value < 3 } }
+				set_global_flag = eye_of_terror_possible
+			}
+			log = "Set start_year_var [This.start_year_var]"
+		}
 	}
 }
 
@@ -497,17 +509,19 @@ country_event = {
 	option = { name = "OK" default_hide_option = yes }
 }
 
+# Deprecated
 # Once midgame hits, triggers the potential for Eye of Terror
-# event = {
-# 	id = shroud_rising_trigger.13
-# 	hide_window = yes
-# 	fire_only_once = yes
-# 	is_triggered_only = yes
-# 	trigger = { }
-# 	immediate = {
-# 		set_global_flag = eye_of_terror_possible	# FOR TESTING ONLY
-# 	}
-# }
+event = {
+	id = shroud_rising_trigger.13
+	hide_window = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+	is_test_event = yes
+	trigger = { }
+	immediate = {
+		set_global_flag = eye_of_terror_possible	# FOR TESTING ONLY
+	}
+}
 
 # EoT Spawn chain trigger start (on_bi_yearly_pulse)
 event = {
@@ -517,7 +531,8 @@ event = {
 	trigger = {
 		NOT = { has_global_flag = eot_active }
 		OR = {
-			mid_game_years_passed > -21 # Crisis possible
+			# mid_game_years_passed >= -20 # Crisis possible
+			mid_game_years_passed > event_target:global_event_country.start_year_var # Crisis possible
 			has_global_flag = eye_of_terror_possible	# FOR TESTING ONLY
 		}
 	}
@@ -604,28 +619,60 @@ event = {
 	is_triggered_only = yes
 	trigger = { }
 	immediate = {
-		every_country = {
-			limit = { is_country_type = shroud_cult_uprising } # REMOVED IN 3.12
-			set_country_type = shroud_cult
-		}
-		every_country = {
-			limit = {
-				is_primitive = yes
-				any_owned_planet = {
-					exists = controller
-					controller = { NOT = { is_same_empire = prev } }
+		# every_country = {
+		# 	limit = { is_country_type = shroud_cult_uprising } # REMOVED IN 3.12
+		# 	set_country_type = shroud_cult
+		# }
+		if = {
+			limit = { event_target:global_event_country = { NOT = { is_variable_set = start_year_var } } }
+
+			event_target:global_event_country = {
+				get_galaxy_setup_value = { which = start_year_var setting = end_game_year }
+				subtract_variable = { which = start_year_var value = 2200 }
+				divide_variable = { which = start_year_var value = -10 }
+				round_variable = start_year_var # Default 20
+				if = {
+					limit = { check_variable = { which = start_year_var value < 3 } }
+					set_global_flag = eye_of_terror_possible
 				}
+				log = "Set start_year_var [This.start_year_var]"
 			}
-			every_owned_planet = {
+
+			every_country = {
 				limit = {
-					exists = controller
-					controller = {
-						NOT = { is_same_empire = prev }
-						is_country_type_with_subjects = no
+					is_primitive = yes
+					any_owned_planet = {
+						exists = controller
+						controller = { NOT = { is_same_empire = prev } }
 					}
 				}
-				log="Fix Pre-FTL Empire \\[This.GetOwnerName] are controlled by \\[This.GetControllerName] on \\[This.GetName]"
-				set_controller = prev
+				every_owned_planet = {
+					limit = {
+						exists = controller
+						controller = {
+							NOT = { is_same_empire = prev }
+							is_country_type_with_subjects = no
+						}
+					}
+					log="Fix Pre-FTL Empire \\[This.GetOwnerName] are controlled by \\[This.GetControllerName] on \\[This.GetName]"
+					set_controller = prev
+					controller = {
+						if = {
+							limit = {
+								is_hostile = prevprev
+								NOT = { is_at_war_with = prevprev }
+								OR = {
+									is_country_type = shroud
+									is_country_type = shroud_spirits
+									is_country_type = shroud_cult
+									is_country_type = shroud_entities
+									is_country_type = shroud_horrors
+								}
+							}
+							set_faction_hostility = { set_hostile = no set_neutral = yes target = prevprev }
+						}
+					}
+				}
 			}
 		}
 	}

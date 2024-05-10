@@ -139,6 +139,7 @@ country_event = {
 			has_modifier = shroud_cooldown
 			has_modifier = shroud_precog_cooldown
 			has_modifier = promised_no_shroud
+			has_active_event = { utopia.3000 }
 		}
 	}
 
@@ -314,6 +315,43 @@ country_event = {
 			country_event = { id = utopia.3005 }
 
 			add_modifier = { modifier = "shroud_cooldown" days = 2160 time_multiplier = value:scripted_modifier_mult|MODIFIER|shroud_delve_cooldown| }
+		}
+	}
+	option = { #Try to contact the Animator
+		name = "animator.shroud"
+		trigger = {
+			has_country_flag = synth_queen_can_contact_the_animator_of_clay
+			NOR = {
+				has_country_flag = shroud_intro
+				has_country_flag = synth_queen_contacted_the_animator_already
+			}
+		}
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value >= 2000
+				mult = value:scripted_modifier_mult|MODIFIER|shroud_delve_cost|
+			}
+			resource_stockpile_compare = {
+				resource = sr_zro
+				value >= 500
+				mult = value:scripted_modifier_mult|MODIFIER|shroud_delve_cost|
+			}
+		}
+
+		add_resource = {
+			energy = -2000
+			sr_zro = -500
+			mult = value:scripted_modifier_mult|MODIFIER|shroud_delve_cost|
+		}
+
+		hidden_effect = {
+			country_event = { id = crisis.24100 }
+			add_modifier = {
+				modifier = "shroud_cooldown"
+				days = 2160
+				time_multiplier = value:scripted_modifier_mult|MODIFIER|shroud_delve_cooldown|
+			}
 		}
 	}
 	option = { name = "exit.shroud" custom_tooltip = "exit.shroud.tooltip" default_hide_option = yes }
@@ -526,27 +564,28 @@ country_event = {
 		}
 		hidden_effect = { country_event = { id = utopia.3151 } }
 	}
-	# option = {
-	# 	name = "shroud.learntechnology.steal.cheat"
-	# 	custom_tooltip = "shroud.learntechnology.steal.cheat.desc"
-	# 	trigger = {
-	# 		has_country_flag = shroud_fallen_empire
-	# 		any_country = {
-	# 			is_fallen_empire = yes
-	# 			has_communications = root
-	# 			NOR = { is_gestalt = yes is_at_war_with = root }
-	# 		}
-	# 	}
-	# 	random_country = {
-	# 		limit = {
-	# 			is_fallen_empire = yes
-	# 			has_communications = root
-	# 			NOR = { is_gestalt = yes is_at_war_with = root }
-	# 		}
-	# 		save_event_target_as = fallen_empire
-	# 	}
-	# 	hidden_effect = { country_event = { id = utopia.3151 } }
-	# }
+	option = {
+		name = "shroud.learntechnology.steal.cheat"
+		custom_tooltip = "shroud.learntechnology.steal.cheat.desc"
+		trigger = {
+			has_country_flag = shroud_fallen_empire
+			is_fallen_empire = yes # TODO MORE
+			any_country = {
+				is_fallen_empire = yes
+				has_communications = root
+				NOR = { is_gestalt = yes is_at_war_with = root is_same_empire = root }
+			}
+		}
+		random_country = {
+			limit = {
+				is_fallen_empire = yes
+				has_communications = root
+				NOR = { is_gestalt = yes is_at_war_with = root is_same_empire = root }
+			}
+			save_event_target_as = fallen_empire
+		}
+		hidden_effect = { country_event = { id = utopia.3151 } }
+	}
 	option = {
 		name = "shroud.learntechnology.psionicshield"
 		custom_tooltip = "shroud.unknown"
@@ -579,7 +618,7 @@ country_event = {
 		}
 		hidden_effect = { country_event = { id = utopia.31909 } }
 	}
-	# option = {
+	# option = { TODO
 	# 	name = "shroud.chosenone.cheat"
 	# 	custom_tooltip = "shroud.chosenone.cheat.desc"
 	# 	trigger = {
@@ -595,15 +634,16 @@ country_event = {
 		}
 		hidden_effect = { country_event = { id = utopia.3306 } }
 	}
-	# option = {
-	# 	name = "shroud.patron.k.cheat"
-	# 	custom_tooltip = "shroud.patron.k.cheat.desc"
-	# 	trigger = {
-	# 		NOT = { has_modifier = covenant_eater_of_worlds }
-	# 		has_country_flag = has_shroud_patron
-	# 	}
-	# 	hidden_effect = { country_event = { id = utopia.3306 } }
-	# }
+	option = {
+		name = "shroud.patron.k.cheat"
+		custom_tooltip = "shroud.patron.k.cheat.desc"
+		trigger = {
+			has_country_flag = khorne
+			NOT = { has_modifier = covenant_eater_of_worlds }
+			has_country_flag = has_shroud_patron
+		}
+		hidden_effect = { country_event = { id = utopia.3306 } }
+	}
 	option = {
 		name = "shroud.patron.n"
 		custom_tooltip = "covenant_composer_of_strands"
@@ -612,15 +652,16 @@ country_event = {
 		}
 		hidden_effect = { country_event = { id = utopia.3305 } }
 	}
-	# option = {
-	# 	name = "shroud.patron.n.cheat"
-	# 	custom_tooltip = "shroud.patron.n.cheat.desc"
-	# 	trigger = {
-	# 		NOT = { has_modifier = covenant_composer_of_strands }
-	# 		has_country_flag = has_shroud_patron
-	# 	}
-	# 	hidden_effect = { country_event = { id = utopia.3305 } }
-	# }
+	option = {
+		name = "shroud.patron.n.cheat"
+		custom_tooltip = "shroud.patron.n.cheat.desc"
+		trigger = {
+			has_country_flag = nurgle
+			NOT = { has_modifier = covenant_composer_of_strands }
+			has_country_flag = has_shroud_patron
+		}
+		hidden_effect = { country_event = { id = utopia.3305 } }
+	}
 	option = {
 		name = "shroud.patron.t"
 		custom_tooltip = "covenant_whisperers_in_the_void"
@@ -629,15 +670,16 @@ country_event = {
 		}
 		hidden_effect = { country_event = { id = utopia.3304 } }
 	}
-	# option = {
-	# 	name = "shroud.patron.t.cheat"
-	# 	custom_tooltip = "shroud.patron.t.cheat.desc"
-	# 	trigger = {
-	# 		NOT = { has_modifier = covenant_whisperers_in_the_void }
-	# 		has_country_flag = has_shroud_patron
-	# 	}
-	# 	hidden_effect = { country_event = { id = utopia.3304 } }
-	# }
+	option = {
+		name = "shroud.patron.t.cheat"
+		custom_tooltip = "shroud.patron.t.cheat.desc"
+		trigger = {
+			has_country_flag = tzeentch
+			NOT = { has_modifier = covenant_whisperers_in_the_void }
+			has_country_flag = has_shroud_patron
+		}
+		hidden_effect = { country_event = { id = utopia.3304 } }
+	}
 	option = {
 		name = "shroud.patron.s"
 		custom_tooltip = "covenant_instrument_of_desire"
@@ -646,31 +688,33 @@ country_event = {
 		}
 		hidden_effect = { country_event = { id = utopia.3307 } }
 	}
-	# option = {
-	# 	name = "shroud.patron.s.cheat"
-	# 	custom_tooltip = "shroud.patron.s.cheat.desc"
-	# 	trigger = {
-	# 		NOT = { has_modifier = covenant_instrument_of_desire }
-	# 		has_country_flag = has_shroud_patron
-	# 	}
-	# 	hidden_effect = { country_event = { id = utopia.3307 } }
-	# }
 	option = {
-		name = "shroud.patron.m"
+		name = "shroud.patron.s.cheat"
+		custom_tooltip = "shroud.patron.s.cheat.desc"
+		trigger = {
+			has_country_flag = slaanesh
+			NOT = { has_modifier = covenant_instrument_of_desire }
+			has_country_flag = has_shroud_patron
+		}
+		hidden_effect = { country_event = { id = utopia.3307 } }
+	}
+	option = {
+		name = "utopia.3308.a" # "shroud.patron.m"
 		custom_tooltip = "covenant_end_of_the_cycle"
 		trigger = {
 			NOR = { has_modifier = covenant_end_of_the_cycle has_country_flag = has_shroud_patron }
 		}
 		hidden_effect = { country_event = { id = utopia.3308 } }
 	}
-	# option = {
-	# 	name = "shroud.patron.m.cheat"
-	# 	custom_tooltip = "shroud.patron.m.cheat.desc"
-	# 	trigger = {
-	# 		NOT = { has_modifier = covenant_end_of_the_cycle }
-	# 		has_country_flag = has_shroud_patron
-	# 	}
-	# 	hidden_effect = { country_event = { id = utopia.3308 } }
-	# }
+	option = {
+		name = "shroud.patron.m.cheat"
+		custom_tooltip = "shroud.patron.m.cheat.desc"
+		trigger = {
+			OR = { has_country_flag = eyechaos_empire has_origin = origin_fallen_psionic }
+			NOT = { has_modifier = covenant_end_of_the_cycle }
+			has_country_flag = has_shroud_patron
+		}
+		hidden_effect = { country_event = { id = utopia.3308 } }
+	}
 	option = { name = "exit.shroud" custom_tooltip = "exit.shroud.tooltip" default_hide_option = yes }
 }

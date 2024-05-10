@@ -84,10 +84,8 @@ planet_event = {
 				}
 				set_timed_global_flag = { flag = recent_cult_uprising_global years = 15 }
 				set_timed_planet_flag = { flag = unrest_timer years = 1 }
-				set_timed_planet_flag = { flag = recent_cult_uprising months = 53 } # days = 1600
-				owner = {
-					set_timed_country_flag = { flag = recent_cult_uprising years = 30 } # months = 365
-				}
+				set_timed_planet_flag = { flag = recent_cult_uprising months = 53 } # days = 1600 years = 4.4
+				owner = { set_timed_country_flag = { flag = recent_cult_uprising years = 30 } } # months = 365
 				# set_planet_flag = cult_uprising_planet
 				planet_event = { id = shroud_rising_cult_uprising.2 days = 30 random = 60 }				# Definitely within the next year
 			}
@@ -373,6 +371,7 @@ planet_event = {
 				set_country_type = shroud_cult # shroud_cult_uprising
 				apply_shroud_rising_difficulty = yes
 				save_event_target_as = cultist_rebels
+				country_event = { id = shroud_rising_cult_uprising.19 days = 600 } # Merge
 			}
 		}
 		solar_system = {
@@ -463,7 +462,6 @@ planet_event = {
 					assign_leader = last_created_leader
 				}
 			}
-			country_event = { id = shroud_rising_cult_uprising.19 days = 600 } # Merge
 		}
 	}
 	option = { name = shroud_rising_cult_uprising.6.a }
@@ -630,11 +628,11 @@ country_event = {
 				# ignore_initial_colony_error = yes
 				# day_zero_contact = no
 				effect = {
-					save_event_target_as = cultist_rebel_country
-					establish_communications_no_message = root.owner
 					set_country_type = default
+					save_event_target_as = cultist_rebel_country
 					set_country_flag = cultist_rebels
 					set_country_flag = chaos_empire
+					establish_communications_no_message = root.owner
 					root = {
 						owner = {
 							every_relation = {
@@ -915,6 +913,68 @@ country_event = {
 			limit = {
 				is_country_type = shroud_cult
 				NOT = { is_same_empire = root }
+				OR = {
+					root = {
+						num_owned_planets > 0
+						any_owned_planet = {
+							OR = {
+								distance_to_empire = {
+									who = prevprev
+									distance < 150
+									type = hyperlane
+								}
+								distance_to_empire = { #extra condition for really close empires on the other side of bypasses
+									who = prevprev
+									distance < 75
+									type = euclidean
+								}
+							}
+						}
+					}
+					root = {
+						num_starbases > 0
+						any_owned_starbase = {
+							OR = {
+								is_original_owner = prev
+								distance_to_empire = {
+									who = prev
+									distance < 150
+									type = hyperlane
+								}
+								distance_to_empire = { #extra condition for really close empires on the other side of bypasses
+									who = prev
+									distance < 75
+									type = euclidean
+								}
+							}
+						}
+					}
+					root = {
+						num_fleets > 0
+						num_starbases = 0
+						num_owned_planets = 0
+						any_owned_fleet = {
+							OR = {
+								is_original_owner = prev
+								distance_to_empire = {
+									who = prev
+									distance < 150
+									type = hyperlane
+								}
+								distance_to_empire = { #extra condition for really close empires on the other side of bypasses
+									who = prev
+									distance < 75
+									type = euclidean
+								}
+							}
+						}
+					}
+				}
+			}
+			weights = {
+				base = 1
+				modifier = { add = 10 has_communications = root }
+				# modifier = { add = 20 has_communications = root }
 			}
 			save_event_target_as = new_shroud_cult
 		}

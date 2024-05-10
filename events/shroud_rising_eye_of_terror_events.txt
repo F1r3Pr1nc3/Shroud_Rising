@@ -413,6 +413,23 @@ country_event = {
 					set_location = { target = prev distance = 0 angle = random }
 				}
 			}
+			if = {
+				limit = {
+					OR = {
+						has_star_flag = eyechaos_homeworld
+						any_system_ambient_object = { is_ambient_object_type = shroud_rift_object }
+						any_system_ambient_object = { is_ambient_object_type = extradimensional_2 NOT = { has_ambient_object_flag = extradimensional_system_effect_2 } }
+					}
+				}
+				random_system_ambient_object = {
+					limit = { any_system_ambient_object = { is_ambient_object_type = shroud_rift_object } }
+					destroy_ambient_object = this
+				}
+				random_system_ambient_object = {
+					limit = { any_system_ambient_object = { is_ambient_object_type = extradimensional_2 NOT = { has_ambient_object_flag = extradimensional_system_effect_2 } } }
+					destroy_ambient_object = this
+				}
+			}
 			star = {
 				create_ambient_object = { type = "eye_of_terror_3" location = this }
 				last_created_ambient_object = {
@@ -420,6 +437,7 @@ country_event = {
 					set_location = { target = prev distance = 0 angle = random }
 				}
 			}
+
 			every_fleet_in_system = {
 				limit = {
 					OR = { is_ship_class = shipclass_constructor is_ship_class = shipclass_transport }

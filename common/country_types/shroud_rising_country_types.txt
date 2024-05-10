@@ -1,17 +1,33 @@
- # REMOVED ON 3.12 (replaced by shroud_cult)
-# shroud_cult_uprising = {
-
+# shroud_cult_uprising = { # REMOVED ON 3.12 (replaced by shroud_cult)
 shroud_cult = {
 	government = no
 	observable = no
 	ship_disengagement = no
+	anti_end_game_crisis = yes
+	anti_mid_game_crisis = yes
+
+	targets = {
+		# default
+		# awakened_fallen_empire
+		# fallen_empire
+		swarm
+		extradimensional
+		extradimensional_2
+		extradimensional_3
+		ai_empire
+		gray_goo
+		awakened_marauders
+		# formless
+		# synth_queen
+		# synth_queen_storm
+	}
 
 	ai = {
 		enabled = yes
 		modules = {
 			horde_interior_minister_module
 			horde_military_minister_module
-
+			anti_crisis_military_minister_module
 		}
 	}
 	faction = {
@@ -22,9 +38,7 @@ shroud_cult = {
 		auto_delete = yes
 	}
 	modules = {
-		exclusive_diplomacy_module = { # Nothing is allowed, but we need this for relationships.
-			contact_rule = on_action_only
-		}
+		exclusive_diplomacy_module = { contact_rule = on_action_only  } # Nothing is allowed, but we need this for relationships.
 		all_technology_module = {}
 	}
 }
@@ -43,11 +57,13 @@ shroud_entities = {
 	government = no
 	observable = no
 	uses_origins = no
-
+	anti_end_game_crisis = yes
+	anti_mid_game_crisis = yes
 	ai = {
 		enabled = yes
 		modules = {
 			space_monsters_module
+			anti_crisis_military_minister_module
 		}
 	}
 
@@ -59,9 +75,7 @@ shroud_entities = {
 		auto_delete = yes
 	}
 	modules = {
-		exclusive_diplomacy_module = {
-			contact_rule = on_action_only
-		} # Nothing is allowed, but we need this for relationships.
+		exclusive_diplomacy_module = { contact_rule = on_action_only } # Nothing is allowed, but we need this for relationships.
 		all_technology_module = {}
 		standard_event_module = {}
 	}
@@ -84,7 +98,8 @@ shroud_horrors = {
 	government = no
 	observable = no
 	uses_origins = no
-
+	anti_end_game_crisis = yes
+	anti_mid_game_crisis = yes
 	ai = {
 		enabled = yes
 		modules = {
@@ -103,9 +118,7 @@ shroud_horrors = {
 		auto_delete = yes
 	}
 	modules = {
-		exclusive_diplomacy_module = {
-			contact_rule = on_action_only
-		} # Nothing is allowed, but we need this for relationships.
+		exclusive_diplomacy_module = { contact_rule = on_action_only } # Nothing is allowed, but we need this for relationships.
 		all_technology_module = {}
 		standard_event_module = {}
 	}

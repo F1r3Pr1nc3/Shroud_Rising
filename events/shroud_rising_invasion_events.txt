@@ -641,8 +641,8 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		has_global_flag = rifts_basic_active		# Set on v.3.9.3
 		has_global_flag = eye_of_terror_open
+		has_global_flag = rifts_basic_active		# Set on v.3.9.3
 		OR = { has_global_flag = rift_2_active has_global_flag = rift_4_active }
 		NOR = { has_global_flag = greater_rift_timer has_global_flag = eye_of_terror_sealed }
 		OR = {
@@ -669,8 +669,8 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		has_global_flag = rifts_basic_active
 		has_global_flag = eye_of_terror_open
+		has_global_flag = rifts_basic_active
 		OR = { has_global_flag = rift_2_active has_global_flag = rift_4_active }
 	}
 	immediate = {

@@ -58,6 +58,7 @@ eye_of_terror_influence_2 = {
 	icon_frame = 2
 }
 
+# TODO DEPRECATED: REMOVEME ON 3.13  (because dupe)
 # Rift effect
 shroud_rift_influence = {
 	pop_ethic_spiritualist_attraction_mult = 0.25
