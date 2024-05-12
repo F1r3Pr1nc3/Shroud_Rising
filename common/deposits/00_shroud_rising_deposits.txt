@@ -1,6 +1,6 @@
 ## Possible Deposit Variables ##
 # resources, resource and amount
-# potential trigger (planet scope)
+# Potential trigger (planet scope)
 # blocked_modifier - applied to planet only when deposit blocker has been cleared
 # constant_modifier - applied to planet always
 # blocker = <key/any/none> - default any
@@ -9,7 +9,6 @@
 ###############################
 #	Shroud Rising Deposits#
 ###############################
-
 
 d_shroud_temple = {	
 	icon = d_monument
@@ -30,6 +29,5 @@ d_shroud_temple = {
 	drop_weight = {
 		weight = 0
 	}
-
 
 }

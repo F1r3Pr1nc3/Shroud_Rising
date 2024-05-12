@@ -451,7 +451,7 @@ ship_section_template = {
 	aux_utility_slots = 3
 }
 
-# cosmic horror
+# Cosmic horror
 ship_section_template = {
 	key = "COSMIC_HORROR_KEY"
 	ship_size = cosmic_horror
@@ -607,7 +607,6 @@ ship_section_template = {
 	aux_utility_slots = 3
 }
 
-
 ship_section_template = {
 	key = "ANCIENT_GOD_KEY"
 	ship_size = ancient_god
@@ -698,7 +697,6 @@ ship_section_template = {
 		template = "small_turret"
 		locatorname = "large_gun_02"
 	}
-
 
 	component_slot = {
 		name = "POINT_DEFENCE_01"

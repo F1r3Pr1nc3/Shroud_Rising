@@ -93,7 +93,7 @@ ship_design = {
 	required_component="COMBAT_COMPUTER_SWARM_BASIC"
 	required_component="GUARDIAN_SENSORS"
 	# Adding a jump drive with no range so it is visible as a fleet on the galaxy map, but it should not be able to move to different systems
-	#required_component="RANGELESS_JUMP_DRIVE"
+	# required_component="RANGELESS_JUMP_DRIVE"
 	required_component = "HYPER_DRIVE_2"
 	required_component = "SHIP_THRUSTER_2"
 }
@@ -193,12 +193,12 @@ ship_design = {
 	required_component="COMBAT_COMPUTER_SWARM_BASIC"
 	required_component="GUARDIAN_SENSORS"
 	# Adding a jump drive with no range so it is visible as a fleet on the galaxy map, but it should not be able to move to different systems
-	#required_component="RANGELESS_JUMP_DRIVE"
+	# required_component="RANGELESS_JUMP_DRIVE"
 	required_component = "HYPER_DRIVE_2"
 	required_component = "SHIP_THRUSTER_2"
 }
 
-#whisper
+# whisper
 ship_design = {
 	name = "NAME_horror_whisper"
 	ship_size = greater_horror
@@ -293,7 +293,7 @@ ship_design = {
 	required_component="COMBAT_COMPUTER_SWARM_BASIC"
 	required_component="GUARDIAN_SENSORS"
 	# Adding a jump drive with no range so it is visible as a fleet on the galaxy map, but it should not be able to move to different systems
-	#required_component="RANGELESS_JUMP_DRIVE"
+	# required_component="RANGELESS_JUMP_DRIVE"
 	required_component = "HYPER_DRIVE_2"
 	required_component = "SHIP_THRUSTER_2"
 }
@@ -391,7 +391,7 @@ ship_design = {
 	required_component="COMBAT_COMPUTER_SWARM_BASIC"
 	required_component="GUARDIAN_SENSORS"
 	# Adding a jump drive with no range so it is visible as a fleet on the galaxy map, but it should not be able to move to different systems
-	#required_component="RANGELESS_JUMP_DRIVE"
+	# required_component="RANGELESS_JUMP_DRIVE"
 	required_component = "HYPER_DRIVE_2"
 	required_component = "SHIP_THRUSTER_2"
 }
@@ -489,7 +489,7 @@ ship_design = {
 	required_component="COMBAT_COMPUTER_SWARM_BASIC"
 	required_component="GUARDIAN_SENSORS"
 	# Adding a jump drive with no range so it is visible as a fleet on the galaxy map, but it should not be able to move to different systems
-	#required_component="RANGELESS_JUMP_DRIVE"
+	# required_component="RANGELESS_JUMP_DRIVE"
 	required_component = "HYPER_DRIVE_2"
 	required_component = "SHIP_THRUSTER_2"
 }
@@ -597,11 +597,11 @@ ship_design = {
 	required_component="COMBAT_COMPUTER_SWARM_BASIC"
 	required_component="GUARDIAN_SENSORS"
 	# Adding a jump drive with no range so it is visible as a fleet on the galaxy map, but it should not be able to move to different systems
-	#required_component="RANGELESS_JUMP_DRIVE"
+	# required_component="RANGELESS_JUMP_DRIVE"
 	required_component = "HYPER_DRIVE_2"
 	required_component = "SHIP_THRUSTER_2"
 }
-#Ancient god
+# Ancient god
 ship_design = {
 	name = "NAME_ancient_god"
 	ship_size = ancient_god
@@ -721,7 +721,7 @@ ship_design = {
 	required_component="COMBAT_COMPUTER_SWARM_BASIC"
 	required_component="GUARDIAN_SENSORS"
 	# Adding a jump drive with no range so it is visible as a fleet on the galaxy map, but it should not be able to move to different systems
-	#required_component="RANGELESS_JUMP_DRIVE"
+	# required_component="RANGELESS_JUMP_DRIVE"
 	required_component = "HYPER_DRIVE_2"
 	required_component = "SHIP_THRUSTER_2"
 }

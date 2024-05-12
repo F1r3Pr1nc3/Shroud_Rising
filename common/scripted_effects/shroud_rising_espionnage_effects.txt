@@ -1,5 +1,5 @@
 # GENERIC OPERATIONS PSIONIC EVENTS
-# operation scope | from = target
+# Operation scope | from = target
 operation_random_events_generic_sr_psionic = {
 	if = {
 		limit = {
@@ -31,11 +31,10 @@ operation_random_events_generic_sr_psionic = {
 	}
 }
 
-
-#For roll fail psionic gathering
+# For roll fail psionic gathering
 operation_random_events_sr_psionic = {
 	random_list = {
-		1 = { #Concentration lost			
+		1 = { # Concentration lost			
 			country_event = { id = shroud_rising_operation.7 }
 		}
 	}

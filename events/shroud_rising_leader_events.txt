@@ -47,6 +47,7 @@ country_event = {
 		from = {
 			OR = { is_country_type = shroud_entities is_country_type = shroud_horrors }
 		}
+		NOT = { has_active_event = { shroud_rising_leader.1 } }
 		exists = fromfrom
 		fromfrom = {
 			exists = leader
@@ -85,6 +86,7 @@ country_event = {
 		from = {
 			is_country_type = shroud_cult # OR = { is_country_type = shroud_cult_uprising }
 		}
+		NOT = { has_active_event = { shroud_rising_leader.2 } }
 		exists = fromfrom
 		fromfrom = {
 			exists = leader
@@ -118,6 +120,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		merg_is_default_empire = yes
+		NOT = { has_active_event = { shroud_rising_leader.3 } }
 		exists = from
 		from = {
 			OR = { is_country_type = shroud_entities is_country_type = shroud_horrors }
@@ -182,6 +185,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		merg_is_default_empire = yes
+		NOT = { has_active_event = { shroud_rising_leader.4 } }
 		exists = from
 		from = {
 			is_country_type = shroud_cult # OR = { is_country_type = shroud_cult_uprising }
@@ -245,6 +249,7 @@ country_event = {
 	force_open = yes
 	picture_event_data = { portrait = shroud1 room = shroud_room }
 	is_triggered_only = yes
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.5 } } }
 	immediate = {
 		set_country_flag = shroud_diplomacy_engaged
 		random_owned_leader = { save_event_target_as = leader_1 }
@@ -330,6 +335,7 @@ country_event = {
 			event_target:chosen_leader = { has_chosen_one_leader_trait = yes }
 		}
 	}
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.6 } } }
 	immediate = { set_country_flag = shroud_diplomacy_engaged set_country_flag = shroud_vision_10 }
 	after = {
 		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
@@ -371,6 +377,7 @@ country_event = {
 	force_open = yes
 	picture_event_data = { portrait = shroud1 room = shroud_room }
 	is_triggered_only = yes
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.7 } } }
 	immediate = { set_country_flag = shroud_diplomacy_engaged }
 	after = {
 		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
@@ -395,6 +402,7 @@ country_event = {
 	show_sound = event_psionic
 	location = event_target:shroud_spawn_system
 	is_triggered_only = yes
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.8 } } }
 	immediate = {
 		if = {
 			limit = { NOT = { exists = event_target:shroud_horror_fleet } }
@@ -479,7 +487,12 @@ country_event = {
 	}
 	trigger = {
 		has_global_flag = eot_active
-		NOR = { is_ai = yes has_civic = civic_shroud_worship is_gestalt = yes }
+		NOR = {
+			is_ai = yes
+			has_civic = civic_shroud_worship
+			is_gestalt = yes
+			has_active_event = { shroud_rising_leader.11 }
+		}
 		any_owned_leader = {
 			OR = {
 				has_trait = leader_trait_cultist_whisperers
@@ -614,7 +627,7 @@ country_event = {
 	desc = "shroud_rising_leader.12.desc"
 	picture = GFX_evt_surrender
 	is_triggered_only = yes
-	trigger = { }
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.12 } } }
 	immediate = { }
 	after = {
 		event_target:corrupted_leader_1 = {
@@ -638,7 +651,7 @@ country_event = {
 	picture = GFX_evt_federation_fleet
 	location = event_target:cult_escape_world
 	is_triggered_only = yes
-	trigger = { }
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.13 } } }
 	immediate = {
 		event_target:corrupted_leader_1 = {
 			kill_leader = { show_notification = no }
@@ -836,7 +849,7 @@ country_event = {
 	picture = GFX_evt_interior_battle
 	location = event_target:cult_escape_planet
 	is_triggered_only = yes
-	trigger = { }
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.14 } } }
 	immediate = {
 		random_owned_pop = { save_event_target_as = leader_pop }
 		# owner = { save_event_target_as = cult_uprising_owner }
@@ -900,7 +913,7 @@ country_event = {
 	picture = GFX_evt_small_space_battle
 	location = event_target:cult_escape_planet
 	is_triggered_only = yes
-	trigger = { }
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.15 } } }
 	immediate = {
 		# owner = { save_event_target_as = cult_uprising_owner }
 		random_owned_planet = {
@@ -957,7 +970,7 @@ country_event = {
 	picture = GFX_evt_acquire_asset
 	is_triggered_only = yes
 	trigger = {
-		NOT = { has_country_flag = recent_cult_conversion }
+		NOT = { has_country_flag = recent_cult_conversion has_active_event = { shroud_rising_leader.16 } }
 		any_owned_leader = {
 			NOR = {
 				has_trait = leader_trait_cultist_whisperers
@@ -1003,6 +1016,7 @@ country_event = {
 	picture = GFX_evt_assassination_1
 	is_triggered_only = yes
 	trigger = {
+		NOT = { has_active_event = { shroud_rising_leader.17 } }
 		exists = event_target:inquisitor_leader_1
 		any_owned_leader = { is_same_value = event_target:inquisitor_leader_1 }
 	}
@@ -1021,7 +1035,7 @@ country_event = {
 	desc = "shroud_rising_leader.18.desc"
 	picture = GFX_evt_trial_1
 	is_triggered_only = yes
-	trigger = { }
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.18 } } }
 	immediate = {
 		event_target:corrupted_leader_1 = {
 			kill_leader = { show_notification = no }
@@ -1038,7 +1052,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	trigger = { }
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.20 } } }
 	immediate = {
 		random_owned_leader = {
 			# limit = {
@@ -1066,8 +1080,12 @@ country_event = {
 	is_triggered_only = yes
 	hide_window = yes
 	trigger = {
-		is_ai = no		# Do I want AI having this too? or will it add to lag for no gameplay value
-		is_gestalt = no
+		NOT = {
+			is_ai = yes		# Do I want AI having this too? or will it add to lag for no gameplay value
+			is_gestalt = yes
+			has_active_event = { shroud_rising_leader.21 }
+		}
+		exists = from
 		from = {
 			OR = { has_skill = 3 has_skill = 5 has_skill = 8 }
 		}
@@ -1248,6 +1266,7 @@ country_event = {
 	hide_window = yes
 	trigger = {
 		is_gestalt = no
+		NOT = { has_active_event = { shroud_rising_leader.22 } }
 		any_owned_leader = {
 			OR = {
 				has_trait = leader_trait_whisperers_chosen
@@ -1341,7 +1360,7 @@ country_event = {
 	desc = "shroud_rising_leader.50.desc"
 	picture = GFX_evt_three_sided_deal
 	is_triggered_only = yes
-	trigger = { }
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.50 } } }
 	immediate = { }
 	option = { name = "astral_rift.2030.a" }
 	option = { name = shroud_rising_leader.50.b }
@@ -1354,7 +1373,7 @@ country_event = {
 	desc = "shroud_rising_leader.51.desc"
 	picture = GFX_evt_civil_action
 	is_triggered_only = yes
-	trigger = { }
+	trigger = { NOT = { has_active_event = { shroud_rising_leader.51 } } }
 	immediate = { }
 	option = { name = "astral_rift.2030.a" }
 }

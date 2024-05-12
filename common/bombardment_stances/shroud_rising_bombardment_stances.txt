@@ -1,4 +1,4 @@
-#example = {
+# example = {
 #	icons: Needs "GFX_planet_modifier_ground_support_NAME" and "GFX_fleet_order_button_ground_support_NAME" (hardcoded, no need to define here)
 #
 #	# root = fleet
@@ -32,7 +32,7 @@ devour = {
 			OR = {				
 				is_country_type = shroud_entities
 				is_country_type = shroud_horrors
-				#has_modifier = eye_of_terror_reopener
+				# has_modifier = eye_of_terror_reopener
 			}
 		}
 	}

@@ -8,12 +8,12 @@ CULTISTS = {
 	# PLANETS
 
 	trigger = {
-		is_pirate = yes
+		is_pirate_country = yes
 	}
 
 	ship_names = {
 		generic = {
-				"Red Queen" "Despoiler" "Merciless Death" "Fortress of Agony"  "Eclipse" "Conqueror" "Vengeful Spirit" "Treacherous" "Eternity of Pain" "Damnation's Fury" "Sword of Sacrilege" "Incarnadine" "Scion of Destruction" 
+				"Red Queen" "Despoiler" "Merciless Death" "Fortress of Agony"  "Eclipse" "Conqueror" "Vengeful Spirit" "Treacherous" "Eternity of Pain" "Damnation's Fury" "Sword of Sacrilege" "Incarnadine" "Scion of Destruction"
 				"Stonebreaker" "Prospero" "Agonising Death" "Foebane" "Blood Thirster" "Bloodied Sword" "Bringer of Despair" "Foe-Reaper" "Injustice" "Darkblood" "Warmaker"
 				"Deathbane" "Soulless" "Covenant of Blood" "Covenant of Pleasure" "Lady Dread" "Piercing Pestilence" "Wanton Desecration" "Reaper's Scythe" "Dedicated Wrath" "Farsider" "Sorrow's Embrace" "Ragnarok" "Plague Fleet" "Daughter of Woe"
 				"Eradicus" "Excessive" "Son of Excess" "Stalwart" "Defender of Pleasure" "Hell-Stalker" "Impaler" "Warhound" "Destiny's Edge" "Heldrake" "Feral Scream" "Eternity of Pain"
@@ -23,8 +23,7 @@ CULTISTS = {
 				"Unholy Destroyer" "Vision" "Chimera" "Conqueror" "Bloodlust" "Devastation" "Aimless Horizon" "Deathless Guardian" "Banished Death" "Bloodied Knife" "Machete" "Bastion of Pain" "Invader"
 				"Pursuiter" "Nightingale" "Herald of Doom" "Herald of Disease" "Breathless Doom" "Doomscythe" "Bane of Peace" "Death" "Freedom" "Knife" "Butcher" "Sword of Doom" "Lame Horse" "Decimus"
 				"Tyrannus" "Conquest" "Despairing Wail" "Barbed Fist"
-				
- 
+
 		}
 
 		corvette = {
@@ -46,11 +45,11 @@ CULTISTS = {
 		}
 
 		battleship = {
-		
+
 		}
 
 		titan = {
-			
+
 		}
 
 		colossus = {
@@ -67,7 +66,7 @@ CULTISTS = {
 	fleet_names = {
 		random_names = {
 			"Brothers of the Snake" "Blood Drinkers" "Dread Sisters" "Lords of the Barbed Embrace" "Elegant Perverters of the Diseased"
-		"Blood Raiders" "Iron Warriors" "Death Guard" "Thousand Sons" "Black Legion" "Word Bearers" "Alpha Legion" "Adharon's Legion" "Altar Brethren" "Angels Apocrypha" "Angels of Ecstasy" "Damned Company of Lord Castellan" "Death Falcons" "Death Mongers" 
+			"Blood Raiders" "Iron Warriors" "Death Guard" "Thousand Sons" "Black Legion" "Word Bearers" "Alpha Legion" "Adharon's Legion" "Altar Brethren" "Angels Apocrypha" "Angels of Ecstasy" "Damned Company of Lord Castellan" "Death Falcons" "Death Mongers"
 			"Putrid Brotherhood" "Prophets of the Seven" "Sanguine Sons" "Screaming Skulls" "Scourged" "Shadowed Ones" "Swords of Xa'ligha" "Cult of the Nameless One" "Crusaders of Shabbith-Ka" "Thralls of Aiueb Gnshal" "Warband of Azhorra-Tha" "Weeping Legion" "Pox Host"
 			"Deathless Horde" "Swords of Skaramor" "Skulltakers" "Damnation's Fury" "Desecrators of Ecstasy" "Deathbringers"
 			"Doombringers" "Sightless Slaughterers" "Oathtakers of Putrification" "Impious Templar" "Warforged Inculpators"
@@ -75,7 +74,7 @@ CULTISTS = {
 			"Acolytes of the Underworld" "Reaper's Proginy" "Seekers of Pain Aeterna" "Council of Manifest Pain" "Masters of the Lurid Headsman"
 			"Duelists of Hungering Extinction" "Executioners of Endless Paradox" "Dominators of Insensate Thought" "Daughters of the Pestilence" "Gluttons of Infernal Sacrament"
 			"Undercult of the Pariah" "Harbingers of the Unclean" "Pact of the Scheming Bull" " Pilgrims of the Rotspawn" "Grandchildren of Ascendant"
-			"Ravagers of the Enraptured Foe" "Warhounds of the Shroud" "Claws of the Gaunt King" "Cult of Reaping Agony" "Cult of the Coiled Toad" 
+			"Ravagers of the Enraptured Foe" "Warhounds of the Shroud" "Claws of the Gaunt King" "Cult of Reaping Agony" "Cult of the Coiled Toad"
 			"Covenant of the Father" "Covenant of Pestilence" "Pilgrims of Damnation" "Children of the Maw" "Cult of the Worm" "Cabal of the Worm" "Cabal of the Nameless One"
 			"Seekers of the Writhing Temptations" "Withering Cacophony" "Tyrants of the Septic Painopticon" "Cult of the Indulgent Moon"
 			"Plague Brewers of the Carrion" "Perverters of the Carnal Stronghold" "Harbingers of the Infested Spire" "Harvesters of the Shroud" "Champions of the Seeping Eye"
@@ -84,7 +83,7 @@ CULTISTS = {
 			"Prophets of the Shrouded" "Envious Defilers" "Warriors of the Seeping Rapture" "Supplicants of Hungering Slaughter" "Masters of the Savage Wretch"
 			"Keymasters of Cloying Befoulment" "Harbingers of the Veiled Axe" "Fraternity of Ninefold Cruelty" "Sorcerers of the Worm"
 			"Conclave of Inveigling Twilight" "Pupae of Ruinous Flagellation" "Gatekeepers of the Soulless" "Sons of the Titillating Tome"
-			"Scryers of Visceral Fate" "Avatars of the Skullbane" "Guild of Exquisite Corrosion" "Scions of the Maddening Messiah" 
+			"Scryers of Visceral Fate" "Avatars of the Skullbane" "Guild of Exquisite Corrosion" "Scions of the Maddening Messiah"
 			"Brethren of Hidden Greed" "Custodians of the Immaculate Shadow" "Eunuchs of the Unclean Princess" "Gluttons of Insensate Wrath"
 			"Bearers of the Delirious Tongue" "Drones of Predestined Descent" "Guild of the Green Architect" "Masters of the Shroud"
 			"Conclave of Bountiful Perfection" "Cabal of the Occult" "Scions of the Stone" "Supplicants of the Dark"
@@ -101,23 +100,21 @@ CULTISTS = {
 	planet_names = {
 	}
 
-
 	# CHARACTERS
-	
 
 	character_names = {
 		default = {
 			full_names = {
-				"Adharon the Exalted" "Dreadmaster Abaddon" "Arkos the Slaughterer" "Bale" "Baranox" "Brule the Bear-fist" "Cairne" "Warlord Constantinus" "Corian" "Doomflayer Akor" "Earthbreaker Ekodas" "Drachmus" "Fabius Bile" "Apostle Furion" "Kavator" "Malfecius the Shroud-touched" "Malak" 
+				"Adharon the Exalted" "Dreadmaster Abaddon" "Arkos the Slaughterer" "Bale" "Baranox" "Brule the Bear-fist" "Cairne" "Warlord Constantinus" "Corian" "Doomflayer Akor" "Earthbreaker Ekodas" "Drachmus" "Fabius Bile" "Apostle Furion" "Kavator" "Malfecius the Shroud-touched" "Malak"
 				"Shroudlord Typhus" "Lord Xorphas" "Sektoth" "Savill" "Rynax" "Archon Malek Vos" "Devastator Lucius" "Chengrel" "Abaddon the Despoiler" "Ba'ar Zul" "Argento the Merciful" "Lord Bane" "Nihilus" "Malak" "Ferrous Cull" "Fulmenes" "Gallus Herodicus" "Gangrus" "Ts'kata" "Ganshorr" "Garanthrax"
 				"Headsman of Cellebos" "Hemek" "High Bloodcaller" "Hodir" "Kharn" "Koros" "Malekith" "Kraegax Gorefist" "Dynat Mal" "Periclitor" "Phaevra" "Lord Cognus" "Lord Tyranus" "Archtemptress Zannah" "Shroudmaster Sadow" "Ragnos" "Mukzau Shadowflare" "Strayze The Wanderer" "Djiggakhaork Emberscream"
-				"Skyshtorros The Defiled" "Djakhydab The Rash" "Shezhae Shroudshard" "Ghesse The Abandoned" "Tridjazhi The Faithless" "Daknala Blazeeater" "Nemashqi Shadespit" "Ghere The Corrupted Mind" "Remzae The Pollutor" "Snagharshi Amberforge" "Baszat The Eternal" 
+				"Skyshtorros The Defiled" "Djakhydab The Rash" "Shezhae Shroudshard" "Ghesse The Abandoned" "Tridjazhi The Faithless" "Daknala Blazeeater" "Nemashqi Shadespit" "Ghere The Corrupted Mind" "Remzae The Pollutor" "Snagharshi Amberforge" "Baszat The Eternal"
 				"Aylol Burningguard" "Mykri The Corruption Lord" "Oderd Moonbone" "Sazhach The Explosive" "Vyzhozrard The Corruptor" "Tykhizyk The Sanguine" "Slenze Wraithstride" "Thrissikha The Wrathful" "Khaltigze Blazingshard"
-				"Vhigisa The Wanderer" "Mesza Daemonspit" "Frerroarru Bitterscar" "Frerroarru Bitterscar" "Khozhirin The Slaughterer" "Dezhatch The Crooked Smile" "Ryzzart The Befouled" "Kayzhalk Blackmight" "Fulard The Serpent" 
+				"Vhigisa The Wanderer" "Mesza Daemonspit" "Frerroarru Bitterscar" "Frerroarru Bitterscar" "Khozhirin The Slaughterer" "Dezhatch The Crooked Smile" "Ryzzart The Befouled" "Kayzhalk Blackmight" "Fulard The Serpent"
 				"Rogtrarr The Volatile" "Boruld The Dead Mind" "Rhaezni The Rash" "Negge Chaosheart" "Mhirea The Wreckage" "Bhekzefgi The Bone Crusher" "Izzix Flameblaze" "Vignold The Nomad"
 				"Ekoadrautts The Ferocious" "Szoggizzoak The Pollutor" "Baradra the Enduring" "Zine Skorviz" "Xeradhak the Slaughterer" "Taradren Slashspawn"
 				"Fomoatts Silentscream" "Brigzak The Corruptor" "Eskut The Suneater" "Truzharr Flamebane" "Yrrayld The Blood Soaked" "Morghauch The Soothsayer"
-				"Djuzzeggatts Suncleaver" "Vamezzard The Wreckage" "Alraydeb Deathseeker" "Vhamma Ragewrath" "Threasamme The Explosive" "Wamigga The Wanderer" 
+				"Djuzzeggatts Suncleaver" "Vamezzard The Wreckage" "Alraydeb Deathseeker" "Vhamma Ragewrath" "Threasamme The Explosive" "Wamigga The Wanderer"
 				"Thraesse The Grotesque" "Vhidi Fierylash" "Mhimma The Befouled" "Tishqe The Corrupted Mind" "Smilla The Grim Reaper"
 				"Thirrinza Burningsworn" "Mizhamma The Menace" "Ralralti The Serpent" "Smiammeankea Daemonsunder" "Toradhar the Betrayer"
 				"Zagthiad Xerodai" "Telmill Battlewrath" "Kott Skorvul" "Farth the Corpulent Claw" "Gararok the Depraved Worm"
@@ -131,15 +128,13 @@ CULTISTS = {
 				"Skaladrek Voidreaver" "Skaladok Laester" "Gurline the Indulgent Hunter" "Tolluk Blood-taker"
 				"Trul the Joyous Desecrator" "Elyastoz Shroudcleaver" "Blathla Kinpiercer" "Traon Delvu"
 				"Taladhash Whiphide" "Ghordaon Soulreaper" "Raladden the Sonorous Corpsemaker"  "Rhaegus Hell-thirster"
-				
-				
-				
+
 			}
 
 			# full_names_male = {
 				# "Baron" "Butcher King" "His Lordship" "Emperor of the Universe" "Crazy Helmsman" "Emperor Four-Eyes VII"
 			# }
-			
+
 			# full_names_female
 				# "Midwife" "Blood Queen"
 			# }

@@ -1866,39 +1866,45 @@ event = {
 				NOT = { has_civic = civic_shroud_worship }
 				any_system_within_border = {
 					has_star_flag = corrupt_system
-					OR = {
-						has_star_flag = shroud_rift_system_1
-						has_star_flag = shroud_rift_system_2
-						has_star_flag = shroud_rift_system_3
-						has_star_flag = shroud_rift_system_4
-						has_star_flag = shroud_rift_system_unstable
-					}
+					NOT = { has_star_flag = eye_of_terror_rift_system }
+					# OR = {
+					# 	has_star_flag = shroud_rift_system_1
+					# 	has_star_flag = shroud_rift_system_2
+					# 	has_star_flag = shroud_rift_system_3
+					# 	has_star_flag = shroud_rift_system_4
+					# 	has_star_flag = shroud_rift_system_unstable
+					# }
 					any_system_colony = {
 						has_ground_combat = no
 						has_planet_flag = shroud_rift_influence
-						OR = { has_modifier = eye_of_terror_influence_2 has_modifier = shroud_rift_influence } # REMOVEME 3.13
-						NOT = { has_planet_flag = has_shroud_monolith }
+						NOR = {
+							has_modifier = eye_of_terror_influence_1
+							has_planet_flag = has_shroud_monolith
+						}
 					}
 				}
 			}
 			every_system_within_border = {
 				limit = {
 					has_star_flag = corrupt_system
-					OR = {
-						has_star_flag = shroud_rift_system_1
-						has_star_flag = shroud_rift_system_2
-						has_star_flag = shroud_rift_system_3
-						has_star_flag = shroud_rift_system_4
-						has_star_flag = shroud_rift_system_unstable
-					}
+					NOT = { has_star_flag = eye_of_terror_rift_system }
+					# OR = {
+					# 	has_star_flag = shroud_rift_system_1
+					# 	has_star_flag = shroud_rift_system_2
+					# 	has_star_flag = shroud_rift_system_3
+					# 	has_star_flag = shroud_rift_system_4
+					# 	has_star_flag = shroud_rift_system_unstable
+					# }
 					any_system_colony = { has_ground_combat = no has_planet_flag = shroud_rift_influence }
 				}
 				every_system_colony = {
 					limit = {
 						has_ground_combat = no
 						has_planet_flag = shroud_rift_influence
-						OR = { has_modifier = eye_of_terror_influence_2 has_modifier = shroud_rift_influence } # REMOVEME 3.13
-						NOT = { has_planet_flag = has_shroud_monolith }
+						NOR = {
+							has_modifier = eye_of_terror_influence_1
+							has_planet_flag = has_shroud_monolith
+						}
 					}
 					random = { chance = 33
 						planet_event = { id = shroud_rising_shroud_rift.101 days = 64 random = 180 }
@@ -1912,45 +1918,45 @@ event = {
 				NOT = { has_civic = civic_shroud_worship }
 				any_system_within_border = {
 					has_star_flag = corrupt_system
-					OR = {
-						has_star_flag = shroud_rift_system_1
-						has_star_flag = shroud_rift_system_2
-						has_star_flag = shroud_rift_system_3
-						has_star_flag = shroud_rift_system_4
-						has_star_flag = shroud_rift_system_unstable
-					}
+					NOT = { has_star_flag = eye_of_terror_rift_system }
+					# OR = {
+					# 	has_star_flag = shroud_rift_system_1
+					# 	has_star_flag = shroud_rift_system_2
+					# 	has_star_flag = shroud_rift_system_3
+					# 	has_star_flag = shroud_rift_system_4
+					# 	has_star_flag = shroud_rift_system_unstable
+					# }
 					any_system_colony = {
 						has_ground_combat = no
 						has_planet_flag = shroud_rift_influence
-						NOT = { has_planet_flag = has_shroud_monolith }
-						OR = { has_modifier = eye_of_terror_influence_2 has_modifier = shroud_rift_influence } # REMOVEME 3.13
+						NOR = {
+							has_planet_flag = has_shroud_monolith
+							has_modifier = eye_of_terror_influence_1
+						}
 					}
 				}
-				# any_owned_planet = {
-				# 	has_owner = yes
-				# 	is_colony = yes
-				# 	has_planet_flag = shroud_rift_influence
-				# 	NOT = { has_planet_flag = has_shroud_monolith }
-				# }
 			}
 			every_system_within_border = {
 				limit = {
 					has_star_flag = corrupt_system
-					OR = {
-						has_star_flag = shroud_rift_system_1
-						has_star_flag = shroud_rift_system_2
-						has_star_flag = shroud_rift_system_3
-						has_star_flag = shroud_rift_system_4
-						has_star_flag = shroud_rift_system_unstable
-					}
+					NOT = { has_star_flag = eye_of_terror_rift_system }
+					# OR = {
+					# 	has_star_flag = shroud_rift_system_1
+					# 	has_star_flag = shroud_rift_system_2
+					# 	has_star_flag = shroud_rift_system_3
+					# 	has_star_flag = shroud_rift_system_4
+					# 	has_star_flag = shroud_rift_system_unstable
+					# }
 					any_system_colony = { has_ground_combat = no has_planet_flag = shroud_rift_influence }
 				}
 				every_system_colony = {
 					limit = {
 						has_ground_combat = no
 						has_planet_flag = shroud_rift_influence
-						NOT = { has_planet_flag = has_shroud_monolith }
-						OR = { has_modifier = eye_of_terror_influence_2 has_modifier = shroud_rift_influence } # REMOVEME 3.13
+						NOR = {
+							has_planet_flag = has_shroud_monolith
+							has_modifier = eye_of_terror_influence_1
+						}
 					}
 					random = { chance = 33
 						planet_event = { id = shroud_rising_shroud_rift.101 days = 64 random = 180 }
@@ -1976,6 +1982,7 @@ event = {
 				every_neighbor_system = {
 					limit = {
 						has_star_flag = corrupt_system
+						has_star_flag = eye_of_terror_rift_system
 						any_system_colony = {
 							has_ground_combat = no
 							has_planet_flag = shroud_rift_influence
@@ -2002,6 +2009,7 @@ event = {
 				NOT = { has_civic = civic_shroud_worship }
 				any_system_within_border = {
 					has_star_flag = corrupt_system
+					has_star_flag = eye_of_terror_rift_system
 					any_system_colony = {
 						has_ground_combat = no
 						has_planet_flag = shroud_rift_influence
@@ -2009,24 +2017,28 @@ event = {
 						NOT = { has_planet_flag = has_shroud_monolith }
 					}
 				}
-				# any_owned_planet = {
-				# 	is_colony = yes
-				# 	has_ground_combat = no
-				# 	has_planet_flag = shroud_rift_influence
-				# 	has_modifier = eye_of_terror_influence_2
-				# 	NOT = { has_planet_flag = has_shroud_monolith }
-				# }
 			}
-			every_owned_planet = {
+			every_system_within_border = {
 				limit = {
-					is_colony = yes
-					has_ground_combat = no
-					has_planet_flag = shroud_rift_influence
-					has_modifier = eye_of_terror_influence_2
-					NOT = { has_planet_flag = has_shroud_monolith }
+					has_star_flag = corrupt_system
+					has_star_flag = eye_of_terror_rift_system
+					any_system_colony = {
+						has_ground_combat = no
+						has_planet_flag = shroud_rift_influence
+						has_modifier = eye_of_terror_influence_2
+						NOT = { has_planet_flag = has_shroud_monolith }
+					}
 				}
-				random = { chance = 50
-					planet_event = { id = shroud_rising_shroud_rift.104 days = 16 random = 180 }
+				every_system_colony = {
+					limit = {
+						has_ground_combat = no
+						has_planet_flag = shroud_rift_influence
+						has_modifier = eye_of_terror_influence_2
+						NOT = { has_planet_flag = has_shroud_monolith }
+					}
+					random = { chance = 50
+						planet_event = { id = shroud_rising_shroud_rift.104 days = 16 random = 180 }
+					}
 				}
 			}
 		}

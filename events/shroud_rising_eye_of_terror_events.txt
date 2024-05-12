@@ -422,11 +422,11 @@ country_event = {
 					}
 				}
 				random_system_ambient_object = {
-					limit = { any_system_ambient_object = { is_ambient_object_type = shroud_rift_object } }
+					limit = { is_ambient_object_type = shroud_rift_object }
 					destroy_ambient_object = this
 				}
 				random_system_ambient_object = {
-					limit = { any_system_ambient_object = { is_ambient_object_type = extradimensional_2 NOT = { has_ambient_object_flag = extradimensional_system_effect_2 } } }
+					limit = { is_ambient_object_type = extradimensional_2 NOT = { has_ambient_object_flag = extradimensional_system_effect_2 } }
 					destroy_ambient_object = this
 				}
 			}
@@ -949,8 +949,8 @@ country_event = {
 					has_country_flag = eye_of_terror_sealed_country
 					NOR = { has_civic = civic_shroud_worship has_country_flag = eye_of_terror_reopened_country }
 				}
+				save_event_target_as = eye_of_terror_sealed_country
 			}
-			save_event_target_as = eye_of_terror_sealed_country
 		}
 		if = {
 			limit = { exists = event_target:eye_of_terror_sealed_country }
@@ -1345,6 +1345,7 @@ country_event = {
 	force_open = yes
 	picture_event_data = { portrait = shroud1 room = shroud_room }
 	is_triggered_only = yes
+	trigger = { NOT = { has_active_event = { shroud_rising_eye_of_terror.13 } } }
 	immediate = { set_country_flag = shroud_diplomacy_engaged }
 	after = {
 		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
@@ -1352,7 +1353,6 @@ country_event = {
 	option = {
 		name = "FRONT_QUIT"
 		custom_tooltip = shroud_rising_eye_of_terror.13.a.tooltip
-		# default_hide_option = yes
 		add_modifier = { modifier = eye_of_terror_reopener }
 		add_monthly_resource_mult = {
 			resource = unity
@@ -1374,8 +1374,9 @@ country_event = {
 	show_sound = event_red_alert
 	picture_event_data = { portrait = shroud1 room = shroud_room }
 	is_triggered_only = yes
+	trigger = { NOT = { has_active_event = { shroud_rising_eye_of_terror.14 } } }
 	immediate = {
-		# set_country_flag = shroud_diplomacy_engaged
+		set_country_flag = shroud_diplomacy_engaged
 		set_global_flag = eot_incursions_start
 		if = {
 			limit = { NOT = { exists = event_target:shroud_horror_country } }
@@ -1468,13 +1469,12 @@ country_event = {
 		}
 		# last_created_fleet = { fleet_event = { id = shroud_rising_invasion } }
 	}
-	# after = {
-	# 	hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
-	# }
+	after = {
+		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
+	}
 	option = {
 		name = "FRONT_QUIT"
 		custom_tooltip = shroud_rising_eye_of_terror.14.a.tooltip
-		# default_hide_option = yes
 	}
 }
 
@@ -1489,8 +1489,9 @@ country_event = {
 	show_sound = event_red_alert
 	picture_event_data = { portrait = shroud1 room = shroud_room }
 	is_triggered_only = yes
+	trigger = { NOT = { has_active_event = { shroud_rising_eye_of_terror.15 } } }
 	immediate = {
-		# set_country_flag = shroud_diplomacy_engaged
+		set_country_flag = shroud_diplomacy_engaged
 		set_global_flag = eot_incursions_start
 		if = {
 			limit = { NOT = { exists = event_target:shroud_horror_country } }
@@ -1617,13 +1618,12 @@ country_event = {
 			}
 		}
 	}
-	# after = {
-	# 	hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
-	# }
+	after = {
+		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
+	}
 	option = {
 		name = "FRONT_QUIT"
 		custom_tooltip = shroud_rising_eye_of_terror.15.a.tooltip
-		# default_hide_option = yes
 	}
 }
 
@@ -1639,8 +1639,9 @@ country_event = {
 	picture_event_data = { portrait = shroud1 room = shroud_room }
 	location = event_target:eye_of_terror_system
 	is_triggered_only = yes
+	trigger = { NOT = { has_active_event = { shroud_rising_eye_of_terror.16 } } }
 	immediate = {
-		# set_country_flag = shroud_diplomacy_engaged
+		set_country_flag = shroud_diplomacy_engaged
 		set_global_flag = eot_incursions_start
 		if = {
 			limit = { NOT = { exists = event_target:shroud_horror_country } }
@@ -1763,9 +1764,9 @@ country_event = {
 			}
 		}
 	}
-	# after = {
-	# 	hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
-	# }
+	after = {
+		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
+	}
 	option = { name = "FRONT_QUIT" custom_tooltip = shroud_rising_eye_of_terror.16.a.tooltip default_hide_option = yes }
 	option = {
 		name = shroud_rising_eye_of_terror.16.b

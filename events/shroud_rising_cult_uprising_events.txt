@@ -923,7 +923,7 @@ country_event = {
 									distance < 150
 									type = hyperlane
 								}
-								distance_to_empire = { #extra condition for really close empires on the other side of bypasses
+								distance_to_empire = { # extra condition for really close empires on the other side of bypasses
 									who = prevprev
 									distance < 75
 									type = euclidean
@@ -934,17 +934,18 @@ country_event = {
 					root = {
 						num_starbases > 0
 						any_owned_starbase = {
-							OR = {
-								is_original_owner = prev
-								distance_to_empire = {
-									who = prev
-									distance < 150
-									type = hyperlane
-								}
-								distance_to_empire = { #extra condition for really close empires on the other side of bypasses
-									who = prev
-									distance < 75
-									type = euclidean
+							fleet = {
+								OR = {
+									distance_to_empire = {
+										who = prev
+										distance < 150
+										type = hyperlane
+									}
+									distance_to_empire = { # extra condition for really close empires on the other side of bypasses
+										who = prev
+										distance < 75
+										type = euclidean
+									}
 								}
 							}
 						}
@@ -955,13 +956,12 @@ country_event = {
 						num_owned_planets = 0
 						any_owned_fleet = {
 							OR = {
-								is_original_owner = prev
 								distance_to_empire = {
 									who = prev
 									distance < 150
 									type = hyperlane
 								}
-								distance_to_empire = { #extra condition for really close empires on the other side of bypasses
+								distance_to_empire = { # extra condition for really close empires on the other side of bypasses
 									who = prev
 									distance < 75
 									type = euclidean
@@ -977,6 +977,17 @@ country_event = {
 				# modifier = { add = 20 has_communications = root }
 			}
 			save_event_target_as = new_shroud_cult
+		}
+		if = {
+			limit = { NOT = { exists = event_target:new_shroud_cult } }
+			random_country = {
+				limit = {
+					is_country_type = shroud_cult
+					NOT = { is_same_empire = root }
+				}
+				weights = { base = 1 modifier = { add = 10 has_communications = root } }
+				save_event_target_as = new_shroud_cult
+			}
 		}
 		if = {
 			limit = { NOT = { exists = event_target:new_shroud_cult } }

@@ -317,7 +317,7 @@ country_event = {
 			add_modifier = { modifier = "shroud_cooldown" days = 2160 time_multiplier = value:scripted_modifier_mult|MODIFIER|shroud_delve_cooldown| }
 		}
 	}
-	option = { #Try to contact the Animator
+	option = { # Try to contact the Animator
 		name = "animator.shroud"
 		trigger = {
 			has_country_flag = synth_queen_can_contact_the_animator_of_clay
