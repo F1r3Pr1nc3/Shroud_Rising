@@ -923,7 +923,7 @@ country_event = {
 									distance < 150
 									type = hyperlane
 								}
-								distance_to_empire = { # extra condition for really close empires on the other side of bypasses
+								distance_to_empire = { # Extra condition for really close empires on the other side of bypasses
 									who = prevprev
 									distance < 75
 									type = euclidean
@@ -941,7 +941,7 @@ country_event = {
 										distance < 150
 										type = hyperlane
 									}
-									distance_to_empire = { # extra condition for really close empires on the other side of bypasses
+									distance_to_empire = { # Extra condition for really close empires on the other side of bypasses
 										who = prev
 										distance < 75
 										type = euclidean
@@ -961,7 +961,7 @@ country_event = {
 									distance < 150
 									type = hyperlane
 								}
-								distance_to_empire = { # extra condition for really close empires on the other side of bypasses
+								distance_to_empire = { # Extra condition for really close empires on the other side of bypasses
 									who = prev
 									distance < 75
 									type = euclidean

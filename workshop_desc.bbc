@@ -2,7 +2,7 @@
 [quote]"Shroud Rising" is a renowned Stellaris mod that plunges players into the mysteries of the Shroud. Delve into its depths to uncover ancient secrets and face cosmic dangers. Navigate through ethereal realms, where every encounter unveils new enigmas. But tread carefully, for dark forces lurk within, testing your resolve. Will you harness the Shroud's power or succumb to its ominous embrace? Embark on this thrilling adventure and rewrite the fate of the galaxy![/quote]
 
 [hr]
-[h3]Since an update was sorely missed and to keep this legendary mod alive in the annals of Stellaris, I did an unofficial [b]3.11 patch to LastLeviathan's excellent [URL=//steamcommunity.com/sharedfiles/filedetails/2809452753]Shroud Rising[/URL] mod.[/b][/h3]
+[h3]Since an update was sorely missed and to keep this legendary mod alive in the annals of Stellaris, I did an unofficial [b]3.12 patch to LastLeviathan's excellent [URL=//steamcommunity.com/sharedfiles/filedetails/2809452753]Shroud Rising[/URL] mod.[/b][/h3]
 [h3][i]Detailed instructions on the latest original (3.8) [URL=//steamcommunity.com/sharedfiles/filedetails/2809452753]page[/URL].[/i][/h3]
 
 [b]Note:[/b] this is a patch so you still need the original mod.
@@ -15,7 +15,7 @@ Embrace the ephemeral nature of our journey, for the Shroud is a realm of consta
 So, gather your courage and venture forth into the unknown. Within the depths of the Shroud, mysteries abound, waiting to be unraveled by intrepid souls such as yourselves. Together, let us pierce the veil and uncover the secrets that lie beyond. 🌌
 
 
-[b]Changelog game version 3.11.*[/b]:
+[b]Changelog  v.3.11.*[/b]:
 ⠀• Fixed Megastructure on Rift
 ⠀• More support for WH40K
 ⠀• Improved performance (still in progress)
@@ -23,18 +23,18 @@ So, gather your courage and venture forth into the unknown. Within the depths of
 ⠀• Some code modernisation and optimization (e.g. using inline scripts - saved 120 KB)
 ⠀• Option added to exclude FE
 
+[b]Changelog  v.3.12.*[/b]:
+⠀• Dynamic timer values (depending on mid-end-game settings)
+
 [b]Supports[/b]:
 ⠀✔️ [URL=//steamcommunity.com/workshop/filedetails/3041579530]All That Is GRIMDARK[/URL]
 ⠀✔️ [URL=//steamcommunity.com/sharedfiles/filedetails/2807759164]The Merger of Rules[/URL] for extended compat.
 ⠀✔️ [URL=//steamcommunity.com/workshop/filedetails/2458024521]Dynamic Mod Menu[/URL]
 
-[b]Minor Recommendations[/b]:
+[b]Recommendations[/b]:
 ⠀• [URL=//steamcommunity.com/workshop/filedetails/2990642451]Daemonic Incursion - Knights of the Toxic God[/URL]
 ⠀• [URL=//steamcommunity.com/workshop/filedetails/2461999384]Psionic Species Expansion[/URL]
 ⠀• [URL=//steamcommunity.com/workshop/filedetails/3228869480]Beyond The Shroud[/URL]
-
-[b]Planned for 3.12[/b]:
-⠀• Dynamic timer values (depending on mid-end-game settings)
 
 [hr]
 [h3]Credit[/h3]

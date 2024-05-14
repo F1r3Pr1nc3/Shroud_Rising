@@ -145,7 +145,7 @@ is_crisis_faction = {
 		is_country_type = synth_queen
 		is_country_type = synth_queen_storm
 		# Cruel Conquerers
-		is_cruel_abomination_country_type = yes
+		# is_cruel_abomination_country_type = yes
 		# Destiny: The Darkness Crisis
 		is_country_type = darkness_country
 		# Shroud Rising

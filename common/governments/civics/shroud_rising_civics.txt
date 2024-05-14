@@ -47,8 +47,8 @@ civic_shroud_worship = {
 	# random_weight = { base = 5 }
 	description = SHROUD_CULT_DESC
 	modifier = {
-		category_psionics_research_speed_mult = 0.5
+		category_psionics_research_speed_mult = 0.25 # 0.5
 		pop_ethic_spiritualist_attraction_mult = 0.25
-		planet_jobs_unity_produces_mult = 0.25
+		planet_jobs_unity_produces_mult = 0.2 # 0.25
 	}
 }
