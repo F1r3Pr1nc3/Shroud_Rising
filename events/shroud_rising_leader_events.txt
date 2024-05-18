@@ -355,9 +355,7 @@ country_event = {
 		name = "exit.shroud"
 		# default_hide_option = yes
 		exclusive_trigger = {
-			event_target:chosen_leader = {
-				has_chosen_one_leader_trait = no
-			}
+			event_target:chosen_leader = { has_chosen_one_leader_trait = no }
 		}
 		event_target:chosen_leader = { remove_all_negative_traits = yes add_trait = leader_trait_chosen remove_trait = leader_trait_psionic }
 		hidden_effect = {
@@ -462,10 +460,10 @@ country_event = {
 	immediate = {
 		# Discover Cultist
 		random_list = {
-			50 = { }
-			50 = {
+			5 = { }
+			5 = {
 				modifier = { factor = 1.5 any_owned_leader = { has_trait = leader_trait_shroud_inquisitor } }
-				modifier = { factor = 1.5 any_owned_leader = { is_councilor_type = councilor_ruler_inquisitor } }
+				modifier = { factor = 1.5 any_owned_leader = { is_councilor = yes is_councilor_type = councilor_ruler_inquisitor } }
 				country_event = { id = shroud_rising_leader.11 days = 100 random = 100 } }
 		}
 	}
@@ -528,8 +526,7 @@ country_event = {
 		hidden_effect = {
 			random_list = {
 				10 = {
-					modifier = {
-						factor = 100
+					modifier = { factor = 100
 						any_owned_leader = {
 							OR = { is_ruler = yes is_councilor = yes }
 							OR = {
@@ -562,8 +559,7 @@ country_event = {
 			event_target:corrupted_leader_1 = { save_event_target_as = corrupted_leader }
 			random_list = {
 				10 = {
-					modifier = {
-						factor = 100
+					modifier = { factor = 100
 						any_owned_leader = {
 							OR = { is_ruler = yes is_councilor = yes }
 							OR = {
@@ -598,8 +594,7 @@ country_event = {
 				# Assassination of inquisitor, increased if cultists are on the council
 				30 = {
 					modifier = { factor = 0 NOT = { exists = event_target:inquisitor_leader_1 } }
-					modifier = {
-						factor = 100
+					modifier = { factor = 100
 						any_owned_leader = {
 							OR = { is_ruler = yes is_councilor = yes }
 							OR = {
@@ -634,13 +629,8 @@ country_event = {
 			kill_leader = { show_notification = yes }
 		}
 	}
-	option = {
-		name = "distar.7.b"
-
-	}
-	option = {
-		name = "fircon.1310.a"
-	}
+	option = { name = "distar.7.b" }
+	option = { name = "fircon.1310.a" }
 }
 
 # Cultists Flee to another world
@@ -654,9 +644,13 @@ country_event = {
 	trigger = { NOT = { has_active_event = { shroud_rising_leader.13 } } }
 	immediate = {
 		event_target:corrupted_leader_1 = {
+			species = { save_event_target_as = leader_species }
 			kill_leader = { show_notification = no }
 		}
-		random_owned_pop = { save_event_target_as = leader_pop }
+		if = {
+			limit = { NOT = { exists = event_target:leader_species } }
+			random_owned_species = { save_event_target_as = leader_species }
+		}
 		random_system = {
 			limit = {
 				has_owner = no
@@ -672,7 +666,7 @@ country_event = {
 			clear_planet_modifiers = yes
 			create_rebels = {
 				name = random
-				species = event_target:leader_pop.species
+				species = event_target:leader_species
 				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
 				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
@@ -714,27 +708,13 @@ country_event = {
 					}
 					## Add some new technologies
 					inverted_switch = { trigger = has_technology
-						tech_starbase_2 = {
-							give_technology = { tech = tech_starbase_2 }
-						}
-						tech_starbase_3 = {
-							give_technology = { tech = tech_starbase_3 }
-						}
-						tech_starbase_4 = {
-							give_technology = { tech = tech_starbase_4 }
-						}
-						tech_starbase_5 = {
-							give_technology = { tech = tech_starbase_5 }
-						}
-						tech_power_plant_4 = {
-							give_technology = { tech = tech_power_plant_4 }
-						}
-						tech_mining_3 = {
-							give_technology = { tech = tech_mining_3 }
-						}
-						tech_power_hub_1 = {
-							give_technology = { tech = tech_power_hub_1 }
-						}
+						tech_starbase_2		= { give_technology = { tech = tech_starbase_2 } }
+						tech_starbase_3		= { give_technology = { tech = tech_starbase_3 } }
+						tech_starbase_4		= { give_technology = { tech = tech_starbase_4 } }
+						tech_starbase_5		= { give_technology = { tech = tech_starbase_5 } }
+						tech_power_plant_4	= { give_technology = { tech = tech_power_plant_4 } }
+						tech_mining_3		= { give_technology = { tech = tech_mining_3 } }
+						tech_power_hub_1	= { give_technology = { tech = tech_power_hub_1 } }
 					}
 					## Add resources
 					add_resource = {
@@ -797,23 +777,18 @@ country_event = {
 			set_owner = event_target:cult_escape_country
 			set_capital = yes
 			while = { count = 35
-				create_pop = { species = event_target:leader_pop.species }
+				create_pop = { species = event_target:leader_species }
 			}
 			while = { count = 3
 				add_district_and_planet_size_if_needed_effect = { district = district_city }
 			}
 			while = { count = 4
 				add_district_and_planet_size_if_needed_effect = { district = district_industrial }
-			}
-			while = { count = 4
 				add_district_and_planet_size_if_needed_effect = { district = district_farming }
-			}
-			while = { count = 4
 				add_district_and_planet_size_if_needed_effect = { district = district_mining }
-			}
-			while = { count = 5
 				add_district_and_planet_size_if_needed_effect = { district = district_generator }
 			}
+			add_district_and_planet_size_if_needed_effect = { district = district_generator }
 			add_building = building_system_capital
 			add_building = building_research_lab_1
 			add_building = building_foundry_1
@@ -826,7 +801,7 @@ country_event = {
 				create_army = {
 					name = random
 					owner = event_target:cult_escape_country
-					species = event_target:leader_pop.species
+					species = event_target:leader_species
 					type = defense_army
 				}
 			}
@@ -851,14 +826,20 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { NOT = { has_active_event = { shroud_rising_leader.14 } } }
 	immediate = {
-		random_owned_pop = { save_event_target_as = leader_pop }
+		event_target:corrupted_leader_1 = {
+			species = { save_event_target_as = leader_species }
+		}
+		if = {
+			limit = { NOT = { exists = event_target:leader_species } }
+			random_owned_species = { save_event_target_as = leader_species }
+		}
 		# owner = { save_event_target_as = cult_uprising_owner }
 		random_owned_planet = {
 			limit = { is_colony = yes has_ground_combat = no }
 			save_event_target_as = cult_escape_planet
 			create_rebels = {
 				name = "NAME_shroud_cultists"
-				species = event_target:leader_pop.species
+				species = event_target:leader_species
 				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
 				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
@@ -885,7 +866,7 @@ country_event = {
 						set_owner = event_target:cultist_rebels
 						set_name = "NAME_cultist_army"
 						while = { count = 2
-							create_army_transport = { army_type = "shroud_cultist_army" army_name = "NAME_cultist_army" species = event_target:leader_pop.species }
+							create_army_transport = { army_type = "shroud_cultist_army" army_name = "NAME_cultist_army" species = event_target:leader_species }
 						}
 						set_location = { target = prev }
 						set_fleet_stance = aggressive
@@ -895,7 +876,7 @@ country_event = {
 					create_army = {
 						name = "NAME_cultist_army"
 						owner = event_target:cultist_rebels
-						species = event_target:leader_pop.species
+						species = event_target:leader_species
 						type = "shroud_cultist_army"
 					}
 				}
@@ -918,11 +899,11 @@ country_event = {
 		# owner = { save_event_target_as = cult_uprising_owner }
 		random_owned_planet = {
 			limit = { num_sapient_pops > 1 }
-			random_owned_pop = { save_event_target_as = leader_pop }
+			random_owned_species = { save_event_target_as = leader_species }
 			save_event_target_as = cult_escape_planet
 			create_rebels = {
 				name = "Treasonous Cultists"
-				species = event_target:leader_pop.species
+				species = event_target:leader_species
 				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
 				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
@@ -970,7 +951,7 @@ country_event = {
 	picture = GFX_evt_acquire_asset
 	is_triggered_only = yes
 	trigger = {
-		NOT = { has_country_flag = recent_cult_conversion has_active_event = { shroud_rising_leader.16 } }
+		NOR = { has_country_flag = recent_cult_conversion has_active_event = { shroud_rising_leader.16 } }
 		any_owned_leader = {
 			NOR = {
 				has_trait = leader_trait_cultist_whisperers
@@ -1004,7 +985,6 @@ country_event = {
 		hidden_effect = {
 			event_target:corrupted_leader_2 = { add_random_negative_character_trait = yes }
 		}
-		event_target:corrupted_leader_2 = { change_background_ethic = ethic_spiritualist }
 	}
 }
 
@@ -1052,12 +1032,10 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	trigger = { NOT = { has_active_event = { shroud_rising_leader.20 } } }
+	# trigger = { NOT = { has_active_event = { shroud_rising_leader.20 } } }
 	immediate = {
 		random_owned_leader = {
-			# limit = {
-			# leader_class = commander
-			# }
+			limit = { leader_class = commander has_chosen_covenant_trait_non_ruler = no }
 			# add_trait = leader_trait_shroud_inquisitor
 			# add_trait = leader_trait_general_cultist_veteran
 			# add_trait = leader_trait_shroud_god
@@ -1080,86 +1058,44 @@ country_event = {
 	is_triggered_only = yes
 	hide_window = yes
 	trigger = {
-		NOT = {
-			is_ai = yes		# Do I want AI having this too? or will it add to lag for no gameplay value
+		NOR = {
+			is_ai = yes		# Do I want AI having this too, or will it add to lag for no gameplay value?
 			is_gestalt = yes
 			has_active_event = { shroud_rising_leader.21 }
 		}
 		exists = from
 		from = {
 			OR = { has_skill = 3 has_skill = 5 has_skill = 8 }
+			NOR = { # Only one character trait per leader
+				has_trait = leader_trait_cultist_whisperers
+				has_trait = leader_trait_cultist_eater
+				has_trait = leader_trait_cultist_composer
+				has_trait = leader_trait_cultist_instrument
+				has_trait = leader_trait_loyalist
+				has_trait = leader_trait_shroud_inquisitor
+			}
 		}
 	}
 	immediate = {
-		from = { save_event_target_as = leader_character_trait }
-		random_owned_leader = {
-			limit = {
-				# Only one character trait per leader
-				is_same_value = event_target:leader_character_trait
-				NOR = {
-					has_trait = leader_trait_cultist_whisperers
-					has_trait = leader_trait_cultist_eater
-					has_trait = leader_trait_cultist_composer
-					has_trait = leader_trait_cultist_instrument
-					has_trait = leader_trait_loyalist
-					has_trait = leader_trait_shroud_inquisitor
-				}
-			}
-			# If is chosen of a power, give them the associated cultist trait
+		# from = { save_event_target_as = leader_character_trait }
+		# random_owned_leader = { limit = { is_same_value = event_target:leader_character_trait
+		from = {
 			if = {
-				limit = { OR = { has_trait = leader_trait_whisperers_chosen } }
-				add_trait = leader_trait_cultist_whisperers
-			}
-			if = {
-				limit = { OR = { has_trait = leader_trait_eater_chosen } }
-				add_trait = leader_trait_cultist_eater
-			}
-			if = {
-				limit = { OR = { has_trait = leader_trait_composer_chosen } }
-				add_trait = leader_trait_cultist_composer
-			}
-			if = {
-				limit = { OR = { has_trait = leader_trait_instrument_chosen } }
-				add_trait = leader_trait_cultist_instrument
+				limit = { has_chosen_covenant_trait_non_ruler = yes }
+				# If is chosen of a power, give them the associated cultist trait
+				add_random_negative_character_trait = yes
 			}
 			# If specific negative traits, higher chance of cultist trait. Same for positive traits and loyal traits
 			else = {
 				random_list = {
 					# Negative traits
 					25 = {
-						modifier = {
-							factor = 2
-							OR = {
-								has_trait = leader_trait_substance_abuser
-								has_trait = leader_trait_substance_abuser_2
-								has_trait = leader_trait_corrupt
-								has_trait = leader_trait_corrupt_2
-								has_trait = leader_trait_maniacal
-								has_trait = leader_trait_maniacal_2
-								has_trait = leader_trait_maniacal_3
-								has_trait = leader_trait_neurotic
-								has_trait = leader_trait_neurotic_2
-								has_trait = leader_trait_destructive
-								has_trait = leader_trait_destructive_2
-								has_trait = leader_trait_shroud_preacher
-								has_trait = leader_trait_sadistic
-								has_trait = leader_trait_sadistic_2
-								has_trait = leader_trait_lawless
-								has_trait = leader_trait_lawless_2
-								has_trait = leader_trait_volatile
-								has_trait = leader_trait_volatile_2
-								has_trait = leader_trait_tyrannical
-								has_trait = leader_trait_tyrannical_2
-							}
-						}
-						modifier = {
-							factor = 0.5
+						modifier = { factor = 0.5
 							owner = {
 								any_owned_leader = { has_trait = leader_trait_shroud_inquisitor }
 							}
 						}
-						modifier = {
-							factor = 0
+						modifier = { factor = 0
 							NOR = {
 								has_trait = leader_trait_substance_abuser
 								has_trait = leader_trait_substance_abuser_2
@@ -1187,39 +1123,7 @@ country_event = {
 					}
 					# Positive traits
 					75 = {
-						modifier = {
-							factor = 1
-							NOR = {
-								has_trait = leader_trait_substance_abuser
-								has_trait = leader_trait_substance_abuser_2
-								has_trait = leader_trait_corrupt
-								has_trait = leader_trait_corrupt_2
-								has_trait = leader_trait_maniacal
-								has_trait = leader_trait_maniacal_2
-								has_trait = leader_trait_maniacal_3
-								has_trait = leader_trait_neurotic
-								has_trait = leader_trait_neurotic_2
-								has_trait = leader_trait_destructive
-								has_trait = leader_trait_destructive_2
-								has_trait = leader_trait_shroud_preacher
-								has_trait = leader_trait_sadistic
-								has_trait = leader_trait_sadistic_2
-								has_trait = leader_trait_lawless
-								has_trait = leader_trait_lawless_2
-								has_trait = leader_trait_volatile
-								has_trait = leader_trait_volatile_2
-								has_trait = leader_trait_tyrannical
-								has_trait = leader_trait_tyrannical_2
-							}
-							# OR = {
-							# has_trait = leader_trait_collective_wisdom
-							# has_trait = leader_trait_collective_wisdom_2
-							# has_trait = leader_trait_collective_wisdom_3
-							# has_trait = leader_trait_collective_wisdom
-							# }
-						}
-						modifier = {
-							factor = 0
+						modifier = { factor = 0
 							OR = {
 								has_trait = leader_trait_substance_abuser
 								has_trait = leader_trait_substance_abuser_2
@@ -1242,6 +1146,7 @@ country_event = {
 								has_trait = leader_trait_tyrannical
 								has_trait = leader_trait_tyrannical_2
 							}
+							NOT = { has_trait = leader_trait_collective_wisdom }
 						}
 						# add_random_positive_character_trait
 						random_list = {
@@ -1250,9 +1155,12 @@ country_event = {
 						}
 					}
 					# If none of other traits, random chances
-					# 25 = {
-					# add_random_character_trait = yes
-					# }
+					1 = {
+						# add_random_character_trait = yes TODO?
+						# add_trait_no_notify = "random_common"
+						# add_trait_no_notify = "random_negative"
+						root = { country_event = { id = leader.100 } # # Add traits from civics
+					}
 				}
 			}
 		}
@@ -1266,89 +1174,16 @@ country_event = {
 	hide_window = yes
 	trigger = {
 		is_gestalt = no
-		NOT = { has_active_event = { shroud_rising_leader.22 } }
-		any_owned_leader = {
-			OR = {
-				has_trait = leader_trait_whisperers_chosen
-				has_trait = leader_trait_eater_chosen
-				has_trait = leader_trait_composer_chosen
-				has_trait = leader_trait_instrument_chosen
-			}
-		}
+		any_owned_leader = { has_chosen_covenant_trait_non_ruler = yes }
+		# NOT = { has_active_event = { shroud_rising_leader.22 } }
 	}
 	immediate = {
 		every_owned_leader = {
-			limit = {
-				OR = {
-					has_trait = leader_trait_whisperers_chosen
-					has_trait = leader_trait_eater_chosen
-					has_trait = leader_trait_composer_chosen
-					has_trait = leader_trait_instrument_chosen
-				}
-			}
-			save_event_target_as = corrupted_leader
+			limit = { has_chosen_covenant_trait_non_ruler = yes }
 			# If is chosen of a power, give them the associated cultist trait
-			if = {
-				limit = { OR = { has_trait = leader_trait_whisperers_chosen } }
-				add_trait_no_notify = leader_trait_cultist_whisperers
-				remove_trait = leader_trait_loyalist
-				remove_trait = leader_trait_shroud_inquisitor
-				change_background_ethic = ethic_spiritualist
-				# Notify of corruption
-				create_message = {
-					type = MESSAGE_LEADER_CORRUPTED
-					localization = MESSAGE_LEADER_CORRUPTED_DESC
-					days = 20					# @toast_message_days
-					target = event_target:corrupted_leader
-					variable = { type = name localization = LEADER scope = event_target:corrupted_leader }
-					variable = { key = "border" value = "GFX_border_veteran" }
-				}
-			}
-			if = {
-				limit = { OR = { has_trait = leader_trait_eater_chosen } }
-				add_trait_no_notify = leader_trait_cultist_eater
-				remove_trait = leader_trait_loyalist
-				remove_trait = leader_trait_shroud_inquisitor
-				change_background_ethic = ethic_spiritualist
-				create_message = {
-					type = MESSAGE_LEADER_CORRUPTED
-					localization = MESSAGE_LEADER_CORRUPTED_DESC
-					days = 20					# @toast_message_days
-					target = event_target:corrupted_leader
-					variable = { type = name localization = LEADER scope = event_target:corrupted_leader }
-					variable = { key = "border" value = "GFX_border_veteran" }
-				}
-			}
-			if = {
-				limit = { OR = { has_trait = leader_trait_composer_chosen } }
-				add_trait_no_notify = leader_trait_cultist_composer
-				remove_trait = leader_trait_loyalist
-				remove_trait = leader_trait_shroud_inquisitor
-				change_background_ethic = ethic_spiritualist
-				create_message = {
-					type = MESSAGE_LEADER_CORRUPTED
-					localization = MESSAGE_LEADER_CORRUPTED_DESC
-					days = 20					# @toast_message_days
-					target = event_target:corrupted_leader
-					variable = { type = name localization = LEADER scope = event_target:corrupted_leader }
-					variable = { key = "border" value = "GFX_border_veteran" }
-				}
-			}
-			if = {
-				limit = { OR = { has_trait = leader_trait_instrument_chosen } }
-				add_trait_no_notify = leader_trait_cultist_instrument
-				remove_trait = leader_trait_loyalist
-				remove_trait = leader_trait_shroud_inquisitor
-				change_background_ethic = ethic_spiritualist
-				create_message = {
-					type = MESSAGE_LEADER_CORRUPTED
-					localization = MESSAGE_LEADER_CORRUPTED_DESC
-					days = 20					# @toast_message_days
-					target = event_target:corrupted_leader
-					variable = { type = name localization = LEADER scope = event_target:corrupted_leader }
-					variable = { key = "border" value = "GFX_border_veteran" }
-				}
-			}
+			add_random_negative_character_trait = yes
+			remove_trait = leader_trait_loyalist
+			remove_trait = leader_trait_shroud_inquisitor
 		}
 	}
 }

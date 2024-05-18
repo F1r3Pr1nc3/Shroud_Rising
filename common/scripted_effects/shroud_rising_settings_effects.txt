@@ -8,11 +8,9 @@
 # 	remove_global_flag = sr_difficulty_2
 # 	remove_global_flag = sr_difficulty_def
 # }
-
 # remove_difficulty_modifiers = {
-
 apply_shroud_rising_difficulty = {
-
+	set_update_modifiers_batch = begin
 	switch = { trigger = has_modifier
 		difficulty_grand_admiral	= { remove_modifier = difficulty_grand_admiral }
 		difficulty_admiral			= { remove_modifier = difficulty_admiral }
@@ -232,4 +230,5 @@ apply_shroud_rising_difficulty = {
 			}
 		}
 	}
+	set_update_modifiers_batch = end
 }

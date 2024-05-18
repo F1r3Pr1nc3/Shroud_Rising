@@ -1,7 +1,7 @@
 ﻿l_spanish:
  dmm_mod_333: "$shroud_rising_settings.1.name$"
- edict_shroud_rising_settings: "(MOD MENU) $shroud_rising_settings.1.name$"
- edict_shroud_rising_settings_desc: "Open the current settings for Shroud Rising."
+ edict_shroud_rising_settings: "(MOD MENU) §H$shroud_rising_settings.1.name$§!"
+ edict_shroud_rising_settings_desc: "Open the current settings for §MShroud Rising§!."
  shroud_rising_settings.1.a: "$FE_DIFFICULTY$ $SETTINGS$"
  shroud_rising_settings.1.a.tooltip: "$DIFFICULTY_ADJUSTED_AI_MODIFIERS$.\nAdjust the difficulty settings of the mod."
  shroud_rising_settings.1.b.tooltip: "Close the menu."

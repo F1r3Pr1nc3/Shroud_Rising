@@ -72,6 +72,7 @@ planet_event = {
 				modifier = { factor = 10
 					owner = {
 						any_owned_leader = {
+							is_councilor = yes
 							is_councilor_type = councilor_ruler_inquisitor
 							OR = {
 								has_trait = leader_trait_cultist_whisperers
@@ -93,6 +94,7 @@ planet_event = {
 				modifier = { factor = 2
 					owner = {
 						any_owned_leader = {
+							is_councilor = yes
 							is_councilor_type = councilor_ruler_inquisitor
 							NOR = {
 								has_trait = leader_trait_cultist_whisperers
@@ -355,12 +357,15 @@ planet_event = {
 	location = this
 	is_triggered_only = yes
 	immediate = {
-		random_owned_pop = { save_event_target_as = leader_pop }
+		if = {
+			limit = { NOT = { exists = event_target:leader_species } }
+			random_owned_species = { save_event_target_as = leader_species }
+		}
 		owner = { save_event_target_as = cult_uprising_owner }
 		save_event_target_as = cult_uprising_planet
 		create_rebels = {
 			name = "NAME_shroud_cultists"
-			species = event_target:leader_pop.species
+			species = event_target:leader_species
 			ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 			authority = auth_dictatorial
 			civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
@@ -383,7 +388,7 @@ planet_event = {
 							create_army = {
 								name = "NAME_loyalist_army"
 								owner = event_target:cult_uprising_owner
-								species = event_target:leader_pop.species
+								species = event_target:leader_species
 								type = "loyalist_army"
 							}
 						}
@@ -393,7 +398,7 @@ planet_event = {
 					create_army = {
 						name = "NAME_cultist_army"
 						owner = event_target:cultist_rebels
-						species = event_target:leader_pop.species
+						species = event_target:leader_species
 						type = "shroud_cultist_army"
 					}
 				}
@@ -401,7 +406,7 @@ planet_event = {
 					create_army = {
 						name = "NAME_cultist_army"
 						owner = event_target:cultist_rebels
-						species = event_target:leader_pop.species
+						species = event_target:leader_species
 						type = "cultist_slave_army"
 					}
 				}
@@ -409,7 +414,7 @@ planet_event = {
 					create_army = {
 						name = "NAME_cultist_army"
 						owner = event_target:cultist_rebels
-						species = event_target:leader_pop.species
+						species = event_target:leader_species
 						type = "cultist_psionic_army"
 					}
 				}
@@ -418,7 +423,7 @@ planet_event = {
 		event_target:cultist_rebels = {
 			create_leader = {
 				class = commander
-				species = event_target:leader_pop.species
+				species = event_target:leader_species
 				name = random
 				skill = 5
 				leader_age_min = 25
@@ -612,13 +617,16 @@ country_event = {
 	trigger = { merg_is_default_empire = yes }
 	is_triggered_only = yes
 	immediate = {
-		random_owned_pop = { save_event_target_as = leader_pop }
+		if = {
+			limit = { NOT = { exists = event_target:leader_species } }
+			random_owned_species = { save_event_target_as = leader_species }
+		}
 		# Give planets and stuff to cult
 		event_target:cult_uprising_planet = {
 			# Create the cult country
 			create_rebels = {
 				name = random
-				species = event_target:leader_pop.species
+				species = event_target:leader_species
 				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
 				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
@@ -643,7 +651,7 @@ country_event = {
 					}
 					create_leader = {
 						class = commander
-						species = event_target:leader_pop.species
+						species = event_target:leader_species
 						name = random
 						skill = 4
 						traits = { trait = leader_trait_psionic }
@@ -658,7 +666,7 @@ country_event = {
 								create_army = {
 									name = "NAME_cultist_army"
 									owner = event_target:cultist_rebel_country
-									species = event_target:leader_pop.species
+									species = event_target:leader_species
 									type = "slave_army"
 								}
 							}
@@ -666,7 +674,7 @@ country_event = {
 								create_army = {
 									name = "NAME_cultist_army"
 									owner = event_target:cultist_rebel_country
-									species = event_target:leader_pop.species
+									species = event_target:leader_species
 									type = "psionic_army"
 								}
 							}
@@ -838,7 +846,7 @@ country_event = {
 			declare_war = { target = event_target:cult_uprising_owner attacker_war_goal = "wg_shroud_heresy" }
 			create_leader = {
 				class = commander
-				species = event_target:leader_pop.species
+				species = event_target:leader_species
 				name = random
 				skill = 4
 				leader_age_min = 25

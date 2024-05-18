@@ -327,13 +327,12 @@ event = {
 	is_triggered_only = yes
 	trigger = {
 		NOR = {
-			# has_global_flag = shroud_rising_active
 			mid_game_years_passed > 0 # Crisis set possible
 			has_global_flag = eye_of_terror_possible	# FOR TESTING ONLY
 		}
 	}
 	immediate = {
-		set_global_flag = shroud_rising_active
+		# set_global_flag = shroud_rising_active DEPRECATED replaced by trigger v.3.12
 		set_global_flag = sr_difficulty_def
 		every_playable_country = {
 			limit = { is_ai = no }
@@ -537,14 +536,8 @@ event = {
 		}
 	}
 	immediate = {
+		# TODO maybe a single doorway_chance_var is sufficient - TEST
 		event_target:global_event_country = {
-			# switch = { trigger = has_country_flag
-			# 	 eot_100	= { country_event = { id = shroud_rising_trigger.5 days = 36 random = 45 } }
-			# 	 eot_75	= { random = { chance = 75	country_event = { id = shroud_rising_trigger.5 days = 36 random = 45 } } }
-			# 	 eot_50	= { random = { chance = 50	country_event = { id = shroud_rising_trigger.5 days = 36 random = 45 } } }
-			# 	 eot_25	= { random = { chance = 25	country_event = { id = shroud_rising_trigger.5 days = 36 random = 45 } } }
-			# 	 eot_5		= { random = { chance = 5	country_event = { id = shroud_rising_trigger.5 days = 36 random = 45 } } }
-			# }
 			switch = { trigger = has_country_flag
 				eot_100 = {}
 				eot_75	= { random = { chance = 25	break = yes } }
