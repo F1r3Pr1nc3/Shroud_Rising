@@ -786,6 +786,7 @@ country_event = {
 					tech_akx_worm_3
 				}
 			}
+			add_500_unity_per_year_passed = yes
 			reroll_random = yes
 			create_fleet_from_naval_cap = 0.3
 			random_owned_planet = {
@@ -917,74 +918,57 @@ country_event = {
 	}
 	is_triggered_only = yes
 	immediate = {
-		random_country = {
-			limit = {
-				is_country_type = shroud_cult
-				NOT = { is_same_empire = root }
-				OR = {
-					root = {
-						num_owned_planets > 0
-						any_owned_planet = {
-							OR = {
-								distance_to_empire = {
-									who = prevprev
-									distance < 150
-									type = hyperlane
-								}
-								distance_to_empire = { # Extra condition for really close empires on the other side of bypasses
-									who = prevprev
-									distance < 75
-									type = euclidean
-								}
-							}
-						}
-					}
-					root = {
-						num_starbases > 0
-						any_owned_starbase = {
-							fleet = {
+		if = {
+			limit = { any_neighbor_country = { is_country_type = shroud_cult } }
+			random_neighbor_country = {
+				limit = { is_country_type = shroud_cult NOT = { is_same_empire = root } }
+				save_event_target_as = new_shroud_cult
+			}
+		}
+		else = {
+			random_country = {
+				limit = {
+					is_country_type = shroud_cult
+					NOT = { is_same_empire = root }
+					OR = {
+						root = {
+							num_owned_planets > 0
+							any_owned_planet = {
 								OR = {
-									distance_to_empire = {
-										who = prev
-										distance < 150
-										type = hyperlane
-									}
-									distance_to_empire = { # Extra condition for really close empires on the other side of bypasses
-										who = prev
-										distance < 75
-										type = euclidean
+									distance_to_empire = { who = prevprev distance < 150 type = hyperlane }
+									distance_to_empire = { who = prevprev distance < 75 type = euclidean } # Extra condition for really close empires on the other side of bypasses
+								}
+							}
+						}
+						root = {
+							num_starbases > 0
+							any_owned_starbase = {
+								fleet = {
+									OR = {
+										distance_to_empire = { who = prev distance < 150 type = hyperlane }
+										distance_to_empire = { who = prev distance < 75 type = euclidean } # Extra condition for really close empires on the other side of bypasses
 									}
 								}
 							}
 						}
-					}
-					root = {
-						num_fleets > 0
-						num_starbases = 0
-						num_owned_planets = 0
-						any_owned_fleet = {
-							OR = {
-								distance_to_empire = {
-									who = prev
-									distance < 150
-									type = hyperlane
-								}
-								distance_to_empire = { # Extra condition for really close empires on the other side of bypasses
-									who = prev
-									distance < 75
-									type = euclidean
+						root = {
+							num_fleets > 0
+							num_starbases = 0
+							num_owned_planets = 0
+							any_owned_fleet = {
+								OR = {
+									distance_to_empire = { who = prev distance < 150 type = hyperlane }
+									distance_to_empire = { who = prev distance < 75 type = euclidean } # Extra condition for really close empires on the other side of bypasses
 								}
 							}
 						}
 					}
 				}
+				weights = { base = 1
+					modifier = { add = 10 has_communications = root }
+				}
+				save_event_target_as = new_shroud_cult
 			}
-			weights = {
-				base = 1
-				modifier = { add = 10 has_communications = root }
-				# modifier = { add = 20 has_communications = root }
-			}
-			save_event_target_as = new_shroud_cult
 		}
 		if = {
 			limit = { NOT = { exists = event_target:new_shroud_cult } }
@@ -1111,12 +1095,8 @@ country_event = {
 				}
 			}
 		}
-
-		# Needs to be last (as the country gets destroyed without planet)
-		every_owned_planet = {
+		every_controlled_planet = {
 			limit = {
-				has_owner = yes
-				is_owned_by = root		# Note: caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
 				solar_system = { is_capital_system = no }
 			}
 			set_owner = event_target:new_shroud_cult
@@ -1124,6 +1104,19 @@ country_event = {
 			# Just to keep the initial conquered planets in line while they stabilize.
 			add_modifier = { modifier = "revolt_suppressed" months = 20 }
 		}
+		# Needs to be last (as the country gets possibly destroyed without planet)
+		every_owned_planet = {
+			limit = {
+				has_owner = yes
+				is_owned_by = root
+				# solar_system = { is_capital_system = no }
+			}
+			set_owner = event_target:new_shroud_cult
+			set_controller = event_target:new_shroud_cult
+			# Just to keep the initial conquered planets in line while they stabilize.
+			add_modifier = { modifier = "revolt_suppressed" months = 20 }
+		}
+
 		event_target:new_shroud_cult = {
 			if = {
 				limit = { is_ai = yes }
@@ -1136,6 +1129,7 @@ country_event = {
 					consumer_goods = 20000
 				}
 				copy_techs_from = { target = root }
+				add_500_unity_per_year_passed = yes
 			}
 			if = {
 				limit = { root = { num_owned_relics > 0 } }
@@ -1147,14 +1141,12 @@ country_event = {
 				random_owned_starbase = {
 					limit = { has_starbase_size < starbase_starhold }
 					set_starbase_size = starbase_starhold
-					# starbase_event = { id = khan.302 days = 1 }
 				}
 				if = {
 					limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
 					random_owned_starbase = {
 						limit = { has_starbase_size < starbase_starhold }
 						set_starbase_size = starbase_starhold
-						# starbase_event = { id = khan.302 days = 1 }
 					}
 				}
 				if = {
@@ -1162,7 +1154,6 @@ country_event = {
 					random_owned_starbase = {
 						limit = { has_starbase_size < starbase_starhold }
 						set_starbase_size = starbase_starhold
-						# starbase_event = { id = khan.302 days = 1 }
 					}
 				}
 			}
@@ -1191,9 +1182,12 @@ country_event = {
 					create_research_station = { owner = event_target:new_shroud_cult }
 				}
 			}
-			# Take old leaders!?
+			# Take old leaders
 			every_owned_leader = {
-				limit = { has_psionic_leader_trait = yes }
+				limit = {
+					# TODO more filter
+					has_psionic_leader_trait = yes
+				}
 				set_owner = event_target:new_shroud_cult
 			}
 

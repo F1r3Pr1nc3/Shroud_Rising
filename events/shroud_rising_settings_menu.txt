@@ -67,9 +67,13 @@ country_event = {
 		}
 		allow = {
 			any_country = { is_fallen_empire = yes is_gestalt = no }
+			hidden_trigger = { NOT = { has_global_flag = eye_of_terror_possible } }
 		}
 		hidden_effect = {
 			set_global_flag = eot_spawn_not_fe
+			event_target:global_event_country = {
+				multiply_variable = { which = start_year_var value = 2 }
+			}
 			remove_country_flag = sr_settings_active
 			country_event = { id = shroud_rising_trigger.1 }
 		}
@@ -87,6 +91,9 @@ country_event = {
 		}
 		hidden_effect = {
 			remove_global_flag = eot_spawn_not_fe
+			event_target:global_event_country = {
+				multiply_variable = { which = start_year_var value = 0.5 }
+			}
 			remove_country_flag = sr_settings_active
 			country_event = { id = shroud_rising_trigger.1 }
 		}
@@ -280,7 +287,7 @@ country_event = {
 			clear_variable = sr_difficulty
 			remove_country_flag = sr_settings_active
 			remove_global_flag = sr_settings_active
-			country_event = { id = shroud_rising_trigger.3 }			# Resets modifiers as needed
+			country_event = { id = shroud_rising_trigger.3 }			# Sets difficult modifiers as needed
 		}
 	}
 }
@@ -346,14 +353,14 @@ event = {
 
 		event_target:global_event_country = {
 			get_galaxy_setup_value = { which = start_year_var setting = end_game_year }
-			subtract_variable = { which = start_year_var value = 2200 }
-			divide_variable = { which = start_year_var value = -10 }
+			# subtract_variable = { which = start_year_var value = 2200 }
+			multiply_variable = { which = start_year_var value = -0.09 }
 			round_variable = start_year_var # Default 20
 			if = {
 				limit = { check_variable = { which = start_year_var value < 3 } }
 				set_global_flag = eye_of_terror_possible
 			}
-			log = "Set start_year_var [This.start_year_var]"
+			# log = "Set start_year_var [This.start_year_var]"
 		}
 	}
 }
@@ -374,7 +381,7 @@ country_event = {
 	}
 }
 
-# How likely would player like chances for The Doorway to spawn yearly once midgame hits
+# How likely would player like chances to spawn yearly once midgame hits
 country_event = {
 	id = shroud_rising_trigger.12
 	title = "shroud_rising_settings.1.name"
@@ -621,14 +628,19 @@ event = {
 
 			event_target:global_event_country = {
 				get_galaxy_setup_value = { which = start_year_var setting = end_game_year }
-				subtract_variable = { which = start_year_var value = 2200 }
-				divide_variable = { which = start_year_var value = -10 }
+				# subtract_variable = { which = start_year_var value = 2200 }
+				multiply_variable = { which = start_year_var value = -0.09 }
 				round_variable = start_year_var # Default 20
+				if = {
+					limit = { has_global_flag = eot_spawn_not_fe }
+					change_variable = { which = start_year_var value = 1 }
+					multiply_variable = { which = start_year_var value = 2 }
+				}
 				if = {
 					limit = { check_variable = { which = start_year_var value < 3 } }
 					set_global_flag = eye_of_terror_possible
 				}
-				log = "Set start_year_var [This.start_year_var]"
+				# log = "Set start_year_var [This.start_year_var]"
 			}
 
 			every_country = {

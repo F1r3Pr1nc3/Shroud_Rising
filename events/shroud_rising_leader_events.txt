@@ -725,6 +725,7 @@ country_event = {
 						alloys = 7000
 						influence = 500
 					}
+					add_500_unity_per_year_passed = yes
 					## Create fleets
 					if = {
 						limit = { has_technology = tech_destroyers }
@@ -1159,7 +1160,7 @@ country_event = {
 						# add_random_character_trait = yes TODO?
 						# add_trait_no_notify = "random_common"
 						# add_trait_no_notify = "random_negative"
-						root = { country_event = { id = leader.100 } # # Add traits from civics
+						root = { country_event = { id = leader.100 } } # # Add traits from civics
 					}
 				}
 			}

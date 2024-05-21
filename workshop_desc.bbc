@@ -5,10 +5,10 @@
 [h3]Since an update was sorely missed and to keep this legendary mod alive in the annals of Stellaris, I did an unofficial [b]3.12 patch to LastLeviathan's excellent [URL=//steamcommunity.com/sharedfiles/filedetails/2809452753]Shroud Rising[/URL] mod.[/b][/h3]
 [h3][i]Detailed instructions on the latest original (3.8) [URL=//steamcommunity.com/sharedfiles/filedetails/2809452753]page[/URL].[/i][/h3]
 
-[b]Note:[/b] this is a patch so you still need the original mod.
+[b]Note:[/b] this is a [b]patch[/b], so you still need the original mod.[spoiler](some people still don't know the difference between an update)[/spoiler]
 
 [hr]
-Behold, this patch be but a spectral whisper, a mere echo in the ethereal expanse of the Shroud. 'Tis a beta, a fledgling specter yet to find its true form. tread lightly, for the mists of uncertainty cloak its every move. Changes shall materialize like phantoms, shifting and swirling in the aether.
+Behold, this patch be but a spectral whisper, a mere echo in the ethereal expanse of the Shroud. A fledgling specter yet to find its true form. tread lightly, for the mists of uncertainty cloak its every move. Changes shall materialize like phantoms, shifting and swirling in the aether.
 
 Embrace the ephemeral nature of our journey, for the Shroud is a realm of constant flux. Expect the unexpected, as the very fabric of reality bends to our will. Your feedback, dear voyager, is the beacon that guides us through this shadowy labyrinth.
 
@@ -17,10 +17,11 @@ So, gather your courage and venture forth into the unknown. Within the depths of
 
 [b]Changelog  v.3.11.*[/b]:
 ⠀• Fixed Megastructure on Rift
-⠀• More support for WH40K
-⠀• Improved performance (still in progress)
+⠀• More support for WH40K (still in progress)
+⠀• Improved performance
+⠀• Improved compatibility 
 ⠀• The Shroud now primary targets a Player Crisis
-⠀• Some code modernisation and optimization (e.g. using inline scripts - saved 120 KB)
+⠀• Some code modernisation and   (e.g. using inline scripts - saved 120 KB)
 ⠀• Option added to exclude FE
 
 [b]Changelog  v.3.12.*[/b]:
