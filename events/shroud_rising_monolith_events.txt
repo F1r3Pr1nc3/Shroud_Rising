@@ -157,8 +157,8 @@ ship_event = {
 	location = from
 	immediate = { }
 	option = {
-		name = shroud_rising_monolith.2.a
-		custom_tooltip = shroud_rising_monolith.2.a.tooltip
+		name = "crisis.21210.a"
+		custom_tooltip = "shroud_rising_monolith.2.a.tooltip"
 		owner = {
 			small_artifact_reward = yes # TODO depending?
 			add_event_chain_counter = { event_chain = "monolith_chain" counter = "monoliths_examined" amount = 1 }

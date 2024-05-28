@@ -105,15 +105,15 @@ country_event = {
 				system_event = { id = shroud_rising_shroud_rift.999 }
 			}
 			else_if = {
-				limit = { root = { check_variable = { which = start_year_var value < 9 } } }
+				limit = { root = { check_variable = { which = start_year_var value > -9 } } }
 				system_event = { id = shroud_rising_shroud_rift.999 days = 600 random = 30 }
 			}
 			else_if = {
-				limit = { root = { check_variable = { which = start_year_var value < 17 } } }
+				limit = { root = { check_variable = { which = start_year_var value > -17 } } }
 				system_event = { id = shroud_rising_shroud_rift.999 days = 1200 random = 30 }
 			}
 			else_if = {
-				limit = { root = { check_variable = { which = start_year_var value < 24 } } }
+				limit = { root = { check_variable = { which = start_year_var value > -24 } } }
 				system_event = { id = shroud_rising_shroud_rift.999 days = 1800 random = 30 }
 			}
 			else = {
@@ -227,15 +227,15 @@ system_event = {
 				system_event = { id = shroud_rising_shroud_rift.1 days = 1 }
 			}
 			else_if = {
-				limit = { event_target:global_event_country = { check_variable = { which = start_year_var value < 9 } } }
+				limit = { event_target:global_event_country = { check_variable = { which = start_year_var value > -9 } } }
 				system_event = { id = shroud_rising_shroud_rift.1 days = 1200 random = 60 }
 			}
 			else_if = {
-				limit = { event_target:global_event_country = { check_variable = { which = start_year_var value < 17 } } }
+				limit = { event_target:global_event_country = { check_variable = { which = start_year_var value > -17 } } }
 				system_event = { id = shroud_rising_shroud_rift.1 days = 2400 random = 60 }
 			}
 			else_if = {
-				limit = { event_target:global_event_country = { check_variable = { which = start_year_var value < 24 } } }
+				limit = { event_target:global_event_country = { check_variable = { which = start_year_var value > -24 } } }
 				system_event = { id = shroud_rising_shroud_rift.1 days = 3600 random = 60 }
 			}
 			else = {
@@ -455,19 +455,19 @@ system_event = {
 				event_target:shroud_rift_system_1 = { system_event = { id = shroud_rising_shroud_rift.4 days = 720 } } # Collapse of Rift
 			}
 			else_if = {
-				limit = { check_variable = { which = start_year_var value < 9 } }
+				limit = { check_variable = { which = start_year_var value > -9 } }
 				set_timed_global_flag = { flag = rifts_basic_active months = 41 }
 				country_event = { id = shroud_rising_shroud_rift.11 days = 1620 random = 60 }
 				event_target:shroud_rift_system_1 = { system_event = { id = shroud_rising_shroud_rift.4 days = 1470 random = 42 } } # Collapse of Rift months = 49
 			}
 			else_if = {
-				limit = { check_variable = { which = start_year_var value < 17 } }
+				limit = { check_variable = { which = start_year_var value > -17 } }
 				set_timed_global_flag = { flag = rifts_basic_active months = 82 }
 				country_event = { id = shroud_rising_shroud_rift.11 days = 3270 random = 60 } # 3rd rift months = 109
 				event_target:shroud_rift_system_1 = { system_event = { id = shroud_rising_shroud_rift.4 days = 2980 random = 42 } } # Collapse of Rift
 			}
 			else_if = {
-				limit = { check_variable = { which = start_year_var value < 24 } }
+				limit = { check_variable = { which = start_year_var value > -24 } }
 				set_timed_global_flag = { flag = rifts_basic_active years = 11 } # days = 3800 months = 127-132
 				country_event = { id = shroud_rising_shroud_rift.11 days = 4890 random = 60 } # 3rd rift months = 163
 				event_target:shroud_rift_system_1 = { system_event = { id = shroud_rising_shroud_rift.4 days = 4290 random = 42 } } # Collapse of Rift months = 143
@@ -685,15 +685,15 @@ country_event = {
 			country_event = { id = shroud_rising_shroud_rift.18 days = 1 } # Spawn 4th
 		}
 		else_if = {
-			limit = { check_variable = { which = start_year_var value < 9 } }
+			limit = { check_variable = { which = start_year_var value > -9 } }
 			country_event = { id = shroud_rising_shroud_rift.18 days = 600 random = 42 }
 		}
 		else_if = {
-			limit = { check_variable = { which = start_year_var value < 17 } }
+			limit = { check_variable = { which = start_year_var value > -17 } }
 			country_event = { id = shroud_rising_shroud_rift.18 days = 1200 random = 42 }
 		}
 		else_if = {
-			limit = { check_variable = { which = start_year_var value < 24 } }
+			limit = { check_variable = { which = start_year_var value > -24 } }
 			country_event = { id = shroud_rising_shroud_rift.18 days = 1800 random = 42 } # Spawn 4th rift 1800
 		}
 		else = {
@@ -1016,15 +1016,15 @@ country_event = {
 			country_event = { id = shroud_rising_shroud_rift.6 days = 1 } # 2nd Large rift spawns
 		}
 		else_if = {
-			limit = { check_variable = { which = start_year_var value < 9 } }
+			limit = { check_variable = { which = start_year_var value > -9 } }
 			country_event = { id = shroud_rising_shroud_rift.6 days = 800 random = 120 }
 		}
 		else_if = {
-			limit = { check_variable = { which = start_year_var value < 17 } }
+			limit = { check_variable = { which = start_year_var value > -17 } }
 			country_event = { id = shroud_rising_shroud_rift.6 days = 1550 random = 120 }
 		}
 		else_if = {
-			limit = { check_variable = { which = start_year_var value < 24 } }
+			limit = { check_variable = { which = start_year_var value > -24 } }
 			country_event = { id = shroud_rising_shroud_rift.6 days = 2600 random = 120 } # 2nd Large rift spawns
 		}
 		else = {
@@ -1330,19 +1330,19 @@ country_event = {
 			country_event = { id = shroud_rising_shroud_rift.24 days = 30 random = 10 }
 		}
 		else_if = {
-			limit = { check_variable = { which = start_year_var value < 9 } }
+			limit = { check_variable = { which = start_year_var value > -9 } }
 			country_event = { id = shroud_rising_shroud_rift.3 days = 800 random = 120 }
 			country_event = { id = shroud_rising_shroud_rift.24 days = 250 random = 90 }
 			country_event = { id = shroud_rising_shroud_rift.24 days = 450 random = 10 }
 		}
 		else_if = {
-			limit = { check_variable = { which = start_year_var value < 17 } }
+			limit = { check_variable = { which = start_year_var value > -17 } }
 			country_event = { id = shroud_rising_shroud_rift.3 days = 1550 random = 120 }
 			country_event = { id = shroud_rising_shroud_rift.24 days = 500 random = 90 }
 			country_event = { id = shroud_rising_shroud_rift.24 days = 750 random = 10 }
 		}
 		else_if = {
-			limit = { check_variable = { which = start_year_var value < 24 } }
+			limit = { check_variable = { which = start_year_var value > -24 } }
 			country_event = { id = shroud_rising_eye_of_terror.3 days = 2500 random = 120 }
 			country_event = { id = shroud_rising_shroud_rift.24 days = 1000 random = 90 } # Spawns another unstable rift
 			country_event = { id = shroud_rising_shroud_rift.24 days = 1360 random = 10 } # Spawns another unstable rift

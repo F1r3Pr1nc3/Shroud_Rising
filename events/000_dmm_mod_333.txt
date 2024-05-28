@@ -22,7 +22,7 @@ event = {
 	}
 	immediate = {
 		dmm_register_mod = {
-			DMM_NAME = dmm_mod_333
+			DMM_NAME = "shroud_rising_settings.1.name"
 			DMM_FLAG = dmm_mod_333
 		}
 	}

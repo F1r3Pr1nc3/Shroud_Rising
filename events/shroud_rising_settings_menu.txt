@@ -354,13 +354,13 @@ event = {
 		event_target:global_event_country = {
 			get_galaxy_setup_value = { which = start_year_var setting = end_game_year }
 			# subtract_variable = { which = start_year_var value = 2200 }
-			multiply_variable = { which = start_year_var value = -0.09 }
-			round_variable = start_year_var # Default 20
+			multiply_variable = { which = start_year_var value = -0.1 }
+			round_variable = start_year_var # Default -20
 			if = {
-				limit = { check_variable = { which = start_year_var value < 3 } }
+				limit = { check_variable = { which = start_year_var value > -2 } }
 				set_global_flag = eye_of_terror_possible
 			}
-			# log = "Set start_year_var [This.start_year_var]"
+			log = "Init Shroud Rising; start_year_var = \\[This.start_year_var]"
 		}
 	}
 }
@@ -537,8 +537,8 @@ event = {
 	trigger = {
 		NOT = { has_global_flag = eot_active }
 		OR = {
-			# mid_game_years_passed >= -20 # Crisis possible
-			mid_game_years_passed > event_target:global_event_country.start_year_var # Crisis possible
+			mid_game_years_passed >= -20 # Crisis possible
+			# FIXEM mid_game_years_passed > event_target:global_event_country.start_year_var # Crisis possible
 			has_global_flag = eye_of_terror_possible	# FOR TESTING ONLY
 		}
 	}
@@ -629,18 +629,18 @@ event = {
 			event_target:global_event_country = {
 				get_galaxy_setup_value = { which = start_year_var setting = end_game_year }
 				# subtract_variable = { which = start_year_var value = 2200 }
-				multiply_variable = { which = start_year_var value = -0.09 }
-				round_variable = start_year_var # Default 20
+				multiply_variable = { which = start_year_var value = -0.1 }
+				round_variable = start_year_var # Default -20
 				if = {
 					limit = { has_global_flag = eot_spawn_not_fe }
 					change_variable = { which = start_year_var value = 1 }
 					multiply_variable = { which = start_year_var value = 2 }
 				}
 				if = {
-					limit = { check_variable = { which = start_year_var value < 3 } }
+					limit = { check_variable = { which = start_year_var value > -2 } }
 					set_global_flag = eye_of_terror_possible
 				}
-				# log = "Set start_year_var [This.start_year_var]"
+				log = "Init Shroud Rising; start_year_var = \\[This.start_year_var]"
 			}
 
 			every_country = {

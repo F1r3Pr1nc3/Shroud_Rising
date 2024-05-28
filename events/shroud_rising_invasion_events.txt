@@ -2077,7 +2077,7 @@ country_event = {
 		city_level = root
 	}
 	option = { name = "shroud_rising_invasion.1303.a" response_text = shroud_rising_invasion.1302.a.response is_dialog_only = yes }
-	option = { name = shroud_rising_invasion.1302.b response_text = shroud_rising_invasion.1302.b.response is_dialog_only = yes }
+	option = { name = "crisis.8060.c" response_text = shroud_rising_invasion.1302.b.response is_dialog_only = yes }
 	option = { name = "crisis.76.c" response_text = "paragon.555.a" }
 }
 
