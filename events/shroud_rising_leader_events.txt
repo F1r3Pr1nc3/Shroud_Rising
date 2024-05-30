@@ -449,12 +449,7 @@ country_event = {
 		has_global_flag = eot_active
 		NOR = { is_ai = yes has_civic = civic_shroud_worship is_gestalt = yes }
 		any_owned_leader = {
-			OR = {
-				has_trait = leader_trait_cultist_whisperers
-				has_trait = leader_trait_cultist_eater
-				has_trait = leader_trait_cultist_composer
-				has_trait = leader_trait_cultist_instrument
-			}
+			has_cultist_trait_non_ruler = yes
 		}
 	}
 	immediate = {
@@ -464,7 +459,8 @@ country_event = {
 			5 = {
 				modifier = { factor = 1.5 any_owned_leader = { has_trait = leader_trait_shroud_inquisitor } }
 				modifier = { factor = 1.5 any_owned_leader = { is_councilor = yes is_councilor_type = councilor_ruler_inquisitor } }
-				country_event = { id = shroud_rising_leader.11 days = 100 random = 100 } }
+				country_event = { id = shroud_rising_leader.11 days = 100 random = 100 }
+			}
 		}
 	}
 }
@@ -480,7 +476,10 @@ country_event = {
 	desc = {
 		text = shroud_rising_leader.11.2.desc
 		exclusive_trigger = {
-			any_owned_leader = { is_same_value = event_target:inquisitor_leader_1 }
+			OR = {
+				exists = event_target:inquisitor_leader_1
+				any_owned_leader = { has_trait = leader_trait_shroud_inquisitor }
+			}
 		}
 	}
 	trigger = {
@@ -492,12 +491,7 @@ country_event = {
 			has_active_event = { shroud_rising_leader.11 }
 		}
 		any_owned_leader = {
-			OR = {
-				has_trait = leader_trait_cultist_whisperers
-				has_trait = leader_trait_cultist_eater
-				has_trait = leader_trait_cultist_composer
-				has_trait = leader_trait_cultist_instrument
-			}
+			has_cultist_trait_non_ruler = yes
 		}
 	}
 	immediate = {
@@ -507,12 +501,7 @@ country_event = {
 		}
 		random_owned_leader = {
 			limit = {
-				OR = {
-					has_trait = leader_trait_cultist_whisperers
-					has_trait = leader_trait_cultist_eater
-					has_trait = leader_trait_cultist_composer
-					has_trait = leader_trait_cultist_instrument
-				}
+				has_cultist_trait_non_ruler = yes
 				NAND = { exists = event_target:inquisitor_leader_1 is_same_value = event_target:inquisitor_leader_1 }
 			}
 			save_event_target_as = corrupted_leader_1
@@ -529,12 +518,7 @@ country_event = {
 					modifier = { factor = 100
 						any_owned_leader = {
 							OR = { is_ruler = yes is_councilor = yes }
-							OR = {
-								has_trait = leader_trait_cultist_whisperers
-								has_trait = leader_trait_cultist_eater
-								has_trait = leader_trait_cultist_composer
-								has_trait = leader_trait_cultist_instrument
-							}
+							has_cultist_trait_non_ruler = yes
 						}
 					}
 					country_event = { id = shroud_rising_leader.13 days = 5 random = 2 } # Escape out of the empire
@@ -562,12 +546,7 @@ country_event = {
 					modifier = { factor = 100
 						any_owned_leader = {
 							OR = { is_ruler = yes is_councilor = yes }
-							OR = {
-								has_trait = leader_trait_cultist_whisperers
-								has_trait = leader_trait_cultist_eater
-								has_trait = leader_trait_cultist_composer
-								has_trait = leader_trait_cultist_instrument
-							}
+							has_cultist_trait_non_ruler = yes
 						}
 					}
 					country_event = { id = shroud_rising_leader.13 days = 5 random = 2 } # Escape out of the empire
@@ -597,12 +576,7 @@ country_event = {
 					modifier = { factor = 100
 						any_owned_leader = {
 							OR = { is_ruler = yes is_councilor = yes }
-							OR = {
-								has_trait = leader_trait_cultist_whisperers
-								has_trait = leader_trait_cultist_eater
-								has_trait = leader_trait_cultist_composer
-								has_trait = leader_trait_cultist_instrument
-							}
+							has_cultist_trait_non_ruler = yes
 						}
 					}
 					country_event = { id = shroud_rising_leader.17 days = 30 random = 15 }
@@ -954,14 +928,8 @@ country_event = {
 	trigger = {
 		NOR = { has_country_flag = recent_cult_conversion has_active_event = { shroud_rising_leader.16 } }
 		any_owned_leader = {
-			NOR = {
-				has_trait = leader_trait_cultist_whisperers
-				has_trait = leader_trait_cultist_eater
-				has_trait = leader_trait_cultist_composer
-				has_trait = leader_trait_cultist_instrument
-				has_trait = leader_trait_shroud_inquisitor
-				has_trait = leader_trait_loyalist
-			}
+			# NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
+			has_cultist_trait_non_ruler = no
 		}
 	}
 	immediate = {
@@ -969,14 +937,12 @@ country_event = {
 		set_timed_country_flag = { flag = recent_cult_conversion years = 8 }
 		random_owned_leader = {
 			limit = {
-				NOR = {
-					has_trait = leader_trait_cultist_whisperers
-					has_trait = leader_trait_cultist_eater
-					has_trait = leader_trait_cultist_composer
-					has_trait = leader_trait_cultist_instrument
-					has_trait = leader_trait_shroud_inquisitor
-					has_trait = leader_trait_loyalist
-				}
+				# NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
+				has_cultist_trait_non_ruler = no
+			}
+			weights = {
+				base = 1
+				modifier = { add = 100 NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist } }
 			}
 			save_event_target_as = corrupted_leader_2
 		}
@@ -1033,7 +999,6 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	# trigger = { NOT = { has_active_event = { shroud_rising_leader.20 } } }
 	immediate = {
 		random_owned_leader = {
 			limit = { leader_class = commander has_chosen_covenant_trait_non_ruler = no }
@@ -1048,33 +1013,28 @@ country_event = {
 				25 = { add_trait = leader_trait_composer_chosen }
 				25 = { add_trait = leader_trait_instrument_chosen }
 			}
-			change_background_ethic = ethic_spiritualist
+			if = {
+				limit = { NOT = { has_ethic = ethic_spiritualist } }
+				change_background_ethic = ethic_spiritualist
+			}
 		}
 	}
 }
 
-# HIDDEN | Leader gets character trait
+# HIDDEN | Leader gets character trait (on_leader_level_up)
 country_event = {
 	id = shroud_rising_leader.21
 	is_triggered_only = yes
 	hide_window = yes
 	trigger = {
-		NOR = {
-			is_ai = yes		# Do I want AI having this too, or will it add to lag for no gameplay value?
-			is_gestalt = yes
-			has_active_event = { shroud_rising_leader.21 }
-		}
+		is_ai = no		# Do I want AI having this too, or will it add to lag for no gameplay value?
+		is_gestalt = no
 		exists = from
 		from = {
 			OR = { has_skill = 3 has_skill = 5 has_skill = 8 }
-			NOR = { # Only one character trait per leader
-				has_trait = leader_trait_cultist_whisperers
-				has_trait = leader_trait_cultist_eater
-				has_trait = leader_trait_cultist_composer
-				has_trait = leader_trait_cultist_instrument
-				has_trait = leader_trait_loyalist
-				has_trait = leader_trait_shroud_inquisitor
-			}
+			# Only one character trait per leader
+			# NOR = { has_trait = leader_trait_loyalist has_trait = leader_trait_shroud_inquisitor }
+			has_cultist_trait_non_ruler = no
 		}
 	}
 	immediate = {
@@ -1082,8 +1042,7 @@ country_event = {
 		# random_owned_leader = { limit = { is_same_value = event_target:leader_character_trait
 		from = {
 			if = {
-				limit = { has_chosen_covenant_trait_non_ruler = yes }
-				# If is chosen of a power, give them the associated cultist trait
+				limit = { has_chosen_covenant_trait_non_ruler = yes has_cultist_trait_non_ruler = no }
 				add_random_negative_character_trait = yes
 			}
 			# If specific negative traits, higher chance of cultist trait. Same for positive traits and loyal traits
@@ -1119,6 +1078,7 @@ country_event = {
 								has_trait = leader_trait_tyrannical
 								has_trait = leader_trait_tyrannical_2
 							}
+							has_cultist_trait_non_ruler = yes
 						}
 						add_random_negative_character_trait = yes
 					}
@@ -1160,7 +1120,7 @@ country_event = {
 						# add_random_character_trait = yes TODO?
 						# add_trait_no_notify = "random_common"
 						# add_trait_no_notify = "random_negative"
-						root = { country_event = { id = leader.100 } } # # Add traits from civics
+						root = { country_event = { id = leader.100 } } # Add traits from civics
 					}
 				}
 			}
@@ -1168,23 +1128,46 @@ country_event = {
 	}
 }
 
-# HIDDEN | Bi-yearly to give cultist trait to chosen
+# (on_bi_yearly_pulse_country) give cultist trait to chosen | HIDDEN
 country_event = {
 	id = shroud_rising_leader.22
 	is_triggered_only = yes
 	hide_window = yes
 	trigger = {
-		is_gestalt = no
-		any_owned_leader = { has_chosen_covenant_trait_non_ruler = yes }
-		# NOT = { has_active_event = { shroud_rising_leader.22 } }
+		# has_global_flag = eot_active
+		# is_ai = no		# Do I want AI having this too, or will it add to lag for no gameplay value?
+		is_gestalt = no # is_regular_empire = yes #
+		any_owned_leader = { has_chosen_covenant_trait_non_ruler = yes has_cultist_trait_non_ruler = no }
 	}
 	immediate = {
-		every_owned_leader = {
-			limit = { has_chosen_covenant_trait_non_ruler = yes }
-			# If is chosen of a power, give them the associated cultist trait
+		random_owned_leader = {
+			limit = { has_chosen_covenant_trait_non_ruler = yes  }
+			weights = {
+				base = 1
+				modifier = { add = 100 NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist } }
+				modifier = { add = 100 has_cultist_trait_non_ruler = no }
+			}
 			add_random_negative_character_trait = yes
-			remove_trait = leader_trait_loyalist
-			remove_trait = leader_trait_shroud_inquisitor
+		}
+	}
+}
+
+# (on_bi_yearly_pulse) give cultist trait to chosen | HIDDEN
+event = {
+	id = shroud_rising_leader.23
+	is_triggered_only = yes
+	hide_window = yes
+	trigger = {
+		has_global_flag = eot_active
+	}
+	immediate = {
+		random_playable_country = {
+			limit = {
+				is_gestalt = no
+				NOR = { has_civic = civic_shroud_worship has_country_flag = eye_of_terror_reopened_country }
+				any_owned_leader = { has_chosen_covenant_trait_non_ruler = yes has_cultist_trait_non_ruler = no }
+			}
+			country_event = { id = shroud_rising_leader.22 days = 7 }
 		}
 	}
 }

@@ -1,3 +1,5 @@
+merg_has_shroud_rising = { always = yes } # has_global_flag = shroud_rising_active
+
 is_shroud_rift_planet = {
 	is_star = no
 	is_moon = no
@@ -29,4 +31,11 @@ is_shroud_rift_planet = {
 	}
 }
 
-merg_has_shroud_rising = { always = yes } # has_global_flag = shroud_rising_active
+has_cultist_trait_non_ruler = {
+	OR = {
+		has_trait = leader_trait_cultist_whisperers
+		has_trait = leader_trait_cultist_eater
+		has_trait = leader_trait_cultist_composer
+		has_trait = leader_trait_cultist_instrument
+	}
+}

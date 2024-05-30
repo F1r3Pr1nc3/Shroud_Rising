@@ -44,10 +44,11 @@ on_monthly_pulse = {
 # No scope, like on_game_start
 on_bi_yearly_pulse = {
 	events = {
-		shroud_rising_trigger.4		# EoT Spawn chain trigger start
+		shroud_rising_trigger.4			# EoT Spawn chain trigger start
 		# shroud_rising_invasion.1		# Incurions basic rift
 		shroud_rising_invasion.109		# Test if spawn ancient god once 15 planets devoured
 		# shroud_rising_invasion.7		# Eye of Terror incursion testing testing
+		shroud_rising_leader.23			# Checks if there's a shroud chosen and adds cultist trait
 	}
 }
 
@@ -110,11 +111,11 @@ on_yearly_pulse_country = {
 # }
 
 # this = country
-on_bi_yearly_pulse_country = {
-	events = {
-		shroud_rising_leader.22		# Checks if there's a shroud chosen and adds cultist trait
-	}
-}
+# on_bi_yearly_pulse_country = {
+# 	events = {
+# 		shroud_rising_leader.22		# Checks if there's a shroud chosen and adds cultist trait
+# 	}
+# }
 
 # this = country
 on_five_year_pulse_country = {

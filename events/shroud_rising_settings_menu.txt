@@ -354,7 +354,7 @@ event = {
 		event_target:global_event_country = {
 			get_galaxy_setup_value = { which = start_year_var setting = end_game_year }
 			# subtract_variable = { which = start_year_var value = 2200 }
-			multiply_variable = { which = start_year_var value = -0.1 }
+			multiply_variable = { which = start_year_var value = -0.084 }
 			round_variable = start_year_var # Default -20
 			if = {
 				limit = { check_variable = { which = start_year_var value > -2 } }
@@ -629,7 +629,7 @@ event = {
 			event_target:global_event_country = {
 				get_galaxy_setup_value = { which = start_year_var setting = end_game_year }
 				# subtract_variable = { which = start_year_var value = 2200 }
-				multiply_variable = { which = start_year_var value = -0.1 }
+				multiply_variable = { which = start_year_var value = -0.084 }
 				round_variable = start_year_var # Default -20
 				if = {
 					limit = { has_global_flag = eot_spawn_not_fe }

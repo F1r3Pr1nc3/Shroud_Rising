@@ -60,12 +60,7 @@ planet_event = {
 				modifier = { factor = 2
 					owner = {
 						any_owned_leader = {
-							OR = {
-								has_trait = leader_trait_cultist_whisperers
-								has_trait = leader_trait_cultist_eater
-								has_trait = leader_trait_cultist_composer
-								has_trait = leader_trait_cultist_instrument
-							}
+							has_cultist_trait_non_ruler = yes
 						}
 					}
 				}
@@ -74,12 +69,7 @@ planet_event = {
 						any_owned_leader = {
 							is_councilor = yes
 							is_councilor_type = councilor_ruler_inquisitor
-							OR = {
-								has_trait = leader_trait_cultist_whisperers
-								has_trait = leader_trait_cultist_eater
-								has_trait = leader_trait_cultist_composer
-								has_trait = leader_trait_cultist_instrument
-							}
+							has_cultist_trait_non_ruler = yes
 						}
 					}
 				}
@@ -96,12 +86,7 @@ planet_event = {
 						any_owned_leader = {
 							is_councilor = yes
 							is_councilor_type = councilor_ruler_inquisitor
-							NOR = {
-								has_trait = leader_trait_cultist_whisperers
-								has_trait = leader_trait_cultist_eater
-								has_trait = leader_trait_cultist_composer
-								has_trait = leader_trait_cultist_instrument
-							}
+							has_cultist_trait_non_ruler = no
 						}
 					}
 				}

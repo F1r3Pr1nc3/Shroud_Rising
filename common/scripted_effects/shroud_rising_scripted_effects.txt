@@ -33,16 +33,39 @@ cleanup_cult_uprising_situation = {
 # 		30 = { add_trait = leader_trait_shroud_inquisitor }
 # 	}
 # }
-# If is chosen of a power, give them the associated cultist trait
 add_random_negative_character_trait = {
-	save_event_target_as = corrupted_leader
-	random_list = {
-			25 = { modifier = { factor = 0 has_trait = leader_trait_cultist_whisperers }	add_trait_no_notify = leader_trait_cultist_whisperers }
-			25 = { modifier = { factor = 0 has_trait = leader_trait_cultist_eater }			add_trait_no_notify = leader_trait_cultist_eater }
-			25 = { modifier = { factor = 0 has_trait = leader_trait_cultist_composer }		add_trait_no_notify = leader_trait_cultist_composer }
-			25 = { modifier = { factor = 0 has_trait = leader_trait_cultist_instrument }	add_trait_no_notify = leader_trait_cultist_instrument }
+	if = {
+		limit = { has_trait = leader_trait_loyalist }
+		remove_trait = leader_trait_loyalist
 	}
-	change_background_ethic = ethic_spiritualist
+	if = {
+		limit = { has_trait = leader_trait_shroud_inquisitor }
+		remove_trait = leader_trait_shroud_inquisitor
+	}
+	save_event_target_as = corrupted_leader
+	# If is chosen of a power, give them the associated cultist trait
+	if = {
+		limit = { has_chosen_covenant_trait_non_ruler = yes }
+		switch = { trigger = has_trait
+			leader_trait_whisperers_chosen	= { add_trait_no_notify = leader_trait_cultist_whisperers }
+			leader_trait_eater_chosen		= { add_trait_no_notify = leader_trait_cultist_eater }
+			leader_trait_composer_chosen	= { add_trait_no_notify = leader_trait_cultist_composer }
+			leader_trait_instrument_chosen	= { add_trait_no_notify = leader_trait_cultist_instrument }
+		}
+	}
+	else = {
+		random_list = {
+			25 = { add_trait_no_notify = leader_trait_cultist_whisperers }
+			25 = { add_trait_no_notify = leader_trait_cultist_eater }
+			25 = { add_trait_no_notify = leader_trait_cultist_composer }
+			25 = { add_trait_no_notify = leader_trait_cultist_instrument }
+		}
+	}
+
+	if = {
+		limit = { NOT = { has_ethic = ethic_spiritualist } }
+		change_background_ethic = ethic_spiritualist
+	}
 	root = {
 		create_message = {	# Notify of corruption
 			type = MESSAGE_LEADER_CORRUPTED
