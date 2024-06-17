@@ -36,14 +36,23 @@ country_event = {
 		exists = from
 		has_global_flag = dmm_installed # 3.0 version
 		from = { has_leader_flag = dmm_mod_333 }
-		NOR = {
-			is_ai = yes
-			mid_game_years_passed > 30
-			has_global_flag = eot_active
-		}
+		is_ai = no
 	}
 	immediate = {
-		country_event = { id = shroud_rising_trigger.1 }
+		if = {
+			limit = {
+				NOR = {
+					has_global_flag = eot_active
+					has_global_flag = sr_settings_active
+				}
+				mid_game_years_passed < 31
+			}
+			country_event = { id = shroud_rising_trigger.1 }
+		}
+		else_if = {
+			limit = { mid_game_years_passed > 30 }
+			dmm_deregister_mod = { DMM_FLAG = dmm_mod_333 }
+		}
 	}
 	after = {
 		if = { limit = { has_global_flag = dmm_mod_333_opened }

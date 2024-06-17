@@ -19,20 +19,7 @@ cleanup_cult_uprising_situation = {
 		}
 	}
 }
-# TODO?
-# add_random_character_trait = {
-# 	save_event_target_as = corrupted_leader
-# 	random_list = {
-# 			8 = { add_random_negative_character_trait = yes }
-# 			2 = { add_random_positive_character_trait = yes }
-# 	}
-# }
-# add_random_positive_character_trait = {
-# 	random_list = {
-# 		70 = { add_trait = leader_trait_loyalist }
-# 		30 = { add_trait = leader_trait_shroud_inquisitor }
-# 	}
-# }
+
 add_random_negative_character_trait = {
 	if = {
 		limit = { has_trait = leader_trait_loyalist }

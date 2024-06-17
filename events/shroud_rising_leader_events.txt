@@ -928,7 +928,7 @@ country_event = {
 	trigger = {
 		NOR = { has_country_flag = recent_cult_conversion has_active_event = { shroud_rising_leader.16 } }
 		any_owned_leader = {
-			# NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
+			NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
 			has_cultist_trait_non_ruler = no
 		}
 	}
@@ -937,7 +937,7 @@ country_event = {
 		set_timed_country_flag = { flag = recent_cult_conversion years = 8 }
 		random_owned_leader = {
 			limit = {
-				# NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
+				NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
 				has_cultist_trait_non_ruler = no
 			}
 			weights = {
@@ -1033,7 +1033,7 @@ country_event = {
 		from = {
 			OR = { has_skill = 3 has_skill = 5 has_skill = 8 }
 			# Only one character trait per leader
-			# NOR = { has_trait = leader_trait_loyalist has_trait = leader_trait_shroud_inquisitor }
+			NOR = { has_trait = leader_trait_loyalist has_trait = leader_trait_shroud_inquisitor }
 			has_cultist_trait_non_ruler = no
 		}
 	}
@@ -1056,29 +1056,31 @@ country_event = {
 							}
 						}
 						modifier = { factor = 0
-							NOR = {
-								has_trait = leader_trait_substance_abuser
-								has_trait = leader_trait_substance_abuser_2
-								has_trait = leader_trait_corrupt
-								has_trait = leader_trait_corrupt_2
-								has_trait = leader_trait_maniacal
-								has_trait = leader_trait_maniacal_2
-								has_trait = leader_trait_maniacal_3
-								has_trait = leader_trait_neurotic
-								has_trait = leader_trait_neurotic_2
-								has_trait = leader_trait_destructive
-								has_trait = leader_trait_destructive_2
-								has_trait = leader_trait_shroud_preacher
-								has_trait = leader_trait_sadistic
-								has_trait = leader_trait_sadistic_2
-								has_trait = leader_trait_lawless
-								has_trait = leader_trait_lawless_2
-								has_trait = leader_trait_volatile
-								has_trait = leader_trait_volatile_2
-								has_trait = leader_trait_tyrannical
-								has_trait = leader_trait_tyrannical_2
+							OR = {
+								has_cultist_trait_non_ruler = yes
+								NOR = {
+									has_trait = leader_trait_substance_abuser
+									has_trait = leader_trait_substance_abuser_2
+									has_trait = leader_trait_corrupt
+									has_trait = leader_trait_corrupt_2
+									has_trait = leader_trait_maniacal
+									has_trait = leader_trait_maniacal_2
+									has_trait = leader_trait_maniacal_3
+									has_trait = leader_trait_neurotic
+									has_trait = leader_trait_neurotic_2
+									has_trait = leader_trait_destructive
+									has_trait = leader_trait_destructive_2
+									has_trait = leader_trait_shroud_preacher
+									has_trait = leader_trait_sadistic
+									has_trait = leader_trait_sadistic_2
+									has_trait = leader_trait_lawless
+									has_trait = leader_trait_lawless_2
+									has_trait = leader_trait_volatile
+									has_trait = leader_trait_volatile_2
+									has_trait = leader_trait_tyrannical
+									has_trait = leader_trait_tyrannical_2
+								}
 							}
-							has_cultist_trait_non_ruler = yes
 						}
 						add_random_negative_character_trait = yes
 					}
@@ -1109,7 +1111,7 @@ country_event = {
 							}
 							NOT = { has_trait = leader_trait_collective_wisdom }
 						}
-						# add_random_positive_character_trait
+						# ADD_RANDOM_POSITIVE_CHARACTER_TRAIT
 						random_list = {
 							70 = { add_trait = leader_trait_loyalist }
 							30 = { add_trait = leader_trait_shroud_inquisitor }
@@ -1141,11 +1143,10 @@ country_event = {
 	}
 	immediate = {
 		random_owned_leader = {
-			limit = { has_chosen_covenant_trait_non_ruler = yes  }
+			limit = { has_chosen_covenant_trait_non_ruler = yes has_cultist_trait_non_ruler = no }
 			weights = {
 				base = 1
 				modifier = { add = 100 NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist } }
-				modifier = { add = 100 has_cultist_trait_non_ruler = no }
 			}
 			add_random_negative_character_trait = yes
 		}

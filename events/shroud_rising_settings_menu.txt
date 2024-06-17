@@ -16,6 +16,17 @@ namespace = shroud_rising_trigger
 # shroud_rising_trigger.13 | (REMOVED Hidden) Midgame trigger connected to on_action * (If disabled, will do nothing)
 # shroud_rising_trigger.4 | (Hidden) on_action on_bi_yearly_pulse or as console command
 # shroud_rising_trigger.5 | (Hidden) 100% trigger chance
+# Delay
+country_event = {
+	id = shroud_rising_trigger.0
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { is_ai = no }
+	fire_only_once = yes
+	immediate = {
+		country_event = { id = shroud_rising_trigger.10 days = 9 }
+	}
+}
 
 # MAIN MENU
 country_event = {
@@ -116,9 +127,9 @@ country_event = {
 	title = "shroud_rising_settings.1.name"
 	# desc = "shroud_rising_settings.2.desc"
 	picture = GFX_evt_shrouded_planet
-	show_sound = event_energy_field
+	show_sound = event_space_cloud
 	is_triggered_only = yes
-	trigger = { is_variable_set = sr_difficulty has_global_flag = sr_settings_active }
+	# trigger = { is_variable_set = sr_difficulty has_global_flag = sr_settings_active }
 	desc = {
 		trigger = {
 			text = shroud_rising_settings.2.desc
@@ -353,7 +364,6 @@ event = {
 
 		event_target:global_event_country = {
 			get_galaxy_setup_value = { which = start_year_var setting = end_game_year }
-			# subtract_variable = { which = start_year_var value = 2200 }
 			multiply_variable = { which = start_year_var value = -0.084 }
 			round_variable = start_year_var # Default -20
 			if = {
@@ -404,7 +414,15 @@ country_event = {
 				eot_25	=		{ prev = { set_variable = { which = sr_chance value = 25 } } }
 				eot_5	=		{ prev = { set_variable = { which = sr_chance value = 5 } } }
 				eot_disabled =	{ prev = { set_variable = { which = sr_chance value = 0 } } }
-				default	=		{ prev = { set_variable = { which = sr_chance value = 25 } } }
+				default	=		{
+					if = {
+						limit = { has_global_flag = allthatisgrimdark_mod }
+						prev = { set_variable = { which = sr_chance value = 100 } }
+					}
+					else = {
+						prev = { set_variable = { which = sr_chance value = 25 } }
+					}
+				}
 			}
 		}
 	}
@@ -628,7 +646,6 @@ event = {
 
 			event_target:global_event_country = {
 				get_galaxy_setup_value = { which = start_year_var setting = end_game_year }
-				# subtract_variable = { which = start_year_var value = 2200 }
 				multiply_variable = { which = start_year_var value = -0.084 }
 				round_variable = start_year_var # Default -20
 				if = {

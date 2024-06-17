@@ -2,10 +2,10 @@
 [quote]"Shroud Rising" is a renowned Stellaris mod that plunges players into the mysteries of the Shroud. Delve into its depths to uncover ancient secrets and face cosmic dangers. Navigate through ethereal realms, where every encounter unveils new enigmas. But tread carefully, for dark forces lurk within, testing your resolve. Will you harness the Shroud's power or succumb to its ominous embrace? Embark on this thrilling adventure and rewrite the fate of the galaxy![/quote]
 
 [hr]
-[h3]Since an update was sorely missed and to keep this legendary mod alive in the annals of Stellaris, I did an unofficial [b]3.12 patch to LastLeviathan's excellent [URL=//steamcommunity.com/sharedfiles/filedetails/2809452753]Shroud Rising[/URL] mod.[/b][/h3]
+[h3]Since an update was sorely missed and to keep this legendary mod alive in the annals of Stellaris, I did an 3.12 patch to LastLeviathan's excellent [URL=//steamcommunity.com/sharedfiles/filedetails/2809452753]Shroud Rising[/URL] mod.[/h3]
 [h3][i]Detailed instructions on the latest original (3.8) [URL=//steamcommunity.com/sharedfiles/filedetails/2809452753]page[/URL].[/i][/h3]
 
-[b]Note:[/b] this is a [b]patch[/b], so you still need the original mod.[spoiler](some people still don't know the difference between an update)[/spoiler]
+[b]Note:[/b] this is a [b]patch[/b], so you still need the original mod.[spoiler](even if it should be very clear, I've to mention this, and even then...)[/spoiler]
 
 [hr]
 Behold, this patch be but a spectral whisper, a mere echo in the ethereal expanse of the Shroud. A fledgling specter yet to find its true form. tread lightly, for the mists of uncertainty cloak its every move. Changes shall materialize like phantoms, shifting and swirling in the aether.
@@ -26,6 +26,9 @@ So, gather your courage and venture forth into the unknown. Within the depths of
 
 [b]Changelog  v.3.12.*[/b]:
 ⠀• Dynamic timer values (depending on mid-end-game settings)
+⠀• Fixed Cultist trait spam
+⠀• The Shroud Civic has now a councilor level
+⠀• Bit more performance improvement
 
 [b]Supports[/b]:
 ⠀✔️ [URL=//steamcommunity.com/workshop/filedetails/3041579530]All That Is GRIMDARK[/URL]
@@ -52,7 +55,7 @@ Have fun!
 
 [hr]
 [URL=//discord.com/channels/378985949373399040/1114192927586013285/]If you have more questions or wish to discuss further, feel free to join the discord channel on the modding community.[/URL]
-[URL=//discord.com/channels/378985949373399040][IMG]//i.imgur.com/mODr6Fs.png[/IMG][/URL]
 [URL=//discord.com/channels/378985949373399040/445225961722478602][img]//i.imgur.com/5mAurkh.png[/img][/URL]
+[URL=//discord.com/channels/378985949373399040][IMG]//i.imgur.com/mODr6Fs.png[/IMG][/URL]
 [img]//i.imgur.com/fVVaDCS.gif[/img]
 [URL=//steamcommunity.com/profiles/76561198858429698/myworkshopfiles/?appid=281990]Check out my other mods![/URL]

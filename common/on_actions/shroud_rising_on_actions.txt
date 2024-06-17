@@ -1,6 +1,14 @@
-on_game_start = {
+# on_game_start = {
+# 	events = {
+# 		shroud_rising_trigger.10		# Player % message
+# 	}
+# }
+
+# Triggers when pressing begin in the intro window
+# This = country to press begin
+on_press_begin = {
 	events = {
-		shroud_rising_trigger.10		# Player % message
+		shroud_rising_trigger.0
 	}
 }
 
@@ -27,7 +35,7 @@ on_monthly_pulse = {
 		shroud_rising_shroud_rift.270		# Triggers check to collapse unstable rifts
 		shroud_rising_eye_of_terror.71		# Slowly removes Eye of Terror rifts if sealed
 		shroud_rising_eye_of_terror.110		# Slowly adds Eye of Terror rifts if reopened
-		# shroud_rising_invasion.1 # Test for incurions basic rift
+		# shroud_rising_invasion.1 # Test for Incursions basic rift
 		# shroud_rising_invasion.3 # Test for greater rift spawn
 		# shroud_rising_invasion.7 # Eye of Terror incursion testing testing
 		# shroud_rising_invasion.3 # Incursion greater rift testing
@@ -45,7 +53,7 @@ on_monthly_pulse = {
 on_bi_yearly_pulse = {
 	events = {
 		shroud_rising_trigger.4			# EoT Spawn chain trigger start
-		# shroud_rising_invasion.1		# Incurions basic rift
+		# shroud_rising_invasion.1		# Incursions basic rift
 		shroud_rising_invasion.109		# Test if spawn ancient god once 15 planets devoured
 		# shroud_rising_invasion.7		# Eye of Terror incursion testing testing
 		shroud_rising_leader.23			# Checks if there's a shroud chosen and adds cultist trait
@@ -56,7 +64,7 @@ on_bi_yearly_pulse = {
 on_yearly_pulse = {
 	events = {
 		# shroud_rising_trigger.4		# EoT Spawn chain trigger start
-		shroud_rising_invasion.1		# Incurions basic rift
+		shroud_rising_invasion.1		# Incursions basic rift
 		shroud_rising_invasion.3		# Greater rift spawn
 		shroud_rising_shroud_rift.100		# Shroud spawn on planets near rifts
 		# shroud_rising_shroud_rift.103		# Shroud spawn on planets Eye of Terror
