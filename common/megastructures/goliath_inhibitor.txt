@@ -34,8 +34,8 @@ goliath_inhibitor_0 = {
 		custom_tooltip = {
 			fail_text = "requires_no_existing_megastructure"
 			from = {
-				NOT = {
-					any_owned_megastructure = {
+				count_owned_megastructure = {
+					limit = {
 						OR = {
 							is_megastructure_type = goliath_inhibitor_0
 							is_megastructure_type = goliath_inhibitor_1
@@ -45,6 +45,7 @@ goliath_inhibitor_0 = {
 							is_megastructure_type = goliath_inhibitor_permanently_ruined
 						}
 					}
+					count = 0
 				}
 			}
 		}

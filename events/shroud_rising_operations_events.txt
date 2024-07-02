@@ -91,7 +91,7 @@ country_event = {
 		event_target:target_country = {
 			random_system_within_border = {
 				limit = {
-					NOT = { any_system_planet = { has_planet_flag = has_shroud_monolith } }
+					count_system_planet = { limit = { has_planet_flag = has_shroud_monolith } count = 0 }
 				}
 				save_event_target_as = rift_system
 				while = { count = 3

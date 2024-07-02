@@ -7,10 +7,11 @@
 # From = planet, potential target
 can_orbital_bombard = {
 	exists = from.OWNER
-	NOT = {
-		any_controlled_ship = {
+	count_controlled_ship = {
+		limit = {
 			is_ship_size = colossus
 		}
+		count = 0
 	}
 	OR = {
 		AND = {

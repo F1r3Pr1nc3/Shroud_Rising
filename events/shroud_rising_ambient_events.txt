@@ -29,7 +29,7 @@ event = {
 				has_owner = yes
 				# owner = { is_ai = no } # For testing
 				any_system_colony = { num_pops > 10 }
-				NOT = { any_system_planet = { has_planet_flag = has_shroud_monolith } }
+				count_system_planet = { limit = { has_planet_flag = has_shroud_monolith } count = 0 }
 			}
 			system_event = { id = shroud_rising_ambient.2 days = 50 random = 100 }
 		}

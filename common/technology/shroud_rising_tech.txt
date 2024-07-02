@@ -107,7 +107,7 @@ tech_shroud_knowledge_1 = {
 		modifier = {
 			factor = 1.25
 			any_owned_pop = { pop_has_trait = trait_latent_psionic }
-			NOT = { any_owned_pop = { pop_has_trait = trait_psionic } }
+			count_owned_pop = { limit = { pop_has_trait = trait_psionic } count = 0 }
 		}
 		modifier = {
 			factor = 0
@@ -160,7 +160,7 @@ tech_shroud_knowledge_2 = {
 		modifier = {
 			factor = 1.25
 			any_owned_pop = { pop_has_trait = trait_latent_psionic }
-			NOT = { any_owned_pop = { pop_has_trait = trait_psionic } }
+			count_owned_pop = { limit = { pop_has_trait = trait_psionic } count = 0 }
 		}
 		modifier = {
 			factor = 0
@@ -212,7 +212,7 @@ tech_shroud_study_1 = {
 		modifier = {
 			factor = 1.25
 			any_owned_pop = { pop_has_trait = trait_latent_psionic }
-			NOT = { any_owned_pop = { pop_has_trait = trait_psionic } }
+			count_owned_pop = { limit = { pop_has_trait = trait_psionic } count = 0 }
 		}
 		modifier = {
 			factor = 0
@@ -265,7 +265,7 @@ tech_shroud_study_2 = {
 		modifier = {
 			factor = 1.25
 			any_owned_pop = { pop_has_trait = trait_latent_psionic }
-			NOT = { any_owned_pop = { pop_has_trait = trait_psionic } }
+			count_owned_pop = { limit = { pop_has_trait = trait_psionic } count = 0 }
 		}
 		modifier = {
 			factor = 0
@@ -318,7 +318,7 @@ tech_shroud_study_3 = {
 		modifier = {
 			factor = 1.25
 			any_owned_pop = { pop_has_trait = trait_latent_psionic }
-			NOT = { any_owned_pop = { pop_has_trait = trait_psionic } }
+			count_owned_pop = { limit = { pop_has_trait = trait_psionic } count = 0 }
 		}
 		modifier = {
 			factor = 0

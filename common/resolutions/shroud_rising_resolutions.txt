@@ -1571,8 +1571,9 @@ resolution_shroud_inquisition_2 = {
 	}
 
 	breach = {
-		NOT = {
-			any_owned_leader = { is_councilor = yes is_councilor_type = councilor_ruler_inquisitor }
+		count_owned_leader = {
+			limit = { is_councilor = yes is_councilor_type = councilor_ruler_inquisitor }
+			count = 0
 		}
 	}
 

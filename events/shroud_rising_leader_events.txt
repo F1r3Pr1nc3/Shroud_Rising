@@ -940,10 +940,10 @@ country_event = {
 				NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
 				has_cultist_trait_non_ruler = no
 			}
-			weights = {
-				base = 1
-				modifier = { add = 100 NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist } }
-			}
+			# weights = {
+			# 	base = 1
+			# 	modifier = { add = 100 NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist } }
+			# }
 			save_event_target_as = corrupted_leader_2
 		}
 	}
@@ -1042,7 +1042,11 @@ country_event = {
 		# random_owned_leader = { limit = { is_same_value = event_target:leader_character_trait
 		from = {
 			if = {
-				limit = { has_chosen_covenant_trait_non_ruler = yes has_cultist_trait_non_ruler = no }
+				limit = {
+					has_chosen_covenant_trait_non_ruler = yes
+					NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
+					has_cultist_trait_non_ruler = no
+				}
 				add_random_negative_character_trait = yes
 			}
 			# If specific negative traits, higher chance of cultist trait. Same for positive traits and loyal traits
