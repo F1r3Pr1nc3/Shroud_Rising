@@ -37,7 +37,7 @@ planet_event = {
 		planet_stability < 35
 		num_pops >= 1
 		has_orbital_bombardment = no
-		exists = owner
+		exists = owner # pre_trigger get ignored sometimes somehow
 		owner = {
 			merg_is_default_empire = yes
 			NOR = {
@@ -131,7 +131,7 @@ planet_event = {
 	situation = event_target:cult_situation
 	pre_triggers = { has_owner = yes }
 	trigger = {
-		exists = owner
+		exists = owner # pre_trigger get ignored sometimes somehow
 		owner = {
 			merg_is_default_empire = yes
 			NOR = {
@@ -606,6 +606,51 @@ country_event = {
 			limit = { NOT = { exists = event_target:leader_species } }
 			random_owned_species = { save_event_target_as = leader_species }
 		}
+		## Copy technology
+		if = {
+			limit = {
+				any_neighbor_country = {
+					merg_is_default_empire = yes
+					relative_power = { who = root value > equivalent category = technology }
+				}
+			}
+			random_neighbor_country = {
+				limit = {
+					merg_is_default_empire = yes
+					relative_power = { who = root value > equivalent category = technology }
+				}
+				save_event_target_as = tech_country
+			}
+		}
+		else_if = {
+			limit = {
+				any_playable_country = {
+					is_ai = no
+					NOT = { is_same_empire = root }
+					has_communications = root
+					relative_power = { who = root value > equivalent category = technology }
+				}
+			}
+			random_playable_country = {
+				limit = {
+					is_ai = no
+					NOT = { is_same_empire = root }
+					has_communications = root
+					relative_power = { who = root value > equivalent category = technology }
+				}
+				save_event_target_as = tech_country
+			}
+		}
+		else = {
+			random_playable_country = {
+				limit = {
+					NOT = { is_same_empire = root }
+					has_communications = root
+					relative_power = { who = root value > equivalent category = technology }
+				}
+				save_event_target_as = tech_country
+			}
+		}
 		# Give planets and stuff to cult
 		event_target:cult_uprising_planet = {
 			# Create the cult country
@@ -734,41 +779,45 @@ country_event = {
 				exotic_gases = 1000
 				unity = 10000
 			}
-			copy_techs_from = {
-				target = event_target:cult_uprising_owner
-				except = {
-					# Robots
-					tech_robotic_workers
-					tech_droid_workers
-					tech_synthetic_workers
-					# Food
-					tech_eco_simulation
-					tech_gene_crops
-					tech_nano_vitality_crops
-					tech_nutrient_replication
-					# Misc
-					tech_subdermal_stimulation
-					tech_global_research_initiative
-					tech_neural_implants
-					tech_psionic_theory
-					# Non-Machine Robomodding
-					tech_robomodding
-					tech_robomodding_points_1
-					tech_robomodding_points_2
-					# Genetics
-					tech_genome_mapping
-					tech_vitality_boosters
-					tech_epigenetic_triggers
-					tech_gene_banks
-					tech_gene_seed_purification
-					tech_morphogenetic_field_mastery
-					tech_glandular_acclimation
-					tech_gene_expressions
-					tech_capacity_boosters
-					# Horizon Signal
-					tech_akx_worm_1
-					tech_akx_worm_2
-					tech_akx_worm_3
+			if = {
+				limit = { exists = event_target:tech_country }
+				copy_techs_from = {
+					# target = event_target:cult_uprising_owner
+					target = event_target:tech_country
+					except = {
+						# Robots
+						tech_robotic_workers
+						tech_droid_workers
+						tech_synthetic_workers
+						# Food
+						tech_eco_simulation
+						tech_gene_crops
+						tech_nano_vitality_crops
+						tech_nutrient_replication
+						# Misc
+						tech_subdermal_stimulation
+						tech_global_research_initiative
+						tech_neural_implants
+						tech_psionic_theory
+						# Non-Machine Robomodding
+						tech_robomodding
+						tech_robomodding_points_1
+						tech_robomodding_points_2
+						# Genetics
+						tech_genome_mapping
+						tech_vitality_boosters
+						tech_epigenetic_triggers
+						tech_gene_banks
+						tech_gene_seed_purification
+						tech_morphogenetic_field_mastery
+						tech_glandular_acclimation
+						tech_gene_expressions
+						tech_capacity_boosters
+						# Horizon Signal
+						tech_akx_worm_1
+						tech_akx_worm_2
+						tech_akx_worm_3
+					}
 				}
 			}
 			add_500_unity_per_year_passed = yes
@@ -856,6 +905,7 @@ country_event = {
 				limit = { NOT = { exists = leader } }
 				assign_leader = last_created_leader
 			}
+			fire_on_action = { on_action = on_released_as_vassal scopes = { from = root } }
 		}
 	}
 }
@@ -888,8 +938,8 @@ country_event = {
 	option = { name = shroud_rising_cult_uprising.12.a }
 }
 
-# Fully merge and handover shroud_cults country (HIDDEN - compare marauder.609)
-# This = be destroyed country (after months = 20)
+# Fully merge and handover shroud_cults country (HIDDEN - compare marauder.609 / riseandfall.101)
+# This = Integrated and destroyed country (after months = 20)
 country_event = {
 	id = shroud_rising_cult_uprising.19
 	hide_window = yes
@@ -1115,67 +1165,75 @@ country_event = {
 				}
 				copy_techs_from = { target = root }
 				add_500_unity_per_year_passed = yes
+				# Upgrade starbases
+				if = {
+					limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
+					random_owned_starbase = {
+						limit = { has_starbase_size < starbase_starhold }
+						set_starbase_size = starbase_starhold
+					}
+					if = {
+						limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
+						random_owned_starbase = {
+							limit = { has_starbase_size < starbase_starhold }
+							set_starbase_size = starbase_starhold
+						}
+					}
+					if = {
+						limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
+						random_owned_starbase = {
+							limit = { has_starbase_size < starbase_starhold }
+							set_starbase_size = starbase_starhold
+						}
+					}
+				}
+				# Survey Own Space
+				every_planet_within_border = {
+					set_surveyed = { surveyed = yes surveyor = event_target:new_shroud_cult }
+				}
+				# Survey Rest of Horde's Space
+				root = {
+					every_planet_within_border = {
+						set_surveyed = { surveyed = yes surveyor = event_target:new_shroud_cult }
+					}
+				}
+				# Mining and Research Stations
+				every_planet_within_border = {
+					limit = {
+						has_owner = no
+						OR = { has_deposit_for = shipclass_mining_station has_deposit_for = shipclass_research_station }
+					}
+					if = {
+						limit = { has_deposit_for = shipclass_mining_station has_mining_station = no }
+						create_mining_station = { owner = event_target:new_shroud_cult }
+					}
+					else_if = {
+						limit = { has_deposit_for = shipclass_research_station has_research_station = no }
+						create_research_station = { owner = event_target:new_shroud_cult }
+					}
+				}
+			}
+			# Take old leaders # TODO more filter
+			root = {
+				every_owned_leader = {
+					limit = {
+						OR = {
+							AND = {
+								num_negative_traits < 2
+								has_psionic_leader_trait = yes
+							}
+							has_leader_flag = legendary_leader
+							has_leader_flag = paragon_origin_legendary_leader
+							has_trait = leader_trait_legendary_offspring
+						}
+					}
+					set_owner = prevprev
+				}
 			}
 			if = {
 				limit = { root = { num_owned_relics > 0 } }
 				steal_relic = { target = root relic = all }
 			}
-			# Upgrade starbases
-			if = {
-				limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
-				random_owned_starbase = {
-					limit = { has_starbase_size < starbase_starhold }
-					set_starbase_size = starbase_starhold
-				}
-				if = {
-					limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
-					random_owned_starbase = {
-						limit = { has_starbase_size < starbase_starhold }
-						set_starbase_size = starbase_starhold
-					}
-				}
-				if = {
-					limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
-					random_owned_starbase = {
-						limit = { has_starbase_size < starbase_starhold }
-						set_starbase_size = starbase_starhold
-					}
-				}
-			}
-			# Survey Own Space
-			every_planet_within_border = {
-				set_surveyed = { surveyed = yes surveyor = event_target:new_shroud_cult }
-			}
-			# Survey Rest of Horde's Space
-			root = {
-				every_planet_within_border = {
-					set_surveyed = { surveyed = yes surveyor = event_target:new_shroud_cult }
-				}
-			}
-			# Mining and Research Stations
-			every_planet_within_border = {
-				limit = {
-					has_owner = no
-					OR = { has_deposit_for = shipclass_mining_station has_deposit_for = shipclass_research_station }
-				}
-				if = {
-					limit = { has_deposit_for = shipclass_mining_station has_mining_station = no }
-					create_mining_station = { owner = event_target:new_shroud_cult }
-				}
-				else_if = {
-					limit = { has_deposit_for = shipclass_research_station has_research_station = no }
-					create_research_station = { owner = event_target:new_shroud_cult }
-				}
-			}
-			# Take old leaders
-			every_owned_leader = {
-				limit = {
-					# TODO more filter
-					has_psionic_leader_trait = yes
-				}
-				set_owner = event_target:new_shroud_cult
-			}
-
 		}
 		# Establish Communications
 		every_country = {

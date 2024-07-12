@@ -391,7 +391,8 @@ system_event = {
 			# set_name = "1st RIFT" #################### FOR TESTING ONLY
 			set_star_flag = corrupt_system
 			set_star_flag = shroud_invasion_system_basic		# For spawning
-			set_star_class = sc_great_rift
+			set_star_class = sc_black_hole # sc_great_rift
+			add_modifier = { modifier = sc_great_rift }
 			# Set flag for army spawns
 			every_system_planet = {
 				limit = { is_star = no habitable_planet = yes }
@@ -624,7 +625,7 @@ country_event = {
 				any_system_planet = { is_shroud_rift_planet = yes }
 			}
 			# set_name = "2nd Shroud Rift"	# FOR TESTING
-			inline_script = { script = "events/eot_corrupt_system" TYPE = greater STAR = rift MOD = 2 }
+			inline_script = { script = "events/eot_corrupt_system" TYPE = greater MOD = 2 } # STAR = rift
 			set_star_flag = shroud_rift_system_2A				# For tracking
 			save_event_target_as = shroud_rift_system_2
 			remove_star_flag = eye_of_terror_rift_system
@@ -650,7 +651,7 @@ country_event = {
 				max_steps = 3
 				use_bypasses = yes
 				limit = { is_valid_drone_expansion_destination_system = yes NOT = { has_star_flag = corrupt_system } }
-				inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_3 MOD = 2 }
+				inline_script = { script = "events/eot_corrupt_system" TYPE = basic MOD = 2 } # STAR = rift_3
 				set_star_flag = shroud_rift_system_2B				# For tracking
 				remove_star_flag = eye_of_terror_rift_system
 			}
@@ -659,7 +660,7 @@ country_event = {
 				max_steps = 3
 				use_bypasses = yes
 				limit = { is_valid_drone_expansion_destination_system = yes NOT = { has_star_flag = corrupt_system } }
-				inline_script = { script = "events/eot_corrupt_system" TYPE = basic STAR = rift_2 MOD = 2 }
+				inline_script = { script = "events/eot_corrupt_system" TYPE = basic MOD = 2 } # STAR = rift_2
 				set_star_flag = shroud_rift_system_2C				# For tracking
 				remove_star_flag = eye_of_terror_rift_system
 			}
@@ -964,7 +965,8 @@ country_event = {
 			set_star_flag = shroud_invasion_system_basic		# For spawning
 			set_star_flag = shroud_rift_system_3				# For tracking
 			save_event_target_as = shroud_rift_system_3
-			set_star_class = sc_great_rift
+			set_star_class = sc_black_hole # sc_great_rift
+			add_modifier = { modifier = sc_great_rift }
 			# Set flag for army spawns
 			every_system_planet = {
 				limit = { is_star = no habitable_planet = yes }
@@ -1269,7 +1271,8 @@ country_event = {
 			set_star_flag = shroud_invasion_system_greater		# For spawning
 			set_star_flag = shroud_rift_system_4				# For tracking
 			save_event_target_as = shroud_rift_system_4
-			set_star_class = sc_great_rift
+			set_star_class = sc_black_hole # sc_great_rift
+			add_modifier = { modifier = sc_great_rift }
 			# Set flag for army spawns
 			every_system_planet = {
 				limit = { is_star = no habitable_planet = yes }
@@ -1624,7 +1627,8 @@ country_event = {
 			set_star_flag = shroud_invasion_system_basic		# For spawning
 			set_star_flag = shroud_rift_system_unstable			# For tracking
 			save_event_target_as = shroud_rift_system_unstable
-			set_star_class = sc_great_rift
+			set_star_class = sc_black_hole # sc_great_rift
+			add_modifier = { modifier = sc_great_rift }
 			# Set flag for army spawns
 			every_system_planet = {
 				limit = { is_star = no habitable_planet = yes }
@@ -2082,6 +2086,7 @@ planet_event = {
 				effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_world_horror }
 			}
 		}
+		reroll_random = yes
 		# Spawn horrors
 		create_army = {
 			name = "NAME_horror_army"

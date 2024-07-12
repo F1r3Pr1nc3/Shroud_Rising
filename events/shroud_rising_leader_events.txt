@@ -384,7 +384,8 @@ country_event = {
 		name = "exit.shroud"
 		hidden_effect = {
 			event_target:chosen_leader = {
-				kill_leader = { show_notification = no }
+				# kill_leader = { show_notification = no }
+				save_event_target_as = chosen_leader
 			}
 			country_event = { id = shroud_rising_leader.8 }
 		}
@@ -413,7 +414,15 @@ country_event = {
 					background = { category = "backgrounds" file = "00_solid.dds" }
 					colors = { "dark_purple" "black" "null" "null" }
 				}
-				effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = shroud_horror_fleet }
+				effect = {
+					apply_shroud_rising_difficulty = yes
+					save_global_event_target_as = shroud_horror_fleet
+					if = {
+						limit = { exists = event_target:chosen_leader }
+						event_target:chosen_leader = { set_owner = prev }
+						assign_leader = event_target:chosen_leader
+					}
+				}
 			}
 		}
 		random_system_within_border = {
@@ -432,9 +441,18 @@ country_event = {
 					set_fleet_bombardment_stance = devour
 					set_aggro_range_measure_from = self
 					set_aggro_range = 300
+					# save_event_target_as = shroud_horror_fleet_name TODO?
 				}
 			}
-			# last_created_fleet = { save_event_target_as = shroud_horror_fleet_name } TODO?
+			if = {
+				limit = { exists = event_target:chosen_leader }
+				if = {
+					limit = { NOT = { leader_class = commander } }
+					event_target:chosen_leader = { change_leader_class = commander }
+				}
+				last_created_fleet = { assign_leader = event_target:chosen_leader }
+			}
+			else = { log="chosen_leader does not exists" }
 		}
 	}
 	option = { name = "utopia.3024.a" }
@@ -447,20 +465,16 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		has_global_flag = eot_active
-		NOR = { is_ai = yes has_civic = civic_shroud_worship is_gestalt = yes }
-		any_owned_leader = {
-			has_cultist_trait_non_ruler = yes
-		}
+		# is_ai = no
+		NOR = { has_civic = civic_shroud_worship is_gestalt = yes }
+		any_owned_leader = { has_cultist_trait_non_ruler = yes }
 	}
 	immediate = {
+		reroll_random = yes
 		# Discover Cultist
 		random_list = {
 			5 = { }
-			5 = {
-				modifier = { factor = 1.5 any_owned_leader = { has_trait = leader_trait_shroud_inquisitor } }
-				modifier = { factor = 1.5 any_owned_leader = { is_councilor = yes is_councilor_type = councilor_ruler_inquisitor } }
-				country_event = { id = shroud_rising_leader.11 days = 100 random = 100 }
-			}
+			5 = { modifier = { factor = 1.5 any_owned_leader = { has_trait = leader_trait_shroud_inquisitor } } modifier = { factor = 1.5 any_owned_leader = { is_councilor = yes is_councilor_type = councilor_ruler_inquisitor } } country_event = { id = shroud_rising_leader.11 days = 100 random = 100 } }
 		}
 	}
 }
@@ -485,16 +499,15 @@ country_event = {
 	trigger = {
 		has_global_flag = eot_active
 		NOR = {
-			is_ai = yes
+			# is_ai = yes
 			has_civic = civic_shroud_worship
 			is_gestalt = yes
 			has_active_event = { shroud_rising_leader.11 }
 		}
-		any_owned_leader = {
-			has_cultist_trait_non_ruler = yes
-		}
+		any_owned_leader = { has_cultist_trait_non_ruler = yes }
 	}
 	immediate = {
+		reroll_random = yes
 		random_owned_leader = {
 			limit = { has_trait = leader_trait_shroud_inquisitor }
 			save_event_target_as = inquisitor_leader_1
@@ -521,6 +534,7 @@ country_event = {
 							has_cultist_trait_non_ruler = yes
 						}
 					}
+					modifier = { factor = 4 is_ai = yes }
 					country_event = { id = shroud_rising_leader.13 days = 5 random = 2 } # Escape out of the empire
 				}
 				10 = {
@@ -529,7 +543,7 @@ country_event = {
 				20 = {
 					country_event = { id = shroud_rising_leader.15 days = 5 random = 2 } # Escape failed space
 				}
-				70 = {
+				60 = { modifier = { factor = 0 is_ai = yes }
 					country_event = { id = shroud_rising_leader.12 days = 5 random = 2 } # Execution
 				}
 			}
@@ -549,6 +563,7 @@ country_event = {
 							has_cultist_trait_non_ruler = yes
 						}
 					}
+					modifier = { factor = 4 is_ai = yes }
 					country_event = { id = shroud_rising_leader.13 days = 5 random = 2 } # Escape out of the empire
 				}
 				10 = {
@@ -557,7 +572,7 @@ country_event = {
 				20 = {
 					country_event = { id = shroud_rising_leader.15 days = 5 random = 2 } # Escape failed space
 				}
-				70 = {
+				60 = { modifier = { factor = 0 is_ai = yes }
 					country_event = { id = shroud_rising_leader.18 days = 5 random = 2 } # Arrest them
 				}
 			}
@@ -619,7 +634,8 @@ country_event = {
 	immediate = {
 		event_target:corrupted_leader_1 = {
 			species = { save_event_target_as = leader_species }
-			kill_leader = { show_notification = no }
+			# kill_leader = { show_notification = no }
+			add_random_negative_character_trait = yes
 		}
 		if = {
 			limit = { NOT = { exists = event_target:leader_species } }
@@ -635,6 +651,52 @@ country_event = {
 				save_event_target_as = cult_escape_world
 			}
 		}
+		## Copy technology
+		if = {
+			limit = {
+				any_neighbor_country = {
+					merg_is_default_empire = yes
+					relative_power = { who = root value > equivalent category = technology }
+				}
+			}
+			random_neighbor_country = {
+				limit = {
+					merg_is_default_empire = yes
+					relative_power = { who = root value > equivalent category = technology }
+				}
+				save_event_target_as = tech_country
+			}
+		}
+		else_if = {
+			limit = {
+				any_playable_country = {
+					is_ai = no
+					NOT = { is_same_empire = root }
+					has_communications = root
+					relative_power = { who = root value > equivalent category = technology }
+				}
+			}
+			random_playable_country = {
+				limit = {
+					is_ai = no
+					NOT = { is_same_empire = root }
+					has_communications = root
+					relative_power = { who = root value > equivalent category = technology }
+				}
+				save_event_target_as = tech_country
+			}
+		}
+		else = {
+			random_playable_country = {
+				limit = {
+					NOT = { is_same_empire = root }
+					has_communications = root
+					relative_power = { who = root value > equivalent category = technology }
+				}
+				save_event_target_as = tech_country
+			}
+		}
+
 		event_target:cult_escape_world = {
 			# set_name = "The Refuge"
 			clear_planet_modifiers = yes
@@ -653,31 +715,17 @@ country_event = {
 					set_country_flag = chaos_empire
 					save_event_target_as = cult_escape_country
 					establish_communications_no_message = root
-					## Copy technology
+
 					if = {
-						limit = { any_neighbor_country = { merg_is_default_empire = yes } }
-						random_neighbor_country = {
-							limit = { merg_is_default_empire = yes }
-							save_event_target_as = tech_country
-						}
-					}
-					else_if = {
-						limit = { any_playable_country = { is_ai = no } }
-						random_playable_country = {
-							limit = { is_ai = no }
-							save_event_target_as = tech_country
-						}
-					}
-					else = {
-						random_playable_country = { save_event_target_as = tech_country }
-					}
-					copy_techs_from = {
-						target = event_target:tech_country
-						except = {
-							# Horizon Signal
-							tech_akx_worm_1
-							tech_akx_worm_2
-							tech_akx_worm_3
+						limit = { exists = event_target:tech_country }
+						copy_techs_from = {
+							target = event_target:tech_country
+							except = {
+								# Horizon Signal
+								tech_akx_worm_1
+								tech_akx_worm_2
+								tech_akx_worm_3
+							}
 						}
 					}
 					## Add some new technologies
@@ -783,8 +831,20 @@ country_event = {
 			solar_system = {
 				create_starbase = { size = starbase_citadel module = shipyard owner = event_target:cult_escape_country }
 			}
-			owner = {
-				random_owned_starbase = { set_starbase_size = starbase_citadel }
+		}
+	}
+	after = {
+		owner = {
+			random_owned_starbase = { set_starbase_size = starbase_citadel }
+			if = {
+				limit = { exists = event_target:corrupted_leader_1 }
+				event_target:corrupted_leader_1 = { set_owner = prev }
+			}
+			# From = origin country, needed for set_origin_effect
+			fire_on_action = { on_action = on_released_as_vassal scopes = { from = root } }
+			if = {
+				limit = { mid_game_years_passed > -2 used_naval_capacity_percent < 0.8 }
+				create_fleet_from_naval_cap = 0.2
 			}
 		}
 	}
@@ -877,12 +937,12 @@ country_event = {
 			random_owned_species = { save_event_target_as = leader_species }
 			save_event_target_as = cult_escape_planet
 			create_rebels = {
-				name = "Treasonous Cultists"
+				name = NAME_treasonous_cultists
 				species = event_target:leader_species
 				ethos = { ethic = "ethic_spiritualist" ethic = "ethic_militarist" ethic = "ethic_authoritarian" }
 				authority = auth_dictatorial
 				civics = { civic = civic_shroud_worship civic = civic_barbaric_despoilers civic = civic_cutthroat_politics }
-				# origin = "origin_separatists"
+				origin = "origin_separatists"
 				name_list = "CULTISTS"
 				effect = {
 					set_country_type = shroud_cult # shroud_cult_uprising
@@ -926,24 +986,16 @@ country_event = {
 	picture = GFX_evt_acquire_asset
 	is_triggered_only = yes
 	trigger = {
-		NOR = { has_country_flag = recent_cult_conversion has_active_event = { shroud_rising_leader.16 } }
+		NOR = { has_active_event = { shroud_rising_leader.16 } has_country_flag = recent_cult_conversion }
 		any_owned_leader = {
-			NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
-			has_cultist_trait_non_ruler = no
+			NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist has_cultist_trait_non_ruler = yes }
 		}
 	}
 	immediate = {
 		# Prevents spawning in the same system # 8 years max conversion
 		set_timed_country_flag = { flag = recent_cult_conversion years = 8 }
 		random_owned_leader = {
-			limit = {
-				NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
-				has_cultist_trait_non_ruler = no
-			}
-			# weights = {
-			# 	base = 1
-			# 	modifier = { add = 100 NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist } }
-			# }
+			limit = { NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist has_cultist_trait_non_ruler = yes } }
 			save_event_target_as = corrupted_leader_2
 		}
 	}
@@ -988,8 +1040,8 @@ country_event = {
 			kill_leader = { show_notification = no }
 		}
 	}
-	option = { name = "astral_rift.130.a" }
-	option = { name = shroud_rising_leader.18.b }
+	option = { name = "astral_rift.130.a" } # Excellent
+	option = { name = "shroud_rising_leader.18.b" }
 }
 
 # TODO
@@ -1033,8 +1085,7 @@ country_event = {
 		from = {
 			OR = { has_skill = 3 has_skill = 5 has_skill = 8 }
 			# Only one character trait per leader
-			NOR = { has_trait = leader_trait_loyalist has_trait = leader_trait_shroud_inquisitor }
-			has_cultist_trait_non_ruler = no
+			NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist has_cultist_trait_non_ruler = yes }
 		}
 	}
 	immediate = {
@@ -1044,8 +1095,7 @@ country_event = {
 			if = {
 				limit = {
 					has_chosen_covenant_trait_non_ruler = yes
-					NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
-					has_cultist_trait_non_ruler = no
+					NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist has_cultist_trait_non_ruler = yes }
 				}
 				add_random_negative_character_trait = yes
 			}
@@ -1141,19 +1191,27 @@ country_event = {
 	hide_window = yes
 	trigger = {
 		# has_global_flag = eot_active
-		# is_ai = no		# Do I want AI having this too, or will it add to lag for no gameplay value?
-		is_gestalt = no # is_regular_empire = yes #
-		any_owned_leader = { has_chosen_covenant_trait_non_ruler = yes has_cultist_trait_non_ruler = no }
+		# is_ai = no			# Do I want AI having this too, or will it add to lag for no gameplay value?
+		# is_gestalt = no # is_regular_empire = yes #
+		any_owned_leader = {
+			has_chosen_covenant_trait_non_ruler = yes
+			has_cultist_trait_non_ruler = no
+			# NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
+		}
 	}
 	immediate = {
 		random_owned_leader = {
-			limit = { has_chosen_covenant_trait_non_ruler = yes has_cultist_trait_non_ruler = no }
-			weights = {
-				base = 1
+			limit = {
+				has_chosen_covenant_trait_non_ruler = yes
+				has_cultist_trait_non_ruler = no
+				# NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
+			}
+			weights = { base = 1
 				modifier = { add = 100 NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist } }
 			}
 			add_random_negative_character_trait = yes
 		}
+		set_country_flag = chosen_leader_corrupted
 	}
 }
 
@@ -1162,17 +1220,27 @@ event = {
 	id = shroud_rising_leader.23
 	is_triggered_only = yes
 	hide_window = yes
-	trigger = {
-		has_global_flag = eot_active
-	}
+	trigger = { has_global_flag = eot_active }
 	immediate = {
 		random_playable_country = {
 			limit = {
-				is_gestalt = no
-				NOR = { has_civic = civic_shroud_worship has_country_flag = eye_of_terror_reopened_country }
-				any_owned_leader = { has_chosen_covenant_trait_non_ruler = yes has_cultist_trait_non_ruler = no }
+				NOR = { is_gestalt = yes has_civic = civic_shroud_worship has_country_flag = eye_of_terror_reopened_country }
+				any_owned_leader = {
+					has_chosen_covenant_trait_non_ruler = yes
+					has_cultist_trait_non_ruler = no
+					NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
+				}
 			}
-			country_event = { id = shroud_rising_leader.22 days = 7 }
+			weights = { base = 1
+				modifier = { add = 50 NOT = { has_country_flag = chosen_leader_corrupted } }
+			}
+			if = {
+				limit = { has_country_flag = chosen_leader_corrupted }
+				remove_country_flag = chosen_leader_corrupted
+			}
+			else = {
+				country_event = { id = shroud_rising_leader.22 days = 17 random = 5 }
+			}
 		}
 	}
 }

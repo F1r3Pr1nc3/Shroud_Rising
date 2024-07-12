@@ -297,8 +297,6 @@
  rift_inhibitor_permanently_ruined_MEGASTRUCTURE_DETAILS: ""
  sc_eye_of_terror: "$jp_sr_crisis_name_eye$$jp_shroud_rising_suffix$"
  sc_great_rift: "$jp_sr_crisis_name_rift$$jp_shroud_rising_suffix$"
- sc_great_rift_2: "$sc_great_rift$"
- sc_great_rift_3: "$sc_great_rift$"
  shroud_avatar_gift: "実体の贈り物$jp_shroud_rising_suffix$"
  shroud_avatar_gift_2: "アバターの贈り物$jp_shroud_rising_suffix$"
  shroud_avatar_gift_2_desc: "$shroud_avatar_gift_desc$"

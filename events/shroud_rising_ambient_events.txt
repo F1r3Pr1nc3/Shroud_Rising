@@ -51,6 +51,7 @@ system_event = {
 		add_modifier = { modifier = shroud_storm_effect_system }
 		create_ambient_object = { type = "shroud_storm_1" location = this }
 		# set_name = "STORM SYSTEM" #################### FOR TESTING ONLY
+		reroll_random = yes
 		last_created_ambient_object = {
 			set_ambient_object_flag = shroud_storm_object
 			set_location = { target = prev distance = 0 angle = random }

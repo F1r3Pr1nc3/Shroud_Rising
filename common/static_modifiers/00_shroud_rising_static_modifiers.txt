@@ -32,6 +32,17 @@ shroud_storm_effect_system = {
 	ship_disengage_chance_mult = 0.5
 }
 
+sc_eye_of_terror = {
+	icon = "gfx/interface/icons/modifiers/mod_black_hole.dds"
+	ship_disengage_chance_reduction = 0.5
+	ship_emergency_ftl_min_days_mult = 0.5
+}
+sc_great_rift = {
+	icon = "gfx/interface/icons/modifiers/mod_black_hole.dds"
+	ship_disengage_chance_reduction = 0.25
+	ship_emergency_ftl_min_days_mult = 0.25
+}
+
 # Titanic Shroud Rift
 eye_of_terror = {
 	icon = "gfx/interface/icons/planet_modifiers/pm_eye_of_terror.dds"

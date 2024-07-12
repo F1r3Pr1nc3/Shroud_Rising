@@ -38,8 +38,7 @@ leader_trait_cultist_eater = {
 	}
 	initial = no
 	randomized = no
-	# opposites = { "leader_trait_shroud_inquisitor" "leader_trait_shroud_loyalist" }
-	opposites = { "leader_trait_cultist_instrument" "leader_trait_cultist_whisperers" "leader_trait_cultist_composer" }
+	opposites = { "leader_trait_shroud_inquisitor" "leader_trait_loyalist" "leader_trait_cultist_instrument" "leader_trait_cultist_whisperers" "leader_trait_cultist_composer" }
 }
 
 leader_trait_cultist_instrument = {
@@ -71,8 +70,7 @@ leader_trait_cultist_instrument = {
 	}
 	initial = no
 	randomized = no
-	# opposites = { "leader_trait_shroud_inquisitor" "leader_trait_shroud_loyalist" }
-	opposites = { "leader_trait_cultist_eater" "leader_trait_cultist_whisperers" "leader_trait_cultist_composer" }
+	opposites = { "leader_trait_shroud_inquisitor" "leader_trait_loyalist" "leader_trait_cultist_eater" "leader_trait_cultist_whisperers" "leader_trait_cultist_composer" }
 }
 
 leader_trait_cultist_whisperers = {
@@ -104,8 +102,7 @@ leader_trait_cultist_whisperers = {
 	}
 	initial = no
 	randomized = no
-	# opposites = { "leader_trait_shroud_inquisitor" "leader_trait_shroud_loyalist" }
-	opposites = { "leader_trait_cultist_eater" "leader_trait_cultist_instrument" "leader_trait_cultist_composer" }
+	opposites = { "leader_trait_shroud_inquisitor" "leader_trait_loyalist" "leader_trait_cultist_eater" "leader_trait_cultist_instrument" "leader_trait_cultist_composer" }
 }
 
 leader_trait_cultist_composer = {
@@ -137,8 +134,7 @@ leader_trait_cultist_composer = {
 	}
 	initial = no
 	randomized = no
-	# opposites = { "leader_trait_shroud_inquisitor" "leader_trait_shroud_loyalist" }
-	opposites = { "leader_trait_cultist_eater" "leader_trait_cultist_instrument" "leader_trait_cultist_whisperers" }
+	opposites = { "leader_trait_shroud_inquisitor" "leader_trait_loyalist" "leader_trait_cultist_eater" "leader_trait_cultist_instrument" "leader_trait_cultist_whisperers" }
 }
 
 leader_trait_shroud_inquisitor = {
@@ -170,7 +166,7 @@ leader_trait_shroud_inquisitor = {
 	}
 	initial = no
 	randomized = no
-	# opposites = { "leader_trait_cultist_instrument_chosen" "leader_trait_cultist_whisperers_chosen" "leader_trait_cultist_eater_chosen" "leader_trait_cultist_composer_chosen" }
+	opposites = { "leader_trait_cultist_instrument" "leader_trait_cultist_whisperers" "leader_trait_cultist_eater" "leader_trait_cultist_composer" }
 }
 
 leader_trait_loyalist = {
@@ -200,7 +196,7 @@ leader_trait_loyalist = {
 	}
 	initial = no
 	randomized = no
-	# opposites = { "leader_trait_cultist_instrument_chosen" "leader_trait_cultist_whisperers_chosen" "leader_trait_cultist_eater_chosen" "leader_trait_cultist_composer_chosen" }
+	opposites = { "leader_trait_cultist_instrument" "leader_trait_cultist_whisperers" "leader_trait_cultist_eater" "leader_trait_cultist_composer" }
 }
 
 leader_trait_shroud_god = {

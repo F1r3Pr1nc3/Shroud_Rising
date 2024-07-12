@@ -24,7 +24,7 @@ country_event = {
 	trigger = { is_ai = no }
 	fire_only_once = yes
 	immediate = {
-		country_event = { id = shroud_rising_trigger.10 days = 9 }
+		country_event = { id = shroud_rising_trigger.10 days = 9 } # Error target event is not of the correct type is fine!
 	}
 }
 
@@ -350,7 +350,7 @@ event = {
 		}
 	}
 	immediate = {
-		# set_global_flag = shroud_rising_active DEPRECATED replaced by trigger v.3.12
+		set_global_flag = shroud_rising_active # DEPRECATED replaced by trigger v.3.12
 		set_global_flag = sr_difficulty_def
 		every_playable_country = {
 			limit = { is_ai = no }
@@ -641,6 +641,31 @@ event = {
 		# 	limit = { is_country_type = shroud_cult_uprising } # REMOVED IN 3.12
 		# 	set_country_type = shroud_cult
 		# }
+		if = {
+			limit = { NOT = { has_globaL_flag = shroud_rising_star_class_removed } }
+			set_global_flag = shroud_rising_star_class_removed
+			every_system = {
+				limit = {
+					OR = {
+						is_star_class = sc_eye_of_terror
+						is_star_class = sc_great_rift
+						is_star_class = sc_great_rift_2
+						is_star_class = sc_great_rift_3
+					}
+				}
+				if = {
+					limit = {
+						is_star_class = sc_eye_of_terror
+					}
+					add_modifier = { modifier = sc_eye_of_terror }
+				}
+				else = {
+					add_modifier = { modifier = sc_great_rift }
+				}
+				set_star_class = sc_black_hole
+			}
+		}
+
 		if = {
 			limit = { event_target:global_event_country = { NOT = { is_variable_set = start_year_var } } }
 
