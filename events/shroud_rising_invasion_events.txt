@@ -291,84 +291,87 @@ system_event = {
 						type = shroud_cult
 						species = event_target:cultist_raid_fleet_species
 						name_list = "CULTISTS"
+						ignore_initial_colony_error = yes
 						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
 					}
 				}
-
-				event_target:cultist_raid_fleet = {
-					change_dominant_species = { species = event_target:cultist_raid_fleet_species }
-					create_leader = {
-						class = commander
-						species = event_target:cultist_raid_fleet_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = { trait = subclass_commander_admiral trait = leader_trait_psionic }
-					}
-					create_fleet = {
-						effect = {
-							while = { count = 1
-								create_ship = { name = random design = "NAME_Lancer" graphical_culture = "pirate_01" }
-							}
-							while = { count = 4
-								create_ship = { name = random design = "NAME_Outrider" graphical_culture = "pirate_01" }
-							}
-							# corvette
-							while = { count = 2
-								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "mammalian_01" }
-							}
-							# corvette
-							while = { count = 2
-								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "humanoid_01" }
-							}
-							# corvette
-							while = { count = 3
-								create_ship = { name = random design = "NAME_Dagger" graphical_culture = "plantoid_01" }
-							}
-							# destroyer
-							while = { count = 2
-								create_ship = { name = random design = "NAME_Ravager" graphical_culture = "reptilian_01" }
-							}
-							# cruiser
-							while = { count = 1
-								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "reptilian_01" }
-							}
-							while = { count = 2
-								create_ship = { name = random design = "NAME_Void_Champion" prefix = no graphical_culture = "pirate_01" }
-							}
-							while = { count = 1
-								create_ship = { name = random design = "NAME_Reaver" graphical_culture = "pirate_01" }
-							}
-							set_fleet_flag = cultist_fleet
-							set_owner = prev
-							set_location = root
-							set_fleet_stance = aggressive
-							set_aggro_range = 150
-							set_aggro_range_measure_from = self
-							set_fleet_bombardment_stance = indiscriminate
-							closest_system = {
-								limit = {
-									any_system_colony = {
-										NOR = { has_planet_flag = cultist_raid_target has_modifier = recent_cult_invasion }
-										num_sapient_pops > 0
+				if = {
+					limit = { exists = event_target:cultist_raid_fleet }
+					event_target:cultist_raid_fleet = {
+						change_dominant_species = { species = event_target:cultist_raid_fleet_species }
+						create_leader = {
+							class = commander
+							species = event_target:cultist_raid_fleet_species
+							name = random
+							skill = 3
+							leader_age_min = 25
+							leader_age_max = 45
+							traits = { trait = subclass_commander_admiral trait = leader_trait_psionic }
+						}
+						create_fleet = {
+							effect = {
+								set_owner = prev # needed
+								while = { count = 1
+									create_ship = { name = random design = "NAME_Lancer" graphical_culture = "pirate_01" }
+								}
+								while = { count = 4
+									create_ship = { name = random design = "NAME_Outrider" graphical_culture = "pirate_01" }
+								}
+								# corvette
+								while = { count = 2
+									create_ship = { name = random design = "NAME_Dagger" graphical_culture = "mammalian_01" }
+								}
+								# corvette
+								while = { count = 2
+									create_ship = { name = random design = "NAME_Dagger" graphical_culture = "humanoid_01" }
+								}
+								# corvette
+								while = { count = 3
+									create_ship = { name = random design = "NAME_Dagger" graphical_culture = "plantoid_01" }
+								}
+								# destroyer
+								while = { count = 2
+									create_ship = { name = random design = "NAME_Ravager" graphical_culture = "reptilian_01" }
+								}
+								# cruiser
+								while = { count = 1
+									create_ship = { name = random design = "NAME_Derelict" graphical_culture = "reptilian_01" }
+								}
+								while = { count = 2
+									create_ship = { name = random design = "NAME_Void_Champion" prefix = no graphical_culture = "pirate_01" }
+								}
+								while = { count = 1
+									create_ship = { name = random design = "NAME_Reaver" graphical_culture = "pirate_01" }
+								}
+								set_fleet_flag = cultist_fleet
+								set_location = root
+								set_fleet_stance = aggressive
+								set_aggro_range = 150
+								set_aggro_range_measure_from = self
+								set_fleet_bombardment_stance = indiscriminate
+								closest_system = {
+									limit = {
+										any_system_colony = {
+											NOR = { has_planet_flag = cultist_raid_target has_modifier = recent_cult_invasion }
+											num_sapient_pops > 0
+										}
+									}
+									random_system_colony = {
+										limit = { num_sapient_pops > 0 }
+										set_timed_planet_flag = { flag = cultist_raid_target months = 20 }
+										save_event_target_as = cultist_planet
+									}
+									prev = {
+										auto_move_to_planet = { target = event_target:cultist_planet clear_auto_move_on_arrival = no }
 									}
 								}
-								random_system_colony = {
-									limit = { num_sapient_pops > 0 }
-									set_timed_planet_flag = { flag = cultist_raid_target months = 20 }
-									save_event_target_as = cultist_planet
-								}
-								prev = {
-									auto_move_to_planet = { target = event_target:cultist_planet clear_auto_move_on_arrival = no }
-								}
+								assign_leader = last_created_leader
 							}
-							assign_leader = last_created_leader
 						}
-					}
-					every_playable_country = {
-						limit = { is_ai = no has_policy_flag = incursion_alert_all }
-						country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
+						every_playable_country = {
+							limit = { is_ai = no has_policy_flag = incursion_alert_all }
+							country_event = { id = shroud_rising_invasion.2011 }					# Incursion Alert
+						}
 					}
 				}
 			}
@@ -399,6 +402,7 @@ system_event = {
 						type = shroud_cult
 						species = event_target:cultist_raid_fleet_species
 						name_list = "CULTISTS"
+						ignore_initial_colony_error = yes
 						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
 					}
 				}
@@ -518,6 +522,7 @@ system_event = {
 						type = shroud_cult
 						species = event_target:cultist_raid_fleet_species
 						name_list = "CULTISTS"
+						ignore_initial_colony_error = yes
 						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
 					}
 				}
@@ -677,7 +682,7 @@ country_event = {
 		random_list = {
 			33 = { modifier = { factor = 0 OR = { NOT = { exists = event_target:shroud_rift_system_2 } event_target:shroud_rift_system_2 = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } } } event_target:shroud_rift_system_2 = { system_event = { id = shroud_rising_invasion.4 } } }
 			33 = { modifier = { factor = 0 OR = { NOT = { exists = event_target:shroud_rift_system_4 } event_target:shroud_rift_system_4 = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } } } event_target:shroud_rift_system_4 = { system_event = { id = shroud_rising_invasion.4 } } }
-			33 = { random_system = { limit = { has_star_flag = shroud_invasion_system_greater NOT = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } } } system_event = { id = shroud_rising_invasion.4 } } }
+			33 = { random_system = { limit = { has_star_flag = shroud_invasion_system_greater count_system_megastructure = { limit = { is_megastructure_type = rift_inhibitor_2 } count = 0 } } system_event = { id = shroud_rising_invasion.4 } } }
 		}
 	}
 }
@@ -690,7 +695,7 @@ system_event = {
 	is_triggered_only = yes
 	trigger = {
 		NOT = { has_global_flag = eye_of_terror_sealed }
-		# NOT = { any_system_megastructure = { is_megastructure_type = rift_inhibitor_2 } }
+		# count_system_megastructure = { limit = { is_megastructure_type = rift_inhibitor_2 } count = 0 }
 	}
 	immediate = {
 		random_list = {
@@ -932,6 +937,7 @@ system_event = {
 						type = shroud_cult
 						species = event_target:cultist_raid_fleet_species
 						name_list = "CULTISTS"
+						ignore_initial_colony_error = yes
 						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
 					}
 				}
@@ -1066,6 +1072,7 @@ system_event = {
 						type = shroud_cult
 						species = event_target:cultist_raid_fleet_species
 						name_list = "CULTISTS"
+						ignore_initial_colony_error = yes
 						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
 					}
 				}
@@ -1524,6 +1531,7 @@ system_event = {
 						type = shroud_cult
 						species = event_target:cultist_raid_fleet_species
 						name_list = "CULTISTS"
+						ignore_initial_colony_error = yes
 						effect = { apply_shroud_rising_difficulty = yes save_global_event_target_as = cultist_raid_fleet }
 					}
 				}
@@ -1635,11 +1643,11 @@ system_event = {
 							set_fleet_flag = cultist_fleet
 							set_owner = prev
 							set_location = root # event_target:eye_of_terror_system
-							set_fleet_stance = aggressive
 							set_aggro_range = 150
 							set_aggro_range_measure_from = self
 							set_fleet_bombardment_stance = indiscriminate
 							assign_leader = last_created_leader
+							set_fleet_stance = aggressive
 						}
 					}
 					last_created_fleet = {
@@ -1992,7 +2000,6 @@ country_event = {
 					set_owner = root
 					create_ship = { name = "cultist_nest" design = "NAME_Pirate_Nest" graphical_culture = "pirate_01" }
 					set_location = prev
-					set_fleet_stance = aggressive
 				}
 			}
 			create_fleet = {
@@ -2000,12 +2007,12 @@ country_event = {
 					set_fleet_flag = cultist_fleet
 					set_owner = root
 					set_location = prev
-					set_fleet_stance = aggressive
 					set_aggro_range = 150
 					set_aggro_range_measure_from = self
 					set_fleet_bombardment_stance = indiscriminate
 					 # destroyer?
 					create_ship = { name = random design = "NAME_Ravager" graphical_culture = "avian_01" }
+					# set_fleet_stance = aggressive is_event_design
 				}
 			}
 			planet_event = { id = shroud_rising_invasion.1304 days = 60 random = 30 }

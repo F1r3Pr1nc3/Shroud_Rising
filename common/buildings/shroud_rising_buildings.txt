@@ -199,12 +199,17 @@ building_monolith = {
 	can_be_disabled = no
 	# icon = building_monolith_mysterious
 	category = government
-	allow = {  }
-	destroy_trigger = {
+	allow = { always = no }
+	potential = {
+		always = no
 		exists = owner
-		AND = {
-			owner = { is_ai = yes }
-			owner = { has_civic = civic_shroud_worship }
+		owner = { NOR = { is_ai = yes has_civic = civic_shroud_worship } }
+	}
+	destroy_trigger = {
+		OR = {
+			has_owner = no
+			NOT = { exists = owner }
+			owner = { is_ai = yes has_civic = civic_shroud_worship }
 		}
 	}
 	triggered_planet_modifier = {
@@ -300,6 +305,7 @@ building_monolith = {
 		remove_planet_flag = has_shroud_monolith		# An action when destroyed
 		remove_modifier = shroud_touched_stabilized
 	}
+	ai_weight = { weight = 0 }
 }
 
 holding_monolith = {
@@ -317,15 +323,30 @@ holding_monolith = {
 		}
 		upkeep = { energy = @b1_upkeep }
 	}
-	# allow = {
-	# custom_tooltip = {
-	# fail_text = overlord_is_shroud_worshipper
-	# exists = owner.overlord
-	# owner.overlord = {
-	# NOT = { has_civic = civic_shroud_worship }
-	# }
-	# }
-	# }
+	allow = {
+		custom_tooltip = {
+		fail_text = overlord_is_shroud_worshipper
+			exists = owner
+			owner = {
+				NOT = { has_civic = civic_shroud_worship }
+			}
+			exists = owner.overlord
+			owner.overlord = {
+				NOT = { has_civic = civic_shroud_worship }
+			}
+		}
+	}
+	potential = {
+		exists = owner
+		owner = { NOR = { is_ai = yes has_civic = civic_shroud_worship } }
+	}
+	destroy_trigger = {
+		OR = {
+			has_owner = no
+			NOT = { exists = owner }
+			owner = { is_ai = yes has_civic = civic_shroud_worship }
+		}
+	}
 	prerequisites = { tech_shroud_monolith }
 	triggered_planet_modifier = {
 		potential = {
@@ -409,4 +430,5 @@ holding_monolith = {
 		remove_planet_flag = has_shroud_monolith		# An action when destroyed
 		remove_modifier = shroud_touched_stabilized
 	}
+	ai_weight = { weight = 0 }
 }

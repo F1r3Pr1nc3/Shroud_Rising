@@ -427,7 +427,7 @@ system_event = {
 				}
 			}
 			if = {
-				limit = { has_owner = yes owner = { merg_is_default_empire = yes } }
+				limit = { can_generate_trade_value = yes }
 				owner = {
 					set_country_flag = shroud_rift_1_country
 					country_event = { id = shroud_rising_shroud_rift.2 }					# ANNOUNCE to owner if there is one
@@ -665,7 +665,7 @@ country_event = {
 				remove_star_flag = eye_of_terror_rift_system
 			}
 			if = {
-				limit = { has_owner = yes owner = { merg_is_default_empire = yes } }
+				limit = { has_owner = yes can_generate_trade_value = yes }
 				owner = {
 					# save_event_target_as = shroud_rift_2_country # set_country_flag = shroud_rift_2_country
 					country_event = { id = shroud_rising_shroud_rift.7 }					# ANNOUNCE to owner if there is one
@@ -997,7 +997,7 @@ country_event = {
 				}
 			}
 			if = {
-				limit = { has_owner = yes owner = { merg_is_default_empire = yes } }
+				limit = { has_owner = yes can_generate_trade_value = yes }
 				owner = {
 					# save_event_target_as = shroud_rift_3_country # set_country_flag = shroud_rift_3_country
 					country_event = { id = shroud_rising_shroud_rift.12 }					# ANNOUNCE to owner if there is one
@@ -1303,7 +1303,7 @@ country_event = {
 				}
 			}
 			if = {
-				limit = { has_owner = yes owner = { merg_is_default_empire = yes } }
+				limit = { has_owner = yes can_generate_trade_value = yes }
 				owner = {
 					# save_event_target_as = shroud_rift_4_country # set_country_flag = shroud_rift_4_country
 					country_event = { id = shroud_rising_shroud_rift.19 }					# ANNOUNCE to owner if there is one
@@ -1659,7 +1659,7 @@ country_event = {
 				}
 			}
 			if = {
-				limit = { has_owner = yes owner = { merg_is_default_empire = yes } }
+				limit = { has_owner = yes can_generate_trade_value = yes }
 				owner = {
 					# set_country_flag = shroud_rift_unstable_country
 					country_event = { id = shroud_rising_shroud_rift.25 }					# ANNOUNCE to owner if there is one
@@ -2091,13 +2091,13 @@ planet_event = {
 		create_army = {
 			name = "NAME_horror_army"
 			owner = event_target:shroud_world_horror
-			# species = last_created_species
+			species = last_created_species
 			type = "shroud_horror_army_1"
 		}
 		create_army = {
 			name = "NAME_horror_army"
 			owner = event_target:shroud_world_horror
-			# species = last_created_species
+			species = last_created_species
 			type = "shroud_horror_army_2"
 		}
 		random_list = {
@@ -2106,7 +2106,7 @@ planet_event = {
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_horror_army_1"
 				}
 			}
@@ -2115,13 +2115,13 @@ planet_event = {
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_horror_army_2"
 				}
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_horror_army_1"
 				}
 			}
@@ -2130,7 +2130,7 @@ planet_event = {
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_greater_horror_army"
 				}
 			}
@@ -2141,7 +2141,7 @@ planet_event = {
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_horror_army_1"
 				}
 			}
@@ -2150,13 +2150,13 @@ planet_event = {
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_horror_army_2"
 				}
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_horror_army_1"
 				}
 			}
@@ -2165,7 +2165,7 @@ planet_event = {
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_greater_horror_army"
 				}
 			}
@@ -2285,13 +2285,13 @@ planet_event = {
 		create_army = {
 			name = "NAME_horror_army"
 			owner = event_target:shroud_world_horror
-			# species = last_created_species
+			species = last_created_species
 			type = "shroud_horror_army_1"
 		}
 		create_army = {
 			name = "NAME_horror_army"
 			owner = event_target:shroud_world_horror
-			# species = last_created_species
+			species = last_created_species
 			type = "shroud_horror_army_2"
 		}
 		random_list = {
@@ -2300,13 +2300,13 @@ planet_event = {
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_greater_horror_army"
 				}
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_horror_army_2"
 				}
 			}
@@ -2315,13 +2315,13 @@ planet_event = {
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_greater_horror_army"
 				}
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_horror_army_1"
 				}
 			}
@@ -2330,13 +2330,13 @@ planet_event = {
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_greater_horror_army"
 				}
 				create_army = {
 					name = "NAME_horror_army"
 					owner = event_target:shroud_world_horror
-					# species = last_created_species
+					species = last_created_species
 					type = "shroud_horror_army_1"
 				}
 			}

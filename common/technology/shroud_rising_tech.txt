@@ -113,10 +113,11 @@ tech_shroud_knowledge_1 = {
 			factor = 0
 			AND = {
 				is_materialist = yes
-				NOT = {
-					any_owned_pop = {
+				count_owned_pop = {
+					limit = {
 						OR = { pop_has_trait = trait_psionic pop_has_trait = trait_latent_psionic }
 					}
+					count = 0
 				}
 			}
 		}
@@ -166,10 +167,11 @@ tech_shroud_knowledge_2 = {
 			factor = 0
 			AND = {
 				is_materialist = yes
-				NOT = {
-					any_owned_pop = {
+				count_owned_pop = {
+					limit = {
 						OR = { pop_has_trait = trait_psionic pop_has_trait = trait_latent_psionic }
 					}
+					count = 0
 				}
 			}
 		}
@@ -218,10 +220,11 @@ tech_shroud_study_1 = {
 			factor = 0
 			AND = {
 				is_materialist = yes
-				NOT = {
-					any_owned_pop = {
+				count_owned_pop = {
+					limit = {
 						OR = { pop_has_trait = trait_psionic pop_has_trait = trait_latent_psionic }
 					}
+					count = 0
 				}
 			}
 		}
@@ -271,10 +274,11 @@ tech_shroud_study_2 = {
 			factor = 0
 			AND = {
 				is_materialist = yes
-				NOT = {
-					any_owned_pop = {
+				count_owned_pop = {
+					limit = {
 						OR = { pop_has_trait = trait_psionic pop_has_trait = trait_latent_psionic }
 					}
+					count = 0
 				}
 			}
 		}
@@ -324,10 +328,11 @@ tech_shroud_study_3 = {
 			factor = 0
 			AND = {
 				is_materialist = yes
-				NOT = {
-					any_owned_pop = {
+				count_owned_pop = {
+					limit = {
 						OR = { pop_has_trait = trait_psionic pop_has_trait = trait_latent_psionic }
 					}
+					count = 0
 				}
 			}
 		}

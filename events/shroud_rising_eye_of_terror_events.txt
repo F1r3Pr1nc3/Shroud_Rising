@@ -16,7 +16,7 @@ namespace = shroud_rising_eye_of_terror
 # shroud_rising_eye_of_terror.70 | (Hidden) Chooses correct path if first time build or cancel dismantle
 # shroud_rising_eye_of_terror.71 | (Hidden) On action call for removing rifts
 # shroud_rising_eye_of_terror.72 | (Hidden) Gradual Closing of Eye code
-# shroud_rising_eye_of_terror.8 | Close the eye announce
+# shroud_rising_eye_of_terror.8 | Close the Eye announce
 # shroud_rising_eye_of_terror.9 | Ask if they are sure they want to dismantle
 # shroud_rising_eye_of_terror.10 | (Hidden) Cancel dismantle
 # shroud_rising_eye_of_terror.11 | (Hidden) Dismantle the thing + effects
@@ -328,6 +328,7 @@ country_event = {
 		}
 		# Creates the start point/Eye of Terror
 		event_target:eye_of_terror_system = {
+			# log = "[eye_of_terror_system.GetName]"
 			every_playable_country = {
 				limit = { prev = { is_surveyed = { who = prev status = yes } } }
 				prev = { set_surveyed = { surveyed = no surveyor = prev } }
@@ -356,14 +357,14 @@ country_event = {
 			set_star_flag = eye_of_terror_system
 			set_star_flag = shroud_invasion_target_1
 
-			set_star_class = sc_black_hole # sc_eye_of_terror
-			add_modifier = { modifier = sc_eye_of_terror }
-
 			every_system_planet = {
 				limit = { is_star = yes }
 				change_pc = pc_shattered_star
 				clear_deposits = yes
 			}
+			set_star_class = sc_black_hole # sc_eye_of_terror
+			add_modifier = { modifier = sc_eye_of_terror }
+
 			random_system_planet = {
 				limit = {
 					is_star = no
@@ -818,7 +819,7 @@ fleet_event = {
 #########################################################
 ######## CLOSING THE EYE ##################################
 #########################################################
-# Closes the eye and removes all stuff
+# Closes the Eye and removes all stuff
 country_event = {
 	id = shroud_rising_eye_of_terror.7
 	hide_window = yes
