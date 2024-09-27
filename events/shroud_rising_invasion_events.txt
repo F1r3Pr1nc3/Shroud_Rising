@@ -2030,17 +2030,23 @@ planet_event = {
 	is_triggered_only = yes
 	location = root
 	pre_triggers = { has_owner = yes }
-	trigger = { exists = owner }
+	trigger = {
+		exists = owner
+		num_pops > 0
+	}
 	immediate = {
 		owner = { save_event_target_as = cult_raid_victim }
 		event_target:cult_raid_victim = { set_country_flag = had_world_invaded_by_cult }
+		if = {
+			limit = { num_pops > 1 }
+			random_owned_pop = { kill_pop = yes }
+		}
 	}
 	option = {
 		name = "astral_rift.50.a"
 		custom_tooltip = shroud_rising_invasion.13.a.tooltip
 		hidden_effect = {
-			random_owned_pop = { kill_pop = yes }
-			owner = {
+			planet_owner = {
 				random_list = {
 					33 = { country_event = { id = shroud_rising_invasion.1301 } }
 					33 = { country_event = { id = shroud_rising_invasion.1302 } }
@@ -2048,6 +2054,9 @@ planet_event = {
 				}
 			}
 		}
+	}
+	abort_trigger = {
+		has_owner = no
 	}
 }
 

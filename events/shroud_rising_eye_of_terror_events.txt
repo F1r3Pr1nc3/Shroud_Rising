@@ -395,7 +395,7 @@ country_event = {
 				remove_planet_flag = toxic_knights_habitat
 				remove_planet_flag = has_megastructure
 				if = {
-					limit = { any_moon = {} }
+					limit = { count_moon = { count > 0 } }
 					random_moon = {
 						limit = { merg_is_habitat = yes }
 						remove_planet = yes

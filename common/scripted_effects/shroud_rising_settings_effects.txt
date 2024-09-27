@@ -167,6 +167,24 @@ apply_shroud_rising_difficulty = {
 
 	if = {
 		limit = { is_country_type = shroud_cult }
+		create_ship_design = { design = "NAME_Ancestral_Glory" }
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Lancer" }
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Outrider" }
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Dagger" } # corvette
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Ravager" } # destroyer
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Derelict" } # cruiser
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Reaver" } # cruiser
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Avatar" }
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Zealot" }
+		add_ship_design = last_created_design
 		every_country = {
 			limit = {
 				OR = {

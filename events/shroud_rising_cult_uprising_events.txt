@@ -479,7 +479,7 @@ country_event = {
 			remove_planet_flag = cult_uprising_planet
 		}
 		if = {
-			limit = { from = { NOT = { any_owned_army = {} } } }
+			limit = { from = { count_owned_army = { count = 0 } } }
 			cleanup_cult_uprising_situation = yes
 			random_situation = {
 				limit = { is_situation_type = situation_shroud_uprising }
@@ -1220,7 +1220,7 @@ country_event = {
 			limit = {
 				exists = event_target:old_shroud_cult
 				event_target:old_shroud_cult = { is_scope_valid = yes is_scope_type = country }
-				exists = event_target:old_shroud_cult.owner	# double scope is another workaround
+				exists = event_target:old_shroud_cult.owner	# Double scope is another workaround
 			}
 			# Establish Communications
 			every_country = {
