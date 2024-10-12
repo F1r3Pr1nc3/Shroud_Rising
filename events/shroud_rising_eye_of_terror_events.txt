@@ -343,8 +343,11 @@ country_event = {
 						add_modifier = { modifier = eye_of_terror_reopener }
 						if = {
 							limit = { is_ai = yes }
-							set_country_flag = chaos_empire
-							force_add_civic = civic_shroud_worship
+							set_choas_origin = yes # Grimdark
+							if = {
+								limit = { NOR = { has_civic = civic_shroud_worship is_gestalt = yes is_megacorp = yes } }
+								force_add_civic = civic_shroud_worship
+							}
 						}
 					}
 					prev = { set_surveyed = { surveyed = yes surveyor = prev } }
@@ -618,14 +621,12 @@ country_event = {
 		while = { count = 3
 			limit = {
 				any_playable_country = {
-					is_ai = no
-					NOT = { has_country_flag = monolith_intro }
+					NOR = { is_ai = yes has_country_flag = monolith_intro }
 				}
 			}
 			random_playable_country = {
 				limit = {
-					is_ai = no
-					NOT = { has_country_flag = monolith_intro }
+					NOR = { is_ai = yes has_country_flag = monolith_intro }
 				}
 				country_event = { id = shroud_rising_monolith.1 days = 300 random = 100 } # Monolith event chain
 			}

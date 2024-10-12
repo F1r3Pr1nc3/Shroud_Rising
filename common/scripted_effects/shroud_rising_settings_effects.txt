@@ -83,8 +83,7 @@ apply_shroud_rising_difficulty = {
 	else_if = {
 		limit = {
 			has_global_flag = eot_spawn_not_fe
-			NOT = { is_country_type = shroud_cult }
-			is_at_war = no
+			NOR = { is_country_type = shroud_cult is_at_war = yes }
 			OR = {
 				has_global_flag = eot_fe_spiritualist
 				has_global_flag = eot_fe_materialist

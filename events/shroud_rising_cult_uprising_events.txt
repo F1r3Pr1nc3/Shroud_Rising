@@ -590,7 +590,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = { is_ai = yes }
-	immediate = { set_name = random set_country_flag = chaos_empire }
+	immediate = { set_choas_origin = yes set_name = random }
 }
 
 # Cult secedes from empire
@@ -625,16 +625,14 @@ country_event = {
 		else_if = {
 			limit = {
 				any_playable_country = {
-					is_ai = no
-					NOT = { is_same_empire = root }
+					NOR = { is_ai = yes is_same_empire = root }
 					has_communications = root
 					relative_power = { who = root value > equivalent category = technology }
 				}
 			}
 			random_playable_country = {
 				limit = {
-					is_ai = no
-					NOT = { is_same_empire = root }
+					NOR = { is_ai = yes is_same_empire = root }
 					has_communications = root
 					relative_power = { who = root value > equivalent category = technology }
 				}
@@ -669,7 +667,6 @@ country_event = {
 					set_country_type = default
 					save_event_target_as = cultist_rebel_country
 					set_country_flag = cultist_rebels
-					set_country_flag = chaos_empire
 					establish_communications_no_message = root.owner
 					root = {
 						owner = {
@@ -762,11 +759,12 @@ country_event = {
 			}
 		}
 		every_playable_country = {
-			limit = { is_ai = no NOT = { is_same_empire = event_target:cult_uprising_owner } }
+			limit = { NOR = { is_ai = yes is_same_empire = event_target:cult_uprising_owner } }
 			country_event = { id = shroud_rising_cult_uprising.12 days = 3 }			# Announce revolt to all
 		}
 		event_target:cultist_rebel_country = {
 			assign_leader = last_created_leader
+			set_choas_origin = yes # Grimdark
 			add_resource = {
 				energy = 10000
 				minerals = 2500

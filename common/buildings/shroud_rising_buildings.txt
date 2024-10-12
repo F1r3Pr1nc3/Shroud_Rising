@@ -260,14 +260,8 @@ building_monolith = {
 	}
 	destroy_trigger = {
 		OR = {
-			has_owner = no
-			NOT = {
-				exists = owner
-			}
-			owner = {
-				is_ai = yes
-				has_civic = civic_shroud_worship
-			}
+			NOR = { has_owner = yes exists = owner }
+			owner = { is_ai = yes has_civic = civic_shroud_worship }
 		}
 	}
 	triggered_planet_modifier = {
@@ -443,14 +437,8 @@ holding_monolith = {
 	}
 	destroy_trigger = {
 		OR = {
-			has_owner = no
-			NOT = {
-				exists = owner
-			}
-			owner = {
-				is_ai = yes
-				has_civic = civic_shroud_worship
-			}
+			NOR = { has_owner = yes exists = owner }
+			owner = { is_ai = yes has_civic = civic_shroud_worship }
 		}
 	}
 	prerequisites = {

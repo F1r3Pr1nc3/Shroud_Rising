@@ -670,16 +670,14 @@ country_event = {
 		else_if = {
 			limit = {
 				any_playable_country = {
-					is_ai = no
-					NOT = { is_same_empire = root }
+					NOR = { is_ai = yes is_same_empire = root }
 					has_communications = root
 					relative_power = { who = root value > equivalent category = technology }
 				}
 			}
 			random_playable_country = {
 				limit = {
-					is_ai = no
-					NOT = { is_same_empire = root }
+					NOR = { is_ai = yes is_same_empire = root }
 					has_communications = root
 					relative_power = { who = root value > equivalent category = technology }
 				}
@@ -712,7 +710,6 @@ country_event = {
 				# day_zero_contact = no
 				effect = {
 					set_country_type = default
-					set_country_flag = chaos_empire
 					save_event_target_as = cult_escape_country
 					establish_communications_no_message = root
 				}
@@ -723,6 +720,7 @@ country_event = {
 					set_owner = prev
 					set_capital = yes
 				}
+				set_choas_origin = yes # Grimdark
 				if = {
 					limit = { exists = event_target:tech_country }
 					copy_techs_from = {
@@ -1200,19 +1198,30 @@ country_event = {
 		# is_gestalt = no # is_regular_empire = yes #
 		any_owned_leader = {
 			has_chosen_covenant_trait_non_ruler = yes
-			has_cultist_trait_non_ruler = no
-			# NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
+			NOR = {
+				is_ruler = yes
+				is_event_leader = yes
+				has_cultist_trait_non_ruler = yes
+				has_trait = leader_trait_shroud_inquisitor
+				has_trait = leader_trait_loyalist
+			}
 		}
 	}
 	immediate = {
 		random_owned_leader = {
 			limit = {
 				has_chosen_covenant_trait_non_ruler = yes
-				has_cultist_trait_non_ruler = no
-				# NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
+				NOR = {
+					is_ruler = yes
+					is_event_leader = yes
+					has_cultist_trait_non_ruler = yes
+					has_trait = leader_trait_shroud_inquisitor
+					has_trait = leader_trait_loyalist
+				}
 			}
 			weights = { base = 1
-				modifier = { add = 100 NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist } }
+				# modifier = { add = 100 NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist } }
+				modifier = { add = 100 is_immortal = no }
 			}
 			add_random_negative_character_trait = yes
 		}
@@ -1232,8 +1241,13 @@ event = {
 				NOR = { is_gestalt = yes has_civic = civic_shroud_worship has_country_flag = eye_of_terror_reopened_country }
 				any_owned_leader = {
 					has_chosen_covenant_trait_non_ruler = yes
-					has_cultist_trait_non_ruler = no
-					NOR = { has_trait = leader_trait_shroud_inquisitor has_trait = leader_trait_loyalist }
+					NOR = {
+						is_ruler = yes
+						is_event_leader = yes
+						has_cultist_trait_non_ruler = yes
+						has_trait = leader_trait_shroud_inquisitor
+						has_trait = leader_trait_loyalist
+					}
 				}
 			}
 			weights = { base = 1

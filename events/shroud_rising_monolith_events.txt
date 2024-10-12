@@ -36,8 +36,7 @@ country_event = {
 	trigger = {
 		has_global_flag = eye_of_terror_open
 		owner = {
-			is_ai = no
-			NOT = { has_country_flag = monolith_intro }
+			NOR = { is_ai = yes has_country_flag = monolith_intro }
 		}
 	}
 	immediate = {
@@ -60,9 +59,7 @@ country_event = {
 				any_system_planet = {
 					# is_colony = yes
 					# is_capital = no
-					is_artificial = no
-					merg_is_arcology = no
-					NOT = { has_planet_flag = precursor_world }
+					NOR = { is_artificial = yes merg_is_arcology = yes has_planet_flag = precursor_world }
 					OR = { habitable_planet = yes uninhabitable_regular_planet = yes }
 				}
 			}
@@ -115,9 +112,7 @@ country_event = {
 				NOR = { has_star_flag = precursor_1 has_star_flag = shroud_invasion_target_1 has_star_flag = monolith_system }
 				any_system_planet = {
 					uninhabitable_regular_planet = yes
-					has_owner = no
-					has_anomaly = no
-					NOT = { has_planet_flag = precursor_world }
+					NOR = { has_owner = yes has_anomaly = yes has_planet_flag = precursor_world }
 					is_surveyed = { who = root status = yes }
 				}
 				# distance = {
@@ -131,9 +126,7 @@ country_event = {
 			random_system_planet = {
 				limit = {
 					uninhabitable_regular_planet = yes
-					NOR = { has_planet_flag = precursor_world has_planet_flag = monolith_world }
-					has_owner = no
-					has_anomaly = no
+					NOR = { has_planet_flag = precursor_world has_planet_flag = monolith_world has_owner = yes has_anomaly = yes }
 					is_surveyed = { who = root status = yes }
 				}
 				save_event_target_as = monolith_planet_2
@@ -290,9 +283,7 @@ country_event = {
 			random_system_planet = {
 				limit = {
 					uninhabitable_regular_planet = yes
-					NOR = { has_planet_flag = precursor_world has_planet_flag = monolith_world }
-					has_owner = no
-					has_anomaly = no
+					NOR = { has_planet_flag = precursor_world has_planet_flag = monolith_world has_owner = yes has_anomaly = yes }
 					is_surveyed = { who = root status = yes }
 				}
 				save_event_target_as = monolith_site_planet_3

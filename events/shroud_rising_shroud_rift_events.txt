@@ -1918,8 +1918,7 @@ event = {
 		}
 		random_playable_country = {
 			limit = {
-				is_ai = no
-				NOT = { has_civic = civic_shroud_worship }
+				NOR = { is_ai = yes has_civic = civic_shroud_worship }
 				any_system_within_border = {
 					has_star_flag = corrupt_system
 					NOT = { has_star_flag = eye_of_terror_rift_system }
@@ -2397,8 +2396,7 @@ fleet_event = {
 		}
 		exists = owner
 		owner = {
-			is_ai = no
-			NOT = { has_country_flag = shroud_rift_sighted }
+			NOR = { is_ai = yes has_country_flag = shroud_rift_sighted }
 		}
 	}
 	immediate = {

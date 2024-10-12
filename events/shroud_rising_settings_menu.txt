@@ -360,7 +360,11 @@ event = {
 		}
 		# Compat with WH40K (All that is Grimdark)
 		every_playable_country = {
-			limit = { is_ai = yes has_country_flag = chaos_empire NOT = { has_civic = civic_shroud_worship } }
+			limit = {
+				is_ai = yes
+				has_country_flag = chaos_empire
+				NOR = { has_civic = civic_shroud_worship is_gestalt = yes is_megacorp = yes }
+			}
 			force_add_civic = civic_shroud_worship
 		}
 
@@ -699,8 +703,7 @@ event = {
 					limit = {
 						exists = controller
 						controller = {
-							NOT = { is_same_empire = prev }
-							is_country_type_with_subjects = no
+							NOR = { is_same_empire = prev is_country_type_with_subjects = yes }
 						}
 					}
 					log="Fix Pre-FTL Empire \\[This.GetOwnerName] are controlled by \\[This.GetControllerName] on \\[This.GetName]"

@@ -1,0 +1,4 @@
+# Rebel like Country - # Compat with WH40K (All that is Grimdark)
+set_choas_origin = {
+	set_country_flag = chaos_empire
+}
