@@ -38,7 +38,7 @@ special_project = {
 
 	on_success = {
 		ship_event = { id = shroud_rising_monolith.3 }
-		
+
 	}
 
 	on_fail = {
@@ -48,7 +48,7 @@ special_project = {
 # Inhibitor Project
 special_project = {
 	key = "INHIBITOR_PROJECT"
-	cost = 25000	
+	cost = 25000
 	tech_department = engineering_technology
 	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
 	picture = GFX_evt_physics_research
@@ -58,14 +58,22 @@ special_project = {
 
 	requirements = {
 	}
-	
+
+	abort_trigger = {
+		NOR = {
+			exists = owner # has_owner = yes
+			exists = from
+			exists = from.owner
+		}
+    }
+	# This = planet
 	on_success = {
-		owner = {
-			set_country_flag = inhibitor_researched
+		from.owner = {
 			country_event = { id = shroud_rising_sidequests.8 }
 		}
 	}
 
 	on_fail = {
+		# TODO
 	}
 }

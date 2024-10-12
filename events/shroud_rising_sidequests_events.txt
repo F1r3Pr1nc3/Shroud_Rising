@@ -325,6 +325,9 @@ country_event = {
 	picture = GFX_evt_megastructure_construction
 	show_sound = event_activating_unknown_technology
 	is_triggered_only = yes
-	immediate = { }
+	# trigger = {
+	# 	NOT = { has_country_flag = inhibitor_researched }
+	# }
+	immediate = { set_country_flag = inhibitor_researched }
 	option = { name = shroud_rising_sidequests.8.a custom_tooltip = shroud_rising_sidequests.8.a.tooltip add_research_option = tech_rift_inhibitor }
 }

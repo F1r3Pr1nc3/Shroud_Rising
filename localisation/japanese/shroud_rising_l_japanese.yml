@@ -191,6 +191,7 @@
  opinion_sealed_eye_of_terror_negative: "$jp_sr_crisis_name_great_rift$を封印$jp_shroud_rising_suffix$"
  opinion_shared_monolith_knowledge: "モノリスの知識の共有$jp_shroud_rising_suffix$"
  opinion_withheld_monolith_knowledge: "モノリスの知識の隠匿$jp_shroud_rising_suffix$"
+ overlord_is_shroud_worshipper: "$TRIGGER_FAIL$§M$civic_shroud_worship$§!では許可されません!"
  patriotic_fervour: "愛国心$jp_shroud_rising_suffix$"
  pc_eye_of_terror: "$jp_sr_crisis_name_eye$$jp_shroud_rising_suffix$"
  pc_eye_of_terror_desc: "$jp_sr_crisis_name_eye$は、 空が血を流し、 古代の星々は多彩なフレアで燃え上がり、 古代の恐ろしい存在の気まぐれが支配する、 狂気と絶望の領域です。 それは、 不和、 恐怖、 古代の秘密、 狂気と同義であり、 銀河でこれほどまでに恐怖と不吉に満ちた場所は他にありません。"

@@ -412,17 +412,9 @@ holding_monolith = {
 	allow = {
 		custom_tooltip = {
 			fail_text = overlord_is_shroud_worshipper
-			exists = owner
-			owner = {
-				NOT = {
-					has_civic = civic_shroud_worship
-				}
-			}
 			exists = owner.overlord
 			owner.overlord = {
-				NOT = {
-					has_civic = civic_shroud_worship
-				}
+				NOT = { has_civic = civic_shroud_worship }
 			}
 		}
 	}

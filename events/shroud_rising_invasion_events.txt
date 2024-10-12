@@ -546,6 +546,7 @@ system_event = {
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
+							set_owner = prev
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Ancestral_Glory" graphical_culture = "pirate_01" }
 							}
@@ -597,7 +598,6 @@ system_event = {
 								create_ship = { name = random design = "NAME_Zealot" graphical_culture = "fallen_empire_02" }
 							}
 							set_fleet_flag = cultist_fleet
-							set_owner = prev
 							set_location = root
 							set_fleet_stance = aggressive
 							set_aggro_range = 150
@@ -960,6 +960,7 @@ system_event = {
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
+							set_owner = prev
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Ancestral_Glory" graphical_culture = "pirate_01" }
 							}
@@ -1011,12 +1012,10 @@ system_event = {
 								create_ship = { name = random design = "NAME_Zealot" graphical_culture = "fallen_empire_02" }
 							}
 							set_fleet_flag = cultist_fleet
-							set_owner = prev
 							set_location = root
 							set_fleet_stance = aggressive
 							set_aggro_range = 150
 							set_aggro_range_measure_from = self
-							set_fleet_bombardment_stance = indiscriminate
 							closest_system = {
 								limit = {
 									any_system_colony = {
@@ -1033,6 +1032,7 @@ system_event = {
 									auto_move_to_planet = { target = event_target:cultist_planet clear_auto_move_on_arrival = no }
 								}
 							}
+							set_fleet_bombardment_stance = indiscriminate
 						}
 					}
 					last_created_fleet = {
@@ -1081,6 +1081,7 @@ system_event = {
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
+							set_owner = prev
 							while = { count = 2
 								create_ship = { name = random design = "NAME_Ancestral_Glory" graphical_culture = "pirate_01" }
 							}
@@ -1115,7 +1116,6 @@ system_event = {
 								create_ship = { name = random design = "NAME_Zealot" graphical_culture = "fallen_empire_02" }
 							}
 							set_fleet_flag = cultist_fleet
-							set_owner = prev
 							set_location = root
 							set_fleet_stance = aggressive
 							set_aggro_range = 150
@@ -1558,6 +1558,7 @@ system_event = {
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
+							set_owner = prev
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Eternal" graphical_culture = "fallen_empire_04" }
 							}
@@ -1641,7 +1642,6 @@ system_event = {
 								create_ship = { name = random design = "NAME_Derelict" graphical_culture = "humanoid_01" }
 							}
 							set_fleet_flag = cultist_fleet
-							set_owner = prev
 							set_location = root # event_target:eye_of_terror_system
 							set_aggro_range = 150
 							set_aggro_range_measure_from = self
@@ -2006,13 +2006,13 @@ country_event = {
 				effect = {
 					set_fleet_flag = cultist_fleet
 					set_owner = root
+					 # destroyer?
+					create_ship = { name = random design = "NAME_Ravager" graphical_culture = "avian_01" } # is_event_design
 					set_location = prev
 					set_aggro_range = 150
 					set_aggro_range_measure_from = self
+					set_fleet_stance = aggressive
 					set_fleet_bombardment_stance = indiscriminate
-					 # destroyer?
-					create_ship = { name = random design = "NAME_Ravager" graphical_culture = "avian_01" }
-					# set_fleet_stance = aggressive is_event_design
 				}
 			}
 			planet_event = { id = shroud_rising_invasion.1304 days = 60 random = 30 }
