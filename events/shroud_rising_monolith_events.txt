@@ -371,6 +371,7 @@ fleet_event = {
 		custom_tooltip = shroud_rising_monolith.6.a.tooltip
 		owner = {
 			add_research_option = tech_shroud_monolith
+			add_tech_progress = { tech = tech_shroud_monolith progress = 0.9 }
 			country_event = { id = shroud_rising_monolith.7 }
 		}
 	}
@@ -440,7 +441,7 @@ country_event = {
 				# is_galactic_community_member = yes
 			}
 			add_research_option = tech_shroud_monolith
-			add_tech_progress = { tech = tech_shroud_monolith progress = 1 }
+			add_tech_progress = { tech = tech_shroud_monolith progress = 0.9 }
 			add_opinion_modifier = { who = root modifier = opinion_shared_monolith_knowledge }
 		}
 	}
@@ -453,30 +454,36 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		every_playable_country = {
-			limit = { NOT = { is_same_empire = prev } }
-			if = {
-				limit = {
-					OR = {
-						has_defensive_pact = prev
-						is_in_federation_with = prev
-						AND = {
-							is_subject = yes
-							overlord = { is_same_empire = prevprev }
-						}
-						AND = {
-							is_subject = yes
-							overlord = { is_overlord_to = prevprev }
-						}
-						is_overlord_to = prev
+			limit = {
+				NOR = { is_same_empire = prev is_hostile_to = root }
+				has_communications = prev
+				OR = {
+					has_defensive_pact = prev
+					is_in_federation_with = prev
+					is_overlord_to = prev
+					prev = { is_overlord_to = prev }
+					AND = {
+						is_subject = yes
+						root = { is_subject = yes }
+						overlord = { is_same_empire = root.overlord }
 					}
 				}
-				add_opinion_modifier = { who = root modifier = opinion_shared_monolith_knowledge }
-				add_research_option = tech_shroud_monolith
-				add_tech_progress = { tech = tech_shroud_monolith progress = 1 }
 			}
-			else = {
-				add_opinion_modifier = { who = root modifier = opinion_withheld_monolith_knowledge }
+			add_opinion_modifier = { who = root modifier = opinion_shared_monolith_knowledge }
+			add_research_option = tech_shroud_monolith
+			add_tech_progress = { tech = tech_shroud_monolith progress = 0.9 }
+		}
+		every_playable_country = {
+			limit = {
+				has_communications = prev
+				NOR = {
+					is_same_empire = prev
+					has_technology = tech_shroud_monolith
+					has_tech_option = tech_shroud_monolith
+					has_opinion_modifier = { who = root modifier = opinion_shared_monolith_knowledge }
+				}
 			}
+			add_opinion_modifier = { who = root modifier = opinion_withheld_monolith_knowledge }
 		}
 	}
 }
@@ -488,7 +495,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		every_playable_country = {
-			limit = { NOT = { is_same_empire = prev } }
+			limit = { NOT = { is_same_empire = prev } has_communications = prev }
 			add_opinion_modifier = { who = root modifier = opinion_withheld_monolith_knowledge }
 		}
 	}

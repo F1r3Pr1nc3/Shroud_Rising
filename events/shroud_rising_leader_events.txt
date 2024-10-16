@@ -837,7 +837,7 @@ country_event = {
 		}
 	}
 	after = {
-		owner = {
+		event_target:cult_escape_country = {
 			random_owned_starbase = { set_starbase_size = starbase_citadel }
 			if = {
 				limit = { exists = event_target:corrupted_leader_1 }
