@@ -110,24 +110,60 @@ apply_shroud_rising_difficulty = {
 			}
 			# Refresh Try
 			if = {
-				limit = { any_country = { is_fallen_empire_spiritualist = yes } }
-				set_global_flag = eot_fe_spiritualist
-				random_country = { limit = { is_fallen_empire_spiritualist = yes } save_event_target_as = eot_target }
-			}
-			else_if = {
-				limit = { any_country = { is_fallen_empire_materialist = yes } }
-				set_global_flag = eot_fe_materialist
-				random_country = { limit = { is_fallen_empire_materialist = yes } save_event_target_as = eot_target }
-			}
-			else_if = {
-				limit = { any_country = { is_fallen_empire_xenophobe = yes } }
-				set_global_flag = eot_fe_xenophobe
-				random_country = { limit = { is_fallen_empire_xenophobe = yes } save_event_target_as = eot_target }
-			}
-			else_if = {
-				limit = { any_country = { is_fallen_empire = yes is_gestalt = no } }
-				set_global_flag = eot_fe_xenophile
-				random_country = { limit = { is_fallen_empire = yes is_gestalt = no } save_event_target_as = eot_target }
+				limit = {
+					any_country = {
+						is_fallen_empire = yes
+						OR = {
+							has_ethic = ethic_fanatic_spiritualist
+							has_ethic = ethic_fanatic_materialist
+							has_ethic = ethic_fanatic_xenophobe
+							is_gestalt = no
+						}
+					}
+				}
+				random_country = {
+					limit = { is_fallen_empire = yes }
+					if = {
+						limit = { has_ethic = ethic_fanatic_spiritualist }
+						set_global_flag = eot_fe_spiritualist
+						save_event_target_as = eot_target
+					}
+					else_if = {
+						limit = { has_ethic = ethic_fanatic_materialist }
+						set_global_flag = eot_fe_materialist
+						save_event_target_as = eot_target
+					}
+					else_if = {
+						limit = { has_ethic = ethic_fanatic_xenophobe }
+						set_global_flag = eot_fe_xenophobe
+						save_event_target_as = eot_target
+					}
+					else_if = {
+						limit = { is_gestalt = no }
+						set_global_flag = eot_fe_xenophile
+						save_event_target_as = eot_target
+					}
+				}
+				# if = {
+				# 	limit = { any_country = { is_fallen_empire_spiritualist = yes } }
+				# 	set_global_flag = eot_fe_spiritualist
+				# 	random_country = { limit = { is_fallen_empire_spiritualist = yes } save_event_target_as = eot_target }
+				# }
+				# else_if = {
+				# 	limit = { any_country = { is_fallen_empire_materialist = yes } }
+				# 	set_global_flag = eot_fe_materialist
+				# 	random_country = { limit = { is_fallen_empire_materialist = yes } save_event_target_as = eot_target }
+				# }
+				# else_if = {
+				# 	limit = { any_country = { is_fallen_empire_xenophobe = yes } }
+				# 	set_global_flag = eot_fe_xenophobe
+				# 	random_country = { limit = { is_fallen_empire_xenophobe = yes } save_event_target_as = eot_target }
+				# }
+				# else_if = {
+				# 	limit = { any_country = { is_fallen_empire = yes is_gestalt = no } }
+				# 	set_global_flag = eot_fe_xenophile
+				# 	random_country = { limit = { is_fallen_empire = yes is_gestalt = no } save_event_target_as = eot_target }
+				# }
 			}
 			else_if = {
 				limit = {
