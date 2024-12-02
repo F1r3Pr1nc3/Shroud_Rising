@@ -1,11 +1,11 @@
 [h3]Prolog[/h3]
-[quote]"Shroud Rising" is a renowned Stellaris mod that plunges players into the mysteries of the Shroud. Delve into its depths to uncover ancient secrets and face cosmic dangers. Navigate through ethereal realms, where every encounter unveils new enigmas. But tread carefully, for dark forces lurk within, testing your resolve. Will you harness the Shroud's power or succumb to its ominous embrace? Embark on this thrilling adventure and rewrite the fate of the galaxy![/quote]
+[quote]"Shroud Rising" is a renowned Stellaris mod that plunges players into the mysteries of the Shroud. Delve into its depths to uncover ancient secrets and face cosmic dangers. Navigate through ethereal realms, where every encounter unveils new enigmas. But tread carefully, for dark forces lurk within, testing your resolve. Will you harness the Shroud’s power or succumb to its ominous embrace? Embark on this thrilling adventure and rewrite the fate of the galaxy![/quote]
 
 [hr]
-[h3]Since an update was sorely missed and to keep this legendary mod alive in the annals of Stellaris, I did a patch to LastLeviathan's excellent [URL=//steamcommunity.com/sharedfiles/filedetails/2809452753]Shroud Rising[/URL] mod.[/h3]
+[h3]Since an update was sorely missed and to keep this legendary mod alive in the annals of Stellaris, I did a patch to LastLeviathan’s excellent [URL=//steamcommunity.com/sharedfiles/filedetails/2809452753]Shroud Rising[/URL] mod.[/h3]
 
 [hr]
-Behold, this patch be but a spectral whisper, a mere echo in the ethereal expanse of the Shroud. A fledgling specter yet to find its true form. tread lightly, for the mists of uncertainty cloak its every move. Changes shall materialize like phantoms, shifting and swirling in the aether.
+Behold, this patch be but a spectral whisper, a mere echo in the ethereal expanse of the Shroud. A fledgling specter yet to find its true form. Tread lightly, for the mists of uncertainty cloak its every move. Changes shall materialize like phantoms, shifting and swirling in the aether.
 
 Embrace the ephemeral nature of our journey, for the Shroud is a realm of constant flux. Expect the unexpected, as the very fabric of reality bends to our will. Your feedback, dear voyager, is the beacon that guides us through this shadowy labyrinth.
 
@@ -15,16 +15,16 @@ So, gather your courage and venture forth into the unknown. Within the depths of
 [h3][i][b]NOTE[/b]: This is a [b]patch[/b], so you still need the (latest) [URL=//steamcommunity.com/sharedfiles/filedetails/2809452753]original mod (3.8 - detailed instructions there)[/URL].[/i] [spoiler]- even though it should be obvious, I have to mention this…[/spoiler][/h3]
 [h3][i][b]TLDR[/b]: For a direct explanation of features or if anything is unclear, [URL=//steamcommunity.com/workshop/filedetails/discussion/2809452753/4839692156577380383]visit the [b]FAQ[/b] page[/URL].[/i][/h3]
 
-[b]Changelog  v.3.11.*[/b]:
+[b]Changelog v.3.11.*[/b]:
 ⠀• Fixed Megastructure on Rift
 ⠀• More support for WH40K (still in progress)
 ⠀• Improved performance
 ⠀• Improved compatibility 
 ⠀• The Shroud now primary targets a Player Crisis
-⠀• Some code modernisation and   (e.g. using inline scripts - saved 120 KB)
+⠀• Some code modernization and  (e.g. using inline scripts - saved 120 KB)
 ⠀• Option added to exclude FE
 
-[b]Changelog  v.3.12.*[/b]:
+[b]Changelog v.3.12.*[/b]:
 ⠀• Dynamic timer values (depending on mid-end-game settings)
 ⠀• Fixed Cultist trait spam
 ⠀• The Shroud Civic has now a councilor level
@@ -45,9 +45,10 @@ So, gather your courage and venture forth into the unknown. Within the depths of
 
 [h3]📜 Language Support[/h3]
 ⠀• 🇺🇸 English
-⠀• 🇷🇺 [URL=//steamcommunity.com/sharedfiles/filedetails/2970812737]Russian[/URL]
-⠀• 🇯🇵 [URL=//steamcommunity.com/sharedfiles/filedetails/2822811239]Japanese[/URL]
-⠀• 🇨🇳 [URL=//steamcommunity.com/sharedfiles/filedetails/2131014154]Chinese[/URL]
+⠀• 🇷🇺 [URL=//steamcommunity.com/sharedfiles/filedetails/2970812737]Русский[/URL]
+⠀• 🇯🇵 [URL=//steamcommunity.com/sharedfiles/filedetails/2822811239]日本語[/URL]
+⠀• 🇨🇳 [URL=//steamcommunity.com/sharedfiles/filedetails/2131014154]中国人[/URL]
+⠀• 🇰🇷 [URL=//steamcommunity.com/sharedfiles/filedetails/3363608760]한글번역[/URL]
 
 Have fun!
 

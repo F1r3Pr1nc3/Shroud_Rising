@@ -106,10 +106,11 @@ shroud_horrors = {
 			berserk_military_minister_module
 		}
 	}
-	# targets = {
-	#	fallen_empire
-	#	awakened_fallen_empire
-	#}
+	targets = {
+		fallen_empire
+		awakened_fallen_empire
+		gray_goo
+	}
 	faction = {
 		hostile = yes
 		needs_border_access = no

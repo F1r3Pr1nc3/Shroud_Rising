@@ -20,7 +20,7 @@
  shroud_rising_settings.2.5.desc: "Current selection: $shroud_rising_settings.2.c$"
  shroud_rising_settings.2.10.desc: "Current selection: $shroud_rising_settings.2.b$\n\n'§TMay the force be with you.§!'"
  shroud_rising_settings.2.25.desc: "Current selection: $shroud_rising_settings.2.a$\n\n'§TWhat drugs did you take today?§!'"
- shroud_rising_settings.2.a: "§P25x§!"
+ shroud_rising_settings.2.a: "§RInsane§! §P25x§!"
  shroud_rising_settings.2.b: "§P10x§!"
  shroud_rising_settings.2.c: "§P5x§!"
  shroud_rising_settings.2.d: "§P4x§!"

@@ -23,7 +23,7 @@ namespace = shroud_rising_monolith
 ########## Monolith EVENTS #########################
 ###########################################################
 ###########  Initial Event to Spawn Site ############################
-# Chance to trigger once Eye of Terror is open find 3 x monoliths one damaged, one
+# Chance to trigger once Eye of Terror is open find 3x monoliths one damaged, one
 # Once Eye of Terror is open, trigger in random timeframe so it spawns two anomalies to search and then spawn a the dig site somewhere.
 # Create sites
 country_event = {

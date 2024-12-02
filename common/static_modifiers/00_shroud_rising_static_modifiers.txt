@@ -469,73 +469,70 @@ arrested_cultists = {
 ########################################################################
 # Difficulty modifiers
 ########################################################################
-
+# 1.5x
 sr_difficulty_1 = {
-	ship_hull_mult = 0.5
-	ship_armor_mult = 0.5
-	ship_shield_mult = 0.5
-	ship_weapon_damage = 0.5
-	army_damage_mult = 0.5
-	army_health = 0.5
-	army_morale = 0.5
+	ship_hull_mult		= 0.5
+	ship_armor_mult		= 0.5
+	ship_shield_mult	= 0.5
+	ship_weapon_damage	= 0.5
+	army_damage_mult	= 0.5
+	army_health			= 0.5
+	army_morale			= 0.5
 }
-
+# 2.0x
 sr_difficulty_2 = {
-	ship_hull_mult = 1
-	ship_armor_mult = 1
-	ship_shield_mult = 1
-	ship_weapon_damage = 1
-	army_damage_mult = 1
-	army_health = 1
-	army_morale = 1
+	ship_hull_mult		= 1
+	ship_armor_mult		= 1
+	ship_shield_mult	= 1
+	ship_weapon_damage	= 1
+	army_damage_mult	= 1
+	army_health			= 1
+	army_morale			= 1
 }
-
+# 3.0x
 sr_difficulty_3 = {
-	ship_hull_mult = 1.5
-	ship_armor_mult = 1.5
-	ship_shield_mult = 1.5
-	ship_weapon_damage = 1.5
-	army_damage_mult = 1.5
-	army_health = 1.5
-	army_morale = 1.5
+	ship_hull_mult		= 2
+	ship_armor_mult		= 2
+	ship_shield_mult	= 2
+	ship_weapon_damage	= 2
+	army_damage_mult	= 2
+	army_health			= 2
+	army_morale			= 2
 }
-
+# 4.0x
 sr_difficulty_4 = {
-	ship_hull_mult = 2
-	ship_armor_mult = 2
-	ship_shield_mult = 2
-	ship_weapon_damage = 2
-	army_damage_mult = 2
-	army_health = 2
-	army_morale = 2
+	ship_hull_mult		= 3
+	ship_armor_mult		= 3
+	ship_shield_mult	= 3
+	ship_weapon_damage	= 3
+	army_damage_mult	= 2.5
+	army_health			= 2.5
+	army_morale			= 2.5
 }
-
 sr_difficulty_5 = {
-	ship_hull_mult = 2.5
-	ship_armor_mult = 2.5
-	ship_shield_mult = 2.5
-	ship_weapon_damage = 2.5
-	army_damage_mult = 2.5
-	army_health = 2.5
-	army_morale = 2.5
+	ship_hull_mult		= 6
+	ship_armor_mult		= 6
+	ship_shield_mult	= 6
+	ship_weapon_damage	= 6
+	army_damage_mult	= 4
+	army_health			= 4
+	army_morale			= 4
 }
-
 sr_difficulty_10 = {
-	ship_hull_mult = 5
-	ship_armor_mult = 5
-	ship_shield_mult = 5
-	ship_weapon_damage = 5
-	army_damage_mult = 4
-	army_health = 4
-	army_morale = 4
+	ship_hull_mult		= 12
+	ship_armor_mult		= 12
+	ship_shield_mult	= 12
+	ship_weapon_damage	= 12
+	army_damage_mult	= 5
+	army_health			= 5
+	army_morale			= 5
 }
-
 sr_difficulty_25 = {
-	ship_hull_mult = 12.5
-	ship_armor_mult = 12.5
-	ship_shield_mult = 12.5
-	ship_weapon_damage = 12.5
-	army_damage_mult = 5
-	army_health = 5
-	army_morale = 5
+	ship_hull_mult		= 30
+	ship_armor_mult		= 30
+	ship_shield_mult	= 30
+	ship_weapon_damage	= 30
+	army_damage_mult	= 6
+	army_health			= 6
+	army_morale			= 6
 }

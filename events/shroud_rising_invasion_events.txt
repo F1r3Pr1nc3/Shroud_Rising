@@ -41,7 +41,7 @@ namespace = shroud_rising_invasion
 # shroud_rising_invasion.107 | (Hidden) Ancient God Defeated Effects
 # shroud_rising_invasion.108 | Ancient God Defeated Announce
 ###############################################
-###### THE INCURSIONS ####################
+######	THE INCURSIONS	####################
 ###############################################
 # Shroud INVASION
 # INCURSIONS BEGIN Announce (from 1st Rift, global event shroud_rising_shroud_rift.1)
@@ -64,7 +64,7 @@ country_event = {
 }
 
 ###############################################
-###### BASIC RIFTS SPAWN ####################
+######	BASIC RIFTS SPAWN	###################
 ###############################################
 # Spawn selector yearly for basic rift spawn (on_yearly_pulse)
 event = {
@@ -94,7 +94,7 @@ event = {
 		if = {
 			limit = { exists = event_target:eye_of_terror_system }
 			event_target:eye_of_terror_system = {
-				# Spawn up to 3 x enemies, triggers the spawn selector
+				# Spawn up to 3x enemies, triggers the spawn selector
 				random_list = {
 					# 2 months
 					30 = { system_event = { id = shroud_rising_invasion.2 days = 60 random = 15 } }
@@ -136,7 +136,7 @@ system_event = {
 	immediate = {
 		random_list = {
 			###############################################
-			######## 1 x Corrupt Avatar (~5-10k) ##########
+			########	1x Corrupt Avatar (~5-10k)	#######
 			###############################################
 			30 = {
 				if = {
@@ -172,7 +172,7 @@ system_event = {
 				}
 			}
 			#################################################
-			########  3 x Corrupt Avatar (10k ea) ###########
+			########	3x Corrupt Avatar (10k ea)	#########
 			#################################################
 			15 = {
 				modifier = { factor = 0 mid_game_years_passed < 30 }
@@ -213,7 +213,7 @@ system_event = {
 				}
 			}
 			##########################################################################
-			########  3 x Corrupt Avatar (10k ea) + 1 x Entity (~20k ea)  ############
+			########	3x Corrupt Avatar (10k ea) + 1x Entity (~20k ea)	##########
 			##########################################################################
 			5 = {
 				modifier = { factor = 0 NOT = { has_global_flag = eye_of_terror_open } }
@@ -267,11 +267,11 @@ system_event = {
 				}
 			}
 			###############################################
-			########  Tiny Cultist Fleet (5k) #############
+			#####	Tiny Cultist Fleet (5k)		###########
 			###############################################
 			40 = {
 				random_galaxy_species = {
-					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
+					limit = { is_crossbreeding_possible = yes is_anti_shroud_cultists = no }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -375,14 +375,14 @@ system_event = {
 					}
 				}
 			}
-			################################################
-			########  Small Cultist Fleet (10k) ############
-			################################################
+			###############################################
+			#####	Small Cultist Fleet (10k)	###########
+			###############################################
 			15 = {
 				modifier = { factor = 0 mid_game_years_passed < 30 }
 				modifier = { factor = 2 mid_game_years_passed > 45 }
 				random_galaxy_species = {
-					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
+					limit = { is_crossbreeding_possible = yes is_anti_shroud_cultists = no }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -497,12 +497,12 @@ system_event = {
 				}
 			}
 			###############################################
-			########  Big Cultist Fleet (25k) #############
+			#####	Big Cultist Fleet (25k)		###########
 			###############################################
 			10 = {
 				modifier = { factor = 0 mid_game_years_passed < 75 }
 				random_galaxy_species = {
-					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
+					limit = { is_crossbreeding_possible = yes is_anti_shroud_cultists = no }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -638,7 +638,7 @@ system_event = {
 }
 
 ###############################################
-###### Greater RIFTS SPAWN ####################
+######	Greater RIFTS SPAWN		###############
 ###############################################
 # Spawn timing yearly for greater rift spawn (on_yearly_pulse)
 event = {
@@ -659,7 +659,7 @@ event = {
 	immediate = {
 		set_timed_global_flag = { flag = greater_rift_timer years = 3 }		# Ensures it only triggers every 3 years
 		event_target:global_event_country = {
-			random_list = { # Spawn up to 3 x enemies, triggers the spawn selector
+			random_list = { # Spawn up to 3x enemies, triggers the spawn selector
 				33 = { country_event = { id = shroud_rising_invasion.2000 days = 30 random = 30 } }		# 2 years # 720
 				33 = { country_event = { id = shroud_rising_invasion.2000 days = 60 random = 30 } }		# 3 years # 1095
 				33 = { country_event = { id = shroud_rising_invasion.2000 days = 120 random = 30 } }	# 4 years # 1460
@@ -700,7 +700,7 @@ system_event = {
 	immediate = {
 		random_list = {
 			###############################################
-			######## 2 x Corrupt Avatar (~5-10k ea) ##########
+			######## 2x Corrupt Avatar (~5-10k ea)	#######
 			###############################################
 			30 = {
 				modifier = { factor = 0 OR = { mid_game_years_passed < 45 end_game_years_passed > 75 } }
@@ -753,7 +753,7 @@ system_event = {
 				}
 			}
 			#######################################################################
-			########  3 x Corrupt Avatar (10k ea) + 1 x Entity (20k ea) ###########
+			#######	3x Corrupt Avatar (10k ea) + 1x Entity (20k ea)		###########
 			#######################################################################
 			10 = {
 				modifier = { factor = 0 OR = { mid_game_years_passed < 45 end_game_years_passed > 50 } }
@@ -833,7 +833,7 @@ system_event = {
 				}
 			}
 			#############################################
-			########  4  x Entity (~20k ea)  ############
+			######## 4x Entity (~20k ea) ############
 			#############################################
 			5 = {
 				modifier = { factor = 0 NAND = { has_global_flag = eye_of_terror_open mid_game_years_passed < 75 } }
@@ -912,12 +912,12 @@ system_event = {
 				}
 			}
 			###############################################
-			########  Large Cultist Fleet (25k) #############
+			#####	Large Cultist Fleet (25k)	###########
 			###############################################
 			40 = {
 				modifier = { factor = 0 mid_game_years_passed < 45 }
 				random_galaxy_species = {
-					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
+					limit = { is_crossbreeding_possible = yes is_anti_shroud_cultists = no }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -1046,13 +1046,13 @@ system_event = {
 					}
 				}
 			}
-			################################################
-			########  Cultist Crusade (50k) ############
-			################################################
+			###############################################
+			#####	Cultist Crusade (50k)		###########
+			###############################################
 			15 = {
 				modifier = { factor = 0 mid_game_years_passed < 65 }
 				random_galaxy_species = {
-					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
+					limit = { is_crossbreeding_possible = yes is_anti_shroud_cultists = no }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -1165,7 +1165,7 @@ system_event = {
 				}
 			}
 			###############################################
-			########  Avatar (50k) #############
+			########		Avatar (50k)		###########
 			###############################################
 			25 = {
 				modifier = { factor = 0 mid_game_years_passed < 25 }
@@ -1485,7 +1485,7 @@ event = {
 			}
 		}
 		event_target:eye_of_terror_system = {
-			# Spawn 1 x enemies, triggers the spawn selector
+			# Spawn 1x enemies, triggers the spawn selector
 			random_list = {
 				33 = { system_event = { id = shroud_rising_invasion.8 days = 30 random = 15 } }
 				33 = { system_event = { id = shroud_rising_invasion.8 days = 90 random = 18 } }
@@ -1506,12 +1506,12 @@ system_event = {
 	immediate = {
 		random_list = {
 			###############################################
-			########  Cultist Crusade (90k) #############
+			########	Cultist Crusade (90k)	###########
 			###############################################
 			25 = {
 				#40
 				random_galaxy_species = {
-					limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
+					limit = { is_crossbreeding_possible = yes is_anti_shroud_cultists = no }
 					create_species = {
 						name = "NAME_shroud_cultists"
 						class = this # random_non_machine
@@ -1671,7 +1671,7 @@ system_event = {
 				}
 			}
 			###############################################
-			########  Avatar (50k) #############
+			########		Avatar (50k)		###########
 			###############################################
 			65 = {
 				if = {
@@ -1693,7 +1693,7 @@ system_event = {
 				system_event = { id = shroud_rising_invasion.51 }				# 180 choose a Greater Shroud Horror to spawn
 			}
 			###############################################
-			########  Cosmic Horror (150-200k) #############
+			######## Cosmic Horror (150-200k) #############
 			###############################################
 			5 = {
 				modifier = { factor = 0 mid_game_years_passed < 75 }
@@ -1737,7 +1737,7 @@ system_event = {
 				}
 			}
 			###############################################
-			########  Ancient God (k) #############
+			########		Ancient God (k)		###########
 			###############################################
 			1 = {
 				modifier = { factor = 0 end_game_years_passed < 15
@@ -1842,7 +1842,7 @@ planet_event = {
 }
 
 ###############################################
-###### Shroud Cult Empire events ####################
+###### Shroud Cult Empire events ##############
 ###############################################
 ##### Event to see if will be neutral to a shroud country (has civic_shroud_worship)
 # Root = shroud_storm_horror or cultist_raid_fleet not playable
@@ -1900,7 +1900,7 @@ country_event = {
 }
 
 ###############################################
-###### Cultist Invasion Events ####################
+######	Cultist Invasion Events		###########
 ###############################################
 # ## Colony Bombarded by Cultists (on_planet_bombarded)
 # From = Bombarder
@@ -1927,7 +1927,7 @@ planet_event = {
 		set_planet_flag = shroud_cult_invasion
 		set_timed_planet_flag = { flag = recent_cult_influence years = 10 }
 		random_galaxy_species = {
-			limit = { is_crossbreeding_possible = yes NOT = { has_trait = trait_adeptus_custodes } }
+			limit = { is_crossbreeding_possible = yes is_anti_shroud_cultists = no }
 			create_species = {
 				name = "NAME_shroud_cultists"
 				class = this # random_non_machine
@@ -2226,7 +2226,7 @@ fleet_event = {
 }
 
 ###############################################
-###### Incursion Announce Events ####################
+###### Incursion Announce Events ##############
 ###############################################
 # Small Cult Fleet
 country_event = {
@@ -2328,7 +2328,7 @@ country_event = {
 }
 
 ###############################################
-###### Death Counter Events (Hidden) ####################
+###### Death Counter Events (Hidden) ##########
 ###############################################
 # Shroud Entities Death Count (HIDDEN on_ship_destroyed_victim)
 country_event = {
@@ -2438,7 +2438,7 @@ country_event = {
 }
 
 ###############################################
-###### Ancient God Events ####################
+######	Ancient God Events	###################
 ###############################################
 # Spawn Ancient God
 system_event = {
