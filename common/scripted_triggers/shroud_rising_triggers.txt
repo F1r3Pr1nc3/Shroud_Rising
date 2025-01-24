@@ -39,8 +39,3 @@ has_cultist_trait_non_ruler = {
 		has_trait = leader_trait_cultist_instrument
 	}
 }
-# For compat: add here incompatible species properties
-# This = species
-is_anti_shroud_cultists = {
-	always = no
-}

@@ -335,8 +335,14 @@ country_event = {
 			event_target:chosen_leader = { has_chosen_one_leader_trait = yes }
 		}
 	}
-	trigger = { NOT = { has_active_event = { shroud_rising_leader.6 } } }
-	immediate = { set_country_flag = shroud_diplomacy_engaged set_country_flag = shroud_vision_10 }
+	trigger = {
+		NOR = {
+			has_country_flag = shroud_vision_10
+			has_country_flag = shroud_diplomacy_engaged
+			has_active_event = { shroud_rising_leader.6 }
+		}
+	}
+	immediate = { set_country_flag = shroud_diplomacy_engaged }
 	after = {
 		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
 	}
@@ -802,9 +808,7 @@ country_event = {
 				apply_shroud_rising_difficulty = yes # every_country = { establish_communications_no_message = prev }
 			}
 
-			while = { count = 35
-				create_pop = { species = event_target:leader_species }
-			}
+			create_pop = { species = event_target:leader_species count = 35 }
 			while = { count = 3
 				add_district_and_planet_size_if_needed_effect = { district = district_city }
 			}

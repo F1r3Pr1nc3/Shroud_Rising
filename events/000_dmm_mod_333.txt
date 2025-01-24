@@ -50,7 +50,7 @@ country_event = {
 			country_event = { id = shroud_rising_trigger.1 }
 		}
 		else_if = {
-			limit = { mid_game_years_passed > 30 }
+			limit = { OR = { has_global_flag = eot_active mid_game_years_passed > 30 } }
 			dmm_deregister_mod = { DMM_FLAG = dmm_mod_333 }
 		}
 	}

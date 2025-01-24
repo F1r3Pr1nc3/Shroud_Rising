@@ -1,3 +1,8 @@
 bts_can_use_powers = {
 	always = no
 }
+# For compat: add here incompatible species properties
+# This = species
+is_anti_shroud_cultists = {
+	always = no
+}

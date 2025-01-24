@@ -1472,6 +1472,7 @@ country_event = {
 			}
 		}
 		# last_created_fleet = { fleet_event = { id = shroud_rising_invasion } }
+		run_in_ai_mode = yes # Without this immediate is not invoked when event runs in a special mode that allows AI to collect trade data
 	}
 	after = {
 		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
@@ -1621,6 +1622,7 @@ country_event = {
 				}
 			}
 		}
+		run_in_ai_mode = yes # Without this immediate is not invoked when event runs in a special mode that allows AI to collect trade data
 	}
 	after = {
 		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
@@ -1767,6 +1769,7 @@ country_event = {
 				33 = { }
 			}
 		}
+		run_in_ai_mode = yes # Without this immediate is not invoked when event runs in a special mode that allows AI to collect trade data
 	}
 	after = {
 		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }

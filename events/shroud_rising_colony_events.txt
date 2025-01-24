@@ -418,7 +418,7 @@ planet_event = { # Handling achieve_ftl_effect - (on_capital_changed)
 				limit = { NOT = { has_communications = prev } }
 				establish_communications_no_message = prev
 			}
-			set_faction_hostility = { set_hostile = yes set_neutral = no set_friendly = no target = prev }
+			set_faction_hostility = { set_hostile = yes target = prev }
 		}
 	}
 }

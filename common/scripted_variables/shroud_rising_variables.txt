@@ -1,0 +1,1 @@
+@has_shroud_rising_mod = 1

@@ -77,7 +77,7 @@ country_event = {
 					has_star_flag = lgate
 					any_system_planet = { has_planet_flag = has_shroud_monolith }
 				}
-				# has_owner = yes # For testing
+				NAND = { has_owner = yes owner = { has_country_flag = chaos_empire } } # has_owner = yes # For testing
 				# owner = { is_ai = no } # For testing
 				any_system_planet = { is_shroud_rift_planet = yes }
 			}
@@ -616,7 +616,7 @@ country_event = {
 		set_global_flag = rift_2_active
 		random_system = {
 			limit = {
-				# has_owner = yes # For testing
+				NAND = { has_owner = yes owner = { has_country_flag = chaos_empire } } # has_owner = yes # For testing
 				# owner = { is_ai = no } # For testing
 				is_valid_drone_expansion_destination_system = yes
 				NOR = {
@@ -951,7 +951,7 @@ country_event = {
 		set_global_flag = rift_3_active
 		random_system = {
 			limit = {
-				# has_owner = yes # For testing
+				NAND = { has_owner = yes owner = { has_country_flag = chaos_empire } } # has_owner = yes # For testing
 				# owner = { is_ai = no } # For testing
 				is_valid_drone_expansion_destination_system = yes
 				NOR = {
@@ -1259,7 +1259,7 @@ country_event = {
 		set_global_flag = rift_4_active
 		random_system = {
 			limit = {
-				# has_owner = yes # For testing
+				NAND = { has_owner = yes owner = { has_country_flag = chaos_empire } } # has_owner = yes # For testing
 				# owner = { is_ai = no } # For testing
 				is_valid_drone_expansion_destination_system = yes
 				NOR = {
@@ -1613,7 +1613,7 @@ country_event = {
 		set_global_flag = rift_unstable_active
 		random_system = {
 			limit = {
-				# has_owner = yes # For testing
+				NAND = { has_owner = yes owner = { has_country_flag = chaos_empire } } # has_owner = yes # For testing
 				# owner = { is_ai = no } # For testing
 				is_valid_drone_expansion_destination_system = yes
 				NOR = {

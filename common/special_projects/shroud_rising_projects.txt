@@ -61,15 +61,18 @@ special_project = {
 
 	abort_trigger = {
 		NOR = {
-			exists = owner # has_owner = yes
+			exists = owner
 			exists = from
-			exists = from.owner
 		}
     }
 	# This = planet
 	on_success = {
-		from.owner = {
-			country_event = { id = shroud_rising_sidequests.8 }
+		if = {
+			limit = { exists = owner }
+			owner = { country_event = { id = shroud_rising_sidequests.8 } }
+		}
+		else = {
+			fromfrom = { country_event = { id = shroud_rising_sidequests.8 } }
 		}
 	}
 

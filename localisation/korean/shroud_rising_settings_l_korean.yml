@@ -1,4 +1,4 @@
-l_korean:
+﻿l_korean:
  dmm_mod_333: "$shroud_rising_settings.1.name$"
  edict_shroud_rising_settings: "(모드 메뉴) §H$shroud_rising_settings.1.name$§!"
  edict_shroud_rising_settings_desc: "§R슈라우드 라이징§!에 대한 현재 설정을 엽니다."
@@ -38,10 +38,10 @@ l_korean:
  shroud_rising_settings.2.g: "§P1.5x§!"
  shroud_rising_settings.2.h: "메인 메뉴로 돌아가기"
  shroud_rising_settings.default: "§L$DEFAULT_GENDER$§!"
- sr_difficulty_10: "$paragon.5265.c$ x10"
  sr_difficulty_1: "$paragon.5265.c$ x1.5"
- sr_difficulty_25: "$paragon.5265.c$ x25"
+ sr_difficulty_10: "$paragon.5265.c$ x10"
  sr_difficulty_2: "$paragon.5265.c$ x2"
+ sr_difficulty_25: "$paragon.5265.c$ x25"
  sr_difficulty_3: "$paragon.5265.c$ x3"
  sr_difficulty_4: "$paragon.5265.c$ x4"
  sr_difficulty_5: "$paragon.5265.c$ x5"

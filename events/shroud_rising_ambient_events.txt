@@ -263,7 +263,7 @@ planet_event = {
 	is_triggered_only = yes
 	trigger = { }
 	immediate = {
-		root.owner = {
+		owner = {
 			country_event = { id = shroud_rising_ambient.7 days = 200 random = 50 } # shroud_rising_ambient.7
 		}
 		random_list = {
