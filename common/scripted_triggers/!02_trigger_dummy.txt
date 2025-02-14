@@ -1,0 +1,4 @@
+# For compatibility: Dummy triggers - to be overwritten by their respective mods.
+has_acot = { always = no }
+SRA_can_do_orbital_bombardment_country = { always = no }
+# is_khan_country_type = { always = no } "Warship Girls R And MIST Species"

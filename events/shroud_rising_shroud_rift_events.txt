@@ -1798,7 +1798,7 @@ system_event = {
 			country_event = { id = shroud_rising_shroud_rift.28 }
 		}
 		remove_star_flag = shroud_rift_system_unstable
-		remove_star_flag = shroud_rift_unstable_active # TODO REMOVEME ON 3.12
+		# remove_star_flag = shroud_rift_unstable_active # TODO REMOVEME ON 3.12
 	}
 }
 

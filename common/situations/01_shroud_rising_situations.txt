@@ -1,4 +1,3 @@
-
 situation_shroud_uprising = {
 	picture = GFX_evt_conclave
 	category = negative
@@ -272,22 +271,25 @@ situation_shroud_uprising = {
 			}
 		}
 		complex_trigger_modifier = {
-			trigger = count_system_planet
+			trigger = count_system_colony
 			trigger_scope = target.solar_system
 			parameters = {
 				limit = {
-					is_colony = yes
-					NOT = { is_same_value = root.target }
-					planet_stability >= 70
-					num_pops > 5
+					NOR = {
+						is_planet = root.target
+						planet_stability < 70
+						num_pops < 6
+					}
 				}
 			}
 			potential = {
 				target.solar_system = {
 					any_system_colony = {
-						NOT = { is_same_value = root.target }
-						planet_stability >= 70
-						num_pops > 5
+						NOR = {
+							is_planet = root.target
+							planet_stability < 70
+							num_pops < 6
+						}
 					}
 				}
 			}
@@ -296,22 +298,25 @@ situation_shroud_uprising = {
 			mult = 2
 		}
 		complex_trigger_modifier = {
-			trigger = count_system_planet
+			trigger = count_system_colony
 			trigger_scope = target.solar_system
 			parameters = {
 				limit = {
-					is_colony = yes
-					NOT = { is_same_value = root.target }
-					planet_stability < 50
-					num_pops > 5
+					NOR = {
+						is_planet = root.target
+						planet_stability < 50
+						num_pops < 6
+					}
 				}
 			}
 			potential = {
 				target.solar_system = {
 					any_system_colony = {
-						NOT = { is_same_value = root.target }
-						planet_stability < 50
-						num_pops > 5
+						NOR = {
+							is_planet = root.target
+							planet_stability < 50
+							num_pops < 6
+						}
 					}
 				}
 			}

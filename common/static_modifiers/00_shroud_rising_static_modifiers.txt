@@ -71,14 +71,14 @@ eye_of_terror_influence_2 = {
 
 # TODO DEPRECATED: REMOVEME ON 3.13  (because dupe)
 # Rift effect
-shroud_rift_influence = {
-	pop_ethic_spiritualist_attraction_mult = 0.25
-	pop_government_ethic_attraction = -0.15
-	pop_happiness = -0.1
-	planet_stability_add = -10
-	icon = "gfx/interface/icons/planet_modifiers/pm_shroud_rift_influence.dds"
-	icon_frame = 3
-}
+# shroud_rift_influence = {
+# 	pop_ethic_spiritualist_attraction_mult = 0.25
+# 	pop_government_ethic_attraction = -0.15
+# 	pop_happiness = -0.1
+# 	planet_stability_add = -10
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_shroud_rift_influence.dds"
+# 	icon_frame = 3
+# }
 
 # Rift effect
 shroud_residue = {

@@ -76,7 +76,7 @@ every_system_planet = { # Remove flag for army spawns
 	limit = { has_planet_flag = shroud_rift_influence }
 	remove_planet_flag = shroud_rift_influence
 	switch = { trigger = has_modifier
-		shroud_rift_influence		= { remove_modifier = shroud_rift_influence } # REMOVEME 3.13
+		# shroud_rift_influence		= { remove_modifier = shroud_rift_influence } # REMOVEME 3.13
 		eye_of_terror_influence_1	= { remove_modifier = eye_of_terror_influence_1 }
 		eye_of_terror_influence_2	= { remove_modifier = eye_of_terror_influence_2 }
 	}

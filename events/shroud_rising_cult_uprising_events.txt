@@ -59,9 +59,7 @@ planet_event = {
 			33 = {
 				modifier = { factor = 2
 					owner = {
-						any_owned_leader = {
-							has_cultist_trait_non_ruler = yes
-						}
+						any_owned_leader = { has_cultist_trait_non_ruler = yes }
 					}
 				}
 				modifier = { factor = 10
@@ -593,7 +591,7 @@ country_event = {
 	immediate = { set_choas_origin = yes set_name = random }
 }
 
-# Cult secedes from empire
+# Cult secedes from empire (from situation_shroud_uprising)
 # From = planet (shroud_rising_cult_uprising.9)
 country_event = {
 	id = shroud_rising_cult_uprising.10
@@ -712,7 +710,7 @@ country_event = {
 			}
 			solar_system = {
 				every_system_colony = {
-					# limit = { }
+					limit = { OR = { is_owned_by = root is_controlled_by = root } }
 					set_owner = event_target:cultist_rebel_country
 					set_controller = event_target:cultist_rebel_country
 				}
@@ -764,7 +762,6 @@ country_event = {
 		}
 		event_target:cultist_rebel_country = {
 			assign_leader = last_created_leader
-			set_choas_origin = yes # Grimdark
 			add_resource = {
 				energy = 10000
 				minerals = 2500
@@ -819,6 +816,10 @@ country_event = {
 				}
 			}
 			add_500_unity_per_year_passed = yes
+			## Ships
+			fire_on_action = { on_action = empire_init_create_ships }
+			fire_on_action = { on_action = on_released_as_vassal scopes = { from = root } }
+
 			reroll_random = yes
 			create_fleet_from_naval_cap = 0.3
 			random_owned_planet = {
@@ -829,10 +830,7 @@ country_event = {
 			random_owned_planet = {
 				last_created_fleet = { set_location = event_target:cult_uprising_planet }
 			}
-			create_fleet_from_naval_cap = 0.2
-			random_owned_planet = {
-				last_created_fleet = { set_location = event_target:cult_uprising_planet }
-			}
+
 			# science
 			create_fleet = {
 				effect = {
@@ -861,7 +859,8 @@ country_event = {
 				}
 			}
 			every_controlled_fleet = {
-				# limit = { is_disabled = yes } # TODO TEST
+				limit = { is_disabled = yes }
+				every_owned_ship = { set_disabled = no }
 				set_event_locked = no
 			}
 			# Survey host's surveyed planets
@@ -903,7 +902,18 @@ country_event = {
 				limit = { NOT = { exists = leader } }
 				assign_leader = last_created_leader
 			}
-			fire_on_action = { on_action = on_released_as_vassal scopes = { from = root } }
+		}
+	}
+	after = {
+		event_target:cultist_rebel_country = {
+			set_choas_origin = yes # Grimdark
+			if = {
+				limit = { mid_game_years_passed > -2 used_naval_capacity_percent < 0.7 } # TODO is it working at this moment?
+				create_fleet_from_naval_cap = 0.2
+				random_owned_planet = {
+					last_created_fleet = { set_location = event_target:cult_uprising_planet }
+				}
+			}
 		}
 	}
 }
@@ -1233,8 +1243,10 @@ country_event = {
 					num_pops > 0
 					has_ground_combat = no
 					is_occupied_flag = no
-					is_owned_by = event_target:old_shroud_cult.owner
-					is_controlled_by = event_target:old_shroud_cult.owner
+					OR = {
+						is_owned_by = event_target:old_shroud_cult.owner
+						is_controlled_by = event_target:old_shroud_cult.owner
+					}
 					solar_system = {
 						exists = starbase
 						starbase = { is_owned_by = event_target:new_shroud_cult }
@@ -1264,20 +1276,14 @@ country_event = {
 						any_owned_planet = {
 							has_owner = yes
 							is_under_colonization = yes
-							OR = {
-								is_owned_by = event_target:old_shroud_cult
-								is_controlled_by = event_target:old_shroud_cult
-							}
+							OR = { is_owned_by = event_target:old_shroud_cult is_controlled_by = event_target:old_shroud_cult }
 						}
 					}
 					every_owned_planet = {
 						limit = {
 							has_owner = yes
 							is_under_colonization = yes
-							OR = {
-								is_owned_by = event_target:old_shroud_cult
-								is_controlled_by = event_target:old_shroud_cult
-							}
+							OR = { is_owned_by = event_target:old_shroud_cult is_controlled_by = event_target:old_shroud_cult }
 						}
 						destroy_colony = yes
 					}

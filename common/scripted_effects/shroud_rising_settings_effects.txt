@@ -268,19 +268,18 @@ apply_shroud_rising_difficulty = {
 	else = {
 		every_country = {
 			limit = {
-				OR = { is_country_type = shroud_entities is_country_type = shroud_horrors is_country_type = shroud_cult }
+				OR = {
+					is_country_type = shroud_horrors
+					is_country_type = shroud_entities
+					is_country_type = shroud_cult
+				}
 				NOR = { is_same_empire = prev is_at_war_with = prev is_friendly_to = prev }
 			}
 			if = {
 				limit = { NOT = { has_communications = prev } }
 				establish_communications_no_message = prev
 			}
-			set_faction_hostility = {
-				set_hostile = no
-				# set_neutral = yes
-				set_friendly = yes
-				target = prev
-			}
+			set_faction_hostility = { set_friendly = yes target = prev }
 		}
 	}
 	set_update_modifiers_batch = end

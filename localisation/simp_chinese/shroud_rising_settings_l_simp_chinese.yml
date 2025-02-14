@@ -28,7 +28,7 @@
  shroud_rising_settings.2.3.desc: "选择虚境崛起危机的整体强度£military_power£，这将影响裂隙、恐惧之眼与其他事件中刷新的敌人难度。\n\n在整个游戏过程中，你可以随时修改这个设置，并且该设置与游戏本体的危机强度无关。\n\n当前选择：§P3x§!"
  shroud_rising_settings.2.4.desc: "选择虚境崛起危机的整体强度£military_power£，这将影响裂隙、恐惧之眼与其他事件中刷新的敌人难度。\n\n在整个游戏过程中，你可以随时修改这个设置，并且该设置与游戏本体的危机强度无关。\n\n当前选择：§P4x§!"
  shroud_rising_settings.2.5.desc: "选择虚境崛起危机的整体强度£military_power£，这将影响裂隙、恐惧之眼与其他事件中刷新的敌人难度。\n\n在整个游戏过程中，你可以随时修改这个设置，并且该设置与游戏本体的危机强度无关。\n\n当前选择：§P5x§!"
- shroud_rising_settings.2.a: "§P25x§!"
+ shroud_rising_settings.2.a: "§RInsane§! §P25x§!"
  shroud_rising_settings.2.b: "§P10x§!"
  shroud_rising_settings.2.c: "§P5x§!"
  shroud_rising_settings.2.d: "§P4x§!"

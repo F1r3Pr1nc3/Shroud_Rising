@@ -472,6 +472,7 @@ country_event = {
 	trigger = {
 		has_global_flag = eot_active
 		# is_ai = no
+		merg_is_default_empire = yes
 		NOR = { has_civic = civic_shroud_worship is_gestalt = yes }
 		any_owned_leader = { has_cultist_trait_non_ruler = yes }
 	}
@@ -726,7 +727,6 @@ country_event = {
 					set_owner = prev
 					set_capital = yes
 				}
-				set_choas_origin = yes # Grimdark
 				if = {
 					limit = { exists = event_target:tech_country }
 					copy_techs_from = {
@@ -760,6 +760,9 @@ country_event = {
 				}
 				add_500_unity_per_year_passed = yes
 				## Create fleets
+				# From = origin country, needed for set_origin_effect
+				fire_on_action = { on_action = on_released_as_vassal scopes = { from = root } }
+				fire_on_action = { on_action = empire_init_create_ships }
 				if = {
 					limit = { has_technology = tech_destroyers }
 					create_fleet = {
@@ -847,10 +850,9 @@ country_event = {
 				limit = { exists = event_target:corrupted_leader_1 }
 				event_target:corrupted_leader_1 = { set_owner = prev }
 			}
-			# From = origin country, needed for set_origin_effect
-			fire_on_action = { on_action = on_released_as_vassal scopes = { from = root } }
+			set_choas_origin = yes # Grimdark
 			if = {
-				limit = { mid_game_years_passed > -2 used_naval_capacity_percent < 0.8 }
+				limit = { mid_game_years_passed > -2 used_naval_capacity_percent < 0.7 }
 				create_fleet_from_naval_cap = 0.2
 			}
 		}
@@ -1199,7 +1201,8 @@ country_event = {
 	trigger = {
 		# has_global_flag = eot_active
 		# is_ai = no			# Do I want AI having this too, or will it add to lag for no gameplay value?
-		# is_gestalt = no # is_regular_empire = yes #
+		merg_is_default_empire = yes
+		# is_gestalt = no #
 		any_owned_leader = {
 			has_chosen_covenant_trait_non_ruler = yes
 			NOR = {

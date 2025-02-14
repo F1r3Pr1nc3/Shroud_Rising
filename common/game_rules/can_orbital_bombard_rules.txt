@@ -1,0 +1,359 @@
+# This rule is a condition for bombarding planets
+# ROOT = fleet, potential attacker
+# FROM = planet, potential target
+
+
+can_orbital_bombard = {
+	exists = from.owner
+	# ACOT
+	inline_script = {
+		script = merger_of_rules/toggled_code
+		code = "
+			NAND = {
+				owner = { is_progenitor_empires = no }
+				from = {
+					OR = { is_acot_pmc_vault = yes is_acot_awesome_planet_class = yes }
+				}
+			}
+		"
+		toggle = @has_ancient_caches
+	}
+	# SOTS
+	inline_script = {
+		script = merger_of_rules/toggled_code
+		code = "
+			NAND = {
+				owner = { is_progenitor_empires = no }
+				from = { is_sots_soulsphere = yes }
+			}
+		"
+		toggle = @has_sots_mod
+	}
+	# Vanilla
+	NOR = {
+		any_controlled_ship = { is_ship_size = colossus }
+		# Real Space New Frontiers
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+				from = { is_planet_class = pc_hollow }
+			"
+			toggle = @rs_compatch_var
+		}
+		# Star Wars: Kuat Ancient Empire
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+				from.owner = { is_country_type = kuat_fire_base_hositle }
+				from = { has_planet_flag = enable_kuat_shield }
+			"
+			toggle = @sw_kuat_mod
+		}
+	}
+	OR = {
+		AND = {
+			root.controller = {
+				NOT = { has_communications = from.owner }
+			}
+			from.controller = { is_primitive = no }
+		}
+		AND = {
+			root.controller = {
+				NOR = { has_policy_flag = interference_not_allowed has_policy_flag = interference_subtle }
+			}
+			from.controller = { is_primitive = yes }
+		}
+		# Vanilla
+		root.controller = { is_hostile = from.controller }
+		root.controller = { is_at_war_with = from.controller }
+		from = {
+			is_planet_class = pc_infested
+			# OR = {
+			# 	# LEX
+			# 	has_planet_flag = bwm_ancestor_world
+			# }
+		}
+		from.controller = {
+			OR = {
+				is_country_type = swarm
+				is_country_type = ai_empire
+				is_country_type = cybrex_empire
+				AND = {
+					is_country_type = awakened_marauders
+					root.controller = { is_hostile = prev }
+				}
+				# has_country_flag = can_be_bombarded
+				# Ancient Empire
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						ag_can_be_orbital_bombardment_country = yes
+					"
+					toggle = @ag_null_edict_length
+				}
+				# ACOT
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = sbtg_stellarborne_empire
+						is_country_type = void_lifeforms_1
+						is_country_type = void_lifeforms_2
+						is_country_type = katzenartig_imperium
+						is_country_type = acot_phanon_base
+						is_country_type = acot_phanon_retaliator
+					"
+					toggle = @has_ancient_caches
+				}
+				# Star Wars: Kuat Ancient Empire
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						kuat_can_be_orbital_bombarment_country = yes
+					"
+					toggle = @sw_kuat_mod
+				}
+				# Gigastructural Engineering & More
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = katzenartig_imperium
+						is_country_type = compound_empire
+						is_country_type = giga_eawaf_sirens
+					"
+					toggle = @has_gigastructures
+				}
+				# LEX
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = mem_ancestor_guardian
+					"
+					toggle = @lex_compatch_var
+				}
+				# Scripted Triggers Undercoat
+				# has_country_flag = stu_bombardable_by_everyone
+				# Shroud Rising
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = shroud_horrors
+						is_country_type = shroud_cult
+					"
+					toggle = @has_shroud_rising_mod
+				}
+				# Solar Storm
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = abyssal_host_invaders_type
+					"
+					toggle = @ss_abyssal_laser_hull_damage
+				}
+				# StellarRegulator Array
+				SRA_can_do_orbital_bombardment_country = yes
+				# The Sleeper
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_sleeper = yes
+					"
+					toggle = @has_the_sleeper_mod
+				}
+			}
+		}
+		root.controller = {
+			OR = {
+				# is_country_type = extradimensional
+				# is_country_type = extradimensional_2
+				# is_country_type = extradimensional_3
+				# is_country_type = swarm
+				# is_country_type = ai_empire
+				is_endgame_crisis = yes
+				# is_country_type = cybrex_empire - Ariphaos Patch - Should be governed by hostile rule
+				# is_country_type = dormant_marauders
+				# is_country_type = marauder_raiders
+				# is_country_type = ruined_marauders
+				is_country_type = debt_collectors
+				is_country_type = gray_goo
+				is_country_type = vol
+				AND = {
+					is_country_type = frenzied_voidworms
+					has_country_flag = can_bombard
+					from.controller = { has_country_flag = tormented_by_frenzied_voidworms }
+				}
+				AND = {
+					OR = {
+						# is_country_type = awakened_marauders
+						is_marauder = yes
+						is_country_type = formless
+					}
+					from.controller = { is_hostile = prev }
+				}
+				AND = {
+					is_voidworms_hostile_country_type = yes
+					root = { is_ship_size = voidworms_titan }
+				}
+				# is_khan_country_type = yes "Warship Girls R And MIST Species"
+				# Ancient Empire
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						ag_can_do_orbital_bombardment_country = yes
+					"
+					toggle = @ag_null_edict_length
+				}
+				# ACOT
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_progenitor_empires = yes
+						is_country_type = void_lifeforms_1
+						is_country_type = void_lifeforms_2
+						is_country_type = acot_crazed_stellarite
+						is_country_type = acot_phanon_base
+						is_country_type = acot_phanon_retaliator
+					"
+					toggle = @has_ancient_caches
+				}
+				# Destiny: The Darkness Crisis
+				# is_country_type = darkness_country TODO
+				# Gigastructural Engineering & More
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = katzenartig_imperium
+						is_country_type = acot_crazed_stellarite
+						is_country_type = compound_empire
+						is_country_type = giga_hypersiphon_major_incursion
+						is_country_type = giga_eawaf_sirens
+					"
+					toggle = @has_gigastructures
+				}
+				# AshArms Aquarius History
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = LsE_fallen_empire
+					"
+					toggle = @asharm_mod
+				}
+				# LEX
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = mem_ancestor_guardian
+					"
+					toggle = @lex_compatch_var
+				}
+				# More Events Mod
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						has_country_flag = mem_severance_harvesting_country
+					"
+					toggle = @has_more_events_mod
+				}
+				# Replicators
+				# is_country_type = replicators TODO
+				# Scripted Triggers Undercoat
+				# has_country_flag = stu_can_bombard_everyone
+				# Shroud Rising
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = shroud_horrors
+						is_country_type = shroud_cult
+					"
+					toggle = @has_shroud_rising_mod
+				}
+				# Solar Storm
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = abyssal_host_invaders_type
+					"
+					toggle = @ss_abyssal_laser_hull_damage
+				}
+				# Star Wars: Kuat Ancient Empire
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = mercenary_fleet
+						kuat_can_do_bombarment_country = yes
+					"
+					toggle = @sw_kuat_mod
+				}
+				# Star Wars: UnknownWorld Shipgirls Story
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = afk_crisis_country
+					"
+					toggle = @swuss_mod
+				}
+				# The Empty Vagrant
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_default_ev_country_type = yes
+					"
+					toggle = @homeless_class_trait_weight
+				}
+				# The Sleeper
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_sleeper = yes
+					"
+					toggle = @has_the_sleeper_mod
+				}
+				# Warship Girls R And MIST Species
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = wg_crisis_country
+					"
+					toggle = @wsg_mod
+				}
+			}
+		}
+		AND = {
+			from.controller = {
+				is_country_type = faction
+				NOT = { is_same_empire = root.controller }
+			}
+			from.owner = { is_same_empire = root.controller }
+		}
+		# More Events Mod
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+				AND = {
+					exists = root.owner
+					exists = from.controller
+					root.controller = {
+						OR = { is_country_type = mem_surveyor_country_red is_country_type = mem_vazurans }
+					}
+					from.controller = { merg_is_default_empire = yes }
+				}
+			"
+			toggle = @has_more_events_mod
+		}
+		# The Empty Vagrant
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+				root.controller = { is_country_type = ev_leviathans_crisis }
+			"
+			toggle = @homeless_class_trait_weight
+		}
+	}
+	# TimeMod
+	inline_script = {
+		script = merger_of_rules/toggled_code
+		code = "
+			TIME_RULE_trgr_CAN_orbital_bombard = yes
+		"
+		toggle = @time_framework
+	}
+}
