@@ -39,7 +39,7 @@ shroud_cult = {
 	}
 	modules = {
 		exclusive_diplomacy_module = { contact_rule = on_action_only  } # Nothing is allowed, but we need this for relationships.
-		all_technology_module = {}
+		tiered_technology_module = { tier = 3 rare = yes } # As they get default empires, all_technology_module doesn't work
 	}
 }
 

@@ -301,7 +301,7 @@ situation_shroud_uprising = {
 			trigger = count_system_colony
 			trigger_scope = target.solar_system
 			parameters = {
-				limit = {
+				limit = { # CWT shows false error here
 					NOR = {
 						is_planet = root.target
 						planet_stability < 50

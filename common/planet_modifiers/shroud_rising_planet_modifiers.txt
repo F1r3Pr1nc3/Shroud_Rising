@@ -52,11 +52,11 @@ pm_cult_hub = {
 	spawn_chance = { }
 	modifier = "cult_stronghold"
 }
-
-pm_shroud_rift_influence = {
-	spawn_chance = { }
-	modifier = "shroud_rift_influence"
-}
+# Replaced by pm_eye_of_terror_influence_2
+# pm_shroud_rift_influence = {
+# 	spawn_chance = { }
+# 	modifier = "shroud_rift_influence"
+# }
 
 pm_shroud_residue = {
 	spawn_chance = { }

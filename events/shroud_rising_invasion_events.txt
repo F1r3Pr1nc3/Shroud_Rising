@@ -1990,6 +1990,13 @@ country_event = {
 		NOT = { fromfrom = { has_modifier = cult_stronghold } }
 	}
 	immediate = {
+		if = {
+			limit = {
+				NOT = { has_policy_flag = orbital_bombardment_armageddon }
+				can_set_policy = { policy = orbital_bombardment option = orbital_bombardment_armageddon }
+			}
+			set_policy = { policy = orbital_bombardment option = orbital_bombardment_armageddon cooldown = no }
+		}
 		fromfrom = {
 			add_modifier = { modifier = "cult_stronghold" }
 			set_planet_flag = shroud_cult_occupation			# For planetary decision popup

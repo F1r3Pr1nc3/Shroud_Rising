@@ -257,12 +257,7 @@ apply_shroud_rising_difficulty = {
 				}
 				establish_communications_no_message = prev
 			}
-			set_faction_hostility = {
-				set_hostile = no
-				set_neutral = yes
-				# set_friendly = yes
-				target = prev
-			}
+			set_faction_hostility = { set_neutral = yes target = prev }
 		}
 	}
 	else = {
