@@ -412,6 +412,7 @@ system_event = {
 					create_fleet = {
 						settings = { spawn_debris = yes }
 						effect = {
+							set_owner = prev
 							while = { count = 1
 								create_ship = { name = random design = "NAME_Void_Champion" prefix = no graphical_culture = "pirate_01" }
 							}
@@ -448,7 +449,6 @@ system_event = {
 								create_ship = { name = random design = "NAME_Avatar" graphical_culture = "fallen_empire_04" }
 							}
 							set_fleet_flag = cultist_fleet
-							set_owner = prev
 							set_location = root
 							set_fleet_stance = aggressive
 							set_aggro_range = 150
@@ -1762,6 +1762,9 @@ planet_event = {
 	show_sound = event_ghost_town
 	location = root
 	is_triggered_only = yes
+	pre_triggers = {
+		has_owner = yes
+	}
 	trigger = {
 		# has_global_flag = eot_incursions_start
 		has_global_flag = eye_of_terror_open
@@ -1775,11 +1778,13 @@ planet_event = {
 		# 	add_event_chain_counter = { event_chain = "eye_of_terror_incursion_chain" counter = "shroud_entities_planets" amount = 1 }
 		# }
 		# }
-		owner = {
-			add_threat = { who = from amount = 1 }
-			# save_event_target_as = devour_victim ?
-			# set_country_flag = world_devoured ?
-			set_country_flag = had_world_devoured
+		if = { limit = { exists = owner }
+			owner = {
+				add_threat = { who = from amount = 1 }
+				# save_event_target_as = devour_victim ?
+				# set_country_flag = world_devoured ?
+				set_country_flag = had_world_devoured
+			}
 		}
 		event_target:global_event_country = {
 			change_variable = { which = "shroud_planets" value = 1 }

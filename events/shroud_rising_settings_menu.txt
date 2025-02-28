@@ -352,7 +352,7 @@ event = {
 		}
 	}
 	immediate = {
-		set_global_flag = shroud_rising_active # DEPRECATED replaced by trigger v.3.12
+		set_global_flag = shroud_rising_active # DEPRECATED replaced by var v3.14
 		set_global_flag = sr_difficulty_def
 		every_playable_country = {
 			limit = { is_ai = no }

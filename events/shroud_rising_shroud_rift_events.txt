@@ -320,6 +320,8 @@ country_event = {
 # System Entry Event ######################
 ########################################
 # System with tear first entry
+# A fleet has entered a system (on_entering_system_fleet | See also: on_fleet_auto_move_arrival)
+# From = System (occasionally the solar system may not yet exist)
 fleet_event = {
 	id = shroud_rising_shroud_rift.9992
 	title = "shroud_rising_0_poi"
@@ -329,7 +331,7 @@ fleet_event = {
 	is_triggered_only = yes
 	location = from
 	trigger = {
-		solar_system = { has_star_flag = shroud_rift_system_1 }
+		from = { has_star_flag = shroud_rift_system_1 }
 		has_global_flag = small_tear_active
 		owner = {
 			NOT = { has_country_flag = shroud_small_tear_sighted }
@@ -2383,6 +2385,7 @@ planet_event = {
 # }
 
 # Rift system enter (on_entering_system_fleet)
+# From = System (occasionally the solar system may not yet exist)
 fleet_event = {
 	id = shroud_rising_shroud_rift.106
 	title = "shroud_rising_shroud_rift.106.name"

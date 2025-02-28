@@ -1,4 +1,4 @@
-merg_has_shroud_rising = { always = yes } # has_global_flag = shroud_rising_active
+# merg_has_shroud_rising = { always = yes } # has_global_flag = shroud_rising_active
 
 is_shroud_rift_planet = {
 	is_star = no

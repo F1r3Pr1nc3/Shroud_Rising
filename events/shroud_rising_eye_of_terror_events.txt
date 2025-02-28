@@ -764,6 +764,7 @@ country_event = {
 }
 
 # Eye of Terror system enter
+# From = System (occasionally the solar system may not yet exist)
 fleet_event = {
 	id = shroud_rising_eye_of_terror.6
 	title = "shroud_rising_eye_of_terror.6.name"
@@ -783,7 +784,7 @@ fleet_event = {
 		}
 	}
 	immediate = {
-		solar_system = {
+		from = {
 			every_system_planet = {
 				# Makes sure its completely surveyed
 				set_surveyed = { surveyed = yes surveyor = root.owner }
