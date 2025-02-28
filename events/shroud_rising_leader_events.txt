@@ -239,7 +239,7 @@ country_event = {
 	option = { name = GOOD custom_tooltip = new_general }
 }
 
-## Relic activation to pick leader to infuse chosen or god trait
+## Relic activation to pick leader to infuse Chosen or God trait
 country_event = {
 	id = shroud_rising_leader.5
 	title = "r_god_heart"
@@ -249,20 +249,23 @@ country_event = {
 	force_open = yes
 	picture_event_data = { portrait = shroud1 room = shroud_room }
 	is_triggered_only = yes
-	trigger = { NOT = { has_active_event = { shroud_rising_leader.5 } } }
 	immediate = {
 		set_country_flag = shroud_diplomacy_engaged
-		random_owned_leader = { save_event_target_as = leader_1 }
 		random_owned_leader = {
-			limit = { NOT = { is_same_value = event_target:leader_1 } }
+			# limit = { has_chosen_one_leader_trait = no }
+			weights = { base = 1 modifier = { add = 20 has_chosen_one_leader_trait = no } }
+			save_event_target_as = leader_1
+		}
+		random_owned_leader = {
+			limit = { NOR = { has_skill < 2 has_chosen_one_leader_trait = yes is_same_value = event_target:leader_1 } }
 			save_event_target_as = leader_2
 			root = {
 				random_owned_leader = {
-					limit = { NOR = { is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 } }
+					limit = { NOR = { has_skill < 3 has_chosen_one_leader_trait = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 } }
 					save_event_target_as = leader_3
 					root = {
 						random_owned_leader = {
-							limit = { NOR = { is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 } }
+							limit = { NOR = { has_skill < 3 is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 } }
 							save_event_target_as = leader_4
 						}
 					}
@@ -271,55 +274,53 @@ country_event = {
 		}
 	}
 	after = {
-		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
+		hidden_effect = {
+			remove_country_flag = shroud_diplomacy_engaged
+			if = {
+				limit = { exists = event_target:chosen_leader }
+				country_event = { id = shroud_rising_leader.6 }
+			}
+		}
 	}
 	option = {
 		name = "utopia.2681.a"
+		custom_tooltip = "shroud_rising_leader.5.a.tooltip"
 		event_target:leader_1 = { save_event_target_as = chosen_leader }
-		hidden_effect = {
-			country_event = { id = shroud_rising_leader.6 }
-		}
-		ai_chance = {
-			factor = 1
-			modifier = { factor = 2 exists = event_target:leader_1 }
-		}
+		default_hide_option = yes
 	}
 	option = {
 		name = "utopia.2681.b"
+		custom_tooltip = "shroud_rising_leader.5.b.tooltip"
 		allow = { exists = event_target:leader_2 }
+		ai_chance = { factor = 1 modifier = { factor = 2 exists = event_target:leader_2 } }
 		event_target:leader_2 = { save_event_target_as = chosen_leader }
-		hidden_effect = {
-			country_event = { id = shroud_rising_leader.6 }
-		}
 	}
 	option = {
 		name = "utopia.2681.c"
+		custom_tooltip = "shroud_rising_leader.5.c.tooltip"
 		allow = { exists = event_target:leader_3 }
 		event_target:leader_3 = { save_event_target_as = chosen_leader }
-		hidden_effect = {
-			country_event = { id = shroud_rising_leader.6 }
-		}
 	}
 	option = {
 		name = "utopia.2681.d"
+		custom_tooltip = "shroud_rising_leader.5.d.tooltip"
 		allow = { exists = event_target:leader_4 }
 		event_target:leader_4 = { save_event_target_as = chosen_leader }
-		hidden_effect = {
-			country_event = { id = shroud_rising_leader.6 }
-		}
 	}
-	option = { name = "shroud_rising_leader.5.1.e" custom_tooltip = "shroud_rising_leader.5.1.d.tooltip" default_hide_option = yes }
+	option = {
+		name = "shroud_rising_leader.5.1.e"
+		custom_tooltip = "shroud_rising_leader.5.1.d.tooltip"
+	}
 }
 
 # Success - Gives leader chosen or god trait
 country_event = {
 	id = shroud_rising_leader.6
 	title = "r_god_heart"
-	# desc = "shroud_rising_leader.6.desc"
 	diplomatic = yes
 	diplomatic_title = BLANK_STRING
 	force_open = yes
-	picture_event_data = { portrait = shroud1 room = shroud_room }
+	picture_event_data = { portrait = event_target:chosen_leader room = shroud_room }
 	is_triggered_only = yes
 	desc = {
 		text = shroud_rising_leader.6.1.desc
@@ -336,10 +337,10 @@ country_event = {
 		}
 	}
 	trigger = {
-		NOR = {
+		NOT = {
 			has_country_flag = shroud_vision_10
-			has_country_flag = shroud_diplomacy_engaged
-			has_active_event = { shroud_rising_leader.6 }
+			# has_country_flag = shroud_diplomacy_engaged
+			# has_active_event = { shroud_rising_leader.6 }
 		}
 	}
 	immediate = { set_country_flag = shroud_diplomacy_engaged }
@@ -349,17 +350,16 @@ country_event = {
 	# Leader with Chosen already turns into God
 	option = {
 		name = "exit.shroud"
-		# default_hide_option = yes
 		exclusive_trigger = {
 			event_target:chosen_leader = { has_chosen_one_leader_trait = yes }
 		}
-		event_target:chosen_leader = { remove_all_negative_traits = yes add_trait = leader_trait_shroud_god remove_trait = leader_trait_chosen }
+		event_target:chosen_leader = { remove_all_negative_traits = yes add_trait = leader_trait_shroud_god } # remove_trait = leader_trait_chosen
 		remove_relic = r_god_heart
 	}
 	# Leader with no Chosen gets it
 	option = {
 		name = "exit.shroud"
-		# default_hide_option = yes
+		default_hide_option = yes
 		exclusive_trigger = {
 			event_target:chosen_leader = { has_chosen_one_leader_trait = no }
 		}
@@ -381,7 +381,7 @@ country_event = {
 	force_open = yes
 	picture_event_data = { portrait = shroud1 room = shroud_room }
 	is_triggered_only = yes
-	trigger = { NOT = { has_active_event = { shroud_rising_leader.7 } } }
+	# trigger = { NOT = { has_active_event = { shroud_rising_leader.7 } } }
 	immediate = { set_country_flag = shroud_diplomacy_engaged }
 	after = {
 		hidden_effect = { remove_country_flag = shroud_diplomacy_engaged }
@@ -390,7 +390,7 @@ country_event = {
 		name = "exit.shroud"
 		hidden_effect = {
 			event_target:chosen_leader = {
-				# kill_leader = { show_notification = no }
+				# kill_leader = { show_notification = no } later
 				save_event_target_as = chosen_leader
 			}
 			country_event = { id = shroud_rising_leader.8 }
